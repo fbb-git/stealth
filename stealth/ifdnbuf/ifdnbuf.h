@@ -16,7 +16,6 @@
 #define _SYSINC_IOS_
 #endif
 
-
 namespace FBB
 {    
     class ifdnstreambuf: public std::streambuf
@@ -57,7 +56,7 @@ namespace FBB
             int underflow()
             {
                 if (gptr() < egptr())
-                    return *gptr();
+                    return static_cast<unsigned char>(*gptr());
     
                 int nread = read(d_fd, d_buffer, d_bufsize);
     
@@ -65,7 +64,7 @@ namespace FBB
                     return EOF;
         
                 setg(d_buffer, d_buffer, d_buffer + nread);         // 2
-                return *gptr();
+                return static_cast<unsigned char>(*gptr());
             }
     
             std::streamsize xsgetn(char *dest, std::streamsize n)   // 3

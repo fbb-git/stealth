@@ -20,7 +20,7 @@
 //Do not modify the next define unless you know what you're doing:
 
 // COPT: the set of C-options
-//#define COPT "-mcpu=i486 -Wall -DDEBUG"
+// #define COPT "-Wall -DDEBUG"
 #define COPT "-Wall"
 
 string

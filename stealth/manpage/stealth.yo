@@ -10,7 +10,7 @@ COMMENT(
 )
 SUBST(@SECTION)         (1)
 
-SUBST(@DATE)            (June 2003)
+SUBST(@DATE)            (November 2003)
 SUBST(@AUTHOR)          (Frank B. Brokken (bf(f.b.brokken@rc.rug.nl)).)
 SUBST(@ORGANIZATION)    (Computing Center, University of Groningen.)
 
@@ -160,6 +160,14 @@ started. All other non-existing paths are created automatically by
 @PROGRAM.nl()
     Example:nl()
     tt(USE BASE /root/client)
+
+    it() bf(USE CAT) tt(<cat>)nl()
+        The bf(CAT) specification uses tt(/bin/cat) as default,
+and defines the location of the bf(cat)(1) program on the client. The
+bf(cat)(1) program is used to copy a file from the client to the controller
+without opening a separate ssh-connection.nl()
+    Example showing the default:nl()
+    tt(USE CAT /bin/cat)
 
     it() bf(USE DIFF) tt(<diff>)nl()
         The bf(DIFF) specification uses tt(/usr/bin/diff) as default,
@@ -320,7 +328,19 @@ identically as the bf(LOCAL CHECK ...) command, discussed previously.
 resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
 succeed (i.e., tt(md5sum) must return a zero exit-value).
     endit()
-    
+
+    Note that the bf(scp)(1) command can be used to copy files from the client
+to the controller, using a local command. This, however, is discouraged, as a
+separate bf(ssh)(1)-connection is required for each separate bf(scp)(1)
+command. This subtlety, brought to the author's attention by Hopko Meijerink
+(tt(h.meijering@rc.rug.nl)), results in several additional entries showing
+bf(sshd)(1) connections in the client's logfiles, which in turn may provide
+hints to a hacker that the client is intensively monitored. In order to copy
+files from the client to the controller, the tt(GET) command (described below)
+can be used, which uses the existing bf(ssh)(1) connection. In general,
+tt(LOCAL) commands should not be used to establish additional bf(ssh)(1)
+connections to a client.
+
 nsect(REMOTE COMMANDS)
 
     Remote commands are commands executed on the client using the bf(SSH)
@@ -329,6 +349,45 @@ bf(SSH) shell. However, it is advised to specify the full pathname to the
 programs to be executed, to prevent ``trojan approaches'' where a trojan horse
 is installed in an `earlier' directory of the tt(PATH)-specification than the
 intended program.
+
+    A special remote command is the tt(GET) command, which can be used to copy
+a file living at the client to the controller. Internally, the tt(GET) 
+command uses the tt(CAT) use-specification. If a non-default specification is
+used, one should ensure that the alternate program writes a copy of the file
+that must be copied to the controller to the client's standard output
+stream. Normally there should be no need to alter the default tt(CAT)
+specification. 
+
+    The tt(GET) command may be used as follows:
+    startit()    
+    it() bf(GET) tt(<client-path> <local-path>)nl()
+    Copy tt(client-path) at the client to tt(local-path) at the
+controller. tt(client-path) must be the full path of an existing file on the
+client, tt(local-path) may either be a local directory, in which case the
+client's file name is used, or another file name may be specified, in which
+case the client's file is copied to the specified local filename. If the local
+file already exists, it is overwritten by the copy-procedure.
+
+    Example:nl()
+    tt(GET /usr/bin/md5sum /tmp)nl()
+    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+controller's tt(/tmp) directory. If the copying fails for some reason,
+any subsequent commands are skipped, and bf(stealth) terminates.
+
+    it() bf(GET NOTEST) tt(<client-path> <local-path>)nl()
+    Copy tt(client-path) at the client to tt(local-path) at the
+controller. tt(client-path) must be the full path of an existing file on the
+client, tt(local-path) may either be a local directory, in which case the
+client's file name is used, or another file name may be specified, in which
+case the client's file is copied to the specified local filename. If the local
+file already exists, it is overwritten by the copy-procedure.
+
+    Example:nl()
+    tt(GET NOTEST /usr/bin/md5sum /tmp)nl()
+    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+controller's tt(/tmp) directory. Any remaining commands in the policy file are
+executed, even if the copying process wasn't successful.
+    endit()
 
     Plain commands can be executed on the client computer by merely specifying
 them. Of course, this means that programs on the client called, e.g.,
@@ -414,7 +473,8 @@ SUBST(@FILES)(
     the bf(REPORT) file.
 )
 SUBST(@SEEALSO)(
-      bf(diff)(1), bf(mail)(1), bf(find)(1), bf(ls)(1), bf(md5sum)(1),
+      bf(cat)(1), 
+        bf(diff)(1), bf(mail)(1), bf(find)(1), bf(ls)(1), bf(md5sum)(1),
 bf(passwd)(5), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
 
 )

@@ -4,6 +4,7 @@ pair<string, string> const
     ConfigSorter::s_defaultKeyword[] =
     {
         pair<string,string>("BASE",     "."),
+        pair<string,string>("CAT",      "/bin/cat"),
         pair<string,string>("DIFF",     "/usr/bin/diff"),
         pair<string,string>("EMAIL",    "root"),
         pair<string,string>("MAILER",   "/usr/bin/mail"),

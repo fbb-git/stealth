@@ -18,7 +18,8 @@ bool Scanner::doCHECKcommand(IOFork &child)
                                         // the command was processed without
                                         // differing from the previous run
 
-    nextCommand(child.out());          // otherwise run the command
+    nextCommand(child.out(),            // otherwise run the command
+                    d_firstWord[0]);
 
                                         // and return whether there are any
                                         // differences. 
