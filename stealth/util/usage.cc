@@ -35,7 +35,7 @@ void Util::usage()
                                                 "(natural  number).\n"  <<
         "       -v: (--version): display version information (and "     <<
                                                             "exit).\n"  <<
-        "   --keep-alive <suffix>: keep running as a daemon, wake up"   <<
+        "   --keep-alive pidfile: keep running as a daemon, wake up"    <<
                                                    " at interrupts.\n"  <<
         "   --repeat <seconds>: keep running as a daemon, wake up at\n" <<
         "           interrupts. or after <seconds> seconds.\n"          <<
@@ -45,12 +45,12 @@ void Util::usage()
         "   policy: path to the policyfile\n"                           <<
         "\n"                                                            <<
         "Usage 2:\n"                                                    <<
-        "   " << stealth << " [--rerun|--terminate] <suffix> policy\n"  <<
+        "   " << stealth << " [--rerun|--terminate] pidfile\n"          <<
         "Where:\n"                                                      <<
         "   --rerun: restart the scan of " << stealth << "\n"           << 
-        "   --terminate: terminate << stealth << "\n"                   <<
-        "   <suffix>: suffix to use with a PIDFILE.\n"                  <<
-        "   policy: path to the policyfile\n"                           <<
+        "   --terminate: terminate "<< stealth << "\n"                  <<
+        "   pidfile: file containing the pid of the stealth process\n"  <<
+        "                                    to rerun or terminate.\n"  <<
         endl;
 
     ::exit(1);

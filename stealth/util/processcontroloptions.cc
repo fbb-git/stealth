@@ -4,9 +4,6 @@ void Util::processControlOptions(std::string const &runbase)
 {
     Arg &arg = Arg::getInstance();
 
-    if (arg.option('v'))
-        showVersion();                
-
     string value;
                                     // options for other stealth processes
     if (arg.option(&value, "rerun"))
@@ -56,16 +53,6 @@ void Util::processControlOptions(std::string const &runbase)
         else if (s_repeatInterval > INT_MAX)
             s_repeatInterval = INT_MAX;
     }
-
-    if
-    (
-        !arg.nArgs()                // provide usage if no arguments
-        ||
-        arg.option(0, "usage") 
-        || 
-        arg.option(0, "help")
-    )
-        usage();                    // were received
 
     randomDelay();                  // determine any random delay
 }
