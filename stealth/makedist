@@ -2,7 +2,7 @@
 
 VER=`grep VERSION VERSION | sed 's,.*VERSION[[:space:]]\"\([0-9\.]\+\).*,\1,'`
 
-# pause make sure the manual and the manpage is up-to-date
+pause $VER: make sure the manual and the manpage is up-to-date 
 
 rm -rf SIMPLE
 

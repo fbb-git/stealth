@@ -17,7 +17,7 @@
 #include "arg/arg.h"
 #endif
 
-#define dout(x)  if (FBB::Arg::Arg().option('d')) std::cerr << x << std::endl
+#define dout(x) if(FBB::Arg::getInstance().option('d'))std::cerr<<x<<std::endl
 #else
 #define dout(x)
 #endif

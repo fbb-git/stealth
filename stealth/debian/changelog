@@ -1,3 +1,18 @@
+stealth (1.21-0) unstable; urgency=low
+
+  * Added the GET command, allowing stealth to retrieve files from the client
+    for, e.g., local inspection, without requiring an additional ssh
+    connection.
+
+ -- Frank B. Brokken <frank@oostum.north>  Sat, 22 Nov 2003 13:55:40 +0100
+
+stealth (1.20-2) unstable; urgency=low
+
+  * New buildscripts added for man(ual) pages. This file will take over from
+    CHANGELOG which logged the original, non-Debian distribution. 
+
+ -- Frank B. Brokken <f.b.brokken@rc.rug.nl>  Fri, 20 Jun 2003 17:21:42 +0200
+
 stealth (1.20-1) unstable; urgency=low
 
   * Initial Release.

@@ -1,0 +1,26 @@
+To create a new stealth signed archive:
+
+    rename stealth/ to stealth-X.YY
+
+    run makedist in stealth-X.YY
+
+To create a new debian package:
+
+    keep the stealth/ name
+    
+    run in stealth/debian
+        (file:///usr/share/doc/maint-guide/
+                                    maint-guide.en.html/ch-update.en.html):
+
+        dch -v <version>-<revision>
+
+    run in stealth 
+        (file:///usr/share/doc/maint-guide/
+            maint-guide.en.html/ch-build.en.html#s-completebuild):
+
+        fakeroot debian/rules binary
+
+    or
+
+        dpkg-buildpackage -rfakeroot
+

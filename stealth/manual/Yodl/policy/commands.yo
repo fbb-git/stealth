@@ -44,10 +44,9 @@ available:
 shell. The command must succeed (i.e., must return a zero exit value). 
     Example:
         verb(
-    LOCAL scp rootsh@client:/usr/bin/md5sum /tmp
+    LOCAL mkdir /tmp/client
         )
-    This command will copy the client's bf(md5sum)(1) program to the
-controller.
+    This command will create the directory tt(/tmp/client) on the controller.
 
     it() bf(LOCAL NOTEST) tt(command)
 
@@ -146,6 +145,45 @@ intended program.
 
     Commands to be executed on the client can be specified as follows:
     itemization(
+    it() bf(GET)-command:
+    The tt(GET) command can be used to copy a file that exists at the client,
+to the controller. Internally, the tt(GET) command uses the tt(CAT)
+use-specification. If a non-default specification is used, one should ensure
+that the alternate program writes a copy of the file that must be copied to
+the controller to the client's standard output stream. Normally there should
+be no need to alter the default tt(CAT) specification.
+
+    The tt(GET) command may be used as follows:
+    startit()    
+    it() bf(GET) tt(<client-path> <local-path>)nl()
+    Copy tt(client-path) at the client to tt(local-path) at the
+controller. tt(client-path) must be the full path of an existing file on the
+client, tt(local-path) may either be a local directory, in which case the
+client's file name is used, or another file name may be specified, in which
+case the client's file is copied to the specified local filename. If the local
+file already exists, it is overwritten by the copy-procedure.
+
+    Example:nl()
+    tt(GET /usr/bin/md5sum /tmp)nl()
+    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+controller's tt(/tmp) directory. If the copying fails for some reason,
+any subsequent commands are skipped, and bf(stealth) terminates.
+
+    it() bf(GET NOTEST) tt(<client-path> <local-path>)nl()
+    Copy tt(client-path) at the client to tt(local-path) at the
+controller. tt(client-path) must be the full path of an existing file on the
+client, tt(local-path) may either be a local directory, in which case the
+client's file name is used, or another file name may be specified, in which
+case the client's file is copied to the specified local filename. If the local
+file already exists, it is overwritten by the copy-procedure.
+
+    Example:nl()
+    tt(GET NOTEST /usr/bin/md5sum /tmp)nl()
+    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+controller's tt(/tmp) directory. Any remaining commands in the policy file are
+executed, even if the copying process wasn't successful.
+    endit()
+
     it() tt(command)
 
         Execute `tt(command)' on the client, using the bf(SSH) command
