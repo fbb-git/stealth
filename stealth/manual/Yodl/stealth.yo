@@ -5,7 +5,10 @@ mailto(f.b.brokken@rc.rug.nl)
 
 htmlbodyopt(background)(rcbackground.jpg)
 
-includefile(/usr/local/share/yodl/macros)
+COMMENT(
+    Not required for Yodl >= V2.00
+    includefile(/usr/local/share/yodl/macros)
+END )
 
 COMMENT(
 includefile(/usr/local/share/yodl/options)
@@ -22,7 +25,12 @@ latexcommand(
 \addtolength{\textwidth}{4cm}
 \addtolength{\hoffset}{-2cm})
 
-IFDEF(latex)(UNDEFINESYMBOL(XXsloppyhfuzz))()
+COMMENT(
+    NOT WITH Yodl >= V2.00
+    IFDEF(latex)(UNDEFINESYMBOL(XXsloppyhfuzz))()
+)
+nosloppyhfuzz()
+    
 
 IFDEF(html)
 (

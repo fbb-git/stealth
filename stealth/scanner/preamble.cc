@@ -2,10 +2,13 @@
 
 void Scanner::preamble()
 {
-    atexit(killChildren);
-
     d_sshFork.fork();          // start the ssh connection
     d_shFork.fork();           // start the sh-connection to the localhost
+
+    s_sshPid = d_sshFork.getPid();
+    s_shPid = d_shFork.getPid();
+    
+    atexit(killChildren);
 
                                 // try to echo a sentinel by having
                                 // the ssh connection echo it    

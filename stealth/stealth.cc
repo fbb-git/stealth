@@ -80,8 +80,10 @@ int main(int argc, char **argv)
         cerr << err.what() << ": " << err.why() << endl;
         return 1;
     }
-    
-    Scanner::killChildren();
+
+    // Scanner::killChildren();     already realized by atexit() called from
+    //                              Scanner::preamble
+
     Util::unlinkRunfile();
 
     return 0;
