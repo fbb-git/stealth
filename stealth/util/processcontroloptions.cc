@@ -4,9 +4,11 @@ void Util::processControlOptions()
 {
     Arg &arg = Arg::getInstance();
     string value;
-
                                                 // options for this process:
     s_keepAlive = arg.option(0, "keep-alive");
+
+    if (s_keepAlive)
+        s_repeatInterval = INT_MAX;
 
     if (arg.option(&value, "repeat"))
     {
@@ -15,9 +17,12 @@ void Util::processControlOptions()
 
         if (!(in >> s_repeatInterval))          // value 0: wait indefinite
             exit(1, "--repeat requires <seconds> until next run");
-
         if (s_repeatInterval < 60)
+        {
+            cerr << "`--repeat " << s_repeatInterval << 
+                    "' changed to: `--repeat 60'\n";
             s_repeatInterval = 60;
+        }
         else if (s_repeatInterval > INT_MAX)
             s_repeatInterval = INT_MAX;
     }
@@ -37,9 +42,6 @@ void Util::processControlOptions()
         ::exit(0);                              // done
     }
 
-    if (arg.option('d'))                        // no keepalive when debugging
-        s_keepAlive = false;
-    
     if (arg.option(&value, "terminate"))
     {    
         unsigned pid;

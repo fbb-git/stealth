@@ -22,10 +22,7 @@ namespace FBB
             static std::string datetime();
             static void handleRerun(int signum);
             static void handleTerminate(int signum);
-            static bool keepAlive()
-            {
-                return s_keepAlive;
-            }
+            static bool keepAlive();
             static void setAlarm();
             static bool isDirectory(std::string const &name);
             static bool mkdir(std::string const &path);  // pathname to a file
@@ -37,10 +34,7 @@ namespace FBB
             static char const *getVersion();
             static void showVersion();
             static void usage();
-            static void wait()
-            {
-                s_selector.wait();
-            }
+            static void wait();
             
         private:
             static char version[];

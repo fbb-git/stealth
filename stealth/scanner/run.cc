@@ -2,6 +2,8 @@
 
 void Scanner::run()
 {
+    setSentinel();
+
     d_cmdIterator = d_sorter.firstCmd();        // d_cmdIterator is set to
                                                 // the first command. It's a
                                                 // true iterator, so we can 

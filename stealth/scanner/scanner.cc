@@ -22,8 +22,5 @@ Scanner::Scanner(ConfigSorter &sorter)
                                                 // stream interface.
     d_debug(Arg::getInstance().option('d'))     // debug requested
 {
-    ostringstream oss;
-
-    oss << "EOC " << Util::date;
-    d_sentinel = oss.str();
+    setSentinel();
 }

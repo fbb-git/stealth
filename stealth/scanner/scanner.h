@@ -96,6 +96,10 @@ namespace FBB
             bool        sameOutput(std::string const &logfile,
                                    std::istream &extractor);
 
+                                        // define the sentinel. Redefined
+                                        // at each new run()
+            void        setSentinel();
+
                                         // see if the exit value is 0
             void        testExitValue(std::string const &s);
 
