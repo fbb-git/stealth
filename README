@@ -14,11 +14,17 @@ To create a new debian package:
 
         dch -v <version>-<revision>
 
-    run in stealth 
-        (file:///usr/share/doc/maint-guide/
-            maint-guide.en.html/ch-build.en.html#s-completebuild):
+    Initially:
+            (file:///usr/share/doc/maint-guide/
+                maint-guide.en.html/ch-build.en.html#s-completebuild):
+        run on a clean checkout in stealth/:
 
-        fakeroot debian/rules binary
+            dpkg-buildpackage -mf.b.brokken@rc.rug.nl -rfakeroot
+
+    Partial reruns:
+        run in stealth/
+
+            fakeroot debian/rules binary
 
     or
 
