@@ -11,6 +11,7 @@ namespace FBB
     {
         static bool s_keepAlive;
         static unsigned s_repeatInterval;
+        static unsigned s_delayInterval;    // for the random delay
         static Selector s_selector;
     
 
@@ -23,6 +24,7 @@ namespace FBB
             static void handleRerun(int signum);
             static void handleTerminate(int signum);
             static bool keepAlive();
+            static void maybeBackground();
             static void setAlarm();
             static bool isDirectory(std::string const &name);
             static bool mkdir(std::string const &path);  // pathname to a file

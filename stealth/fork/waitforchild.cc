@@ -6,5 +6,5 @@ int Fork::waitForChild()
 
     waitpid(d_pid, &status, 0);
 
-    return WEXITSTATUS(status);
+    return status;
 }

@@ -38,23 +38,13 @@ int main(int argc, char **argv)
         Arg::initialize("cdi:noqr:v", 
                 longOpt_begin, longOpt_end, 
                 argc, argv); 
+
                                         // command-line arguments. 
                                         // Arg is singleton: obtain it
                                         // everwhere using Arg()
         Arg &arg = Arg::getInstance();
 
-        if (arg.option('v'))
-            Util::showVersion();                
-
         Util::processControlOptions();  // handle process control options
-
-        if
-        (
-            !arg.nArgs()                // provide usage if no arguments
-            ||
-            arg.option(0, "usage") || arg.option(0, "help")
-        )
-            Util::usage();              // were received
 
         ConfigFile configfile(arg[0]);  // ConfigFile object reads
                                         // configuration file 
@@ -67,11 +57,7 @@ int main(int argc, char **argv)
                                         // USEs, DEFINEs and commands.
         ConfigSorter sorter(configfile);
 
-        if (arg.option('i'))            // do random delay if -i found
-            Util::randomDelay();
-
-                                        // Construct the integrityscanner
-        Scanner scanner(sorter);
+        Scanner scanner(sorter);        // Construct the integrityscanner
 
 #ifdef DEBUG
         dout("SH and SSH childprocesses are now active. Press Enter...");
@@ -79,36 +65,12 @@ int main(int argc, char **argv)
         if (arg.option('d'))  getline(cin, enter);
 #endif
 
-        if (Util::keepAlive())
-        {
-            int pid = fork();
-            if (pid < 0)
-                Util::exit(1, "--keepalive / --rerun failed due to failing "
-                                "fork() system call.");
-
-            if (pid > 0)        // parent process gets child pid
-            {
-                cout << "Stealth: pid = " << pid << endl;
-                ::exit(0);
-            }
-
-            signal(SIGHUP, Util::handleRerun);
-            signal(SIGTERM, Util::handleTerminate);
-        }
+        Util::maybeBackground();        // maybe run Stealth in the background
 
         scanner.preamble();             // make a test-connection to
                                         // the remote computer
-        do
-        {
-            Util::setAlarm();
 
-            scanner.run();              // run all tests
-            scanner.mailReport();       // mail the report
-
-            Util::wait();
-        }
-        while (Util::keepAlive());
-
+        scanner.scanLoop();             // run all tests in a loop
     }
     catch (Errno const &err)
     {

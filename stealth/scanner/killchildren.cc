@@ -2,5 +2,6 @@
 
 void Scanner::killChildren()
 {
-    kill(0, SIGTERM) && kill(0, SIGKILL);
+    kill(s_shPid, SIGTERM) && kill(s_shPid, SIGKILL);
+    kill(s_sshPid, SIGTERM) && kill(s_sshPid, SIGKILL);
 }

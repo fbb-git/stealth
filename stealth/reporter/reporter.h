@@ -1,10 +1,7 @@
 #ifndef _REPORTER_H_
 #define _REPORTER_H_
 
-#ifndef _SYSINC_FSTREAM_
 #include <fstream>
-#define _SYSINC_FSTREAM_
-#endif
 
 namespace FBB
 {

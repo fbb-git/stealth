@@ -1,6 +1,6 @@
 #include "util.h2"
 
-void Util::handleTerminate(int signal)
+void Util::handleTerminate(int sig)
 {
     s_keepAlive = false;
 }

@@ -23,4 +23,7 @@ Scanner::Scanner(ConfigSorter &sorter)
     d_debug(Arg::getInstance().option('d'))     // debug requested
 {
     setSentinel();
+
+    s_shPid = d_shFork.getPid();
+    s_sshPid = d_sshFork.getPid();
 }

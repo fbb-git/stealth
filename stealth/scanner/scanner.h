@@ -14,6 +14,9 @@ namespace FBB
 
     class Scanner
     {
+        static int              s_shPid;
+        static int              s_sshPid;
+
         ConfigSorter                               &d_sorter;
         Reporter                                   &d_reporter;
         Pattern                                    &d_firstWord;
@@ -29,12 +32,10 @@ namespace FBB
             Scanner(ConfigSorter &sorter);
 
             void preamble();
-            void run();
-            void mailReport();
+            void scanLoop();            // loop over all tests
 
             static void killChildren();
         private:
-
                             // copy a textfile
             void        copy(std::istream &src, std::string const &fname);
 
@@ -57,6 +58,8 @@ namespace FBB
 
                                         // execute a local command
             void        local(std::string const &command);
+
+            void        mailReport();   // mail the report. 
 
                                         // start the nextCommand, including
                                         // echo $? to obtain the resultcode
@@ -88,6 +91,8 @@ namespace FBB
                                         // what's beyond. 
                                         // Return false otherwise.
             bool        removeFirstWord(char const *word); 
+
+            void        run();          // run one series of tests
 
                                         // see if there are any differences
                                         // between the output of the current

@@ -3,34 +3,26 @@
 void Util::randomDelay()
 { 
     string delay;
-    Arg::getInstance().option(&delay, 'i');
+
+    if (!Arg::getInstance().option(&delay, 'i'))
+        return;
 
     delay += "\n";                  // to make sure the istr doesn't fail
                                     // if only a number is read: no separating
-                                    // ws at the end would cause istr to fail.
+                                    // ws at the end would cause istr.peek() 
+                                    // to fail.
 
     istringstream istr(delay.c_str());
 
-    long interval;
-
-    istr >> interval;
+    istr >> s_delayInterval;
 
     if (istr.peek() == 'm')
-        interval *= 60;
+        s_delayInterval *= 60;
 
-    if (!istr || interval < 0)
+    if (!istr || s_delayInterval < 0)
         throw Errno(-1, "Invalid interval for -i");
 
-
     srandom(time(0));               // seed the random time generator
-
-    unsigned sleep_interval = static_cast<unsigned>(random() % interval);
-
-    if (Arg::getInstance().option('d'))
-        cerr << "Would have waited " << sleep_interval << " seconds\n"
-             << "Randomly selected from " << interval << " seconds\n";
-    else
-        sleep(sleep_interval);
 }
 
 

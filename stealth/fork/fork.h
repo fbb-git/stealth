@@ -14,11 +14,12 @@ namespace FBB
 
             void fork();
 
-        protected:
             int getPid()
             {
                 return d_pid;
             }
+
+        protected:
 
             virtual void childRedirections()    // do child redirections
             {}            

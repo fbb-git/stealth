@@ -16,15 +16,8 @@
     ignorecase: the keyword given in the find() command is case insensitive
 */
 
-#ifndef _SYSINC_VECTOR_
 #include <vector>
-#define _SYSINC_VECTOR_
-#endif
-
-#ifndef _SYSINC_STRING_
 #include <string>
-#define _SYSINC_STRING_
-#endif
 
 namespace FBB
 {
