@@ -1,6 +1,6 @@
 #include "util.h2"
 
-void Util::processControlOptions(std::string const &runbase)
+void Util::processControlOptions()
 {
     Arg &arg = Arg::getInstance();
 
@@ -8,7 +8,7 @@ void Util::processControlOptions(std::string const &runbase)
                                     // options for other stealth processes
     if (arg.option(&value, "rerun"))
     {    
-        unsigned pid = getPid(runbase + value);
+        unsigned pid = getPid(value);
 
         if (kill(pid, SIGHUP))
             exit(1, "Can't send SIGHUP to process `%u'", pid);
@@ -18,7 +18,7 @@ void Util::processControlOptions(std::string const &runbase)
 
     if (arg.option(&value, "terminate"))
     {    
-        unsigned pid = getPid(runbase + value);
+        unsigned pid = getPid(value);
 
         if (kill(pid, SIGTERM))
             exit(1, "Can't terminate process `%u'", pid);
@@ -26,11 +26,27 @@ void Util::processControlOptions(std::string const &runbase)
         ::exit(0);                              // done
     }
 
+
+    if (arg.option('v'))
+        showVersion();                
+
+    if
+    (
+        !arg.nArgs()                // provide usage if no arguments
+        ||
+        arg.option(0, "usage") 
+        || 
+        arg.option(0, "help")
+    )
+        usage();                    // were received
+
+
                                                 // options for this process:
-    if ((s_keepAlive = arg.option(&value, "keep-alive")))
+    s_keepAlive = arg.option(&value, "keep-alive");
+    if (s_keepAlive)
     {
         s_repeatInterval = INT_MAX;
-        s_runFilename = runbase + value;
+        s_runFilename = value;
     }
 
     if (arg.option(&value, "repeat"))

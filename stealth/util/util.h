@@ -30,8 +30,7 @@ namespace FBB
             static void setAlarm();
             static bool isDirectory(std::string const &name);
             static bool mkdir(std::string const &path);  // pathname to a file
-                                            // handle process control options
-            static void processControlOptions(std::string const &runbase);  
+            static void processControlOptions();  
             static void randomDelay();
             static void replace(std::string &str, char const *org,
                                              char const *replacement);

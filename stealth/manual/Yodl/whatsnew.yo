@@ -3,10 +3,6 @@ added to bf(stealth) to keep the bf(ssh) link to the client open, thus
 minimizing the number of bf(sshd) entries caused by bf(stealth) 
 in the client's log files.
 
-    The tt(USE PIDFILE) specification was added to  bf(stealth) to allow the
-symbolic identification of a running bf(stealth) process rahter than by a
-particular process id.
-
     The tt(GET) and tt(PUT) commands were implemented allowing the down- and
 upload of files from and to remote hosts from within a running bf(stealth)
 process, without establishing another connection to the remote host (as is the

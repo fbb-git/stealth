@@ -1,6 +1,45 @@
 When bf(stealth) is started without arguments, it provides some help about how
 to start it. A message like the following is produced:
         verb(
+stealth by Frank B. Brokken (f.b.brokken@rc.rug.nl)
+
+stealth V1.30
+SSH-based Trust Enhancement Acquired through a Locally Trusted Host
+Copyright (c) GPL 2001-2003
+
+Usage 1:
+   stealth options policy
+Where:
+   options: (long options between parentheses) select from:
+       -d: (--debug) write debug messages to std error
+       -c: (--parse-config-file) process the config file,
+           no further action, report the results to std output.
+       -i <interval>[m]: (--random-interval) start the scan between now and 
+           a random interval of interval seconds, or minutes
+           if an `m' is appended immediately after the specified interval.
+       -n: (--no-child-processes) no child processes are
+            executed: child actions are faked to be OK.
+       -o: (--only-stdout) scan report is written to stdout. No mail is sent.
+       -q: (--quiet) suppress progress messages to stderr.
+       -r <nr>: (--run-command) only run command <nr> (natural  number).
+       -v: (--version): display version information (and exit).
+   --keep-alive pidfile: keep running as a daemon, wake up at interrupts.
+   --repeat <seconds>: keep running as a daemon, wake up at
+           interrupts. or after <seconds> seconds.
+           Requires --keep-alive.
+   --usage: provide this help (and exit)
+   --help: provide this help (and exit)
+   policy: path to the policyfile
+
+Usage 2:
+   stealth [--rerun|--terminate] pidfile
+Where:
+   --rerun: restart the scan of stealth
+   --terminate: terminate stealth
+   pidfile: file containing the pid of the stealth process
+                                    to rerun or terminate.
         )
+    Note that with the second usage the policy file is not required: here only
+the tt(pidfile) must be specified.
 
         

@@ -71,22 +71,6 @@ tt(MAILER)'s standard input stream.
     USE MAILER /usr/bin/mail
         )
 
-    it() bf(USE PIDFILE) tt(pidfile)
-
-        bf(PIDFILE) defines the path to the file containing the process id of
-a running bf(stealth) process. The tt(pidfile) defines that part of the
-filename that is shared among all running bf(stealth) processes. A particular
-bf(stealth) process may be identified by a em(suffix) which is added to this
-filename, allowing the user to request a re-scan by specifying the em(suffix),
-rather than a particular process id. The command-line options tt(--keep-alive,
---terminate) and tt(--rerun) expect a suffix as their argument. See chapter
-ref(USAGE) for details about these command-line options.
-
-    Example showing the default:
-        verb(
-    USE PIDFILE /var/run/stealth-
-        )
-
     it() bf(USE MAILARGS) tt(arguments)
         The bf(MAILARGS) specification defines the arguments to be
 to be passed to the tt(MAILER) program. By default this is 

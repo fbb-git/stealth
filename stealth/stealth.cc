@@ -44,18 +44,9 @@ int main(int argc, char **argv)
                                         // everwhere using Arg()
         Arg &arg = Arg::getInstance();
 
-        if
-        (
-            !arg.nArgs()                // provide usage if no arguments
-            ||
-            arg.option(0, "usage") 
-            || 
-            arg.option(0, "help")
-        )
-            Util::usage();              // were received
 
-        if (arg.option('v'))
-            Util::showVersion();                
+                                        // handle process control options
+        Util::processControlOptions();  
 
 
         ConfigFile configfile(arg[0]);  // ConfigFile object reads
@@ -68,9 +59,6 @@ int main(int argc, char **argv)
                                         // configuration file. Separates
                                         // USEs, DEFINEs and commands.
         ConfigSorter sorter(configfile);
-
-                                        // handle process control options
-        Util::processControlOptions(sorter["PIDFILE"]);  
 
         Scanner scanner(sorter);        // Construct the integrityscanner
 
