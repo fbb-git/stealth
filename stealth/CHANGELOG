@@ -1,0 +1,47 @@
+1.20
+====
+
+Long options added (1.11), `LOG =' may be specified with CHECK commands.
+
+Starting version 1.20, a Debian package is provided in parallel to the source
+package. The Debian package contains the full documentation, as well as the
+binary version of the stealth program. 
+
+1.10
+====
+
+-i <time in seconds or minutes> option added: stealth will start its scan
+somwhere in the random interval between now and the time specified after -i.
+By default the time in seconds is expected. If at least an m is appended to
+the time specificiation, the time specification is interpreted as time in
+minutes (e.g., -i 5min)
+
+1.01
+====
+
+DEFINE symbols accept other DEFINE symbols in their definitions. Direct or
+indirect circular DEFINE definitions should be avoided by the policy's author.
+The demo.pol policy file, the manual page and the manual was rewritten to
+reflect this change.
+The stealthmail script contained a stealth-version reference, which was
+removed. 
+
+1.00
+====
+
+Official release party (featuring coffee and pastries) at the computing center
+of the university of Groningen, November 12, 2002. No changes in the software
+or the docs, just a little celebration. Thanks, Hopko!
+
+0.90
+====
+
+old reports get 4-digit years
+DEFINE directives defined in the config file
+several USE defines were changed
+Manual added to the documentation
+Scripts added
+C++ Classes used by stealth reorganized/redefined.
+
+0.21: initial release
+=====================

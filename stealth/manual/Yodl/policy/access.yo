@@ -1,0 +1,106 @@
+Access is granted via the tt(ssh) protocol.
+
+The client must allow the controller to connect using tt(ssh). Since normally
+no username and password can be given, the client must allow the controller to
+connect without specifying a password. 
+
+This is realized using em(public key) technology, assuming tt(open-SSH) is
+available on both computers, with the client running an tt(sshd) daemon.
+
+subsect(The controller's user: creating an ssh-key)
+
+    The user on the controller who will call tt(stealth) to scan the client,
+now generates an tt(ssh-keypair):
+        verb(
+    ssh-keygen -t rsh
+        )
+This will generate a public/private ssh key pair in tt(.ssh) in the user's
+home directory. The program asks for a em(passphrase) which should, for the
+purpose of tt(stealth) be bf(empty): just pressing tt(Enter) as a response to
+the question
+        verb(
+    Enter passphrase (empty for no passphrase): 
+        )
+    will do the trick (a confirmation is requested: press tt(Enter) again).
+    The program returns a key fingerprint, e.g.,
+        verb(
+    03:96:49:63:8a:64:33:45:79:ab:ca:de:c8:c8:4f:e9 user@controller
+        )
+    which may be saved and used for future reference.
+
+    In the directory user's tt(.ssh) directory the files tt(id_rsa) and
+tt(id_rsa.pub) are now created. 
+
+    This completes the actions on the controller.
+
+subsect(The client's account: accepting ssh from the controller's user)
+
+    Next, the account on the client where the tt(ssh) command connects to
+(using a specification in the policy file like 
+        verb(
+    USE SSH /usr/bin/ssh -q account@client
+        )
+must now grant access to the controller's user. In order to do so, the file
+tt(id_rsa.pub) of the user at the controller is added to the file
+tt(authorized_keys) in the tt(.ssh) directory of the account on the client:
+        verb(
+    # transfer user@controller's file id_rsa.pub to the client's /tmp
+    # directory. Then do:
+
+    cat /tmp/id_rsa.pub >> /home/account/.ssh/authorized_keys
+        )
+
+    Now user@controller may login at acount@client without specifying a
+password. 
+
+subsect(Logging into the account@client account)
+
+    When user@controller now issues the command
+        verb(
+    ssh account@controller
+        )
+    tt(Ssh) responds as follows:
+        verb(
+    The authenticity of host 'controller (xxx.yyy.aaa.bbb)' can't be
+    established.
+    RSA key fingerprint is c4:52:d6:a3:d4:65:0d:5e:2e:66:d8:ab:de:ad:12:be.
+    Are you sure you want to continue connecting (yes/no)?
+        )
+    Answering tt(yes) results in the message:
+        verb( 
+    Warning: Permanently added 'controller,xxx.yyy.aaa.bbb' (RSA) to the
+    list of known hosts.
+        )
+
+    The next time a login is attempted, the authenticity question isn't asked
+anyore. However, the proper value of the host's RSA key fingerprint (i.e., the
+key fingerprint of the em(client) computer) should
+em(always) be verified to prevent em(man in the middle) attacks. The proper
+value may be obtained at the client computer by issuing the command
+        verb(
+    ssh-keygen -l -f /etc/ssh/ssh_host_rsa_key.pub
+        )
+    This should result in the same value as the fingerprint shown when the
+first tt(ssh) connection was made. E.g.,
+        verb(
+    1024 c4:52:d6:a3:d4:65:0d:5e:2e:66:d8:ab:de:ad:12:be ssh_host_rsa_key.pub
+        )
+
+subsect(Using the proper shell)
+
+    On order to minimize the amount of clutter and possible complications when
+only a simple command-shell is required for executing commands, it is
+suggested to use a tt(bash) or tt(sh) shell when logging into the
+tt(account@client)'s account.
+
+    When another shell is already used for tt(account@client), then an extra
+account (optionally using the same tt(UID) as the original account, but
+using bf(sh)(1) as the shell), could be used. 
+
+    In the bf(passwd)(5) file this could be realized for em(root) as
+em(rootsh) as follows:nl()
+        verb(
+    rootsh:x:0:0:root:/root:/bin/sh
+        )
+    If shadow passwording is used, an appropriate entry in the tt(/etc/shadow)
+file is required as well.

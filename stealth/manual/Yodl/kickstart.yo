@@ -1,0 +1,40 @@
+
+Here are the steps to take to kick start tt(stealth)
+    itemization(
+    it() Unpack tt(stealth-V.VV.tar.gz): tt(tar xzvf tealth-V.VV.tar.gz)
+    it() tt(cd stealth-V.VV)
+    it() Accept the provided tt(stealth) program (and skip to the next step),
+or start tt(./plain).
+
+        This assumes that tt(g++-3.2) is available. If not: install it first,
+or tweak tt(./plain).
+
+    it() tt(cp stealth      /usr/local/sbin)
+    it() tt(cp stealthmail  /usr/local/sbin)
+    it() tt(mkdir           /root/stealth)
+    it() tt(cp local.pol    /root/stealth)
+    )
+
+    tt(ssh) and tt(sh) should be available. tt(root@localhost) should be able
+to login at tt(localhost) using tt(ssh root@localhost), using the
+tt(/bin/bash) or tt(/bin/sh) shell. Check (as `root') at least 
+        verb(
+    ssh root@localhost
+        )
+    as this might ask you for a confirmation that you've got the correct
+host. 
+    Now, run 
+        verb(
+    stealth /root/stealth/localhost.pol
+        )
+    to initialize the stealth-report files for tt(localhost). This will
+initialize the report for:
+    itemization(
+    it() all root setuid/setgid executable files on tt(localhost), 
+    it() and for all files under tt(/etc/) on tt(localhost). 
+    )
+
+    The mail-report is written on tt(/tmp/stealth-V.VV.mail)
+
+    Now change or add or remove one of these files, and rerun tt(stealth). The
+file tt(/tmp/stealth-V.VV.mail) should reflect these changes.

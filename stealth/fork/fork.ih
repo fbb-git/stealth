@@ -1,0 +1,26 @@
+#include "fork.h"
+
+#ifndef _INCLUDED_ERRNO_H_
+#include "../errno/errno.h"
+#endif
+
+#ifndef _SYSINC_SYS_TYPES_H_
+#include <sys/types.h>
+#define _SYSINC_SYS_TYPES_H_
+#endif
+
+#ifndef _SYSINC_UNISTD_H_
+#include <unistd.h>
+#define _SYSINC_UNISTD_H_
+#endif
+
+#ifndef _SYSINC_SYS_WAIT_H_
+#include <sys/wait.h>
+#define _SYSINC_SYS_WAIT_H_
+#endif
+
+#include "../debugmacro"
+
+using namespace FBB;
+
+

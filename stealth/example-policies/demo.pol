@@ -1,0 +1,130 @@
+################################################
+# this is a demo policy file for stealth >= 1.01
+################################################
+
+# create several DEFINEs
+    # user on controller running stealth
+    DEFINE HOME     /home/stealth
+
+    # host being scanned: TARGET
+    DEFINE TARGET   target
+
+    # A useful DEFINE for the find command.
+    DEFINE SETUID -xdev -type f -perm +u+s,g+s \( -user root -or -group root \)
+
+# set up the non-default USE variables 
+    # where will stealth store its results?
+    USE BASE        ${HOME}/${TARGET}
+
+    # who will get the overview of the results?
+    USE EMAIL       root@${TARGET}
+
+    # who will do the mailing ? (note that stealthmail doesn't mail, but 
+    #                           rather, writes /tmp/stealth.mail
+    USE MAILER      ${HOME}/bin/stealthmail
+
+    # what arguments will the mailer receive? 
+    USE MAILARGS    "${TARGET} STEALTH report"
+
+    # arguments used when executing a scp command reaching TARGET
+    # using a special ssh-key:
+    #DEFINE CLIENT   -i ${HOME}/.ssh/stealthkey root@${TARGET}
+    # using the standard ssh-key
+    DEFINE CLIENT   root@${TARGET}
+    
+    # how is ssh used to connect to the client?
+    USE SSH         /usr/bin/ssh root@${TARGET} -q
+
+##############################################
+#   First, retrieve md5sum and its libraries 
+#          from the client, to be tested locally.
+##############################################
+
+LOCAL mkdir -p tmp                              # local working directory
+LOCAL scp ${CLIENT}:/usr/bin/md5sum     tmp     # copy md5sum to here
+LOCAL scp ${CLIENT}:/lib/libc.so.6      tmp     # and its libraries
+LOCAL scp ${CLIENT}:/lib/ld-linux.so.2  tmp
+
+#####################################################
+# Now check the integrity of the downloaded files
+# When ok, we use md5sum remotely
+#####################################################
+
+LABEL \nLocal check of remote md5sum program and its libraries
+LOCAL CHECK local/md5sum /usr/bin/md5sum tmp/*
+LOCAL rm -rf tmp                                # remove locally copied files 
+
+########################################################
+# Now we're ready to run remotely. Check all executables
+# in the remote computer
+########################################################
+
+LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
+CHECK remote/print.root \
+    /usr/bin/find / -xdev -perm +6111 \( -user root -or -group root \) \
+        -type f -printf "%m %n %s %p\n"
+CHECK remote/md5.root \
+    /usr/bin/find / -xdev -perm +6111  \( -user root -or -group root \) \
+        -type f -exec /usr/bin/md5sum {} \;
+
+########################################################
+# Check all non-executable files in the ldconfig -v
+# directories
+########################################################
+
+##########################################
+LABEL \nlibraries under /lib
+CHECK remote/print.lib \
+    /usr/bin/find /lib -type f -not -perm +6111 -printf "%m %n %u %g %s %p\n"
+CHECK remote/md5.lib \
+    /usr/bin/find /lib -type f -not -perm +6111 -exec /usr/bin/md5sum {} \;
+##########################################
+
+
+##########################################
+LABEL \nlibraries under /usr/lib
+CHECK remote/print.usr.lib \
+    /usr/bin/find /usr/lib -type f -not -perm +6111 \
+        -printf "%m %n %u %g %s %p\n"
+
+CHECK remote/md5.usr.lib \
+    /usr/bin/find /usr/lib -type f -not -perm +6111 -exec /usr/bin/md5sum {} \;
+
+##########################################
+LABEL \nlibraries under /usr/X11R6/lib
+CHECK remote/print.usr.X11R6.lib \
+    /usr/bin/find /usr/X11R6/lib  -type f \
+        -not -perm +6111 -printf "%m %n %u %g %s %p\n"
+CHECK remote/md5.usr.X11R6.lib \
+    /usr/bin/find /usr/X11R6/lib -type f \
+        -not -perm +6111 -exec /usr/bin/md5sum {} \;   
+
+########################################################
+# Check all non-executable files in the /etc directory
+########################################################
+
+##########################################
+LABEL \nfiles in /etc
+CHECK remote/print.etc \
+    /usr/bin/find /etc -type f -not -perm +6111 \
+        -not -regex "/etc/\(adjtime\|mtab\|hosts\.deny\)" \
+        -printf "%m %n %u %g %s %p\n"
+CHECK remote/md5.etc \
+    /usr/bin/find /etc -type f -not -perm +6111 \
+        -not -regex "/etc/\(adjtime\|mtab\|hosts\.deny\)" \
+        -exec /usr/bin/md5sum {} \;
+
+########################################################
+# Check other special files
+########################################################
+
+##########################################
+LABEL \nother special files
+CHECK remote/print.other \
+    /usr/bin/find /var/spool/cron/crontabs/root -printf "%m %n %u %g %s %p\n"
+CHECK remote/md5.other \
+    /usr/bin/md5sum /var/spool/cron/crontabs/root
+
+
+
+

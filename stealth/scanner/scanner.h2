@@ -1,0 +1,48 @@
+#include "scanner.h"
+
+#ifndef _SYSINC_SSTREAM_
+#include <sstream>
+#define _SYSINC_SSTREAM_
+#endif
+
+#ifndef _SYSINC_UNISTD_H_
+#include <unistd.h>
+#define _SYSINC_UNISTD_H_
+#endif
+
+#ifndef _INCLUDED_UTIL_H_
+#include "../util/util.h"
+#endif
+
+#ifndef _INCLUDED_ARG_H_
+#include "../arg/arg.h"
+#endif
+
+#ifndef _INCLUDED_CONFIGSORTER_H_
+#include "../configsorter/configsorter.h"
+#endif
+
+#ifndef _INCLUDED_REPORTER_H_
+#include "../reporter/reporter.h"
+#endif
+
+#ifndef _INCLUDED_PATTERN_H_
+#include "../pattern/pattern.h"
+#endif
+
+#ifndef _INCLUDED_HASHCLASSES_H_
+#include "../hashclasses/hashclasses.h"
+#endif
+
+#ifndef _SYSINC_IOSTREAM_
+#include <iostream>
+#define _SYSINC_IOSTREAM_
+#endif
+
+
+#include "../debugmacro"
+
+using namespace FBB;
+using namespace std;
+
+

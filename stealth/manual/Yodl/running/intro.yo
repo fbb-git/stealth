@@ -1,0 +1,15 @@
+Now that tt(stealth) has been compiled, the construction of a policy file has
+been covered, and a service-account on the client has been defined, what must
+be done to run tt(stealth) in practice?
+
+Here's what remains to be done:
+    itemization(
+    it() Install tt(stealth) at a proper location
+    it() Construct one or more policy files
+    it() Learn to interpret tt(stealth)'s output.
+    it() Optionally, automate the removal of old log-files.
+    it() Determine a schedule for running stealth automatically, e.g. using
+        bf(cron)(1)
+    )
+    In this chapter, these topics will be discussed.
+

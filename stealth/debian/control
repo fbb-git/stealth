@@ -1,0 +1,27 @@
+Source: stealth
+Section: admin
+Priority: optional
+Maintainer: Frank B. Brokken <f.b.brokken@rc.rug.nl>
+Build-Depends: debhelper (>> 3.0.0) icmake (>= 6.22-2)
+Standards-Version: 3.5.2
+
+Package: stealth
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: A stealthy file integrity checker.
+ The STEALTH program performs File Integrity Checks on (remote) clients. It
+ uses standard available software to perform file integrity checks (like
+ find(1) and md5sum(1)). Using individualized policy files, it is highly
+ adaptable to the specific requirements of its clients.
+ .
+ In production environments STEALTH should be run from an isolated  computer. 
+ I.e., a computer which does not accept incoming connections. 
+ .
+ STEALTH itself uses SSH connections to set up secure communication with its
+ remote clients, and may send e-mail to remote clients system's maintainers.
+ .
+ The onset of STEALTH runs may be randomized, thus further increasing its
+ stealthy characteristics.
+ .
+ STEALTH's acronym is expanded to `Ssh-based Trust Enforcement Acquired
+ through a Locally Trusted Host'

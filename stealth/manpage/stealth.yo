@@ -1,0 +1,437 @@
+COMMENT(
+        Leave a definition of a label empty if not used. E.g.,
+        if you don't have other programs related to this one,
+        use:
+        SUBST(@SEEALSO) ()
+
+        Use bf() for items that should appear literally in commands, etc.
+        use em() for formal names, that should be replaced by actual values
+            in real life.
+)
+SUBST(@SECTION)         (1)
+
+SUBST(@DATE)            (June 2003)
+SUBST(@AUTHOR)          (Frank B. Brokken (bf(f.b.brokken@rc.rug.nl)).)
+SUBST(@ORGANIZATION)    (Computing Center, University of Groningen.)
+
+SUBST(@PROGRAM)         (bf(stealth))
+SUBST(@PROJECT)         (Security Enhancement)
+SUBST(@DISTRIBUTION)    (stealth-X.YY.tar.gz)
+
+SUBST(@SHORTDESC)       (Stealthy File Integrity Scanner)
+SUBST(@SYNOPSYS)(
+        @PROGRAM  -dcnoq -i <interval> -r <nr> policy
+)
+SUBST(@OPTIONS)(
+    Long options are given immediately following the short-option
+equivalents, if available. Either can be used.
+
+    startit()
+    it() tt(-d --debug): Write debug messages to std error;
+    it() tt(-c --parse-config-file): 
+            Process the config file, no further action,nl()
+            report the results to std output;
+    it() tt(-i --random-interval <interval>[m]>): 
+            start the scan between now and nl()
+           a random interval of interval seconds, or nl()
+           minutes if an `m' is appended immediately after nl()
+           the specified interval.
+    it() tt(-n --no-child-processes): No child processes are executed: 
+                child actions+nl()
+                 are faked to be OK.
+    it() tt(-o --only-stdout): Scan report is written to stdout. 
+            No mail is sent.nl()
+           (implied by -d);
+    it() tt(-q --quiet): Suppress progress messages written to stderr;
+    it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
+            Command numbers are shown by @PROGRAM tt(-c);
+    it() tt(-v --version): Display version information and exit;
+    it() tt(--usage): Display help information and exit;
+    it() tt(--help): Display help information and exit;
+    it() tt(policy): path to the policyfile;
+    endit()
+)
+SUBST(@DESCRIPTION)(
+    The name of the @PROGRAM program is an acronym of:
+
+    bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
+
+    @PROGRAM is based on an idea by em(Hans Gankema) and em(Kees Visser), both
+at the Computing Center of the University of Groningen.
+
+    @PROGRAM's main task is to perform file integrity tests. However, the
+testing will leave no sediments on the tested computer. Therefore, @PROGRAM
+has em(stealthy) characteristics. I consider this an important security
+improving feature of @PROGRAM.
+
+    On the other hand one should realize that @PROGRAM intends to be just
+another security tool: other security measures like firewalls, portscanners,
+intrusion detection systems, abolishment of unencrypted protocols, etc. are
+usually required to improve or promote the security of a group of computers
+that are connected to the Internet.
+
+    @PROGRAM uses a policy file to determine the actions to perform. Each
+policy file is uniquely associated with a host to be tested. This remote host
+(called the em(client) below) trusts the computer on which @PROGRAM runs
+(hence: a em(Locally Trusted Host)), called the em(controller). The controller
+performs tasks (normally file integrity tests) that em(Enforce) the em(Trust)
+we have in the client computer. Since almost all integrity tests can be run
+on the client, one controller can control many clients, even if the
+controller itself uses aged hardware components.
+
+As the controller and the client normally are different computers, the
+controller must communicate with the client in a secure fashion. This is
+realized through SSH. So, there's another element of `local trust' involved
+here: the client should permit the controller to set up a secure SSH
+connection allowing the controller to access sensitive files and private parts
+of the client's file system.
+
+    bf(It is important to ensure that there is no public access to the
+controller. All inbound services should be denied. The only access to
+the controller should be via its console and the controller should be placed
+in a physically secure location. Sensitive information of clients are stored
+in the controller, and passwordless access to clients can be obtained from the
+controller by anyone who gains (root)-access).
+
+    The controller itself only needs two kinds of outgoing services:
+bf(SSH) to reach its clients, and some mail transport agent (e.g.,
+bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
+
+    Here is what happens when @PROGRAM is run:
+    startit()
+    it() First, the em(policy) file is read. This determines the actions to be
+performed, and the values of several variables that are used by @PROGRAM.
+    it() Then, the controller opens a command shell on the client using
+bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
+    it() Next, commands defined in the policy file are executed in their order
+of appearance. Examples are given below. Noramlly, return values of the
+programs are  tested. Non-zero return values will terminate @PROGRAM
+prematurely.
+    it() In most cases, integrity tests can be controlled by the bf(find)(1)
+program, calling programs like bf(ls)(1), bf(md5sum)(1) or its own
+tt(-printf) method to produce file-integrity related statistics. Most of these
+programs write file names at the end of generated lines. This characteristic
+is used by an internal routine of @PROGRAM to detect changes in the generated
+output, which could indicate some harmful intent, like an installed
+em(root-kit).
+    it() When changes are detected, they are logged on a em(report file),
+to which information is always appended. @PROGRAM never reduces or rewrites
+the report file. When information is added to the report file
+the newly written information is emailed to a configurable email address for
+further (human) processing. Usually this will be the systems manager of the
+tested client. @PROGRAM follows the `dark cockpit' approach in that no mail is
+sent when no changes were detected.
+    endit()
+
+    nsect(THE POLICY FILE)
+
+    The policy file consists of two sets of data: em(use directives) (starting
+with the keyword bf(USE)) and em(commands). Blank lines and information beyond
+hash-marks (#) are ignored, while lines following lines terminating in
+backslashes (\) will be concatenated (em(en passant) removing the
+backslashes). Initial white space on lines of the policy file is ignored.
+
+nsect(DEFINE DIRECTIVES)
+
+    bf(DEFINE) directives may be used to associate longer strings of text with
+certain symbols. E.g., after
+    tt(DEFINE FINDARGS -xdev -type f -exec /usr/bin/md5sum {} \;)
+    the text tt(${FINDARGS}) may be used in bf(USE DIRECTIVES) and
+bf(commands) (see below) to use the text associated with the bf(FINDARGS)
+symbol. 
+
+    Note that bf(DEFINE) symbols may be used in the definition of 
+other bf(DEFINE) symbols as well. Direct or indirect circular definitions
+should be avoided, as they are either not or incompletely expanded.
+
+nsect(USE DIRECTIVES)
+
+    The following bf(USE) directives may be specified (directives are written
+in capitals, and should appear exactly as written below: letter casing is
+preserved). Specifications in angular brackets (like tt(<this>)) represent
+specifications to be given by users of @PROGRAM:
+    startit()
+    it() bf(USE BASE) tt(<basedirectory>)nl()
+        bf(BASE) defines the directory from where @PROGRAM operates. All
+relative path specifications are interpreted relative to bf(BASE). em(By
+default) this is the directory where @PROGRAM was started. nl()
+    bf(BASE) is the em(only) directory that em(must) exist when @PROGRAM is
+started. All other non-existing paths are created automatically by
+@PROGRAM.nl()
+    Example:nl()
+    tt(USE BASE /root/client)
+
+    it() bf(USE DIFF) tt(<diff>)nl()
+        The bf(DIFF) specification uses tt(/usr/bin/diff) as default,
+and defines the location of the bf(diff)(1) program on the controller. The
+bf(diff)(1) program is used to compare a formerly created logfile of an
+integrity check with a newly created logfile.nl()
+    Example showing the default:nl()
+    tt(USE DIFF /usr/bin/diff)
+
+    it() bf(USE EMAIL) tt(<address>)nl()
+        The bf(EMAIL) specification defines the email-address to receive the
+report of the integrity scan of the client. The `dark cockpit' philosophy is
+followed here: mail is only sent when a modification is detected.nl()
+    Example showing the default (apparently an email address on the
+controller):nl()
+    tt(USE EMAIL root)
+
+    it() bf(USE MAILER) tt(<mailer>)nl()
+        The bf(MAILER) specification defines the program that is used to send
+the mail to the bf(EMAIL)-address. By default this is
+bf(/usr/bin/mail)(1). bf(MAILER) is called with the following
+arguments:nl()
+    ----------------------------------------------------------nl()
+    bf(MAILARGS), see below;nl()
+    bf(EMAIL), the addressee of the mail.nl()
+    ----------------------------------------------------------nl()
+    Example showing the default:nl()
+    tt(USE MAILER /usr/bin/mail)
+
+    it() bf(USE MAILARGS) tt(<args>)nl()
+        The bf(MAILARGS) specification defines the arguments that are passed
+to tt(MAILER), followed by the specification of tt(EMAIL).
+    Example showing the default:nl()
+    tt(USE MAILARGS -s "STEALTH scan report")nl()
+    Note that blanks may be used in the subject specification: use double or
+single quotes to define elements containing blanks. Use tt(\") to use a double
+quote in a string that is itself delimted by double quotes, use tt(\') to use
+a single quote in a string that is itself delimted by single quotes. 
+
+
+    it() bf(USE REPORT) tt(<reportfile>)nl()
+        bf(REPORT) defines the name of the reportfile. Information is always
+appended to this file. For each run of @PROGRAM a em(time marker line) is
+written to the report file. Only when (in addition to the marker line)
+additional information is appended to the report file the added contents of
+the report file are mailed to the mail address specified in the bf(USE EMAIL)
+specification.nl()
+    Example showing the default:nl()
+    tt(USE REPORT report)
+
+    it() bf(USE SH) tt(<sh>)nl()
+        The bf(SH) specification uses tt(/bin/sh) as default, and defines the
+command shell used by the controller to execute commands on itself.nl()
+    Example showing the default:nl()
+    tt(USE SH /bin/sh)
+
+    it() bf(USE SSH) tt(<user>)nl()
+        bf(The SSH specification has no default), and em(must) be
+specified. Assuming the client em(trusts) the controller (which is, after all,
+what this program is all about; so this should not be a very strong
+assumption), preferably the public ssh-identity key of the controller should
+be placed in the client's root tt(.ssh/authorized_keys) file, granting the
+controller root access to the client. Root access is normally needed to gain
+access to all directories and files of the client's file system.
+
+    In practice, connecting to a account using the bf(sh)(1) shell is
+preferred. When another shell is already used with an appropriate account,
+then an extra account (using the same tt(UID) as the appropriate account, but
+using bf(sh)(1) as the shell), could be used. In the bf(passwd)(5) file this
+could be realized for em(root) as em(rootsh) as follows:nl()
+    tt(rootsh:x:0:0:root:/root:/bin/sh)nl()
+    Example: in the above example, the bf(USE SSH) specification should be:nl()
+    tt(USE SSH rootsh@client -q)
+    endit()
+
+nsect(COMMANDS)
+
+    Following the bf(USE) specifications, em(commands) can be specified. The
+commands are executed in their order of appearance in the policy
+file. Processing continues until the last command has been processed or until
+a tested command (see below) returns a non-zero return value.
+
+nsect(LABEL COMMANDS)
+    
+    The following bf(LABEL) commands are available:
+    startit()
+    it() bf(LABEL) tt(<text>)nl()
+        This defines a text-label which is written to the bf(REPORT) file,
+in front of the output generated by the next bf(CHECK)-command. If the next
+bf(CHECK)-command generates no output, the text-label is not written to the
+bf(REPORT)-file. Once a bf(LABEL) has been defined, it is used until it is
+redefined by the next bf(LABEL). Use an empty bf(LABEL) specification to
+suppress the printing of labels.
+
+    The text may contain tt(\n) characters (two characters) which are
+transformed to a newline character.
+
+    Example:nl()
+    tt(LABEL Inspecting files in /etc\nIncluding subdirectories)nl()
+    tt(LABEL) nl()
+        (The former bf(LABEL) specification clears the latter label text).
+    endit()
+
+nsect(LOCAL COMMANDS)
+
+    The following bf(LOCAL) commands are available to be executed on the
+controller:
+    startit()
+    it() bf(LOCAL) tt(<command>)nl()
+        Execute tt(command) on the controller, using the bf(SH) command
+shell. The command must succeed (i.e., must return a zero exit value). nl()
+    Example:nl()
+    tt(LOCAL scp rootsh@client:/usr/bin/md5sum /tmp)nl()
+    This command will copy the client's bf(md5sum)(1) program to the
+controller.
+
+    it() bf(LOCAL NOTEST) tt(<command>)nl()
+        Execute tt(command) on the controller, using the bf(SH) command
+shell. The command may or may not succeed.nl()
+    Example:nl()
+    tt(LOCAL NOTEST mkdir /tmp/subdir)nl()
+    This command will create tt(/tmp/subdir) on the controller. The command
+will fail if the directory cannot be created, but this will not terminate
+@PROGRAM.
+
+    it() bf(LOCAL CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
+        Execute tt(command) on the controller, using the bf(SH) command
+shell. The command must succeed. The output of this command is compared to the
+output of this command generated during the previous run of @PROGRAM. The
+phrase bf(LOG =) is optional. Any differences are written to bf(REPORT). If
+differences were found, the existing tt(logfile) name is renamed to
+tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the datetime-stamp at the
+time @PROGRAM was run.
+
+    Note that eventually many tt(logfile.YYMMDD-HHMMSS) files could be
+created: It is up to the controller's systems manager to decide what to do
+with old datetime-stamped logfiles.
+
+    The tt(logfile) specifications may use relative and absolute paths. When
+relative paths are used, these paths are relative to bf(BASE). When the
+directories implied by the tt(logfile) specifications do not yet exist, they
+are created first.
+
+    Example:nl()
+    tt(LOCAL CHECK LOG = local/md5sum md5sum /tmp/md5sum)nl()
+    This command will check the MD5 sum of the tt(/tmp/md5sum) program. The
+resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
+succeed (i.e., tt(md5sum) must return a zero exit-value).
+
+    it() bf(LOCAL NOTEST CHECK) tt(<logfile> <command>)nl()
+        Execute tt(command) on the controller, using the bf(SH) command
+shell. The command may or may not succeed. Otherwise, the program acts
+identically as the bf(LOCAL CHECK ...) command, discussed previously.
+
+    Example:nl()
+    tt(LOCAL NOTEST CHECK LOG=local/md5sum md5sum /tmp/md5sum)nl()
+    This command will check the MD5 sum of the tt(/tmp/md5sum) program. The
+resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
+succeed (i.e., tt(md5sum) must return a zero exit-value).
+    endit()
+    
+nsect(REMOTE COMMANDS)
+
+    Remote commands are commands executed on the client using the bf(SSH)
+shell. These commands are executed using the standard tt(PATH) set for the
+bf(SSH) shell. However, it is advised to specify the full pathname to the
+programs to be executed, to prevent ``trojan approaches'' where a trojan horse
+is installed in an `earlier' directory of the tt(PATH)-specification than the
+intended program.
+
+    Plain commands can be executed on the client computer by merely specifying
+them. Of course, this means that programs on the client called, e.g.,
+tt(LABEL), tt(LOCAL) or tt(USE), cannot be executed, since these names are
+interpreted otherwise by @PROGRAM. I don't think that represents much of a
+problem, though....
+
+    The following commands are available to be executed on the client:
+    startit()
+    it() tt(<command>)nl()
+        Execute tt(command) on the client, using the bf(SSH) command
+shell. The command must succeed (i.e., must return a zero exit
+value). However, any output generated by the the command is ignored. nl()
+    Example:nl()
+    tt(/usr/bin/find /tmp -type f -exec /bin/rm {} \;)nl()
+    This command will remove all ordinary files in and below the client's
+tt(/tmp) directory.
+
+    it() bf(NOTEST) tt(<command>)nl()
+        Execute tt(command) on the client, using the bf(SSH) command
+shell. The command may or may not succeed.nl()
+    Example:nl()
+    tt(NOTEST /usr/bin/find /tmp -type f -exec /bin/rm {} \;)nl()
+    Same as the previous command, but this time the exit value of
+tt(/usr/bin/find) is not interpreted.
+
+    it() bf(CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
+        Execute tt(command) on the client, using the bf(SSH) command
+shell. The phrase bf(LOG = ) is optional. The command must succeed. The output
+of this command is compared to the output of this command generated during the
+previous run of @PROGRAM. Any differences are written to bf(REPORT). If
+differences were found, the existing tt(logfile) name is renamed to
+tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the datetime-stamp at the
+time @PROGRAM was run.
+
+    Note that the command is executed on the client, but the logfile is kept
+on the controller. This command represents the core of the method implemented
+by @PROGRAM: there will be no residues of the actions performed by @PROGRAM on
+the client computers.
+
+    Several examples (note the use of the backslash as line continuation
+characters):
+
+tt(CHECK LOG = remote/ls.root \)nl()
+tt(    /usr/bin/find / \)nl()
+tt(    -xdev -perm +6111 -type f -exec /bin/ls -l {} \;)
+
+    All suid/gid/executable files on the same device as the root-directory (/)
+on the client computer are listed with their permissions, owner and size
+information. The resulting listing is written on the file
+bf(BASE)tt(/remote/ls.root).
+
+
+tt(CHECK remote/md5.root \)nl()
+tt(    /usr/bin/find / \)nl()
+tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
+
+    The MD5 checksums of all suid/gid/executable files on the same device as
+the root-directory (/) on the client computer are determined.  The resulting
+listing is written on the file bf(BASE)tt(/remote/md5.root).
+
+    it() bf(NOTEST CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
+        Execute tt(command) on the client, using the bf(SSH) command
+shell. The phrase bf(LOG =) is optional. The command may or may not
+succeed. Otherwise, the program acts identically as the bf(CHECK ...) command,
+discussed previously.
+
+    Example:nl()
+tt(NOTEST CHECK LOG = remote/md5.root \)nl()
+tt(    /usr/bin/find / \)nl()
+tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
+
+    The MD5 checksums of all suid/gid/executable files on the same device as
+the root-directory (/) on the client computer are determined.  The resulting
+listing is written on the file bf(BASE)tt(/remote/md5.root). @PROGRAM will not
+terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
+    endit()
+   
+)
+SUBST(@FILES)(
+      tt(policy);nl()
+    files under bf(BASE);nl()
+    the bf(REPORT) file.
+)
+SUBST(@SEEALSO)(
+      bf(diff)(1), bf(mail)(1), bf(find)(1), bf(ls)(1), bf(md5sum)(1),
+bf(passwd)(5), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
+
+)
+SUBST(@DIAGNOSTICS)(
+       By default, the executed commands are echoed to stderr. Use bf(-q) to
+suppress this echoing.
+)
+SUBST(@BUGS)(none reported)
+
+SUBST(@COPYRIGHT)(
+    This is free software, distributed under the terms of the GNU General
+    Public License. Copyright remains with the author. The `official'
+distribution of @PROGRAM is found at:nl()
+tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This distribution and
+tt(tar.gz)-distributions retrieved elsewhere should have an md5sum equal to
+the PGP-signed md5sum published at:nl()
+    tt(www.rug.nl/rc -> Security -> STEALTH)
+)
+COMMENT(Do not modify from here)
+INCLUDEFILE(/usr/local/share/makemanpage/executables.1/pagedef.yo)

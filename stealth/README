@@ -1,0 +1,58 @@
+
+                                   STEALTH
+     SSH-based Trust Enforcement Acquired through a Locally Trusted Host
+
+                               Frank B. Brokken
+                            f.b.brokken@rc.rug.nl
+
+
+    * The manual is in the usr/share/doc/stealth/html  subdirectory. 
+        Point your browser to its index.html or stealth.html file to start 
+        reading the manual.
+        The manual's sources are in the .../stealth/Yodl directory. 
+        These are Yodl sources. Yodl is another Debian package.
+
+    * The man-page stealth.1 is in usr/share/man/man1. 
+        The file .../stealth/manpage/stealth.yo is the (Yodl) source file 
+        which was used to construct the manpage. 
+        
+    * The program was compiled on Linux 2.4.20, using the Gnu g++ compiler
+        version 3.2.1
+
+    * The program was compiled using an icmake `build' script. 
+        Icmake is available as yet another Debian package.
+
+    * The provided `plain' script in the source distribution can also be
+        used to compile the program.
+
+    * Remark, comments please to my email addres. The software is GPL, but the
+        copyright rests with me. This is to make sure that the most recent
+        version is always with me. All suggestions for improvements
+        will be seriously considered, and if possible, incorporated in the 
+        next version of the program.
+
+    * At the same location where you found this archive, you should have found
+        a detached signature file, as well as a file named
+
+                                 stealth-V.VV.md5
+
+        This file contains the md5sum of the stealth archive, signed with my
+        private PGP key. V.VV stands for the version of the archive/program
+        associated with the key. E.g., stealth-0.90.md5.
+
+        Use my public key to verify the authenticity of the
+        key. My public key was signed by the CA of the University of
+        Groningen. Here are a PGP key server, and my PGP public key
+        fingerprint:
+
+    Public PGP key: http://www.pca.dfn.de/eng/dfnpca/pgpkserv/
+    Key Fingerprint: 8E36 9FC4 1DAA FCDF 1A0D  B19F DAC4 BE50 38C6 6170
+
+        Contact me if you have any doubts about the correctness of the 
+    provided md5 sum or the given fingerprint.
+
+            
+    Frank
+
+
+

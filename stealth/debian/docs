@@ -1,0 +1,10 @@
+ACKNOWLEDGEMENTS
+README
+stealthmail
+manual/html
+manual/pdf/* 
+manual/ps/*
+manual/text/* 
+manual/Yodl
+manpage/
+example-policies

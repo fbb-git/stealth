@@ -1,0 +1,49 @@
+#!/bin/sh
+
+FLAG=""
+#FLAG=-DDEBUG
+
+# select one set of the following two defines:
+# COMPILER=g++-3.0
+# HASHNAMESPACE=std
+COMPILER=g++-3.2
+HASHNAMESPACE=__gnu_cxx
+
+run()
+{
+    echo $*
+    $*
+    if [ "$?" != "0" ] ; then 
+        echo Non-zero return value
+        exit 1
+    fi
+}
+
+rm -f libstealth.a
+
+NR=1
+for x in errno arg util configfile configsorter pattern \
+         reporter pipe fork scanner iofork
+do
+    run cd $x
+    for c in *.cc
+    do
+        run $COMPILER -c -Wall $FLAG $c
+    done
+    for o in *.o
+    do
+        run mv $o $NR$o
+    done
+    run ar rsv ../libstealth.a *.o
+    run rm *.o
+    run cd ..
+
+    let NR=$NR+1
+done
+
+run $COMPILER -o stealth -Wall  $FLAG stealth.cc -lstealth -L.
+run strip stealth
+
+
+
+

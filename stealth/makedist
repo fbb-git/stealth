@@ -1,0 +1,80 @@
+#!/bin/sh
+
+VER=`grep VERSION VERSION | sed 's,.*VERSION[[:space:]]\"\([0-9\.]\+\).*,\1,'`
+
+# pause make sure the manual and the manpage is up-to-date
+
+rm -rf SIMPLE
+
+for x in debian build-stamp configure-stamp 
+do
+    [ ! -e $x ] || mv $x ..
+done
+
+cd ..
+
+FILES="                                                                 
+`ls stealth-${VER}/[A-Z]* stealth-${VER}/debugmacro`                    
+`find  stealth-${VER}/                                            \
+        -name '*.cc'   -or -name '*.h*'   -or -name '*.ih' -or  \
+        -name '*.pol'`
+`find stealth-${VER}/manual                                           \
+        -name '*.html' -or -name '*.yo'    -or -name '*.pdf' -or    \
+        -name '*.txt'  -or -name '*.latex' -or -name '*.ps' -or     \
+        -name '*.dvi'  -or -name '*.demo'  -or -name '*.aux' -or    \
+        -name '*.log'  -or -name '*.toc'`
+`find stealth-${VER}/manpage -name '*.yo'    -or -name '*.1'`
+`find stealth-${VER}/                                                 \
+        -maxdepth 1 -type f -perm \+100 | grep -v makedist`
+"
+
+tar czvf stealth-$VER.tar.gz `echo $FILES`
+
+echo "
+   ************************************************************************
+   *                                                                      *
+   *     Here is the MD5 checksum of the archive stealth-$VER.tar.gz:     *
+   *                                                                      *
+   ************************************************************************
+
+         `md5sum stealth-$VER.tar.gz`
+
+   ************************************************************************
+   *                                                                      *
+   *  The above MD5 checksum value should be IDENTICAL to the value you   *
+   *                        get with the command:                         *
+   *                                                                      *
+   *                     md5sum  stealth-$VER.tar.gz                      *
+   *                                                                      *
+   *                    If that is not the case, then                     *
+   *                                                                      *
+   *             DO NOT USE THE INFORMATION THAT IS STORED IN             *
+   *                                                                      *
+   *                         stealth-$VER.tar.gz                          *
+   *                                                                      *
+   ************************************************************************
+   *                                                                      *
+   *        ALWAYS VERIFY THE VALIDITY OF THIS GPG SIGNED FILE:           *
+   *                           IT MUST SHOW A                             *
+   *                                                                      *
+   *                           GOOD SIGNATURE                             *
+   *                                                                      *
+   *                     FOR THE PUBLIC PGP KEY OF                        *
+   *                                                                      *
+   *                          FRANK B. BROKKEN                            *
+   *                                                                      *
+   *             SEE THE STEALTH MANUAL FOR FURTHER DETAILS               *
+   *                                                                      *
+   ************************************************************************
+
+" | gpg --clearsign > stealth-$VER.md5.sign
+
+
+ln -sf stealth-$VER.md5.sign stealth-latest.md5.sign 
+ln -sf stealth-$VER.tar.gz stealth-latest.tar.gz
+
+for x in debian build-stamp configure-stamp 
+do
+    [ ! -e $x ] || mv $x stealth-${VER}
+done
+

@@ -1,0 +1,27 @@
+#include "reporter.h"
+
+#ifndef _SYSINC_SYS_TYPES_H_
+#include <sys/types.h>
+#define _SYSINC_SYS_TYPES_H_
+#endif
+
+#ifndef _SYSINC_SYS_STAT_H_
+#include <sys/stat.h>
+#define _SYSINC_SYS_STAT_H_
+#endif
+
+#ifndef _SYSINC_UNISTD_H_
+#include <unistd.h>
+#define _SYSINC_UNISTD_H_
+#endif
+
+#ifndef _INCLUDED_UTIL_H_
+#include "../util/util.h"
+#endif
+
+#ifndef _INCLUDED_ERRNO_H_
+#include "../errno/errno.h"
+#endif
+
+using namespace FBB;
+using namespace std;

@@ -1,0 +1,26 @@
+#ifndef _DEBUGMACRO_
+#define _DEBUGMACRO_
+
+#ifdef DEBUG
+
+#ifndef _SYSINC_IOSTREAM_
+#include <iostream>
+#define _SYSINC_IOSTREAM_
+#endif
+
+#ifndef _SYSINC_UNISTD_H_
+#include <unistd.h>
+#define _SYSINC_UNISTD_H_
+#endif
+
+#ifndef _INCLUDED_ARG_H_
+#include "arg/arg.h"
+#endif
+
+#define dout(x)  if (FBB::Arg::Arg().option('d')) std::cerr << x << std::endl
+#else
+#define dout(x)
+#endif
+
+#endif
+

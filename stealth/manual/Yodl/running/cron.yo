@@ -1,0 +1,23 @@
+    In order to automate the execution of tt(stealth), a file
+tt(/etc/cron.d/stealth) could be created, containing a line like
+(assuming tt(stealth) lives in tt(/usr/sbin)): 
+        verb(
+    2,17,32,47 * * * *  root    test -x /usr/sbin/stealth && \ 
+                                /usr/sbin/stealth -q /root/stealth/client.pol
+        )
+    This will start tt(stealth) 2 minutes after every hour. Alternate schemes
+are left to the reader to design.
+
+    In general, randomizing events makes it harder to notice them.
+tt(Stealth) may start its tasks at a random point in time if its
+tt(-i) flag (for em(random interval)) is used. This flag expects an argument
+in seconds (or in minutes, if at least an tt(m) is appended to the interval
+specification). Somewhere between the time tt(stealth) starts and the
+specified interval the scan will commence. For example, the following two
+commands have identical effects: the scan is started somewhere between the
+moment tt(stealth) was started and 5 minutes:
+        verb(
+    stealth -i 5min -q /root/stealth/client.pol
+    stealth -i 300  -q /root/stealth/client.pol
+        )
+    When the tt(-d) flag is given, the tt(-i) flag has no effect.

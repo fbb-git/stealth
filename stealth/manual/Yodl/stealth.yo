@@ -1,0 +1,74 @@
+
+COMMENT(  Starts a report. The top-level sectioning command  is chapter. )
+
+mailto(f.b.brokken@rc.rug.nl)
+
+htmlbodyopt(background)(rcbackground.jpg)
+
+includefile(/usr/local/share/yodl/macros)
+
+COMMENT(
+includefile(/usr/local/share/yodl/options)
+)
+
+COMMENT(    include(abstract)   )
+
+latexoptions(a4paper)
+latexpackage()(epsf)
+
+latexcommand(
+\hfuzz=70pt
+\addtolength{\textheight}{2cm}
+\addtolength{\textwidth}{4cm}
+\addtolength{\hoffset}{-2cm})
+
+IFDEF(latex)(UNDEFINESYMBOL(XXsloppyhfuzz))()
+
+IFDEF(html)
+(
+    affiliation(center(Computing Center, University of Groningen))
+    report(center(Stealth))(center(Frank B. Brokken))(center(June 2003))
+)
+(   
+    affiliation(Computing Center, University of Groningen)
+    report(Stealth)(Frank B. Brokken)(June 2003)
+)
+
+chapter(Introduction)
+includefile(intro)
+
+chapter(Installation)
+includefile(install/intro)
+
+chapter(The `policy' file)
+includefile(policy/intro)
+includefile(policy/defines)
+includefile(policy/use)
+includefile(policy/commands)
+
+chapter(Granting access)
+includefile(policy/access)
+
+chapter(Running `stealth')
+includefile(running/intro)
+includefile(running/installing)
+includefile(running/makepolicy)
+includefile(running/firstrun)
+includefile(running/newrunsame)
+includefile(running/newrundelta)
+includefile(running/cron)
+
+
+chapter(Kick starting `stealth')
+includefile(kickstart)
+
+chapter(Usage info)
+includefile(usage)
+
+chapter(Errormessages)
+includefile(errors)
+
+
+
+
+

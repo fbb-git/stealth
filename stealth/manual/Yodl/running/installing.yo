@@ -1,0 +1,10 @@
+sect(Installing `stealth')
+
+As tt(stealth) is mainly a system administrator's tool, it could be
+installed in tt(/usr/local/sbin). In that case, do (as em(root)) from the
+directory where tt(stealth) was compiled/unpacked:
+        verb(
+    install stealth /usr/local/sbin
+        )
+    options given to bf(install)(1) may restrict further use of tt(stealth).
+

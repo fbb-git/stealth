@@ -1,0 +1,34 @@
+    DEFINE  SSHCMD  /usr/bin/ssh root@client -q
+    DEFINE  EXECMD5 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
+                    -type f -exec /usr/bin/md5sum {} \;
+
+    USE BASE        /root/stealth/client
+    USE EMAIL       admin@elswhere
+    USE MAILER      /root/bin/stealthmail
+    USE MAILARGS    "Client STEALTH report"
+    USE SSH         ${SSHCMD}
+
+    USE DIFF        /usr/bin/diff
+    USE REPORT      report
+    USE SH          /bin/sh
+
+    LOCAL /usr/bin/scp -q root@client:/usr/bin/md5sum /root/tmp
+
+    LABEL \nCheck the client's md5sum program
+    LOCAL CHECK LOG = local/md5 /usr/bin/md5sum /root/tmp/md5sum
+
+    LABEL \nchecking the client's /usr/bin/find program
+    CHECK LOG = remote/binfind /usr/bin/md5sum /usr/bin/find
+ 
+    LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
+    CHECK LOG = remote/setuidgid /usr/bin/find / ${EXECMD5}
+
+    LABEL \nconfiguration files under /etc
+    CHECK LOG = remote/etcfiles                         \ 
+          /usr/bin/find /etc -type f -not -perm +6111   \ 
+            -not -regex "/etc/\(adjtime\|mtab\)"        \ 
+            -exec /usr/bin/md5sum {} \;
+
+
+
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "$0 started with arguments:
+=============================================" > /tmp/stealth.mail
+
+while [ "$1" != "" ]
+do
+    echo "$1"  >> /tmp/stealth.mail
+    shift
+done
+
+echo "=============================================" >> /tmp/stealth.mail
+
+cat >> /tmp/stealth.mail

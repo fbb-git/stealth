@@ -1,0 +1,15 @@
+This chapter describes tt(Stealth)'s installation. The following topics
+will be covered:
+
+    itemization(
+    it() Compiling tt(Stealth) using the tt(icmake) program
+    it() Compiling tt(Stealth) using the tt(plain) script
+    )
+
+sect(Compiling Stealth using icmake)
+includefile(install/icmake)
+
+sect(Compiling Stealth using plain)
+includefile(install/hand)
+
+

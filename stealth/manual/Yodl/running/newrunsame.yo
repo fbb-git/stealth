@@ -1,0 +1,28 @@
+sect(Running `stealth' again: all files unaltered)
+
+    When tt(stealth) is run again, it will update
+its report files under tt(root/stealth/client). If nothing has changed,
+the log-files will remain unaltered. The new run will, however, produce some
+new info on the file tt(/root/client/report):
+        verb(
+    STEALTH (0.90) started at Mon Oct 28 10:52:45 2002
+    
+    
+    Check the client's md5sum program
+    Initialized report on local/md5
+    
+    checking the client's /usr/bin/find program
+    Initialized report on remote/binfind
+    
+    suid/sgid/executable files uid or gid root on the / partition     
+    Initialized report on remote/setuidgid
+    
+    configuration files under /etc
+    Initialized report on remote/etcfiles
+    
+    
+    STEALTH (0.90) started at Mon Oct 28 11:19:15 2002
+        )
+    Note that just one extra line was added: a timestamp showing the date/time
+of the last run. The systems administrator may reduce/remove the report file
+every once in a while to reclaim some disk space.

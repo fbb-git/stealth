@@ -1,0 +1,26 @@
+# create several DEFINEs
+    DEFINE CLIENT   localhost
+    DEFINE SETUID -xdev -type f -perm +u+s,g+s \( -user root -or -group root \)
+
+# set up the non-default USE variables 
+    USE BASE        /root/stealth/${CLIENT}
+
+    USE EMAIL       root@${CLIENT}
+#    USE MAILER      /usr/local/sbin/stealthmail
+    USE MAILER      /usr/bin/mail
+    USE MAILARGS    "${CLIENT} STEALTH report"
+
+    USE SSH         /usr/bin/ssh rootbash@${CLIENT} -q
+
+
+LABEL \nroot setuid/setgid files
+CHECK LOG = remote/setuid \
+        /usr/bin/find / ${SETUID} -exec /usr/bin/md5sum {} \;
+
+
+LABEL \nfiles in /usr/local/etc
+CHECK remote/etcmd5 \
+        /usr/bin/find /usr/local/etc -type f -xdev -exec /usr/bin/md5sum {} \;
+
+
+
