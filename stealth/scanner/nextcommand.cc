@@ -4,6 +4,8 @@ void Scanner::nextCommand(ostream &out, string const &command)
 {
     dout("Scanner::nextCommand(): inserting\n" << command << \
             "\nand: echo " << d_sentinel << " $?");
+    cerr << "Scanner::nextCommand(): inserting\n" << command << \
+            "\nand: echo " << d_sentinel << " $?";
 
                         // run the command, then 
                         // echo the sentinel and returnvalue
