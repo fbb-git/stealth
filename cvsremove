@@ -1,0 +1,3 @@
+#!/bin/sh
+
+zip -mry cvs.zip `find stealth/ -type d -name CVS`
