@@ -1,4 +1,4 @@
-    DEFINE  SSHCMD  /usr/bin/ssh root@client -q
+    DEFINE  SSHCMD  /usr/bin/ssh root@client -T -q exec /bin/bash --noprofile
     DEFINE  EXECMD5 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
                     -type f -exec /usr/bin/md5sum {} \;
 
@@ -8,11 +8,12 @@
     USE MAILARGS    "Client STEALTH report"
     USE SSH         ${SSHCMD}
 
+    USE DD          /bin/dd
     USE DIFF        /usr/bin/diff
     USE REPORT      report
     USE SH          /bin/sh
 
-    LOCAL /usr/bin/scp -q root@client:/usr/bin/md5sum /root/tmp
+    GET /usr/bin/md5sum /root/tmp
 
     LABEL \nCheck the client's md5sum program
     LOCAL CHECK LOG = local/md5 /usr/bin/md5sum /root/tmp/md5sum

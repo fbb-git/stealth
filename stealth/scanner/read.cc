@@ -17,7 +17,7 @@ void Scanner::read(std::istream &src, string const &fname)
     unsigned length = 0;
     while (true)
     {
-        src.read(&c, 1);
+        src.read(&c, 1);                    // read char by char
 
         if (c == d_sentinel[length])       // got next sentinel char
         {
@@ -46,6 +46,7 @@ void Scanner::read(std::istream &src, string const &fname)
             target.write(&c, 1);
         }
     }
+
     testExitValue(partialSentinel);
 }
 

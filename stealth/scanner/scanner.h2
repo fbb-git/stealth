@@ -1,5 +1,20 @@
 #include "scanner.h"
 
+#ifndef _SYSINC_SYS_TYPES_H_
+#include <sys/types.h>
+#define _SYSINC_SYS_TYPES_H_
+#endif
+
+#ifndef _SYSINC_SYS_STAT_H_
+#include <sys/stat.h>
+#define _SYSINC_SYS_STAT_H_
+#endif
+
+#ifndef _SYSINC_UNISTD_H_
+#include <unistd.h>
+#define _SYSINC_UNISTD_H_
+#endif
+
 #ifndef _SYSINC_SSTREAM_
 #include <sstream>
 #define _SYSINC_SSTREAM_

@@ -19,12 +19,14 @@ void Scanner::execute(string const &cmd)
         local(d_firstWord[3]);
     else if (d_firstWord[1] == "GET")   // get a file from the client
         get(cmd);
-/*
     else if (d_firstWord[1] == "PUT")   // put a file to the client
         put(cmd);
+/*
     else if (d_firstword[1] == "PIPE")
         pipe(cmd);
 */
     else                                // or run a remote command
         remote(cmd);            
 }
+
+

@@ -82,6 +82,13 @@ namespace FBB
             bool        noDifferences(std::string const &current,
                                       std::string const &logfile);
 
+                                        // put a local file to the client
+            void        put(std::string const &command);
+
+                                        // construct put-dd command
+            std::string putCommand(std::string const &source, 
+                                    std::string const &destination) const;
+
                                         // copy any file
             void        read(std::istream &src, std::string const &fname);
 
@@ -107,6 +114,9 @@ namespace FBB
 
                                         // wait for the sentinel and exitvalue
             void        waitForSentinel(std::istream &extractor);
+
+                                        // write any file to the client
+            void        write(std::string const &fname);
 
             void        removeLOG();    // remove LOG = from current command
     };

@@ -39,13 +39,13 @@ void Scanner::get(string const &cmd)
         cerr << "Scanner::get(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
-    if (!Arg::getInstance().option('n'))    // unless -n (no execute commands)
-    {
-        nextCommand(d_sshFork.out(),        // start the next command
-            d_sorter["CAT"] + " " + source);
+    if (Arg::getInstance().option('n'))     // no run if -n
+        return;
 
-        read(d_sshFork.in(), destination); // read its output
-    }
+    nextCommand(d_sshFork.out(),        // start the next command
+        d_sorter["DD"] + " if=" + source);
+
+    read(d_sshFork.in(), destination); // read its output, tests exit value
 
     if (d_debug)
         cerr << "Scanner::get(): " << cmd << " DONE" << endl;
