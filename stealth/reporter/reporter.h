@@ -10,23 +10,28 @@ namespace FBB
 {
     class Reporter: public std::fstream    
     {
+        static std::string  s_msg;
+
         unsigned long d_sizeAtConstruction;
         unsigned long d_sizeBeyondHeader;
-
-        static std::string  s_msg;
+        std::string d_name;
 
         public:
             Reporter(std::string const &name); // first time
 
-            void reset();           // reset to the EOF position when
-                                    // Reporter was constructed. Extracts
-                                    // after this retrieve added information
+            void reset();           // reset to the position when
+                                    // Reporter was constructed or at
+                                    // the last reinit(). Information inserted
+                                    // after calling this member will be
+                                    // extracted
 
             bool hasText()
             {
                 return static_cast<unsigned long>(tellp())
                         > d_sizeBeyondHeader;
             }
+
+            void reinit();
 
         private:
             Reporter(Reporter const &other);            // NI
