@@ -1,6 +1,6 @@
 #include "scanner.h2"
 
-void Scanner::mailReport() //ConfigSorter &sorter, bool mailToCout)
+void Scanner::mailReport()
 {
     dout("Scanner::mailReport() starts");
 
@@ -8,7 +8,6 @@ void Scanner::mailReport() //ConfigSorter &sorter, bool mailToCout)
     {
         if (d_debug)
             cerr << "no report to mail\n";
-
         return;
     }
 
@@ -43,6 +42,7 @@ void Scanner::mailReport() //ConfigSorter &sorter, bool mailToCout)
 
     mail.waitForChild();
 }
+
 
 
 

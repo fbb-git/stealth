@@ -9,6 +9,7 @@ void Scanner::waitForSentinel(istream &extractor)
     while (getline(extractor, s))
     {
         dout("Read line `" << s << "'");
+
         if (s.find(d_sentinel) == 0)
         {
             dout("GOT Sentinel");

@@ -8,14 +8,18 @@
 static Arg::LongOption longOpt_begin[] =
 {
     Arg::LongOption("debug", 'd'),
-    Arg::LongOption("version", 'v'),
     Arg::LongOption("no-child-processes", 'n'),
     Arg::LongOption("only-stdout", 'o'),
     Arg::LongOption("parse-config-file", 'c'),
+    Arg::LongOption("quiet", 'q'),
     Arg::LongOption("random-interval", 'i'),
     Arg::LongOption("run-command", 'r'),
-    Arg::LongOption("quiet", 'q'),
+    Arg::LongOption("version", 'v'),
 
+    Arg::LongOption("keep-alive", Arg::None),      
+    Arg::LongOption("repeat", Arg::Required),
+    Arg::LongOption("rerun", Arg::Required),
+    Arg::LongOption("terminate", Arg::Required),
     
     Arg::LongOption("usage"),
     Arg::LongOption("help"),
@@ -34,21 +38,13 @@ int main(int argc, char **argv)
         Arg::initialize("cdi:noqr:v", 
                 longOpt_begin, longOpt_end, 
                 argc, argv); 
+
                                         // command-line arguments. 
                                         // Arg is singleton: obtain it
                                         // everwhere using Arg()
         Arg &arg = Arg::getInstance();
 
-        if (arg.option('v'))
-            Util::showVersion();                
-
-        if 
-        (
-            !arg.nArgs()                // provide usage if no arguments
-            ||
-            arg.option(0, "usage") || arg.option(0, "help")
-        )
-            Util::usage();              // were received
+        Util::processControlOptions();  // handle process control options
 
         ConfigFile configfile(arg[0]);  // ConfigFile object reads
                                         // configuration file 
@@ -61,29 +57,28 @@ int main(int argc, char **argv)
                                         // USEs, DEFINEs and commands.
         ConfigSorter sorter(configfile);
 
-        if (arg.option('i'))            // do random delay if -i found
-            Util::randomDelay();
-
-                                        // Construct the integrityscanner
-        Scanner scanner(sorter);
+        Scanner scanner(sorter);        // Construct the integrityscanner
 
 #ifdef DEBUG
         dout("SH and SSH childprocesses are now active. Press Enter...");
         string enter;
         if (arg.option('d'))  getline(cin, enter);
 #endif
-    
+
+        Util::maybeBackground();        // maybe run Stealth in the background
+
         scanner.preamble();             // make a test-connection to
                                         // the remote computer
-        scanner.run();                  // run all tests
 
-        scanner.mailReport();           // mail the report
+        scanner.scanLoop();             // run all tests in a loop
     }
     catch (Errno const &err)
     {
         cerr << err.what() << ": " << err.why() << endl;
         return 1;
     }
+    
+    Scanner::killChildren();
 
     return 0;
 }

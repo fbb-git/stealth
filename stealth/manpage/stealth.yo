@@ -10,7 +10,7 @@ COMMENT(
 )
 SUBST(@SECTION)         (1)
 
-SUBST(@DATE)            (June 2003)
+SUBST(@DATE)            (November 2003)
 SUBST(@AUTHOR)          (Frank B. Brokken (bf(f.b.brokken@rc.rug.nl)).)
 SUBST(@ORGANIZATION)    (Computing Center, University of Groningen.)
 
@@ -20,7 +20,9 @@ SUBST(@DISTRIBUTION)    (stealth-X.YY.tar.gz)
 
 SUBST(@SHORTDESC)       (Stealthy File Integrity Scanner)
 SUBST(@SYNOPSYS)(
-        @PROGRAM  -dcnoq -i <interval> -r <nr> policy
+        @PROGRAM  -dcnoq -i <interval> -r <nr> nl()
+                    [--keep-alive | --repeat <seconds> ]  policy nl()
+        @PROGRAM  [--rerun | --terminate] <pid> 
 )
 SUBST(@OPTIONS)(
     Long options are given immediately following the short-option
@@ -46,6 +48,12 @@ equivalents, if available. Either can be used.
     it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
             Command numbers are shown by @PROGRAM tt(-c);
     it() tt(-v --version): Display version information and exit;
+    it() tt(--keep-alive): Keep running as a daemon, wake up at interrupts.
+    it() tt(--repeat <seconds>): keep running as a daemon, wake up at
+            interrupts or after <seconds> seconds.
+    it() tt(--rerun <pid>): restart the scan of stealth currently active 
+            with pid tt(<pid>);
+    it() tt(--terminate <pid>): terminate stealth running with pid <pid>;
     it() tt(--usage): Display help information and exit;
     it() tt(--help): Display help information and exit;
     it() tt(policy): path to the policyfile;
@@ -53,16 +61,16 @@ equivalents, if available. Either can be used.
 )
 SUBST(@DESCRIPTION)(
     The name of the @PROGRAM program is an acronym of:
-
     bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
 
     @PROGRAM is based on an idea by em(Hans Gankema) and em(Kees Visser), both
-at the Computing Center of the University of Groningen.
+at the Computing Center of the University of Groningen. em(Hopko Meijering)
+provided valuable suggestions for improvement.
 
     @PROGRAM's main task is to perform file integrity tests. However, the
-testing will leave no sediments on the tested computer. Therefore, @PROGRAM
-has em(stealthy) characteristics. I consider this an important security
-improving feature of @PROGRAM.
+testing itself will leave no sediments on the tested computer. Therefore,
+@PROGRAM has em(stealthy) characteristics. I consider this an important
+security improving feature of @PROGRAM.
 
     On the other hand one should realize that @PROGRAM intends to be just
 another security tool: other security measures like firewalls, portscanners,
@@ -97,14 +105,23 @@ controller by anyone who gains (root)-access).
 bf(SSH) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
-    Here is what happens when @PROGRAM is run:
+    Here is what happens when @PROGRAM is run using the first synopsis:
     startit()
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by @PROGRAM.
+    it() If the command-line option tt(--keep-alive) or tt(--repeat <seconds>)
+is given, @PROGRAM will run as a backgrond process, displaying the process ID
+of the background process. With tt(--repeat <seconds>) the scan will be rerun
+every tt(<seconds>) seconds. The number of seconds until the next rerun will
+be at least 60. However, using the tt(--rerun) option a background @PROGRAM
+process may always be goated into its next scan. When tt(--keep-alive) is
+specified the scan will be performed just once, whereafter bf(PROGRAM) will
+wait until it is reactivated by another run of @PROGRAM, called using the
+tt(--rerun <pid>) command-line option.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
-of appearance. Examples are given below. Noramlly, return values of the
+of appearance. Examples are given below. Normally, return values of the
 programs are  tested. Non-zero return values will terminate @PROGRAM
 prematurely.
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
@@ -122,6 +139,25 @@ further (human) processing. Usually this will be the systems manager of the
 tested client. @PROGRAM follows the `dark cockpit' approach in that no mail is
 sent when no changes were detected.
     endit()
+
+    Here is what happens when @PROGRAM is run using the second synopsis:
+    startit()
+    it() When started using the tt(--terminate <pid>) command-line option, the
+stealth process running at process-ID tt(<pid>) is terminated. Note that no
+check is performed as to whether the process associated with tt(<pid>) is
+truly a bf(PROGRAM) process. It is the responsibility of the user to make sure
+that the process-ID of the intended process is specified.
+    it() When started using the tt(--rerun <pid>) command-line option, the
+stealth process running at process-ID tt(<pid>) will perform another
+scan. Again, no check is performed as to whether the process associated with
+tt(<pid>) is truly a bf(PROGRAM) process. It is the responsibility of the user
+to make sure that the process-ID of the intended process is specified.
+    endit()
+
+    The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
+added to bf(STEALTH) to keep the bf(ssh) link to the client open, thus
+minimizing the number of bf(sshd) entries caused by bf(PROGRAM) 
+in the client's log files.
 
     nsect(THE POLICY FILE)
 
@@ -161,6 +197,15 @@ started. All other non-existing paths are created automatically by
     Example:nl()
     tt(USE BASE /root/client)
 
+    it() bf(USE DD) tt(<dd>)nl()
+        The bf(DD) specification uses tt(/bin/dd) as default, and defines the
+location of the bf(dd)(1) program, both on the server and on the client. The
+bf(bin)(1) program is used to copy files between the client and the controller
+without opening separate ssh-connections. The program specified here is only
+used by stealth for the tt(PUT) and tt(GET) commands, described below.nl()
+    Example showing the default:nl()
+    tt(USE DD /bin/dd)
+
     it() bf(USE DIFF) tt(<diff>)nl()
         The bf(DIFF) specification uses tt(/usr/bin/diff) as default,
 and defines the location of the bf(diff)(1) program on the controller. The
@@ -199,7 +244,6 @@ single quotes to define elements containing blanks. Use tt(\") to use a double
 quote in a string that is itself delimted by double quotes, use tt(\') to use
 a single quote in a string that is itself delimted by single quotes. 
 
-
     it() bf(USE REPORT) tt(<reportfile>)nl()
         bf(REPORT) defines the name of the reportfile. Information is always
 appended to this file. For each run of @PROGRAM a em(time marker line) is
@@ -226,13 +270,19 @@ controller root access to the client. Root access is normally needed to gain
 access to all directories and files of the client's file system.
 
     In practice, connecting to a account using the bf(sh)(1) shell is
-preferred. When another shell is already used with an appropriate account,
-then an extra account (using the same tt(UID) as the appropriate account, but
-using bf(sh)(1) as the shell), could be used. In the bf(passwd)(5) file this
-could be realized for em(root) as em(rootsh) as follows:nl()
-    tt(rootsh:x:0:0:root:/root:/bin/sh)nl()
-    Example: in the above example, the bf(USE SSH) specification should be:nl()
-    tt(USE SSH rootsh@client -q)
+preferred. When another shell is already used by that account, one should make
+sure that that shell doesn't setup its own redirections for standard input and
+standard output. One way to accomplish that is for force the execution of
+tt(/bin/sh) in the bf(USE SSH) specification. 
+    Examples:
+        verb(
+    # root's shell is /bin/sh:
+        USE SSH root@client -T -q    
+    # root uses another shell
+        USE SSH root@client -T -q exec /bin/bash    
+    # an alternative:
+        USE SSH root@client -T -q exec /bin/bash --noprofile 
+        )    
     endit()
 
 nsect(COMMANDS)
@@ -320,7 +370,19 @@ identically as the bf(LOCAL CHECK ...) command, discussed previously.
 resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
 succeed (i.e., tt(md5sum) must return a zero exit-value).
     endit()
-    
+
+    Note that the bf(scp)(1) command can be used to copy files between the
+client and the controller, using a local command. This, however, is
+discouraged, as a separate bf(ssh)(1)-connection is required for each separate
+bf(scp)(1) command. This subtlety was brought to the author's attention by
+Hopko Meijerink (tt(h.meijering@rc.rug.nl)). Using bf(scp)(1) results in
+several additional entries showing bf(sshd)(1) connections in the client's
+logfiles, which in turn may provide hints to a hacker that the client is
+intensively monitored. In order to copy files between the client and the
+controller, the tt(GET) and tt(PUT) commands (described below) may be used,
+which use the existing bf(ssh)(1) connection. In general, tt(LOCAL) commands
+should not be used to establish additional bf(ssh)(1) connections to a client.
+
 nsect(REMOTE COMMANDS)
 
     Remote commands are commands executed on the client using the bf(SSH)
@@ -329,6 +391,78 @@ bf(SSH) shell. However, it is advised to specify the full pathname to the
 programs to be executed, to prevent ``trojan approaches'' where a trojan horse
 is installed in an `earlier' directory of the tt(PATH)-specification than the
 intended program.
+
+    Two special remote commands are tt(GET) and tt(PUT), which can be used to
+copy files between the client and the controller.  Internally, tt(GET) and
+t(PUT) use the tt(DD) use-specification. If a non-default specification is
+used, one should ensure that the alternate program accepts bf(dd)(1)'s tt(if=,
+of=, bs=) and tt(count=) options. With tt(GET) the options tt(bs=, count=) and
+tt(of=) are used, with tt(PUT) the options tt(bs=, count=) and tt(if=) are
+used. Normally there should be no need to alter the default tt(DD)
+specification.
+
+    The tt(GET) command may be used as follows:
+    startit()    
+    it() bf(GET) tt(<client-path> <local-path>)nl()
+    Copy the file indicated by tt(client-path) at the client to tt(local-path)
+at the controller. tt(client-path) must be the full path of an existing file
+on the client, tt(local-path) may either be a local directory, in which case
+the client's file name is used, or another file name may be specified, in
+which case the client's file is copied to the specified local filename. If the
+local file already exists, it is overwritten by the copy-procedure.
+
+    Example:nl()
+    tt(GET /usr/bin/md5sum /tmp)nl()
+    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+controller's tt(/tmp) directory. If the copying fails for some reason,
+any subsequent commands are skipped, and bf(stealth) terminates.
+
+    it() bf(GET NOTEST) tt(<client-path> <local-path>)nl()
+    Copy the file indicated by tt(client-path) at the client to tt(local-path)
+at the controller. tt(client-path) must be the full path of an existing file
+on the client, tt(local-path) may either be a local directory, in which case
+the client's file name is used, or another file name may be specified, in
+which case the client's file is copied to the specified local filename. If the
+local file already exists, it is overwritten by the copy-procedure.
+
+    Example:nl()
+    tt(GET NOTEST /usr/bin/md5sum /tmp)nl()
+    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+controller's tt(/tmp) directory. Remaining commands in the policy file are
+executed, even if the copying process wasn't successful.
+    endit()
+
+    The tt(PUT) command may be used as follows:
+    startit()    
+    it() bf(PUT) tt(<local-path> <remote-path>)nl()
+    Copy the file indicated by tt(local-path) at the controller to
+tt(remote-path) at the client. The argument tt(local-path) must be the
+full path of an existing file on the controller. The argument tt(remote-path)
+must be the full path to a file on the client. If the remote file already
+exists, it is overwritten by tt(PUT).
+
+    Example:nl()
+    tt(PUT /tmp/md5sum /usr/bin/md5sum)nl()
+    The program tt(/tmp/md5sum), available at the controller, is copied to the
+client as tt(usr/bin/md5sum). If the copying fails for some reason,
+any subsequent commands are skipped, and bf(stealth) terminates.
+
+    it() bf(PUT NOTEST) tt(<local-path> <remote-path>)nl()
+    Copy the file indicated by tt(local-path) at the controller to
+tt(remote-path) at the client. The argument tt(local-path) must be the
+full path of an existing file on the controller. The argument tt(remote-path)
+must be the full path to a file on the client. If the remote file already
+exists, it is overwritten by tt(PUT).
+
+    Example:nl()
+    tt(PUT NOTEST /tmp/md5sum /usr/bin/md5sum)nl()
+    Copy the file indicated by tt(local-path) at the controller to
+tt(remote-path) at the client. The argument tt(local-path) must be the full
+path of an existing file on the controller. The argument tt(remote-path) must
+be the full path to a file on the client. If the remote file already exists,
+it is overwritten by tt(PUT). Remaining commands in the policy file are
+executed, even if the copying process wasn't successful.
+    endit()
 
     Plain commands can be executed on the client computer by merely specifying
 them. Of course, this means that programs on the client called, e.g.,
@@ -401,12 +535,12 @@ tt(NOTEST CHECK LOG = remote/md5.root \)nl()
 tt(    /usr/bin/find / \)nl()
 tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
 
+
     The MD5 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
 listing is written on the file bf(BASE)tt(/remote/md5.root). @PROGRAM will not
 terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
-    endit()
-   
+    endit()   
 )
 SUBST(@FILES)(
       tt(policy);nl()
@@ -414,7 +548,8 @@ SUBST(@FILES)(
     the bf(REPORT) file.
 )
 SUBST(@SEEALSO)(
-      bf(diff)(1), bf(mail)(1), bf(find)(1), bf(ls)(1), bf(md5sum)(1),
+      bf(dd)(1), 
+        bf(diff)(1), bf(mail)(1), bf(find)(1), bf(ls)(1), bf(md5sum)(1),
 bf(passwd)(5), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
 
 )
@@ -428,10 +563,13 @@ SUBST(@COPYRIGHT)(
     This is free software, distributed under the terms of the GNU General
     Public License. Copyright remains with the author. The `official'
 distribution of @PROGRAM is found at:nl()
-tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This distribution and
+tt(ftp.rug.nl/contrib/frank/software/linux/stealth). 
+    COMMENT(
+    This distribution and
 tt(tar.gz)-distributions retrieved elsewhere should have an md5sum equal to
 the PGP-signed md5sum published at:nl()
     tt(www.rug.nl/rc -> Security -> STEALTH)
+    END COMMENT)
 )
 COMMENT(Do not modify from here)
 INCLUDEFILE(/usr/local/share/makemanpage/executables.1/pagedef.yo)

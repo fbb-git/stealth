@@ -1,3 +1,33 @@
+stealth (1.30) unstable; urgency=low
+
+  * --terminate, --rerun, --repeat and --keep-alive flags were added to allow
+    stealth to keep an existing connection for longer periods of
+    time. Manpages and docs updated accordingly
+
+ -- Frank B. Brokken <frank@oostum.north>  Fri, 12 Dec 2003 12:45:45 +0100
+
+stealth (1.22-0) unstable; urgency=low
+
+  * Added GET and PUT. Put allows stealth to put files to the client using
+    the existing ssh connection.
+
+ -- Frank B. Brokken <frank@oostum.north>  Wed, 26 Nov 2003 21:25:02 +0100
+
+stealth (1.21-0) unstable; urgency=low
+
+  * Added the GET command, allowing stealth to retrieve files from the client
+    for, e.g., local inspection, without requiring an additional ssh
+    connection.
+
+ -- Frank B. Brokken <frank@oostum.north>  Sat, 22 Nov 2003 13:55:40 +0100
+
+stealth (1.20-2) unstable; urgency=low
+
+  * New buildscripts added for man(ual) pages. This file will take over from
+    CHANGELOG which logged the original, non-Debian distribution. 
+
+ -- Frank B. Brokken <f.b.brokken@rc.rug.nl>  Fri, 20 Jun 2003 17:21:42 +0200
+
 stealth (1.20-1) unstable; urgency=low
 
   * Initial Release.

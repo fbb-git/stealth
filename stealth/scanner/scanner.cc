@@ -13,8 +13,8 @@ Scanner::Scanner(ConfigSorter &sorter)
 :
     d_sorter(sorter),
     d_reporter(*new Reporter(sorter["REPORT"])),// ostream
-    d_firstWord(*new Pattern("(\\S+)\\s+(.*)")),// firstword ([1]) and 
-                                                // the rest ([2]) of a text
+    d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")),// firstword ([1]) and 
+                                                // the rest ([3]) of a text
     d_sshFork(d_sorter["SSH"]),                 // child: ignores stderr, reads
     d_shFork(d_sorter["SH"]),                   // from stdin/stdout
                                                 // parent process communicates
@@ -22,8 +22,8 @@ Scanner::Scanner(ConfigSorter &sorter)
                                                 // stream interface.
     d_debug(Arg::getInstance().option('d'))     // debug requested
 {
-    ostringstream oss;
+    setSentinel();
 
-    oss << "EOC " << Util::date;
-    d_sentinel = oss.str();
+    s_shPid = d_shFork.getPid();
+    s_sshPid = d_sshFork.getPid();
 }

@@ -30,7 +30,7 @@ The required tt(policy) file is constructed as follows, per section:
 subsect(the DEFINE directives)
 
         verb(
-    DEFINE  SSHCMD  /usr/bin/ssh root@client -q
+    DEFINE  SSHCMD  /usr/bin/ssh root@client -T -q exec /bin/bash --noprofile
     DEFINE  EXECMD5 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
                     -type f -exec /usr/bin/md5sum {} \;
         )
@@ -63,6 +63,7 @@ subject when sending mail, identifying the computer that has been scanned.
     it() the default values of all remaining tt(USE) directives can be used,
 and were therefore not specified. They are:
         verb(
+    USE DD          /bin/dd
     USE DIFF        /usr/bin/diff
     USE REPORT      report
     USE SH          /bin/sh
@@ -79,7 +80,7 @@ subsubsect(Obtain the client's md5sum program)
 
 First, the tt(md5sum) program is copied to a local directory
         verb(
-    LOCAL /usr/bin/scp -q root@client:/usr/bin/md5sum /root/tmp
+    GET /usr/bin/md5sum /root/tmp
         )
     This command must succeed. 
 
