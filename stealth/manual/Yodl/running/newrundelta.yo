@@ -2,7 +2,7 @@ sect(Running `stealth' again: after modifications have occurred)
 
     Basically, three kinds of modifications are possible: additions,
 modifications, and removals. Here we'll show the effect all these changes have
-on tt(stealth)'s output.
+on bf(stealth)'s output.
 
     For the example, the following changes were made to the tt(client)'s
 files:
@@ -12,7 +12,7 @@ files:
     it() the file tt(/etc/motd.org) was created
     )
 
-    Next, tt(stealth) was once again run, producing the following output:
+    Next, bf(stealth) was once again run, producing the following output:
     itemization(
     it() 
 The following new info is now added to file tt(/root/client/report):
@@ -92,7 +92,7 @@ now and then.
 sect(Failing LOCAL commands)
 
     If the client's tt(md5sum) program itself is altered, a serious situation
-has developed. In that case, further actions by tt(stealth) would be suspect,
+has developed. In that case, further actions by bf(stealth) would be suspect,
 as their results might easily be currupted. Checks em(will) proceed, but a
 warning is generated on the tt(report) file (and in the mail sent to
 tt(admin@elsewhere): 

@@ -1,9 +1,9 @@
-This chapter describes tt(Stealth)'s installation. The following topics
+This chapter describes bf(stealth)'s installation. The following topics
 will be covered:
 
     itemization(
-    it() Compiling tt(Stealth) using the tt(icmake) program
-    it() Compiling tt(Stealth) using the tt(plain) script
+    it() Compiling bf(stealth) using the tt(icmake) program
+    it() Compiling bf(stealth) using the tt(plain) script
     )
 
 sect(Compiling Stealth using icmake)

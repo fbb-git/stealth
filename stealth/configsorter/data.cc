@@ -8,8 +8,8 @@ pair<string, string> const
         pair<string,string>("DIFF",     "/usr/bin/diff"),
         pair<string,string>("EMAIL",    "root"),
         pair<string,string>("MAILER",   "/usr/bin/mail"),
+        pair<string,string>("PIDFILE",  "/var/run/stealth-"),
         pair<string,string>("REPORT",   "report"),
-        pair<string,string>("RUNBASE",  "/var/run/stealth-"),
         pair<string,string>("SH",       "/bin/sh"),
         pair<string,string>("MAILARGS", "-s \"STEALTH scan report\""),
     };

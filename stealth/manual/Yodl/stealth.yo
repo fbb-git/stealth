@@ -31,11 +31,15 @@ IFDEF(html)
 )
 (   
     affiliation(Computing Center, University of Groningen)
-    report(Stealth)(Frank B. Brokken)(June 2003)
+    report(Stealth)(Frank B. Brokken)(June-December 2003)
 )
 
 chapter(Introduction)
-includefile(intro)
+    sect(What's new)
+    includefile(whatsnew)
+
+    sect(Stealth)
+    includefile(intro)
 
 chapter(Installation)
 includefile(install/intro)
@@ -58,11 +62,10 @@ includefile(running/newrunsame)
 includefile(running/newrundelta)
 includefile(running/cron)
 
-
 chapter(Kick starting `stealth')
 includefile(kickstart)
 
-chapter(Usage info)
+lchapter(USAGE)(Usage info)
 includefile(usage)
 
 chapter(Errormessages)

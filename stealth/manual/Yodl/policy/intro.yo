@@ -1,11 +1,11 @@
-    tt(Stealth) reads a policy file defining the actions that must be 
+    bf(stealth) reads a policy file defining the actions that must be 
 performed. Each policy file is uniquely associated with a host to be
 tested. There may be multiple policy files for a host, though. In that case,
 each policy file will define a certain set of checks to be performed.
 
-    Below, the term em(controller) is used for the computer where tt(stealth)
+    Below, the term em(controller) is used for the computer where bf(stealth)
 is started, while the term em(client) is used for the computer that is scanned
-by tt(stealth). The controller and the client could be the same computer, but
+by bf(stealth). The controller and the client could be the same computer, but
 normally they are different.
 
     The policy file consists of three sets of data: em(define directives)

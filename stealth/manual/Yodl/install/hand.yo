@@ -1,4 +1,4 @@
-After downloading the tt(Stealth) archive, it should be unpacked. The name of
+After downloading the bf(stealth) archive, it should be unpacked. The name of
 the archive is of the form tt(stealth-V.VV.tar.gz), where tt(V.VV) is a
 version number. Below, tt(V.VV) should be altered into the version of the
 archive that is actually used.
@@ -19,7 +19,7 @@ stored.
         )
     )
 
-    The archive contains a precompiled version of tt(stealth), expecting the
+    The archive contains a precompiled version of bf(stealth), expecting the
 following libraries (displayed by the command tt(ldd -v stealth):
     verb(
         libstdc++.so.5 => /usr/lib/libstdc++.so.5 (0x4001a000)
@@ -56,18 +56,18 @@ following libraries (displayed by the command tt(ldd -v stealth):
                 ld-linux.so.2 (GLIBC_2.0) => /lib/ld-linux.so.2
     )
     
-    Instead of using the precompiled version, tt(stealth) may be compiled from
+    Instead of using the precompiled version, bf(stealth) may be compiled from
 its sources.  The compilation may use either the tt(GNU g++) compiler version
 3.0x or the tt(3.2x) version. Other versions haven't been tested as of this
 writing.  At least one of these compilers must have been installed.
 
     For the compilation `by hand' a simple script (tt(plain)) is provided in
 the tt(stealth-V.VV) directory. This script can be used to compile
-tt(stealth). The following items can be edited:
+bf(stealth). The following items can be edited:
     itemization(
     it() Select your choice of debug-information that can be obtained. By
 default, no code producing extra debug information is created. By making the
-following selection, tt(stealth) will contain code producing extra debug
+following selection, bf(stealth) will contain code producing extra debug
 information:
         verb(
     #FLAG=""
@@ -88,7 +88,7 @@ will use the tt(g++-3.0) compiler:
         verb(
     ./plain
         )
-    This creates the program tt(stealth) in the same directory as the
+    This creates the program bf(stealth) in the same directory as the
 tt(plain) script.
     )
 

@@ -1,5 +1,5 @@
-Welcome to tt(stealth). The program tt(stealth) implements a file integrity
-scanner. The acronym tt(stealth) can be expanded to
+Welcome to bf(stealth). The program bf(stealth) implements a file integrity
+scanner. The acronym bf(stealth) can be expanded to
 
 center(
 nsect(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
@@ -22,73 +22,67 @@ to use an ssh-connection to perform commands on it. The client therefore
 em(locally trusts) the controller. Hence, em(locally trusted host).
     )
 
-    tt(Stealth) is based on an idea by em(Hans Gankema) and em(Kees Visser),
+    bf(stealth) is based on an idea by em(Hans Gankema) and em(Kees Visser),
 both at the Computing Center of the University of Groningen.
 
-    tt(Stealth)'s main task is to perform file integrity tests. However, the
-testing will leave no sediments on the tested computer. Therefore, tt(stealth)
+    bf(stealth)'s main task is to perform file integrity tests. However, the
+testing will leave no sediments on the tested computer. Therefore, bf(stealth)
 has em(stealthy) characteristics. I consider this an important security
-improving feature of tt(stealth).
+improving feature of bf(stealth).
 
     The controller itself only needs two kinds of outgoing services:
 bf(ssh)(1) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
-    Here is what happens when tt(stealth) is run:
+    Here is what happens when bf(stealth) is run:
     itemization(
     it() First, a em(policy) file is read. This determines actions to be
-performed, and  values of several variables used by tt(stealth).
+performed, and  values of several variables used by bf(stealth).
     it() If the command-line option tt(--keep-alive) or tt(--repeat <seconds>)
-is given, tt(Stealth) will run as a backgrond process, displaying the process
+is given, bf(stealth) will run as a backgrond process, displaying the process
 ID of the background process. With tt(--repeat <seconds>) the scan will be
 rerun every tt(<seconds>) seconds. The number of seconds until the next rerun
 will be at least 60. However, using the tt(--rerun) option a background
-tt(Stealth) process may always be goated into its next scan. When
+bf(stealth) process may always be goated into its next scan. When
 tt(--keep-alive) is specified the scan will be performed just once, whereafter
-tt(Stealth) will wait until it is reactivated by another run of tt(Stealth),
+bf(stealth) will wait until it is reactivated by another run of bf(stealth),
 called using the tt(--rerun <pid>) command-line option.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
 of appearance. Examples are given below. Normally, return values of the
-programs are  tested. Non-zero return values will terminate tt(stealth)
+programs are  tested. Non-zero return values will terminate bf(stealth)
 prematurely.
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
 program, calling programs like bf(ls)(1), bf(md5sum)(1) or its own tt(-printf)
 method to produce file-integrity related statistics. Most of these programs
 write file names at the end of generated lines. This characteristic is used by
-an internal routine of tt(stealth) to detect changes in the generated output,
+an internal routine of bf(stealth) to detect changes in the generated output,
 which could indicate some harmful intent, like an installed em(root-kit).
     it() When changes are detected, they are logged on a em(report file), to
-which information is always appended. tt(stealth) never reduces or rewrites
+which information is always appended. bf(stealth) never reduces or rewrites
 the report file. When information is added to the report file the newly
 written information is emailed to a configurable email address for further
 (human) processing. Usually this will be the systems manager of the tested
-client. tt(stealth) follows the `dark cockpit' approach in that no mail is
+client. bf(stealth) follows the `dark cockpit' approach in that no mail is
 sent when no changes were detected.
     )
 
     Alternatively, the command-line options tt(--rerun) and tt(--terminate)
-may be provided to communicate with a tt(Stealth) process started earlier
+may be provided to communicate with a bf(stealth) process started earlier
 using either the tt(--keep-alive) or tt(--repeat) option. In this case,
     itemization(
     it() When started using the tt(--terminate <pid>) command-line option, the
 stealth process running at process-ID tt(<pid>) is terminated. Note that no
 check is performed as to whether the process associated with tt(<pid>) is
-truly a bf(PROGRAM) process. It is the responsibility of the user to make sure
+truly a bf(stealth) process. It is the responsibility of the user to make sure
 that the process-ID of the intended process is specified.
     it() When started using the tt(--rerun <pid>) command-line option, the
 stealth process running at process-ID tt(<pid>) will perform another
 scan. Again, no check is performed as to whether the process associated with
-tt(<pid>) is truly a bf(PROGRAM) process. It is the responsibility of the user
+tt(<pid>) is truly a bf(stealth) process. It is the responsibility of the user
 to make sure that the process-ID of the intended process is specified.
     )
-
-    The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
-added to bf(STEALTH) to keep the bf(ssh) link to the client open, thus
-minimizing the number of bf(sshd) entries caused by bf(PROGRAM) 
-in the client's log files.
-
 
 subsect(The integrity of the stealth-V.VV.tar.gz distribution)
 

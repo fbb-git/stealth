@@ -21,8 +21,8 @@ SUBST(@DISTRIBUTION)    (stealth-X.YY.tar.gz)
 SUBST(@SHORTDESC)       (Stealthy File Integrity Scanner)
 SUBST(@SYNOPSYS)(
         @PROGRAM  -dcnoq -i <interval> -r <nr> nl()
-                    [--keep-alive | --repeat <seconds> ]  policy nl()
-        @PROGRAM  [--rerun | --terminate] <pid> 
+            [--keep-alive suffix [--repeat <seconds> ] ]  policy nl()
+        @PROGRAM  [--rerun | --terminate] suffix policy
 )
 SUBST(@OPTIONS)(
     Long options are given immediately following the short-option
@@ -48,14 +48,17 @@ equivalents, if available. Either can be used.
     it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
             Command numbers are shown by @PROGRAM tt(-c);
     it() tt(-v --version): Display version information and exit;
-    it() tt(--keep-alive): Keep running as a daemon, wake up at interrupts.
+    it() tt(--keep-alive suffix): Keep running as a daemon, 
+            wake up at interrupts. 
     it() tt(--repeat <seconds>): keep running as a daemon, wake up at
             interrupts or after <seconds> seconds.
-    it() tt(--rerun <pid>): restart the scan of stealth currently active 
-            with pid tt(<pid>);
-    it() tt(--terminate <pid>): terminate stealth running with pid <pid>;
+    it() tt(--rerun suffix): restart the scan of a currently active stealth
+            process;
+    it() tt(--terminate suffix): terminate a currently active stealth
+            process;
     it() tt(--usage): Display help information and exit;
     it() tt(--help): Display help information and exit;
+    it() tt(suffix): suffix added to the generic PIDFILE specification;
     it() tt(policy): path to the policyfile;
     endit()
 )
@@ -109,15 +112,15 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     startit()
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by @PROGRAM.
-    it() If the command-line option tt(--keep-alive) or tt(--repeat <seconds>)
-is given, @PROGRAM will run as a backgrond process, displaying the process ID
-of the background process. With tt(--repeat <seconds>) the scan will be rerun
-every tt(<seconds>) seconds. The number of seconds until the next rerun will
-be at least 60. However, using the tt(--rerun) option a background @PROGRAM
-process may always be goated into its next scan. When tt(--keep-alive) is
-specified the scan will be performed just once, whereafter bf(PROGRAM) will
-wait until it is reactivated by another run of @PROGRAM, called using the
-tt(--rerun <pid>) command-line option.
+    it() If the command-line option tt(--keep-alive) @PROGRAM will run as a
+backgrond process, writing its process id in the process id file (PIFILE, see
+below) having suffix `suffix'.  With tt(--repeat <seconds>) the scan will be
+rerun every tt(<seconds>) seconds. The number of seconds until the next rerun
+will be at least 60. However, using the tt(--rerun suffix) option a background
+@PROGRAM process may always be forced into its next scan. When
+tt(--keep-alive) is specified the scan will be performed just once, whereafter
+bf(PROGRAM) will wait until it is reactivated by another run of @PROGRAM,
+called using the tt(--rerun <suffix>) command-line option.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
@@ -142,20 +145,15 @@ sent when no changes were detected.
 
     Here is what happens when @PROGRAM is run using the second synopsis:
     startit()
-    it() When started using the tt(--terminate <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) is terminated. Note that no
-check is performed as to whether the process associated with tt(<pid>) is
-truly a bf(PROGRAM) process. It is the responsibility of the user to make sure
-that the process-ID of the intended process is specified.
-    it() When started using the tt(--rerun <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) will perform another
-scan. Again, no check is performed as to whether the process associated with
-tt(<pid>) is truly a bf(PROGRAM) process. It is the responsibility of the user
-to make sure that the process-ID of the intended process is specified.
+    it() When started using the tt(--terminate suffix) command-line option, the
+stealth process assiciated with tt(PIDFILEsuffix) is terminated.
+    it() When started using the tt(--rerun suffix) command-line option, the
+stealth process assiciated with tt(PIDFILEsuffix) will perform another
+scan. 
     endit()
 
     The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
-added to bf(STEALTH) to keep the bf(ssh) link to the client open, thus
+added to bf(stealth) to keep the bf(ssh) link to the client open, thus
 minimizing the number of bf(sshd) entries caused by bf(PROGRAM) 
 in the client's log files.
 
@@ -243,6 +241,22 @@ to tt(MAILER), followed by the specification of tt(EMAIL).
 single quotes to define elements containing blanks. Use tt(\") to use a double
 quote in a string that is itself delimted by double quotes, use tt(\') to use
 a single quote in a string that is itself delimted by single quotes. 
+
+    it() bf(USE PIDFILE) tt(pidfile)
+
+        bf(PIDFILE) defines the path to the file containing the process id of
+a running bf(stealth) process. The tt(pidfile) defines that part of the
+filename that is shared among all running bf(stealth) processes. A particular
+bf(stealth) process may be identified by a em(suffix) which is added to this
+filename, allowing the user to request a re-scan by specifying the em(suffix),
+rather than a particular process id. The command-line options tt(--keep-alive,
+--terminate) and tt(--rerun) expect a suffix as their argument. See chapter
+ref(USAGE) for details about these command-line options.
+
+    Example showing the default:
+        verb(
+    USE PIDFILE /var/run/stealth-
+        )
 
     it() bf(USE REPORT) tt(<reportfile>)nl()
         bf(REPORT) defines the name of the reportfile. Information is always

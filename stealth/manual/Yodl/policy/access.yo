@@ -9,14 +9,14 @@ available on both computers, with the client running an tt(sshd) daemon.
 
 subsect(The controller's user: creating an ssh-key)
 
-    The user on the controller who will call tt(stealth) to scan the client,
+    The user on the controller who will call bf(stealth) to scan the client,
 now generates an tt(ssh-keypair):
         verb(
     ssh-keygen -t rsh
         )
 This will generate a public/private ssh key pair in tt(.ssh) in the user's
 home directory. The program asks for a em(passphrase) which should, for the
-purpose of tt(stealth) be bf(empty): just pressing tt(Enter) as a response to
+purpose of bf(stealth) be bf(empty): just pressing tt(Enter) as a response to
 the question
         verb(
     Enter passphrase (empty for no passphrase): 

@@ -58,7 +58,7 @@ shell. The command may or may not succeed.
         )
     This command will create tt(/tmp/subdir) on the controller. The command
 will fail if the directory cannot be created, but this will not terminate
-tt(stealth).
+bf(stealth).
 
     it() bf(LOCAL CHECK) [bf(LOG =)] tt(logfile command)
 
@@ -77,17 +77,17 @@ previous check. Processing continues, but remaining checks performed at the
 client computer should be interpreted with em(extreme) caution.
 
     The output of this command is compared to the output of this command
-generated during the previous run of tt(stealth). Any differences are written
+generated during the previous run of bf(stealth). Any differences are written
 to bf(REPORT). 
 
     If differences were found, the existing tt(logfile) name is renamed to
 tt(logfile.YYYYMMDD-HHMMSS), with tt(YYYYMMDD-HHMMSS) the datetime-stamp at
-the time tt(stealth) was run.
+the time bf(stealth) was run.
 
     Over time, many tt(logfile.YYMMDD-HHMMSS) files could be accumulated.
 It is up to the controller's systems manager to decide what to do
 with old datetime-stamped logfiles. For instance, the following script
-will remove  all tt(stealth) reports below the current directory that are
+will remove  all bf(stealth) reports below the current directory that are
 older than 30 days:
         verb(
     #/bin/sh
@@ -132,7 +132,7 @@ subsect(REMOTE commands)
     Plain commands can be executed on the client computer by merely
 specifying them. Of course, this means that programs called
 tt(LABEL), tt(LOCAL) tt(USE) or tt(DEFINE), cannot be executed, since
-these names are interpreted otherwise by tt(stealth). It's unlikely that this
+these names are interpreted otherwise by bf(stealth). It's unlikely that this
 will cause problems. Remote commands must succeed (i.e., their return 
 codes must be 0).
 
@@ -247,15 +247,15 @@ tt(/usr/bin/find) is not interpreted.
         Execute tt(command) on the client, using the bf(SSH) command
 shell. The phrase `bf(LOG =)' is optional. 
 The command must succeed. The output of this command is compared to the
-output of this command generated during the previous run of tt(stealth). Any
+output of this command generated during the previous run of bf(stealth). Any
 differences are written to bf(REPORT). If differences were found, the existing
 tt(logfile) name is renamed to tt(logfile.YYYYMMDD-HHMMSS), with
-tt(YYYYMMDD-HHMMSS) the datetime-stamp at the time tt(stealth) was run.
+tt(YYYYMMDD-HHMMSS) the datetime-stamp at the time bf(stealth) was run.
 
     Note that the command is executed on the client, but the logfile is kept
 on the controller. This command represents the core of the method implemented
-by tt(stealth): there will be no residues of the actions performed by
-tt(stealth) on the client computers.
+by bf(stealth): there will be no residues of the actions performed by
+bf(stealth) on the client computers.
 
     Several examples (note the use of the backslash as line continuation
 characters):
@@ -296,7 +296,7 @@ identically as the bf(CHECK ...) command, discussed previously.
         )
     The MD5 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/md5.root). tt(stealth) will
+listing is written on the file bf(BASE)tt(/remote/md5.root). bf(stealth) will
 not terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
     )
 

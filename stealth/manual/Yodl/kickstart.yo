@@ -1,9 +1,9 @@
 
-Here are the steps to take to kick start tt(stealth)
+Here are the steps to take to kick start bf(stealth)
     itemization(
     it() Unpack tt(stealth-V.VV.tar.gz): tt(tar xzvf tealth-V.VV.tar.gz)
     it() tt(cd stealth-V.VV)
-    it() Accept the provided tt(stealth) program (and skip to the next step),
+    it() Accept the provided bf(stealth) program (and skip to the next step),
 or start tt(./plain).
 
         This assumes that tt(g++-3.2) is available. If not: install it first,
@@ -36,5 +36,5 @@ initialize the report for:
 
     The mail-report is written on tt(/tmp/stealth-V.VV.mail)
 
-    Now change or add or remove one of these files, and rerun tt(stealth). The
+    Now change or add or remove one of these files, and rerun bf(stealth). The
 file tt(/tmp/stealth-V.VV.mail) should reflect these changes.

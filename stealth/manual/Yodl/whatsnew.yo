@@ -1,0 +1,19 @@
+    The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
+added to bf(stealth) to keep the bf(ssh) link to the client open, thus
+minimizing the number of bf(sshd) entries caused by bf(stealth) 
+in the client's log files.
+
+    The tt(USE PIDFILE) specification was added to  bf(stealth) to allow the
+symbolic identification of a running bf(stealth) process rahter than by a
+particular process id.
+
+    The tt(GET) and tt(PUT) commands were implemented allowing the down- and
+upload of files from and to remote hosts from within a running bf(stealth)
+process, without establishing another connection to the remote host (as is the
+case when, e.g., bf(scp)(1) is used.
+
+    It is suggested to use the following bf(USE SSH) specification:
+        verb(
+    USE SSH root@${HOST} -T -q exec /bin/bash --noprofile
+        )
+    with tt(${HOST}) defining the remote host.

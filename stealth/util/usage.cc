@@ -35,22 +35,22 @@ void Util::usage()
                                                 "(natural  number).\n"  <<
         "       -v: (--version): display version information (and "     <<
                                                             "exit).\n"  <<
-        "   --keep-alive: keep running as a daemon, wake up at "        <<
-                                                        "interrupts.\n" <<
-        "   --repeat <seconds>: keep running as a daemon, wake up at"   <<
-                                                        " interrupts\n" <<
-        "                       or after <seconds> seconds.\n"          <<
+        "   --keep-alive <suffix>: keep running as a daemon, wake up"   <<
+                                                   " at interrupts.\n"  <<
+        "   --repeat <seconds>: keep running as a daemon, wake up at\n" <<
+        "           interrupts. or after <seconds> seconds.\n"          <<
+        "           Requires --keep-alive.\n"                           <<
         "   --usage: provide this help (and exit)\n"                    <<
         "   --help: provide this help (and exit)\n"                     <<
         "   policy: path to the policyfile\n"                           <<
         "\n"                                                            <<
         "Usage 2:\n"                                                    <<
-        "   " << stealth << " [--rerun|--terminate] <pid>\n"            <<
+        "   " << stealth << " [--rerun|--terminate] <suffix> policy\n"  <<
         "Where:\n"                                                      <<
-        "   --rerun <pid>: restart the scan of " << stealth             << 
-                                " currently active with pid <pid>.\n"   <<
-        "   --terminate <pid>: terminate stealth running with "         <<
-                                                        "pid <pid>.\n"  <<
+        "   --rerun: restart the scan of " << stealth << "\n"           << 
+        "   --terminate: terminate << stealth << "\n"                   <<
+        "   <suffix>: suffix to use with a PIDFILE.\n"                  <<
+        "   policy: path to the policyfile\n"                           <<
         endl;
 
     ::exit(1);

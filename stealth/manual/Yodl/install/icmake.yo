@@ -1,4 +1,4 @@
-After downloading the tt(Stealth) archive, it should be unpacked. The name of
+After downloading the bf(stealth) archive, it should be unpacked. The name of
 the archive is of the form tt(stealth-V.VV.tar.gz), where tt(V.VV) is a
 version number. Below, tt(V.VV) should be altered into the version of the
 archive that is actually used.
@@ -19,7 +19,7 @@ stored.
         )
     )
 
-    The archive contains a precompiled version of tt(stealth), expecting the
+    The archive contains a precompiled version of bf(stealth), expecting the
 following libraries (displayed by the command tt(ldd -v stealth):
     verb(
         libstdc++.so.5 => /usr/lib/libstdc++.so.5 (0x4001a000)
@@ -56,7 +56,7 @@ following libraries (displayed by the command tt(ldd -v stealth):
                 ld-linux.so.2 (GLIBC_2.0) => /lib/ld-linux.so.2
     )
     
-    Instead of using the precompiled version, tt(stealth) may be compiled from
+    Instead of using the precompiled version, bf(stealth) may be compiled from
 its sources.  The compilation may use either the tt(GNU g++) compiler version
 3.0x or the tt(3.2x) version. Other versions haven't been tested as of this
 writing.  At least one of these compilers must have been installed.
@@ -87,7 +87,7 @@ compiler should be used:
 // COPT: the set of C-options
 #define COPT "-mcpu=i486 -Wall"
         )
-    If tt(DEBUG) is requested (producing em(lots) of output when tt(stealth)
+    If tt(DEBUG) is requested (producing em(lots) of output when bf(stealth)
 is started using the tt(-d) command-line flag), then add the tt(-DDEBUG) flag
 here:
         verb(
@@ -101,7 +101,7 @@ the compilation. There should be no warnings.
     ./build
         )
     )
-    This completes the compilation. The program is called tt(stealth), and is
+    This completes the compilation. The program is called bf(stealth), and is
 found in the same directory as the tt(build) script.
 
 

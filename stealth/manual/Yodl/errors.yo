@@ -39,7 +39,7 @@ the file exists, and if you have read permissions for it.
 
     tt(ConfigSorter file processed)
     quote(In this case, the tt(-c) option has been given. When tt(-c) was
-provided, tt(stealth) stops after having processed the configuration file.
+provided, bf(stealth) stops after having processed the configuration file.
     )
 
     tt(Corrupt line in policy file: ...)

@@ -56,7 +56,7 @@ int main(int argc, char **argv)
         ConfigSorter sorter(configfile);
 
                                         // handle process control options
-        Util::processControlOptions(sorter["RUNBASE"]);  
+        Util::processControlOptions(sorter["PIDFILE"]);  
 
         Scanner scanner(sorter);        // Construct the integrityscanner
 
