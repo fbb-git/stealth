@@ -16,6 +16,12 @@
 #define _SYSINC_IOS_
 #endif
 
+// TEMPORARILY
+#ifndef _SYSINC_IOSTREAM_
+#include <iostream>
+#define _SYSINC_IOSTREAM_
+#endif
+
 namespace FBB
 {    
     class ofdnstreambuf: public std::streambuf

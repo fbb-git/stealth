@@ -7,8 +7,8 @@
    $Id$
 
    $Log$
-   Revision 1.1  2003/06/20 18:38:28  frank
-   Initial revision
+   Revision 1.2  2003/06/20 18:58:14  frank
+   Changes are recorded in stealth/debian/changelog
 
 */
 

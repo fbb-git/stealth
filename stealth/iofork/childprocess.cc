@@ -8,7 +8,7 @@ void IOFork::childProcess()
     argv = split(vs);                                   // split commandline
 
 #ifdef DEBUG
-    if (Arg().option('d'))
+    if (Arg::getInstance().option('d'))
         for (char const **it = argv; *it; it++)
             cerr << "childProcess arg: " << *it << endl;
 #endif

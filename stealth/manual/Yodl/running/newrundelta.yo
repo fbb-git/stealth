@@ -17,8 +17,7 @@ files:
     it() 
 The following new info is now added to file tt(/root/client/report):
         verb(
-    STEALTH (0.90) started at Mon Oct 28 11:28:43 2002
-    
+    STEALTH (1.21) started at Mon Nov 24 10:54:35 2003
     
     configuration files under /etc
     ADDED: /etc/motd.org
@@ -98,8 +97,7 @@ as their results might easily be currupted. Checks em(will) proceed, but a
 warning is generated on the tt(report) file (and in the mail sent to
 tt(admin@elsewhere): 
         verb(
-STEALTH (0.90) started at Mon Oct 28 11:57:07 2002
-
+STEALTH (1.21) started at Mon Nov 24 10:54:35 2003
 
 Check the client's md5sum program
 MODIFIED: /root/tmp/md5sum

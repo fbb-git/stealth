@@ -7,7 +7,9 @@ void Scanner::doPlainCommand(IOFork &child)
 
     if (!Arg::getInstance().option('n'))    // unless -n (no execute commands)
     {
-        nextCommand(child.out());           // start the next command
+        nextCommand(child.out(),            // start the next command
+                        d_firstWord[0]);    
+
         waitForSentinel(child.in());        // read its output
     }
 }

@@ -13,7 +13,7 @@ initialize the reports. Running tt(stealth) this way for the just constructed
 tt(policy) file results in the following output (lines were wrapped to improve
 readability):
         verb(
-    LOCAL /usr/bin/scp -q root@client:/usr/bin/md5sum /root/tmp
+    GET /usr/bin/md5sum /root/tmp
     LABEL \nCheck the client's md5sum program
     LOCAL CHECK LOG = local/md5 /usr/bin/md5sum /root/tmp/md5sum
     LABEL \nchecking the client's /usr/bin/find program
@@ -53,9 +53,8 @@ The tt(/root/bin/stealthmail) is called with the following arguments:
 The contents of the mailed report now is (the date will of course change, the
 next time tt(stealth) is run):
         verb(
-    STEALTH (0.90) started at Mon Oct 28 10:52:45 2002
-    
-    
+    STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
+        
     Check the client's md5sum program
     Initialized report on local/md5
     
@@ -132,8 +131,8 @@ the systems administrator at `controller').
 
     This file contains the following:
         verb(
-    STEALTH (0.90) started at Mon Oct 28 10:52:45 2002
-    
+    STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
+
     Check the client's md5sum program
     Initialized report on local/md5
     

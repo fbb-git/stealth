@@ -48,6 +48,7 @@ namespace FBB
             void mailReport();
 
         private:
+                            // copy a textfile
             void        copy(std::istream &src, std::string const &fname);
 
                                         // executes a command, and compares
@@ -64,18 +65,32 @@ namespace FBB
                                         // execute the command from d_sorter
             void        execute(std::string const &command);    
 
+                                        // get a remote file
+            void        get(std::string const &command);
+
                                         // execute a local command
             void        local(std::string const &command);
 
                                         // start the nextCommand, including
                                         // echo $? to obtain the resultcode
-            void        nextCommand(std::ostream &inserter);
+            void        nextCommand(std::ostream &inserter, 
+                                    std::string const &command);
 
                                         // returns true if the contents of the
                                         // `current' logfile and `logfile'
                                         // don't differ.
             bool        noDifferences(std::string const &current,
                                       std::string const &logfile);
+
+                                        // put a local file to the client
+            void        put(std::string const &command);
+
+                                        // construct put-dd command
+            std::string putCommand(std::string const &source, 
+                                    std::string const &destination) const;
+
+                                        // copy any file
+            void        read(std::istream &src, std::string const &fname);
 
                                         // execute a remote command
             void        remote(std::string const &command);
@@ -100,15 +115,11 @@ namespace FBB
                                         // wait for the sentinel and exitvalue
             void        waitForSentinel(std::istream &extractor);
 
+                                        // write any file to the client
+            void        write(std::string const &fname);
+
             void        removeLOG();    // remove LOG = from current command
     };
 
 }
 #endif
-
-
-
-
-
-
-
