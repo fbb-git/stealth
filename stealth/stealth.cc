@@ -16,7 +16,7 @@ static Arg::LongOption longOpt_begin[] =
     Arg::LongOption("run-command", 'r'),
     Arg::LongOption("version", 'v'),
 
-    Arg::LongOption("keep-alive", Arg::None),      
+    Arg::LongOption("keep-alive", Arg::Required),      
     Arg::LongOption("repeat", Arg::Required),
     Arg::LongOption("rerun", Arg::Required),
     Arg::LongOption("terminate", Arg::Required),
@@ -44,18 +44,19 @@ int main(int argc, char **argv)
                                         // everwhere using Arg()
         Arg &arg = Arg::getInstance();
 
-        Util::processControlOptions();  // handle process control options
-
         ConfigFile configfile(arg[0]);  // ConfigFile object reads
                                         // configuration file 
 
         if (!configfile)                // No configfile, then show message
-            Util::exit(1, "Can't read `%s'", arg[0]);
+            Util::exit(1, "Can't read configuration file `%s'", arg[0]);
 
                                         // ConfigSorter sorts the 
                                         // configuration file. Separates
                                         // USEs, DEFINEs and commands.
         ConfigSorter sorter(configfile);
+
+                                        // handle process control options
+        Util::processControlOptions(sorter["RUNBASE"]);  
 
         Scanner scanner(sorter);        // Construct the integrityscanner
 
@@ -79,6 +80,7 @@ int main(int argc, char **argv)
     }
     
     Scanner::killChildren();
+    Util::unlinkRunfile();
 
     return 0;
 }
