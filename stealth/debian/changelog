@@ -1,3 +1,13 @@
+stealth (1.30-1) unstable; urgency=low
+
+  * --keep-alive, --terminate and --rerun require the name of a file in which 
+    the process id of the running stealth process is stored. This file will be
+    writen when the --keep-alive flag is used, read by the other two and
+    removed by the corresponding stealth process when it terminates. Manpages
+    and docs updated accordingly.
+
+ -- Frank B. Brokken <frank@oostum.north>  Wed, 17 Dec 2003 09:21:11 +0100
+
 stealth (1.30) unstable; urgency=low
 
   * --terminate, --rerun, --repeat and --keep-alive flags were added to allow

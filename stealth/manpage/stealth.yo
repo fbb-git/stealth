@@ -112,15 +112,15 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     startit()
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by @PROGRAM.
-    it() If the command-line option tt(--keep-alive pidfile) @PROGRAM will run
-as a backgrond process, writing its process id in the file tt(pifile).  With
-tt(--repeat <seconds>) the scan will be rerun every tt(<seconds>) seconds. The
-number of seconds until the next rerun will be at least 60. However, using the
-tt(--rerun pidfile) option a background @PROGRAM process may always be forced
-into its next scan. When tt(--keep-alive) is specified the scan will be
-performed just once, whereafter bf(PROGRAM) will wait until it is reactivated
-by another run of @PROGRAM, called using the tt(--rerun pidfile) command-line
-option.
+    it() If the command-line option tt(--keep-alive pidfile) is specified,
+@PROGRAM will run as a backgrond process, writing its process id in the file
+tt(pifile).  With tt(--repeat <seconds>) the scan will be rerun every
+tt(<seconds>) seconds. The number of seconds until the next rerun will be at
+least 60. However, using the tt(--rerun pidfile) option a background @PROGRAM
+process may always be forced into its next scan. When tt(--keep-alive) is
+specified the scan will be performed just once, whereafter bf(PROGRAM) will
+wait until it is reactivated by another run of @PROGRAM, called using the
+tt(--rerun pidfile) command-line option.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
