@@ -100,7 +100,11 @@ void main()
 {
     list all;
 
-    chdir("manual/Yodl");
+    chdir("manual");
+
+    system("mkdir -p html LaTeX pdf ps text");
+
+    chdir("Yodl");
 
     all = makelist("*") + makelist("*/*");
     chdir("..");
