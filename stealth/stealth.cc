@@ -87,11 +87,13 @@ int main(int argc, char **argv)
                                 "fork() system call.");
 
             if (pid > 0)        // parent process gets child pid
-                Util::exit(0, "Stealth: pid = %u", pid);
+            {
+                cout << "Stealth: pid = " << pid << endl;
+                ::exit(0);
+            }
 
             signal(SIGHUP, Util::handleRerun);
             signal(SIGTERM, Util::handleTerminate);
-
         }
 
         scanner.preamble();             // make a test-connection to
