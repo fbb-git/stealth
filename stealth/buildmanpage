@@ -1,0 +1,16 @@
+#!/usr/bin/icmake -qt/tmp/stealthman
+
+void main()
+{
+    int idx;
+
+    chdir("manpage");
+
+    if ("stealth.yo" younger "stealth.1")
+    {
+        system("yodl2man stealth");
+        system("mv stealth.man stealth.1");
+    }
+    printf("OK: man\n");
+    exit(0);
+}
