@@ -1,3 +1,11 @@
+stealth (1.30) unstable; urgency=low
+
+  * --terminate, --rerun, --repeat and --keep-alive flags were added to allow
+    stealth to keep an existing connection for longer periods of
+    time. Manpages and docs updated accordingly
+
+ -- Frank B. Brokken <frank@oostum.north>  Fri, 12 Dec 2003 12:45:45 +0100
+
 stealth (1.22-0) unstable; urgency=low
 
   * Added GET and PUT. Put allows stealth to put files to the client using

@@ -21,7 +21,7 @@ SUBST(@DISTRIBUTION)    (stealth-X.YY.tar.gz)
 SUBST(@SHORTDESC)       (Stealthy File Integrity Scanner)
 SUBST(@SYNOPSYS)(
         @PROGRAM  -dcnoq -i <interval> -r <nr> nl()
-                    [--keep-alive | --repeat <seconds> ]  policy
+                    [--keep-alive | --repeat <seconds> ]  policy nl()
         @PROGRAM  [--rerun | --terminate] <pid> 
 )
 SUBST(@OPTIONS)(
@@ -59,10 +59,8 @@ equivalents, if available. Either can be used.
     it() tt(policy): path to the policyfile;
     endit()
 )
-
 SUBST(@DESCRIPTION)(
     The name of the @PROGRAM program is an acronym of:
-
     bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
 
     @PROGRAM is based on an idea by em(Hans Gankema) and em(Kees Visser), both
@@ -115,7 +113,7 @@ performed, and the values of several variables that are used by @PROGRAM.
 is given, @PROGRAM will run as a backgrond process, displaying the process ID
 of the background process. With tt(--repeat <seconds>) the scan will be rerun
 every tt(<seconds>) seconds. The number of seconds until the next rerun will
-be at least 60. However, using the tt(--rerun) option a background @PROGRAM)
+be at least 60. However, using the tt(--rerun) option a background @PROGRAM
 process may always be goated into its next scan. When tt(--keep-alive) is
 specified the scan will be performed just once, whereafter bf(PROGRAM) will
 wait until it is reactivated by another run of @PROGRAM, called using the
@@ -246,7 +244,6 @@ single quotes to define elements containing blanks. Use tt(\") to use a double
 quote in a string that is itself delimted by double quotes, use tt(\') to use
 a single quote in a string that is itself delimted by single quotes. 
 
-
     it() bf(USE REPORT) tt(<reportfile>)nl()
         bf(REPORT) defines the name of the reportfile. Information is always
 appended to this file. For each run of @PROGRAM a em(time marker line) is
@@ -279,10 +276,12 @@ standard output. One way to accomplish that is for force the execution of
 tt(/bin/sh) in the bf(USE SSH) specification. 
     Examples:
         verb(
-    USE SSH root@client -T -q                   # root's shell is /bin/sh)
-    USE SSH root@client -T -q exec /bin/bash    # root uses another shell
-                                                # an alternativ:
-    USE SSH root@client -T -q exec /bin/bash --noprofile 
+    # root's shell is /bin/sh:
+        USE SSH root@client -T -q    
+    # root uses another shell
+        USE SSH root@client -T -q exec /bin/bash    
+    # an alternative:
+        USE SSH root@client -T -q exec /bin/bash --noprofile 
         )    
     endit()
 
@@ -536,12 +535,12 @@ tt(NOTEST CHECK LOG = remote/md5.root \)nl()
 tt(    /usr/bin/find / \)nl()
 tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
 
+
     The MD5 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
 listing is written on the file bf(BASE)tt(/remote/md5.root). @PROGRAM will not
 terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
-    endit()
-   
+    endit()   
 )
 SUBST(@FILES)(
       tt(policy);nl()
@@ -564,10 +563,13 @@ SUBST(@COPYRIGHT)(
     This is free software, distributed under the terms of the GNU General
     Public License. Copyright remains with the author. The `official'
 distribution of @PROGRAM is found at:nl()
-tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This distribution and
+tt(ftp.rug.nl/contrib/frank/software/linux/stealth). 
+    COMMENT(
+    This distribution and
 tt(tar.gz)-distributions retrieved elsewhere should have an md5sum equal to
 the PGP-signed md5sum published at:nl()
     tt(www.rug.nl/rc -> Security -> STEALTH)
+    END COMMENT)
 )
 COMMENT(Do not modify from here)
 INCLUDEFILE(/usr/local/share/makemanpage/executables.1/pagedef.yo)

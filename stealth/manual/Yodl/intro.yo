@@ -43,7 +43,7 @@ is given, tt(Stealth) will run as a backgrond process, displaying the process
 ID of the background process. With tt(--repeat <seconds>) the scan will be
 rerun every tt(<seconds>) seconds. The number of seconds until the next rerun
 will be at least 60. However, using the tt(--rerun) option a background
-tt(Stealth)) process may always be goated into its next scan. When
+tt(Stealth) process may always be goated into its next scan. When
 tt(--keep-alive) is specified the scan will be performed just once, whereafter
 tt(Stealth) will wait until it is reactivated by another run of tt(Stealth),
 called using the tt(--rerun <pid>) command-line option.
