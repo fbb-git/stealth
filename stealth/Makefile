@@ -23,7 +23,7 @@ cleanmanpage:
 	rm -f manpage/stealth.1
 
 cleanmanual:
-	rm -rf manual/{LaTeX,html,pdf,ps,text}
+	rm -rf manual/{LaTeX,html,pdf,ps,text}/[a-z]*
 
 
 
