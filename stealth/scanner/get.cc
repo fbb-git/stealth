@@ -19,9 +19,18 @@ void Scanner::get(string const &cmd)
 
 
     string source = d_firstWord[1];                 // get the (remote) source
-    removeFirstWord(source.c_str());
+
+    if (!source.length())
+        Util::exit(1, "GET command requires source and destination");
+            
+
+    d_firstWord.match(d_firstWord[3]);              // strip off source
     string destination = d_firstWord[1];            // get the local dest.
 
+    if (!destination.length())
+        Util::exit(1, "At `GET %s <destination>': destination missing", 
+                                    source.c_str());
+            
     if (Util::isDirectory(destination))             // is the dest. a dir. ?
         destination += "/" + Util::fileName(source); 
 
