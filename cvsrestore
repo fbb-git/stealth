@@ -1,5 +1,0 @@
-#!/bin/sh
-
-[ ! -s cvs.zip ] && echo "No cvs.zip. Run cvsremove first ?" && exit 1
-unzip -x cvs.zip
-[ $? == 0 ] && rm cvs.zip
