@@ -20,7 +20,9 @@ SUBST(@DISTRIBUTION)    (stealth-X.YY.tar.gz)
 
 SUBST(@SHORTDESC)       (Stealthy File Integrity Scanner)
 SUBST(@SYNOPSYS)(
-        @PROGRAM  -dcnoq -i <interval> -r <nr> policy
+        @PROGRAM  -dcnoq -i <interval> -r <nr> nl()
+                    [--keep-alive | --repeat <seconds> ]  policy
+        @PROGRAM  [--rerun | --terminate] <pid> 
 )
 SUBST(@OPTIONS)(
     Long options are given immediately following the short-option
@@ -46,11 +48,18 @@ equivalents, if available. Either can be used.
     it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
             Command numbers are shown by @PROGRAM tt(-c);
     it() tt(-v --version): Display version information and exit;
+    it() tt(--keep-alive): Keep running as a daemon, wake up at interrupts.
+    it() tt(--repeat <seconds>): keep running as a daemon, wake up at
+            interrupts or after <seconds> seconds.
+    it() tt(--rerun <pid>): restart the scan of stealth currently active 
+            with pid tt(<pid>);
+    it() tt(--terminate <pid>): terminate stealth running with pid <pid>;
     it() tt(--usage): Display help information and exit;
     it() tt(--help): Display help information and exit;
     it() tt(policy): path to the policyfile;
     endit()
 )
+
 SUBST(@DESCRIPTION)(
     The name of the @PROGRAM program is an acronym of:
 
@@ -61,9 +70,9 @@ at the Computing Center of the University of Groningen. em(Hopko Meijering)
 provided valuable suggestions for improvement.
 
     @PROGRAM's main task is to perform file integrity tests. However, the
-testing will leave no sediments on the tested computer. Therefore, @PROGRAM
-has em(stealthy) characteristics. I consider this an important security
-improving feature of @PROGRAM.
+testing itself will leave no sediments on the tested computer. Therefore,
+@PROGRAM has em(stealthy) characteristics. I consider this an important
+security improving feature of @PROGRAM.
 
     On the other hand one should realize that @PROGRAM intends to be just
 another security tool: other security measures like firewalls, portscanners,
@@ -98,14 +107,23 @@ controller by anyone who gains (root)-access).
 bf(SSH) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
-    Here is what happens when @PROGRAM is run:
+    Here is what happens when @PROGRAM is run using the first synopsis:
     startit()
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by @PROGRAM.
+    it() If the command-line option tt(--keep-alive) or tt(--repeat <seconds>)
+is given, @PROGRAM will run as a backgrond process, displaying the process ID
+of the background process. With tt(--repeat <seconds>) the scan will be rerun
+every tt(<seconds>) seconds. The number of seconds until the next rerun will
+be at least 60. However, using the tt(--rerun) option a background @PROGRAM)
+process may always be goated into its next scan. When tt(--keep-alive) is
+specified the scan will be performed just once, whereafter bf(PROGRAM) will
+wait until it is reactivated by another run of @PROGRAM, called using the
+tt(--rerun <pid>) command-line option.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
-of appearance. Examples are given below. Noramlly, return values of the
+of appearance. Examples are given below. Normally, return values of the
 programs are  tested. Non-zero return values will terminate @PROGRAM
 prematurely.
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
@@ -123,6 +141,25 @@ further (human) processing. Usually this will be the systems manager of the
 tested client. @PROGRAM follows the `dark cockpit' approach in that no mail is
 sent when no changes were detected.
     endit()
+
+    Here is what happens when @PROGRAM is run using the second synopsis:
+    startit()
+    it() When started using the tt(--terminate <pid>) command-line option, the
+stealth process running at process-ID tt(<pid>) is terminated. Note that no
+check is performed as to whether the process associated with tt(<pid>) is
+truly a bf(PROGRAM) process. It is the responsibility of the user to make sure
+that the process-ID of the intended process is specified.
+    it() When started using the tt(--rerun <pid>) command-line option, the
+stealth process running at process-ID tt(<pid>) will perform another
+scan. Again, no check is performed as to whether the process associated with
+tt(<pid>) is truly a bf(PROGRAM) process. It is the responsibility of the user
+to make sure that the process-ID of the intended process is specified.
+    endit()
+
+    The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
+added to bf(STEALTH) to keep the bf(ssh) link to the client open, thus
+minimizing the number of bf(sshd) entries caused by bf(PROGRAM) 
+in the client's log files.
 
     nsect(THE POLICY FILE)
 
