@@ -19,10 +19,12 @@ void Scanner::get(string const &cmd)
 
 
     string source = d_firstWord[1];                 // get the (remote) source
-    string destination = d_firstWord[2];            // get the local dest.
+    removeFirstWord(source.c_str());
+    string destination = d_firstWord[1];            // get the local dest.
 
     if (Util::isDirectory(destination))             // is the dest. a dir. ?
         destination += "/" + Util::fileName(source); 
+
 
     if (d_debug)
         cerr << "Scanner::get(): scp <client>:" << source << " " << 
