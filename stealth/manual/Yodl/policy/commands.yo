@@ -217,6 +217,7 @@ executed, even if the copying process wasn't successful.
 
     Other commands to be executed on the client can be specified as follows:
 
+    itemization(
     it() tt(command)
 
         Execute `tt(command)' on the client, using the bf(SSH) command
@@ -298,3 +299,4 @@ the root-directory (/) on the client computer are determined.  The resulting
 listing is written on the file bf(BASE)tt(/remote/md5.root). tt(stealth) will
 not terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
     )
+

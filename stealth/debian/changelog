@@ -1,3 +1,10 @@
+stealth (1.22-0) unstable; urgency=low
+
+  * Added GET and PUT. Put allows stealth to put files to the client using
+    the existing ssh connection.
+
+ -- Frank B. Brokken <frank@oostum.north>  Wed, 26 Nov 2003 21:25:02 +0100
+
 stealth (1.21-0) unstable; urgency=low
 
   * Added the GET command, allowing stealth to retrieve files from the client
