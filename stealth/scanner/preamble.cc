@@ -2,6 +2,8 @@
 
 void Scanner::preamble()
 {
+    atexit(killChildren);
+
     d_sshFork.fork();          // start the ssh connection
     d_shFork.fork();           // start the sh-connection to the localhost
 

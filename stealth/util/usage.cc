@@ -13,7 +13,7 @@ void Util::usage()
                                               "Trusted Host " << endl <<
             "Copyright (c) GPL " << year << "\n" <<
             "\n" <<
-            "Usage:\n" <<
+            "Usage 1:\n" <<
             "   " << stealth << " options policy\n" <<
             "Where:\n" <<
             "   options: (long options between parentheses) select from:\n" <<
@@ -36,9 +36,19 @@ void Util::usage()
                                                     "(natural  number).\n" <<
             "       -v: (--version): display version information (and " <<
                                                                 "exit).\n" <<
+            "   --keep-alive: keep running as a daemon, wake up at " <<
+                                                            "interrupts.\n" <<
+            "   --repeat <seconds>: keep running as a daemon, wake up at " <<
+            "                       interrupts or after <seconds> " <<
+                                                                "seconds.\n"<<
             "   --usage: provide this help (and exit)\n" <<
             "   --help: provide this help (and exit)\n" <<
             "   policy: path to the policyfile\n" <<
+            "Usage 2:\n" <<
+            "   " << stealth << " [--rerun|--terminate] <pid>\n" <<
+            "Where:\n" <<
+            "   <pid>: process ID of " << stealth << 
+                                    " process to rerun or to terminate.\n" <<
             endl;
     ::exit(1);
 }

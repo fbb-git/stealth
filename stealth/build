@@ -37,6 +37,7 @@ void setClasses()
                 " fork ifdnbuf fdout"
                 " scanner"
                 " iofork"
+                " selector"
                 ;
 }
 

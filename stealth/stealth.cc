@@ -8,14 +8,18 @@
 static Arg::LongOption longOpt_begin[] =
 {
     Arg::LongOption("debug", 'd'),
-    Arg::LongOption("version", 'v'),
     Arg::LongOption("no-child-processes", 'n'),
     Arg::LongOption("only-stdout", 'o'),
     Arg::LongOption("parse-config-file", 'c'),
+    Arg::LongOption("quiet", 'q'),
     Arg::LongOption("random-interval", 'i'),
     Arg::LongOption("run-command", 'r'),
-    Arg::LongOption("quiet", 'q'),
+    Arg::LongOption("version", 'v'),
 
+    Arg::LongOption("keep-alive", Arg::None),      
+    Arg::LongOption("repeat", Arg::Required),
+    Arg::LongOption("rerun", Arg::Required),
+    Arg::LongOption("terminate", Arg::Required),
     
     Arg::LongOption("usage"),
     Arg::LongOption("help"),
@@ -42,7 +46,9 @@ int main(int argc, char **argv)
         if (arg.option('v'))
             Util::showVersion();                
 
-        if 
+        Util::processControlOptions();  // handle process control options
+
+        if
         (
             !arg.nArgs()                // provide usage if no arguments
             ||
@@ -72,18 +78,43 @@ int main(int argc, char **argv)
         string enter;
         if (arg.option('d'))  getline(cin, enter);
 #endif
-    
+
+        if (Util::keepAlive())
+        {
+            int pid = fork();
+            if (pid < 0)
+                Util::exit(1, "--keepalive / --rerun failed due to failing "
+                                "fork() system call.");
+
+            if (pid > 0)        // parent process gets child pid
+                Util::exit(0, "Stealth: pid = %u", pid);
+
+            signal(SIGHUP, Util::handleRerun);
+            signal(SIGTERM, Util::handleTerminate);
+
+        }
+
         scanner.preamble();             // make a test-connection to
                                         // the remote computer
-        scanner.run();                  // run all tests
+        do
+        {
+            Util::setAlarm();
 
-        scanner.mailReport();           // mail the report
+            scanner.run();              // run all tests
+            scanner.mailReport();       // mail the report
+
+            Util::wait();
+        }
+        while (Util::keepAlive());
+
     }
     catch (Errno const &err)
     {
         cerr << err.what() << ": " << err.why() << endl;
         return 1;
     }
+    
+    Scanner::killChildren();
 
     return 0;
 }

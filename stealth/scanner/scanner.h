@@ -1,25 +1,10 @@
 #ifndef _INCLUDED_SCANNER_H_
 #define _INCLUDED_SCANNER_H_
 
-#ifndef _SYSINC_STRING_
 #include <string>
-#define _SYSINC_STRING_
-#endif
-
-#ifndef _SYSINC_VECTOR_
 #include <vector>
-#define _SYSINC_VECTOR_
-#endif
-
-#ifndef _SYSINC_IOSFWD_
 #include <iosfwd>
-#define _SYSINC_IOSFWD_
-#endif
-
-#ifndef _INCLUDED_IOFORK_H_
 #include "../iofork/iofork.h"
-#endif
-
 
 namespace FBB
 {
@@ -47,7 +32,9 @@ namespace FBB
             void run();
             void mailReport();
 
+            static void killChildren();
         private:
+
                             // copy a textfile
             void        copy(std::istream &src, std::string const &fname);
 
