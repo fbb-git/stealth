@@ -7,7 +7,7 @@ bool Scanner::doCHECKcommand(IOFork &child)
     string logfile = d_firstWord[1];    // CHECK keywords are followed by 
                                         // the name of a logfile
 
-    d_firstWord.match(d_firstWord[2]);  // redefine d_firstWord: 1st word
+    d_firstWord.match(d_firstWord[3]);  // redefine d_firstWord: 1st word
                                         // removed 
 
     if (d_debug)

@@ -15,7 +15,7 @@ void Scanner::get(string const &cmd)
 
     // at this point we have the remote-file and the local-file in the
     // command. d_firstword[1] contains the remote filename,
-    //          d_firstword[2] contains the rest    
+    //          d_firstword[3] contains the rest    
 
 
     string source = d_firstWord[1];                 // get the (remote) source
