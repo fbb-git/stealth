@@ -3,6 +3,6 @@
 void Util::wait()
 {
     s_selector.wait();
-    if (!s_selector.nReady())           // to allow s_keepAlive to change its
-        sleep(1);                       // value
+    sleep(1);                           // to allow s_keepAlive to change its
+                                        // value
 }
