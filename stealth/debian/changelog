@@ -1,3 +1,28 @@
+stealth (1.30-2a) unstable; urgency=low
+
+  * Stupid: forgot to update the program's version itself :-( 
+    Now it's 1.30-2a
+
+ -- Frank B. Brokken <frank@oostum.north>  Tue, 27 Apr 2004 17:56:54 +0200
+
+stealth (1.30-2) unstable; urgency=low
+
+  * Repaired bug in Scanner::Scanner():
+    The process-id's of the SH and SSH programs were assigned before
+    IOFORK::fork() was executed, so they received undefined values. This was
+    repaired by assigning the d_shPid and d_sshPid assignments to the
+    Scanner::preamble() function.
+
+    Also, the call to killChildren() at the end of stealth's main() function
+    (in stealth.cc) was superfluous, as the atexit() call in preamble already
+    ensures that the childprocesses are called.
+
+    Finally, the Yodl manual files are adapted to Yodl V. >= 2.00. The
+    /usr/local/share/yodl/macros.yo file isn't required anymore, and the
+    XXsloppyhfuzz undefinition was changed into a call of nosloppyhfuzz().
+
+ -- Frank B. Brokken <frank@oostum.north>  Tue, 27 Apr 2004 17:39:17 +0200
+
 stealth (1.30-1) unstable; urgency=low
 
   * --keep-alive, --terminate and --rerun require the name of a file in which 

@@ -15,7 +15,7 @@ To create a new debian package:
         dch -v <version>-<revision>
     
     Last run:
-        dch -v 1.30-2
+        dch -v 1.30-2a
 
     Initially:
             (file:///usr/share/doc/maint-guide/
