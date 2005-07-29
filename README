@@ -16,9 +16,13 @@ To create a new debian package:
 
     1. Keep the stealth/ name
     
-    2. Define the next version in stealth/VERSION
+    2. SKIP this item if the changelog has already been written, and a small 
+        item was overlooked and the version wasn't tagged yet. Once it is
+        tagged, this item MUST be executed as well:
 
-       THEN (upgrade the version for each new distribution):
+        Define the next version in stealth/VERSION
+
+        THEN (upgrade the version for each new distribution):
 
             cd stealth/debian
             dch -v [version just set in VERSION]
