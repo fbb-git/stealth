@@ -145,7 +145,7 @@ intended program.
 
     Two special remote commands are tt(GET) and tt(PUT), which can be used to
 copy files between the client and the controller.  Internally, tt(GET) and
-t(PUT) use the tt(DD) use-specification. If a non-default specification is
+tt(PUT) use the tt(DD) use-specification. If a non-default specification is
 used, one should ensure that the alternate program accepts bf(dd)(1)'s tt(if=,
 of=, bs=) and tt(count=) options. With tt(GET) the options tt(bs=, count=) and
 tt(of=) are used, with tt(PUT) the options tt(bs=, count=) and tt(if=) are

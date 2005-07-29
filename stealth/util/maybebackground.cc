@@ -15,17 +15,13 @@ void Util::maybeBackground()
             exit(1, "--keepalive failed due to failing "
                             "fork() system call.");
 
-        if (pid > 0)        // parent process gets child pid
+        if (pid > 0)        // parent process (gets child pid)
         {
             out << pid << endl;
-            ::exit(0);
+            throw OK;       // ::exit(0);
         }
-
-        atexit(unlinkRunfile);
-
-        signal(SIGHUP, Util::handleRerun);
-        signal(SIGTERM, Util::handleTerminate);
-        signal(SIGUSR1, Util::handleSIGUSR1);
+        s_mainProcess = true;
+//        atexit(unlinkRunfile);
     }
 }
 

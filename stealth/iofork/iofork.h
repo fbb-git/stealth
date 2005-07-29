@@ -25,7 +25,7 @@ namespace FBB
 
         public:
 
-            static void handleTerminatedChild(int signal);
+            static void handleTerminatedChild(int);
 
             std::istream &in()
             {

@@ -12,5 +12,5 @@ void Util::exit(int exitnr, char const *fmt, ...)
 
     vfprintf(stderr, fmt, list);
     cerr << endl;
-    ::exit(1);
+    throw ERROR;    // ::exit(1);
 }

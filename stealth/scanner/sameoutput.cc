@@ -14,7 +14,7 @@ bool Scanner::sameOutput(string const &logfile, istream &extractor)
 
     if (access(logfile.c_str(), R_OK))      // no old report yet
     {
-        if (d_debug)
+        if (Util::debug())
             cerr << "writing new report: " << logfile << "\n";
 
         rename(current.c_str(), logfile.c_str());   // install `logfile'
@@ -31,7 +31,7 @@ bool Scanner::sameOutput(string const &logfile, istream &extractor)
         return true;
     }
 
-    if (d_debug)
+    if (Util::debug())
         cerr << "comparing new integrity scan results to: `" << 
                                                         logfile << "'\n";
 

@@ -1,11 +1,11 @@
 When bf(stealth) is started without arguments, it provides some help about how
 to start it. A message like the following is produced:
         verb(
-stealth by Frank B. Brokken (f.b.brokken@rc.rug.nl)
+stealth by Frank B. Brokken (f.b.brokken@rug.nl)
 
-stealth V1.30
+stealth V1.31
 SSH-based Trust Enhancement Acquired through a Locally Trusted Host
-Copyright (c) GPL 2001-2003
+Copyright (c) GPL 2001-2005
 
 Usage 1:
    stealth options policy
@@ -32,14 +32,16 @@ Where:
    policy: path to the policyfile
 
 Usage 2:
-   stealth [--rerun|--terminate] pidfile
+   stealth [--rerun|--resume|--suppress|--terminate] pidfile
 Where:
-   --rerun: restart the scan of stealth
+   --rerun: restart a stealth integrity scan
+   --resume: resume stealth following --suppress
+   --suppress: suppress stealth activities
    --terminate: terminate stealth
    pidfile: file containing the pid of the stealth process
                                     to rerun or terminate.
-        )
-    Note that with the second usage the policy file is not required: here only
-the tt(pidfile) must be specified.
+    )
+    Note that with the second type of usage the policy file is not required:
+here only the tt(pidfile) must be specified.
 
         

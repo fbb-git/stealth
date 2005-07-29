@@ -1,8 +1,10 @@
 #include "scanner.h2"
 
-void Scanner::run()
+void Scanner::run(volatile bool const *quit)
 {
-    setSentinel();
+    ++d_nScans;
+
+    setSentinel();                              // determine d_sentinel
 
     d_cmdIterator = d_sorter.firstCmd();        // d_cmdIterator is set to
                                                 // the first command. It's a
@@ -25,10 +27,14 @@ void Scanner::run()
                 d_cmdIterator != beyond;
                     d_cmdIterator++
         )
+        {
+            if (*quit)
+                break;
             execute(*d_cmdIterator);
+        }
     }
 
-    if (d_debug)
+    if (Util::debug())
         cerr << "Stealth: policy file processed\n";
 }
 

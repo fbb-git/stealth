@@ -1,5 +1,3 @@
-sect(Construct one or more policy files)
-
 Here we assume that bf(stealth) is run by em(root), and that root wants to
 store information about the host tt(client) under the subdirectory
 tt(/root/stealth/client). 

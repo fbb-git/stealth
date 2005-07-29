@@ -1,5 +1,3 @@
-sect(Running `stealth' for the first time)
-
     When bf(stealth) is now run, it will create its initial report files under
 tt(root/stealth/client).
 

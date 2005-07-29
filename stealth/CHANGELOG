@@ -1,3 +1,15 @@
+1.31
+
+    Added options --suppress and --resume to allow logfile rotations
+        --resume implies a --rerun
+        --terminate can be used following --suppress
+
+    Removed ::exit() and atexit() calls, using exceptions instead.
+
+    Added `Monitor', containing all process-control functions previously 
+        provided by Scanner itself. Scanner now only performs the scanning
+        functions. 
+
 1.20.2 (Debian) and beyond:
 ===========================
 

@@ -15,9 +15,9 @@ void Reporter::reinit()
 
     dout("Reinit next report starts at " << d_sizeAtConstruction);
 
-    *this << endl << endl
-        << "STEALTH (" << Util::getVersion() << ") started at " << 
-                                    Util::date << endl << endl;
+    *this << endl << 
+            "STEALTH (" << Util::getVersion() << ") started at " << 
+            Util::date << endl << endl;
 
     stat(d_name.c_str(), &statbuf);
 

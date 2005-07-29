@@ -1,6 +1,6 @@
 #!/bin/sh
 
-FLAG=""
+FLAG="-O3"
 #FLAG=-DDEBUG
 
 # select one set of the following two defines:
@@ -23,7 +23,7 @@ rm -f libstealth.a
 
 NR=1
 for x in errno arg util configfile configsorter pattern \
-         reporter pipe fork scanner iofork
+         reporter pipe fork scanner iofork control
 do
     run cd $x
     for c in *.cc

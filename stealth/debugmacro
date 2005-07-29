@@ -2,15 +2,14 @@
 #define _DEBUGMACRO_
 
 #ifdef DEBUG
-
-#include <iostream>
-#include <unistd.h>
-#include "arg/arg.h"
-
-#define dout(x) if(FBB::Arg::getInstance().option('d'))std::cerr<<x<<std::endl
+    #include <iostream>
+    #include "util/util.h"
+    
+    #define dout(x) if(Util::debug())std::cerr<<x<<std::endl
+    #define dot()   if(Util::debug())std::cerr<<"."
 #else
-#define dout(x)
+    #define dout(x)
+    #define dot(x)
 #endif
 
 #endif
-

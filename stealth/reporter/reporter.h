@@ -9,12 +9,12 @@ namespace FBB
     {
         static std::string  s_msg;
 
-        unsigned long d_sizeAtConstruction;
-        unsigned long d_sizeBeyondHeader;
-        std::string d_name;
+        unsigned long   d_sizeAtConstruction;
+        unsigned long   d_sizeBeyondHeader;
+        std::string     d_name;
 
         public:
-            Reporter(std::string const &name); // first time
+            Reporter(std::string const &name); 
 
             void reset();           // reset to the position when
                                     // Reporter was constructed or at
@@ -28,9 +28,15 @@ namespace FBB
                         > d_sizeBeyondHeader;
             }
 
+// NEW
+            void relax();           // close the report file, release a 
+                                    // runfile lock
+// NEW
+            void standby();         // obtain a runfile lock, open the report
+                                    // file
+        private:
             void reinit();
 
-        private:
             Reporter(Reporter const &other);            // NI
             Reporter &operator=(Reporter const &other); // NI
     };

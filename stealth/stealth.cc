@@ -16,10 +16,12 @@ static Arg::LongOption longOpt_begin[] =
     Arg::LongOption("run-command", 'r'),
     Arg::LongOption("version", 'v'),
 
-    Arg::LongOption("keep-alive", Arg::Required),      
+    Arg::LongOption("keep-alive", Arg::Required),       // runfilename
+    Arg::LongOption("suppress", Arg::Required),         // runfilename
     Arg::LongOption("repeat", Arg::Required),
     Arg::LongOption("rerun", Arg::Required),
-    Arg::LongOption("terminate", Arg::Required),
+    Arg::LongOption("terminate", Arg::Required),        // runfilename
+    Arg::LongOption("resume", Arg::Required),           // runfilename
     
     Arg::LongOption("usage"),
     Arg::LongOption("help"),
@@ -29,9 +31,8 @@ static Arg::LongOption const * const longOpt_end =
        longOpt_begin + sizeof(longOpt_begin) / sizeof(Arg::LongOption);
     
 int main(int argc, char **argv)
+try
 {
-    signal(SIGCHLD, IOFork::handleTerminatedChild);
-
     try
     {
                                         // construct Arg object to process
@@ -43,7 +44,7 @@ int main(int argc, char **argv)
                                         // Arg is singleton: obtain it
                                         // everwhere using Arg()
         Arg &arg = Arg::getInstance();
-
+        Util::setDebug(arg.option('d'));
 
                                         // handle process control options
         Util::processControlOptions();  
@@ -60,32 +61,41 @@ int main(int argc, char **argv)
                                         // USEs, DEFINEs and commands.
         ConfigSorter sorter(configfile);
 
-        Scanner scanner(sorter);        // Construct the integrityscanner
+        Reporter reporter(sorter["REPORT"]);
+
+        Scanner scanner(sorter, reporter);  // Construct the integrityscanner
 
 #ifdef DEBUG
         dout("SH and SSH childprocesses are now active. Press Enter...");
         string enter;
-        if (arg.option('d'))  getline(cin, enter);
+        if (arg.option('d'))  
+            getline(cin, enter);
 #endif
 
         Util::maybeBackground();        // maybe run Stealth in the background
 
-        scanner.preamble();             // make a test-connection to
-                                        // the remote computer
+                                            // Contruct the process monitor
+        Monitor monitor(sorter, reporter, scanner); 
 
-        scanner.scanLoop();             // run all tests in a loop
+        monitor.control();              // control the scanning process,
+                                        // run all the Scanner's tests
     }
     catch (Errno const &err)
     {
         cerr << err.what() << ": " << err.why() << endl;
-        return 1;
+        throw Util::ERROR; // return 1;
     }
 
-    // Scanner::killChildren();     already realized by atexit() called from
-    //                              Scanner::preamble
-
     Util::unlinkRunfile();
-
     return 0;
 }
+catch (Util::Terminate terminate)
+{
+    if (Util::mainProcess())
+        Scanner::killChildren();
+        
+    return terminate;
+}
+
+
 

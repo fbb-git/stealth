@@ -1,0 +1,75 @@
+When bf(stealth) performs integrity scans it will append information to the
+report file. This file will therefore eventually grow to a large size, and the
+systems manager controlling bf(stealth) might want to em(rotate) the report
+file every once in a while (e.g., using a program like bf(logrotate)(1)). In
+order to ensure that no log-rotation takes place while bf(stealth) is busy
+performing integrity scans (thus modifying the report file) the options
+bf(--suppress) and tt(--resume) were implemented. Both options require the
+process-ID file of currently active bf(stealth) process as their argument.
+
+For example, if a bf(stealth) process was once started using the command
+    COMMENT(KEEP A BLANK FOLLOWING THE BACKSLASH)
+        verb(
+    stealth --keep-alive /var/run/stealth.small --repeat 900 \ 
+                    /var/stealth/policies/small.pol
+        )
+    then the tt(--suppress) and tt(--resume) commands for this process should
+be formulated as:
+        verb(
+    stealth --suppress /var/run/stealth.small
+    stealth --resume /var/run/stealth.small
+        )
+    The bf(stealth) process identified in the files provided as arguments to
+the tt(--suppress) and tt(--resume) options is called the em(targeted stealth
+process) below.
+
+The tt(--suppress) option has the following effect:
+    itemization(
+    it() If the targeted bf(stealth) process is currently processing its
+policy file, performing a (new) integrity scan, then the currently executing
+policy file command is completed, whereafter further commands are ignored,
+except for tt(--resume) (see below) and tt(--terminate).
+    it() Any scheduled integrity scans following the tt(--suppress) command
+are ignored for the targeted bf(stealth) process;
+    it() The targeted bf(stealth) process will write a message that it is
+being suppressed to the report file and will then process the report file as
+usual;
+    it() The targeted bf(stealth) process relinquishes its control over the
+report file;
+    it() The command `bf(stealth) tt(--suppress pidfile)' terminates.
+    )
+    Now that the report file will no longer be affected by the targeted
+bf(stealth) process, log-rotation may take place. E.g., a program like
+bf(logrotate)(1) allows its users to specify a command or script just before
+log-rotation takes place, and `bf(stealth) tt(--suppress pidfile)' could be
+specified nicely in such a pre-rotation section.
+
+The tt(--resume) option has the following effect:
+    itemization(
+    it() The targeted bf(stealth) process resumes its activities by performing
+another integrity scan. Thus, tt(--resume) implies tt(--rerun).
+    it() Any scheduled integrity scans following the tt(--resume) command are
+again honored by the targeted bf(stealth) process, following the completion of
+the tt(--resume) command.
+    it() The command `bf(stealth) tt(--resume pidfile)' terminates.
+    )
+    A program like bf(logrotate)(1) allows its users to specify a command or
+script immediately following log-rotation, and `bf(stealth) tt(--resume
+pidfile)' could be specified nicely in such a post-rotation section.
+
+    Note that, once tt(--suppress) has been issued, all commands except
+tt(--resume) and tt(--terminate) are ignored by the targeted bf(stealth)
+process. While suppressed, the tt(--terminate) command is acknowledged as a
+`emergency exit' which may or may not interfere with, e.g., an ongoing
+log-rotation process. The targeted bf(stealth) process should not normally be
+terminated while it is in its suppressed mode. The normal way to terminate a
+stealth process running in the background is:
+    itemization(
+    it() Wait for the  targeted bf(stealth) process to complete a series of
+integrity scans;
+    it() Issue the `bf(stealth) tt(--terminate pidfile)' command.
+    )
+
+bf(stealth) process 
+be issued while the
+

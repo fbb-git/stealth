@@ -6,7 +6,7 @@
 
 void Scanner::put(string const &cmd)
 {
-    if (d_debug)
+    if (Util::debug())
         cerr << "Scanner::put(): " << cmd << endl;
 
     removeFirstWord("PUT");                         // strip off `PUT'
@@ -33,7 +33,7 @@ void Scanner::put(string const &cmd)
         destination += "/" + Util::fileName(source);// then append sourcename
 
 
-    if (d_debug)
+    if (Util::debug())
         cerr << "Scanner::put(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
@@ -51,7 +51,7 @@ void Scanner::put(string const &cmd)
     
     waitForSentinel(d_sshFork.in());
 
-    if (d_debug)
+    if (Util::debug())
         cerr << "Scanner::put(): " << cmd << " DONE" << endl;
 
 }

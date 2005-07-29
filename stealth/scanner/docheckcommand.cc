@@ -10,7 +10,7 @@ bool Scanner::doCHECKcommand(IOFork &child)
     d_firstWord.match(d_firstWord[3]);  // redefine d_firstWord: 1st word
                                         // removed 
 
-    if (d_debug)
+    if (Util::debug())
         cerr << "running checked command: `" << d_firstWord[0] << "'\n";
 
     if (Arg::getInstance().option('n')) // -n (no go) option?

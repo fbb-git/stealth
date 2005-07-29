@@ -7,38 +7,29 @@ void Util::processControlOptions()
     string value;
                                     // options for other stealth processes
     if (arg.option(&value, "rerun"))
-    {    
-        unsigned pid = getPid(value);
-
-        if (kill(pid, SIGHUP))
-            exit(1, "Can't send SIGHUP to process `%u'", pid);
-
-        ::exit(0);                              // done
-    }
+        signalStealth(SIGHUP, "SIGHUP", value);     // exits
 
     if (arg.option(&value, "terminate"))
-    {    
-        unsigned pid = getPid(value);
+        signalStealth(SIGTERM, "SIGTERM", value);   // exits
 
-        if (kill(pid, SIGTERM))
-            exit(1, "Can't terminate process `%u'", pid);
+    if (arg.option(&value, "suppress"))
+        Util::lock(value);                          // lock locally, let the
+                                                    // integrity wait, exits
+    if (arg.option(&value, "resume"))
+        signalStealth(SIGUSR2, "SIGUSR2", value);   // exits
 
-        ::exit(0);                              // done
-    }
-
-
-    if (arg.option('v'))
-        showVersion();                
+    if (arg.option('v'))                    
+        showVersion();                              // exits
 
     if
     (
         !arg.nArgs()                // provide usage if no arguments
-        ||
+        ||                          // were received
         arg.option(0, "usage") 
         || 
         arg.option(0, "help")
     )
-        usage();                    // were received
+        usage();                                    // exits
 
 
                                                 // options for this process:
@@ -60,11 +51,12 @@ void Util::processControlOptions()
         if (!(in >> s_repeatInterval))          // value 0: wait indefinite
             exit(1, "--repeat requires <seconds> until next run");
 
-        if (s_repeatInterval < 60)
+        if (s_repeatInterval < s_shortestRepeatInterval)
         {
             cerr << "`--repeat " << s_repeatInterval << 
-                    "' changed to: `--repeat 60'\n";
-            s_repeatInterval = 60;
+                    "' changed to: `--repeat " << s_shortestRepeatInterval <<
+                                                                        "'\n";
+            s_repeatInterval = s_shortestRepeatInterval;
         }
         else if (s_repeatInterval > INT_MAX)
             s_repeatInterval = INT_MAX;

@@ -9,10 +9,10 @@ is used.
 
 */
 
-Scanner::Scanner(ConfigSorter &sorter)
+Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 :
     d_sorter(sorter),
-    d_reporter(*new Reporter(sorter["REPORT"])),// ostream
+    d_reporter(reporter),// ostream
     d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")),// firstword ([1]) and 
                                                 // the rest ([3]) of a text
     d_sshFork(d_sorter["SSH"]),                 // child: ignores stderr, reads
@@ -20,7 +20,8 @@ Scanner::Scanner(ConfigSorter &sorter)
                                                 // parent process communicates
                                                 // via the Fork object's 
                                                 // stream interface.
-    d_debug(Arg::getInstance().option('d'))     // debug requested
+    d_nScans(0)
 {
     setSentinel();
 }
+

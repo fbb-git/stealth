@@ -25,4 +25,3 @@ void Scanner::execute(string const &cmd)
         remote(cmd);            
 }
 
-

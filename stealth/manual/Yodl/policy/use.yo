@@ -116,6 +116,48 @@ specification.
     USE REPORT report
         )
 
+    it() bf(USE ROTATE) tt(interval: number interval-name)[,] 
+                        [tt(count: number)][,]
+                        [tt(, zip: number [zip-program-path])]
+
+        bf(ROTATE) defines the parameters  bf(stealth) will use to rotate its
+report file. This bf(USE) specification supports three elements, the first of
+which is obligatory when bf(USE ROTATE) is specified. Note that the square
+brackets are not used in the specification, and indicate optional elements,
+which may or may not be specified:
+        itemization(
+        it() tt(interval: number interval-name) defines the time interval
+until the report file is rotated. Rotation can be specified using an integral,
+positive number, followed by tt(hour) or tt(hours) for hours, tt(day) or
+tt(days) for days, tt(week) or tt(weeks) for weeks and tt(month) or tt(months)
+for months. By default no rotation takes place. If rotation is requested, the
+current report file is moved to the file tt(reportfile)bf(.1), while existing
+numbered reportfiles are moved to higher ordered numbers first (so, before
+moving the current reportfile to tt(reportfile)bf(.1), an existing
+tt(reportfile)bf(.1) is first moved to tt(reportfile)bf(.2), etc.).
+        it() tt(count: number) defines the number of report files bf(stealth)
+will eventually use. By default, if bf(USE ROTATE) is specified, there is no
+practical limit to the number of report files bf(stealth) will create (in
+these cases, another program supposedly controls the number of report files
+that will eventually be used). External programs may freely manipulate all
+report files that have been rotated by bf(stealth), but they should not modify
+the active report file (specified using the bf(USE REPORT) specification).
+        it() tt(zip: number zip-program-path) defines the first of the rotated
+files that should be compressed, using tt(zip-program-path) to compress the
+report files. By default, no compression is used, but if tt(zip:) is
+specified, the default program that will be used to compress a report file is
+bf(/bin/gzip). If another program is used, it should expect a filename as its
+first argument, which will then be zipped to a new file receiving the
+extension bf(.gz), appended to the name that was provided as its first
+argument. The original file is removed during the zipping-process.
+
+    Example showing a report interval of one week, using a total of 12 report
+files, compressing all report files but the actual  report file and its
+predecessor (having filename tt(reportfile)bf(.1)):
+        verb(
+    USE ROTATE interval: 1 week, count: 12, zip: 2 /bin/gzip
+        )
+    )
     it() bf(USE SH) tt(sh-specification)
 
         The bf(SH) specification uses tt(/bin/sh) as default, and defines the
@@ -159,4 +201,3 @@ profile-initialization:
     USE SSH root@localhost -T -q exec /bin/bash --noprofile 
         )    
     )
-    

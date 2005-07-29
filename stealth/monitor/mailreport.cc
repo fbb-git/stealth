@@ -1,12 +1,12 @@
-#include "scanner.h2"
+#include "monitor.ih"
 
-void Scanner::mailReport()
+void Monitor::mailReport()
 {
-    dout("Scanner::mailReport() starts");
+    dout("Monitor::mailReport() starts");
 
     if (!d_reporter.hasText())
     {
-        if (d_debug)
+        if (Util::debug())
             cerr << "no report to mail\n";
         return;
     }
@@ -15,13 +15,13 @@ void Scanner::mailReport()
 
     if (Arg::getInstance().option("o"))     // mail the report to stdout
     {
-        dout("Scanner::mailReport() mails report to stdout");
+        dout("Monitor::mailReport() mails report to stdout");
         cout << d_reporter.rdbuf() << endl;
         return;
     }
 
-    if (d_debug)
-        cerr << "mailing report using: " << d_sorter["MAILER"] << \
+    if (Util::debug())
+        cerr << "mailing report using: " << d_sorter["MAILER"] << 
             " " << d_sorter["MAILARGS"] << " " << d_sorter["EMAIL"] << endl;
 
     // mailcommand subject and email are called as separate arguments
@@ -36,7 +36,7 @@ void Scanner::mailReport()
 
     for (string s; getline(d_reporter, s); )
     {
-        dout("Scanner::mailReport() contains: " << s);
+        dout("Monitor::mailReport() contains: " << s);
         mail.out() << s << endl;
     }
 

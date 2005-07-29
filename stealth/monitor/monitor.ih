@@ -1,18 +1,12 @@
-#include "scanner.h"
+#include "monitor.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <sstream>
-#include <unistd.h>
 #include <signal.h>
-
 #include "../util/util.h"
 #include "../arg/arg.h"
+#include "../iofork/iofork.h"
 #include "../configsorter/configsorter.h"
 #include "../reporter/reporter.h"
-#include "../pattern/pattern.h"
-#include "../hashclasses/hashclasses.h"
+#include "../scanner/scanner.h"
 
 #include "../debugmacro"
 

@@ -1,5 +1,3 @@
-sect(Installing `stealth')
-
 As bf(stealth) is mainly a system administrator's tool, it could be
 installed in tt(/usr/local/sbin). In that case, do (as em(root)) from the
 directory where bf(stealth) was compiled/unpacked:

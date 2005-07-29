@@ -84,6 +84,9 @@ tt(<pid>) is truly a bf(stealth) process. It is the responsibility of the user
 to make sure that the process-ID of the intended process is specified.
     )
 
+    The options tt(--suppress) and tt(--rerun) (see section ref(ROTATE)) were
+implemented to allow safe rotations of bf(stealth)'s report file. 
+
 subsect(The integrity of the stealth-V.VV.tar.gz distribution)
 
 The integrity of the archive tt(stealth-V.VV.tar.gz) can be verified as
@@ -122,6 +125,6 @@ tt(stealth-V.VV.md5.sign). With bf(gpg)(1) this can be done by the command
         verb(
     gpg: Signature made Tue Oct 29 08:50:29 2002 CET using DSA key ID 38C66170
     gpg: Good signature from "Frank B. Brokken <frank@suffix.icce.rug.nl>"
-    gpg:                 aka "Frank B. Brokken <f.b.brokken@rc.rug.nl>"
+    gpg:                 aka "Frank B. Brokken <f.b.brokken@rug.nl>"
     gpg:                 aka "Frank B. Brokken <frank@icce.rug.nl>"
         )

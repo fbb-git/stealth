@@ -80,7 +80,7 @@ bool Scanner::noDifferences(std::string const &current,
 
     if (!status.size())                 // no elements ?
     {
-        if (d_debug)
+        if (Util::debug())
             cerr << "no differences were observed\n";
 
         rename(current.c_str(), logfile.c_str());   // install `logfile'
@@ -118,7 +118,7 @@ bool Scanner::noDifferences(std::string const &current,
     rename(logfile.c_str(), datetime.c_str());
     rename(current.c_str(), logfile.c_str());   // install `logfile'
 
-    if (d_debug)
+    if (Util::debug())
         cerr << "differences were observed: see `" << 
                  d_sorter["REPORT"] << "'  and `" << logfile << "'" << endl;
 

@@ -1,15 +1,14 @@
-    The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
-added to bf(stealth) to keep the bf(ssh) link to the client open, thus
-minimizing the number of bf(sshd) entries caused by bf(stealth) 
-in the client's log files.
-
-    The tt(GET) and tt(PUT) commands were implemented allowing the down- and
-upload of files from and to remote hosts from within a running bf(stealth)
-process, without establishing another connection to the remote host (as is the
-case when, e.g., bf(scp)(1) is used.
-
-    It is suggested to use the following bf(USE SSH) specification:
-        verb(
-    USE SSH root@${HOST} -T -q exec /bin/bash --noprofile
-        )
-    with tt(${HOST}) defining the remote host.
+    Two new options were added to facilitate report-file rotations:
+    itemization(
+    it() tt(--resume pidfile): resume a suppressed bf(stealth)
+            process (implying tt(--rerun));
+    it() tt(--suppress pidfile): suppress a currently active bf(stealth)
+            process. All scheduled scans following tt(--suppress) are skipped,
+            tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
+            may be issued;
+    )
+    The report file should not be modified while integrity scans take
+place. The new options were added to make sure this requirement is met when
+the report file must be rotated. The bf(ssh) connections to clients remain
+open between pairs of tt(--suppress) and tt(--resume) commands. See section
+ref(ROTATE) for details about these two options.

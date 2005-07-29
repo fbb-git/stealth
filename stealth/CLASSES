@@ -5,6 +5,7 @@
                             ConfigFile
                             ConfigSorter
                             Scanner
+                            Monitor
                             Util
 Classes:
 ========
@@ -68,6 +69,14 @@ Classes:
                             Pattern
                             Reporter
                             Util
-                            
-15 classes, no circular dependencies.
+  
+    Monitor:        uses:
+                            Arg
+                            ConfigSorter
+                            IOFork
+                            Reporter
+                            Scanner
+                            Util
+                                                      
+16 classes, no circular dependencies.
 =====================================

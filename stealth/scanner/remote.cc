@@ -2,7 +2,7 @@
 
 void Scanner::remote(string const &cmd)
 {
-    if (d_debug)
+    if (Util::debug())
         cerr << "REMOTE: Command Run At The Client\n";
 
     d_testExitValue = !removeFirstWord("NOTEST");   // [NOTEST] ...

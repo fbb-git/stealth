@@ -1,5 +1,3 @@
-sect(Running `stealth' again: after modifications have occurred)
-
     Basically, three kinds of modifications are possible: additions,
 modifications, and removals. Here we'll show the effect all these changes have
 on bf(stealth)'s output.

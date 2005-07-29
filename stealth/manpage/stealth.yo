@@ -1,89 +1,43 @@
-COMMENT(
-        Leave a definition of a label empty if not used. E.g.,
-        if you don't have other programs related to this one,
-        use:
-        SUBST(@SEEALSO) ()
+DEFINEMACRO(itb)(1)(it() bf(ARG1):nl())
+DEFINEMACRO(itt)(1)(it() tt(ARG1))
+DEFINEMACRO(itrange)(2)(tt(CHAR(91)ARG1, ARG2+CHAR(41)))
 
-        Use bf() for items that should appear literally in commands, etc.
-        use em() for formal names, that should be replaced by actual values
-            in real life.
-)
-SUBST(@SECTION)         (1)
+DEFINEMACRO(s)(0)(bf(stealth))
+DEFINEMACRO(S)(0)(bf(Stealth))
 
-SUBST(@DATE)            (December 2003)
-SUBST(@AUTHOR)          (Frank B. Brokken (bf(f.b.brokken@rc.rug.nl)).)
-SUBST(@ORGANIZATION)    (Computing Center, University of Groningen.)
+manpage(stealth)(1)(2003-2005)(stealth-X.YY.tar.gz)(Security Enhancement)
 
-SUBST(@PROGRAM)         (bf(stealth))
-SUBST(@PROJECT)         (Security Enhancement)
-SUBST(@DISTRIBUTION)    (stealth-X.YY.tar.gz)
+manpagename(stealth)(Stealthy File Integrity Scanner)
 
-SUBST(@SHORTDESC)       (Stealthy File Integrity Scanner)
-SUBST(@SYNOPSYS)(
-        @PROGRAM  -dcnoq -i <interval> -r <nr> nl()
+manpagesynopsis()
+        s()  -dcnoq -i <interval> -r <nr> nl()
             [--keep-alive pidfile [--repeat <seconds> ] ]  policy nl()
-        @PROGRAM  [--rerun | --terminate] pidfile
-)
-SUBST(@OPTIONS)(
-    Long options are given immediately following the short-option
-equivalents, if available. Either can be used.
+        s()  [--rerun | --resume | --suppress | --terminate] pidfile
 
-    startit()
-    it() tt(-d --debug): Write debug messages to std error;
-    it() tt(-c --parse-config-file): 
-            Process the config file, no further action,nl()
-            report the results to std output;
-    it() tt(-i --random-interval <interval>[m]>): 
-            start the scan between now and nl()
-           a random interval of interval seconds, or nl()
-           minutes if an `m' is appended immediately after nl()
-           the specified interval.
-    it() tt(-n --no-child-processes): No child processes are executed: 
-                child actions+nl()
-                 are faked to be OK.
-    it() tt(-o --only-stdout): Scan report is written to stdout. 
-            No mail is sent.nl()
-           (implied by -d);
-    it() tt(-q --quiet): Suppress progress messages written to stderr;
-    it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
-            Command numbers are shown by @PROGRAM tt(-c);
-    it() tt(-v --version): Display version information and exit;
-    it() tt(--keep-alive pidfile): Keep running as a daemon, 
-            wake up at interrupts. 
-    it() tt(--repeat <seconds>): keep running as a daemon, wake up at
-            interrupts or after <seconds> seconds.
-    it() tt(--rerun pidfile): restart the scan of a currently active stealth
-            process;
-    it() tt(--terminate pidfile): terminate a currently active stealth
-            process;
-    it() tt(--usage): Display help information and exit;
-    it() tt(--help): Display help information and exit;
-    it() tt(pidfile): file containing the process id of a @PROGRAM process;
-    it() tt(policy): path to the policyfile;
-    endit()
-)
-SUBST(@DESCRIPTION)(
-    The name of the @PROGRAM program is an acronym of:
+manpagedescription()
+
+    The name of the s() program is an acronym of:
+
     bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
 
-    @PROGRAM is based on an idea by em(Hans Gankema) and em(Kees Visser), both
+    s() is based on an idea by em(Hans Gankema) and em(Kees Visser), both
 at the Computing Center of the University of Groningen. em(Hopko Meijering)
 provided valuable suggestions for improvement.
 
-    @PROGRAM's main task is to perform file integrity tests. However, the
+    s()'s main task is to perform file integrity tests. However, the
 testing itself will leave no sediments on the tested computer. Therefore,
-@PROGRAM has em(stealthy) characteristics. I consider this an important
-security improving feature of @PROGRAM.
+s() has em(stealthy) characteristics. This is considered to be an
+important security improving feature of s().
 
-    On the other hand one should realize that @PROGRAM intends to be just
+    On the other hand, one should realize that s() intends to be just
 another security tool: other security measures like firewalls, portscanners,
 intrusion detection systems, abolishment of unencrypted protocols, etc. are
 usually required to improve or promote the security of a group of computers
 that are connected to the Internet.
 
-    @PROGRAM uses a policy file to determine the actions to perform. Each
+    s() uses a policy file to determine the actions to perform. Each
 policy file is uniquely associated with a host to be tested. This remote host
-(called the em(client) below) trusts the computer on which @PROGRAM runs
+(called the em(client) below) trusts the computer on which s() runs
 (hence: a em(Locally Trusted Host)), called the em(controller). The controller
 performs tasks (normally file integrity tests) that em(Enforce) the em(Trust)
 we have in the client computer. Since almost all integrity tests can be run
@@ -92,7 +46,7 @@ controller itself uses aged hardware components.
 
 As the controller and the client normally are different computers, the
 controller must communicate with the client in a secure fashion. This is
-realized through SSH. So, there's another element of `local trust' involved
+realized using SSH. So, there's another element of `local trust' involved
 here: the client should permit the controller to set up a secure SSH
 connection allowing the controller to access sensitive files and private parts
 of the client's file system.
@@ -108,55 +62,91 @@ controller by anyone who gains (root)-access).
 bf(SSH) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
-    Here is what happens when @PROGRAM is run using the first synopsis:
-    startit()
+    Here is what happens when s() is run using the first synopsis:
+    itemization(
     it() First, the em(policy) file is read. This determines the actions to be
-performed, and the values of several variables that are used by @PROGRAM.
+performed, and the values of several variables that are used by s().
     it() If the command-line option tt(--keep-alive pidfile) is specified,
-@PROGRAM will run as a backgrond process, writing its process id in the file
+s() will run as a backgrond process, writing its process id in the file
 tt(pifile).  With tt(--repeat <seconds>) the scan will be rerun every
 tt(<seconds>) seconds. The number of seconds until the next rerun will be at
-least 60. However, using the tt(--rerun pidfile) option a background @PROGRAM
+least 60. However, using the tt(--rerun pidfile) option a background s()
 process may always be forced into its next scan. When tt(--keep-alive) is
 specified the scan will be performed just once, whereafter bf(PROGRAM) will
-wait until it is reactivated by another run of @PROGRAM, called using the
-tt(--rerun pidfile) command-line option.
+wait until it is reactivated by another run of s(), called using the
+tt(--rerun pidfile) command-line option (note that integrity scans are
+suppressed between a tt(--suppress) and a tt(--resume) command, see below).
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
 of appearance. Examples are given below. Normally, return values of the
-programs are  tested. Non-zero return values will terminate @PROGRAM
+programs are  tested. Non-zero return values will terminate s()
 prematurely.
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
 program, calling programs like bf(ls)(1), bf(md5sum)(1) or its own
 tt(-printf) method to produce file-integrity related statistics. Most of these
 programs write file names at the end of generated lines. This characteristic
-is used by an internal routine of @PROGRAM to detect changes in the generated
+is used by an internal routine of s() to detect changes in the generated
 output, which could indicate some harmful intent, like an installed
 em(root-kit).
-    it() When changes are detected, they are logged on a em(report file),
-to which information is always appended. @PROGRAM never reduces or rewrites
-the report file. When information is added to the report file
-the newly written information is emailed to a configurable email address for
-further (human) processing. Usually this will be the systems manager of the
-tested client. @PROGRAM follows the `dark cockpit' approach in that no mail is
-sent when no changes were detected.
-    endit()
+    it() When changes are detected, they are logged on a em(report file), to
+which information is always appended. s() never reduces or rewrites the
+report file. Whenever information is added to the report file (exceeding a
+plain time stamp) the appended information is emailed to a configurable email
+address for further (human) processing. Usually this will be the systems
+manager of the tested client. s() follows the `dark cockpit' approach in
+that no mail is sent when no changes were detected.
+    it() When the tt(--repeat) or tt(--rerun) options are issued, the report
+file should not be rotated by, e.g., a log-rotating process, but the report
+file may safely be rotated between a pair of tt(--suppress) and tt(--resume)
+commands.
+    )
 
-    Here is what happens when @PROGRAM is run using the second synopsis:
-    startit()
-    it() When started using the tt(--terminate pidfile) command-line option,
-the stealth process assiciated with process id file tt(pidfile) is terminated.
+manpagesection(REPORT FILE ROTATION)
+    Since s() only appends information to the report file, it will
+eventually grow to a large file, and log-rotation may be desirable. It is of
+course possible to issue a tt(--terminate) command, rotate the logfiles, and
+restart s(), but s() also offers a facility to temporarily suppress
+further scans:
+    itemization(
+    it() Starting s() using the option tt(--suppress pidfile) will
+            suppress a currently active stealth process. If s() is
+            actually performing a series of integrity scans when
+            tt(--suppress) is issued, the currently executing command is first
+            completed before the tt(--suppress) command completes. Once
+            tt(--suppress) is active, all scheduled scans
+            are skipped and tt(--rerun) is ignored. However, the 
+            tt(--resume) and tt(--terminate) options are still handled.
+    it() Once `s() tt(--suppress pidfile)' has returned, the report file
+            may safely be rotated (using, e.g., bf(logrotate)(1)), and a new
+            (empty) report file may optionally be created by the logrotation
+            process.
+    it() Finally, when the log-rotation has been completed, the log-rotation
+            process should issue the command `s() tt(--resume
+            pidfile)'. This will resume a suppressed stealth process,
+            immediately performing the next integrity scan (thus implying 
+            tt(--rerun)), whereafter s() will be back in its normal
+            integrity scanning mode (so, resuming repeated scans if
+            originally requested so).
+    )
 
+manpagesection(RERUN AND TERMINATE)
+
+    Here is what happens when s() is run using other synopses:
+    itemization(
     it() When started using the tt(--rerun pidfile) command-line option, the
-stealth process assiciated with process id file tt(pidfile) will perform
-another scan.
-    endit()
+stealth process associated with process id file tt(pidfile) will perform
+another scan. This command has no effect following a tt(--suppress) command.
+    it() When started using the tt(--terminate pidfile) command-line option,
+the stealth process associated with process id file tt(pidfile) is terminated.
+    )
 
-    The tt(--keep-alive, --repeat, --rerun) and tt(--terminate) options were
-added to bf(stealth) to keep the bf(ssh) link to the client open, thus
-minimizing the number of bf(sshd) entries caused by bf(PROGRAM) 
-in the client's log files.
+    manpagesection(OPEN SSH LINK TO CLIENTS)
+
+    The tt(--keep-alive, --repeat, --rerun, --resume) and tt(--suppress)
+options were implemented in such a way that the bf(ssh) link to the client
+remains open, thus minimizing the number of bf(sshd) entries caused by
+bf(PROGRAM) in the client's log files.
 
     nsect(THE POLICY FILE)
 
@@ -184,15 +174,15 @@ nsect(USE DIRECTIVES)
     The following bf(USE) directives may be specified (directives are written
 in capitals, and should appear exactly as written below: letter casing is
 preserved). Specifications in angular brackets (like tt(<this>)) represent
-specifications to be given by users of @PROGRAM:
-    startit()
+specifications to be given by users of s():
+    itemization(
     it() bf(USE BASE) tt(<basedirectory>)nl()
-        bf(BASE) defines the directory from where @PROGRAM operates. All
+        bf(BASE) defines the directory from where s() operates. All
 relative path specifications are interpreted relative to bf(BASE). em(By
-default) this is the directory where @PROGRAM was started. nl()
-    bf(BASE) is the em(only) directory that em(must) exist when @PROGRAM is
+default) this is the directory where s() was started. nl()
+    bf(BASE) is the em(only) directory that em(must) exist when s() is
 started. All other non-existing paths are created automatically by
-@PROGRAM.nl()
+s().nl()
     Example:nl()
     tt(USE BASE /root/client)
 
@@ -245,7 +235,7 @@ a single quote in a string that is itself delimted by single quotes.
 
     it() bf(USE REPORT) tt(<reportfile>)nl()
         bf(REPORT) defines the name of the reportfile. Information is always
-appended to this file. For each run of @PROGRAM a em(time marker line) is
+appended to this file. For each run of s() a em(time marker line) is
 written to the report file. Only when (in addition to the marker line)
 additional information is appended to the report file the added contents of
 the report file are mailed to the mail address specified in the bf(USE EMAIL)
@@ -282,7 +272,7 @@ tt(/bin/sh) in the bf(USE SSH) specification.
     # an alternative:
         USE SSH root@client -T -q exec /bin/bash --noprofile 
         )    
-    endit()
+    )
 
 nsect(COMMANDS)
 
@@ -294,7 +284,7 @@ a tested command (see below) returns a non-zero return value.
 nsect(LABEL COMMANDS)
     
     The following bf(LABEL) commands are available:
-    startit()
+    itemization(
     it() bf(LABEL) tt(<text>)nl()
         This defines a text-label which is written to the bf(REPORT) file,
 in front of the output generated by the next bf(CHECK)-command. If the next
@@ -310,13 +300,13 @@ transformed to a newline character.
     tt(LABEL Inspecting files in /etc\nIncluding subdirectories)nl()
     tt(LABEL) nl()
         (The former bf(LABEL) specification clears the latter label text).
-    endit()
+    )
 
 nsect(LOCAL COMMANDS)
 
     The following bf(LOCAL) commands are available to be executed on the
 controller:
-    startit()
+    itemization(
     it() bf(LOCAL) tt(<command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
 shell. The command must succeed (i.e., must return a zero exit value). nl()
@@ -332,16 +322,16 @@ shell. The command may or may not succeed.nl()
     tt(LOCAL NOTEST mkdir /tmp/subdir)nl()
     This command will create tt(/tmp/subdir) on the controller. The command
 will fail if the directory cannot be created, but this will not terminate
-@PROGRAM.
+s().
 
     it() bf(LOCAL CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
 shell. The command must succeed. The output of this command is compared to the
-output of this command generated during the previous run of @PROGRAM. The
+output of this command generated during the previous run of s(). The
 phrase bf(LOG =) is optional. Any differences are written to bf(REPORT). If
 differences were found, the existing tt(logfile) name is renamed to
 tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the datetime-stamp at the
-time @PROGRAM was run.
+time s() was run.
 
     Note that eventually many tt(logfile.YYMMDD-HHMMSS) files could be
 created: It is up to the controller's systems manager to decide what to do
@@ -368,7 +358,7 @@ identically as the bf(LOCAL CHECK ...) command, discussed previously.
     This command will check the MD5 sum of the tt(/tmp/md5sum) program. The
 resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
 succeed (i.e., tt(md5sum) must return a zero exit-value).
-    endit()
+    )
 
     Note that the bf(scp)(1) command can be used to copy files between the
 client and the controller, using a local command. This, however, is
@@ -393,7 +383,7 @@ intended program.
 
     Two special remote commands are tt(GET) and tt(PUT), which can be used to
 copy files between the client and the controller.  Internally, tt(GET) and
-t(PUT) use the tt(DD) use-specification. If a non-default specification is
+tt(PUT) use the tt(DD) use-specification. If a non-default specification is
 used, one should ensure that the alternate program accepts bf(dd)(1)'s tt(if=,
 of=, bs=) and tt(count=) options. With tt(GET) the options tt(bs=, count=) and
 tt(of=) are used, with tt(PUT) the options tt(bs=, count=) and tt(if=) are
@@ -401,7 +391,7 @@ used. Normally there should be no need to alter the default tt(DD)
 specification.
 
     The tt(GET) command may be used as follows:
-    startit()    
+    itemization(    
     it() bf(GET) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
 at the controller. tt(client-path) must be the full path of an existing file
@@ -429,10 +419,10 @@ local file already exists, it is overwritten by the copy-procedure.
     The program tt(/usr/bin/md5sum), available at the client, is copied to the
 controller's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
-    endit()
+    )
 
     The tt(PUT) command may be used as follows:
-    startit()    
+    itemization(    
     it() bf(PUT) tt(<local-path> <remote-path>)nl()
     Copy the file indicated by tt(local-path) at the controller to
 tt(remote-path) at the client. The argument tt(local-path) must be the
@@ -461,16 +451,16 @@ path of an existing file on the controller. The argument tt(remote-path) must
 be the full path to a file on the client. If the remote file already exists,
 it is overwritten by tt(PUT). Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
-    endit()
+    )
 
     Plain commands can be executed on the client computer by merely specifying
 them. Of course, this means that programs on the client called, e.g.,
 tt(LABEL), tt(LOCAL) or tt(USE), cannot be executed, since these names are
-interpreted otherwise by @PROGRAM. I don't think that represents much of a
+interpreted otherwise by s(). I don't think that represents much of a
 problem, though....
 
     The following commands are available to be executed on the client:
-    startit()
+    itemization(
     it() tt(<command>)nl()
         Execute tt(command) on the client, using the bf(SSH) command
 shell. The command must succeed (i.e., must return a zero exit
@@ -492,14 +482,14 @@ tt(/usr/bin/find) is not interpreted.
         Execute tt(command) on the client, using the bf(SSH) command
 shell. The phrase bf(LOG = ) is optional. The command must succeed. The output
 of this command is compared to the output of this command generated during the
-previous run of @PROGRAM. Any differences are written to bf(REPORT). If
+previous run of s(). Any differences are written to bf(REPORT). If
 differences were found, the existing tt(logfile) name is renamed to
 tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the datetime-stamp at the
-time @PROGRAM was run.
+time s() was run.
 
     Note that the command is executed on the client, but the logfile is kept
 on the controller. This command represents the core of the method implemented
-by @PROGRAM: there will be no residues of the actions performed by @PROGRAM on
+by s(): there will be no residues of the actions performed by s() on
 the client computers.
 
     Several examples (note the use of the backslash as line continuation
@@ -537,38 +527,83 @@ tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
 
     The MD5 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/md5.root). @PROGRAM will not
+listing is written on the file bf(BASE)tt(/remote/md5.root). s() will not
 terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
-    endit()   
-)
-SUBST(@FILES)(
-      tt(policy);nl()
+    )   
+
+manpagesection(OPTIONS)
+
+    Long options are given immediately following the short-option
+equivalents, if available. Either can be used.
+
+    itemization(
+    it() tt(-d --debug): Write debug messages to std error;
+    it() tt(-c --parse-config-file): 
+            Process the config file, no further action,nl()
+            report the results to std output;
+    it() tt(-i --random-interval <interval>[m]>): 
+            start the scan between now and nl()
+           a random interval of interval seconds, or nl()
+           minutes if an `m' is appended immediately after nl()
+           the specified interval.
+    it() tt(-n --no-child-processes): No child processes are executed: 
+                child actions+nl()
+                 are faked to be OK.
+    it() tt(-o --only-stdout): Scan report is written to stdout. 
+            No mail is sent.nl()
+           (implied by -d);
+    it() tt(-q --quiet): Suppress progress messages written to stderr;
+    it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
+            Command numbers are shown by s() tt(-c);
+    it() tt(-v --version): Display version information and exit;
+    it() tt(--keep-alive pidfile): Keep running as a daemon, 
+            wake up at interrupts. 
+    it() tt(--repeat <seconds>): keep running as a daemon, wake up at
+            interrupts or after <seconds> seconds.
+    it() tt(--rerun pidfile): restart the scan of a currently active stealth
+            process;
+    it() tt(--resume pidfile): resume a suppressed stealth
+            process, implying tt(--rerun);
+    it() tt(--suppress pidfile): suppress a currently active stealth
+            process. All scheduled scans following tt(--suppress) are skipped,
+            tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
+            (see below) may be issued;
+    it() tt(--terminate pidfile): terminate a currently active stealth
+            process;
+    it() tt(--usage): Display help information and exit;
+    it() tt(--help): Display help information and exit;
+    it() tt(pidfile): file containing the process id of a s() process;
+    it() tt(policy): path to the policyfile;
+    )
+
+manpagefiles()
+
+    tt(policy);nl()
     files under bf(BASE);nl()
     the bf(REPORT) file.
-)
-SUBST(@SEEALSO)(
-      bf(dd)(1), 
-        bf(diff)(1), bf(mail)(1), bf(find)(1), bf(ls)(1), bf(md5sum)(1),
-bf(passwd)(5), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
 
-)
-SUBST(@DIAGNOSTICS)(
+manpageseealso()
+      bf(dd)(1), 
+        bf(diff)(1), bf(find)(1), bf(logrotate)(1), bf(ls)(1), bf(mail)(1), 
+bf(md5sum)(1), bf(passwd)(5), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
+
+manpagesection(DIAGNOSTICS)
+
        By default, the executed commands are echoed to stderr. Use bf(-q) to
 suppress this echoing.
-)
-SUBST(@BUGS)(none reported)
 
-SUBST(@COPYRIGHT)(
+manpagebugs()
+    None reported
+
+manpagesection(COPYRIGHT)
     This is free software, distributed under the terms of the GNU General
     Public License. Copyright remains with the author. The `official'
-distribution of @PROGRAM is found at:nl()
-tt(ftp.rug.nl/contrib/frank/software/linux/stealth). 
-    COMMENT(
-    This distribution and
-tt(tar.gz)-distributions retrieved elsewhere should have an md5sum equal to
-the PGP-signed md5sum published at:nl()
-    tt(www.rug.nl/rc -> Security -> STEALTH)
-    END COMMENT)
-)
-COMMENT(Do not modify from here)
-INCLUDEFILE(/usr/local/share/makemanpage/executables.1/pagedef.yo)
+distribution of s() is found at:nl()
+tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This distribution is
+mirrored at tt(www.sourceforge.net/projects/stealth).
+
+manpagesection(ORGANIZATION)
+    Computing Center, University of Groningen.
+
+manpageauthor(Frank B. Brokken (bf(f.b.brokken@rug.nl)).)
+

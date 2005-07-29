@@ -2,7 +2,7 @@
 
 void Scanner::doPlainCommand(IOFork &child)
 {
-    if (d_debug)
+    if (Util::debug())
         cerr << "running unchecked command: `" << d_firstWord[0] << "'\n";
 
     if (!Arg::getInstance().option('n'))    // unless -n (no execute commands)

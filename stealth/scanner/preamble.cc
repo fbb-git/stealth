@@ -7,8 +7,8 @@ void Scanner::preamble()
 
     s_sshPid = d_sshFork.getPid();
     s_shPid = d_shFork.getPid();
-    
-    atexit(killChildren);
+
+//    atexit(killChildren);
 
                                 // try to echo a sentinel by having
                                 // the ssh connection echo it    
@@ -20,6 +20,11 @@ void Scanner::preamble()
     d_testExitValue = false;
     waitForSentinel(d_sshFork.in());  // continue after reading 
 
-    if (d_debug)
+    if (Util::debug())
         cerr << d_sorter["SSH"] << " appears to be functioning well\n";
+
+//    signal(SIGHUP,  Scanner::handleProcessSignals);
+//    signal(SIGTERM, Scanner::handleProcessSignals);
+//    signal(SIGUSR1, Scanner::handleProcessSignals);
+//    signal(SIGUSR2, Scanner::handleProcessSignals);
 }

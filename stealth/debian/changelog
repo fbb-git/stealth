@@ -1,3 +1,14 @@
+stealth (1.31) unstable; urgency=low
+
+  * Added --suspend and --resume options allowing logfile rotations on a
+    keepalive running stealth process. Changed the manual page using standard
+    manpage*() macros instead of SUBST()s
+
+    Internally, a Monitor class was added, exercising and taking over  much of
+    the control functionality of the Scanner class
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 30 Jul 2005 00:13:14 +0200
+
 stealth (1.30-2a) unstable; urgency=low
 
   * Stupid: forgot to update the program's version itself :-( 

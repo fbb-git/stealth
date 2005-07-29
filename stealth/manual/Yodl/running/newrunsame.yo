@@ -1,5 +1,3 @@
-sect(Running `stealth' again: all files unaltered)
-
     When bf(stealth) is run again, it will update
 its report files under tt(root/stealth/client). If nothing has changed,
 the log-files will remain unaltered. The new run will, however, produce some

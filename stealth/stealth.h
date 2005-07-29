@@ -12,6 +12,7 @@
 #include "scanner/scanner.h"
 #include "errno/errno.h"
 #include "selector/selector.h"
+#include "monitor/monitor.h"
 
 #include "debugmacro"
 
