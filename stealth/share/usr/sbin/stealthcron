@@ -1,0 +1,38 @@
+#!/bin/sh
+
+PROG=`basename $0`
+STEALTH=/usr/sbin/stealth
+
+testAbsolute()
+{
+    echo $1 | grep "^/" > /dev/null 2>&1 && return
+
+    echo "\`$1' must be absolute path"
+    exit 1
+}
+
+case $# in
+    (2)
+        testAbsolute $1
+        testAbsolute $2
+
+        if [ -x ${STEALTH} ] ; then
+            ${STEALTH} --rerun $1
+            [ $? -eq 0 ] || ${STEALTH} --keep-alive $1 -q $2
+        fi
+    ;;
+            
+    (*)
+    echo "
+$PROG by Frank B. Brokken (f.b.brokken@rug.nl)
+Usage: $PROG [sleep] pidfile configfile
+where:
+    pidfile:    absolute path to pidfile to be used by ${STEALTH}
+    configfile: absolute path to configuration file to be used by ${STEALTH}
+
+    calls $STEALTH} --rerun pidfile. 
+    If that fails, ${STEALTH} --keep-alive pidfile -q configfile is started.
+"
+    exit 1
+    ;;
+esac

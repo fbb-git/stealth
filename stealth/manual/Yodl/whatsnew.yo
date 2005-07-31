@@ -12,3 +12,11 @@ place. The new options were added to make sure this requirement is met when
 the report file must be rotated. The bf(ssh) connections to clients remain
 open between pairs of tt(--suppress) and tt(--resume) commands. See section
 ref(ROTATE) for details about these two options.
+
+    Issues related to suppressing bf(stealth) runs are:
+    itemization(
+    it() cleaning up obsolete status files (section ref(STATUS));
+    it() automating report- and status file rotation using external
+programs. In section ref(LOGROTATE) a setup is described that can be used with
+the familiar bf(logrotate)(1) program.
+    )

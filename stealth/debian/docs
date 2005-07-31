@@ -1,10 +1,12 @@
 ACKNOWLEDGEMENTS
 README
+COPYING
 stealthmail
 manual/html
 manual/pdf/* 
 manual/ps/*
 manual/text/* 
 manual/Yodl
+share/*
 manpage/
 example-policies

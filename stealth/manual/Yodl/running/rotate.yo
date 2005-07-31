@@ -1,7 +1,8 @@
 When bf(stealth) performs integrity scans it will append information to the
 report file. This file will therefore eventually grow to a large size, and the
 systems manager controlling bf(stealth) might want to em(rotate) the report
-file every once in a while (e.g., using a program like bf(logrotate)(1)). In
+file every once in a while (e.g., using a program like bf(logrotate)(1), also
+see the upcoming section ref(LOGROTATE)). In
 order to ensure that no log-rotation takes place while bf(stealth) is busy
 performing integrity scans (thus modifying the report file) the options
 bf(--suppress) and tt(--resume) were implemented. Both options require the
@@ -53,10 +54,6 @@ again honored by the targeted bf(stealth) process, following the completion of
 the tt(--resume) command.
     it() The command `bf(stealth) tt(--resume pidfile)' terminates.
     )
-    A program like bf(logrotate)(1) allows its users to specify a command or
-script immediately following log-rotation, and `bf(stealth) tt(--resume
-pidfile)' could be specified nicely in such a post-rotation section.
-
     Note that, once tt(--suppress) has been issued, all commands except
 tt(--resume) and tt(--terminate) are ignored by the targeted bf(stealth)
 process. While suppressed, the tt(--terminate) command is acknowledged as a
@@ -69,7 +66,4 @@ stealth process running in the background is:
 integrity scans;
     it() Issue the `bf(stealth) tt(--terminate pidfile)' command.
     )
-
-bf(stealth) process 
-be issued while the
 

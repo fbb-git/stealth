@@ -1,0 +1,13 @@
+/var/stealth/target/report {
+    weekly
+    rotate 12
+    compress
+    missingok
+    prerotate
+        /usr/sbin/stealth --suppress /var/run/stealth.target
+        /bin/sleep 1
+    endscript
+    postrotate
+        /usr/sbin/stealth --resume /var/run/stealth.target
+    endscript 
+}

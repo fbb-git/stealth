@@ -35,3 +35,19 @@ For example:
                                    /usr/sbin/stealth --rerun /var/run/stealth
         )
     
+    As yet another alternative, the cron-job may activate a script performing
+bf(stealth)'s rerun, starting another bf(stealth) run if necessary. The
+advantage of such an approach is that bf(stealth) is automatically started
+after, e.g., a reboot. The following script expects two arguments (both of
+which must be absolute paths). The first argument is the path to the
+em(pidfile) to use, the second argument is the path to the policy file to
+use. The script is found in the distribution package as
+tt(/usr/share/doc/stealth/usr/sbin/stealthcron): 
+        verbinclude(../../share/usr/sbin/stealthcron)
+    The script could be called from tt(/etc/cron.d/stealth) using a line like
+        verb(
+22  8  * * * root test -x /usr/sbin/stealthcron && /usr/sbin/stealthcron
+        /var/run/stealth.target /usr/share/stealth/target.pol
+        )
+    Note that the command should be on a single line. It was spread out here 
+over two lines to enhance readability.

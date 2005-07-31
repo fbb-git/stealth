@@ -1,0 +1,25 @@
+    A program like bf(logrotate)(1) allows its users to specify a command or
+script immediately following log-rotation, and `bf(stealth) tt(--resume
+pidfile)' could be specified nicely in such a post-rotation section.
+
+    Here is an example of a specification that can be used with
+bf(logrotate)(1). Logrotate (on Debian systems) keeps its configuration files
+in tt(/etc/logrotate.d), and assuming there is a host tt(target), whose report
+file is tt(/var/stealth/target/report), the required bf(logrotate)(1)
+specification file (e.g., tt(/etc/logrotate.d/target) could be:
+        verbinclude(../../share/etc/logrotate.d/target)
+    Using this specification file, bf(logrotate)(1) will 
+    itemization(
+    it() Perform weekly rotations of the report file;
+    it() Keep up to 12 rotated files, compressing them using bf(gzip)(1);
+    it() Before rotating the report file, bf(stealth)'s actions are
+suppressed; 
+    it() Following the rotation, bf(stealth)'s actions are resumed
+    )
+    Notes:
+    itemization(
+    it() tt(stealth --resume xxx) will always start with a file integrity
+scan.
+    it() The tt(/bin/sleep 1) line in the logrotate script was included to
+allow a suppression message to appear.
+    ) 

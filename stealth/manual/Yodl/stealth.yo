@@ -76,11 +76,18 @@ includefile(running/intro)
     sect(Running `stealth' again: after modifications have occurred)
     includefile(running/newrundelta)
 
-    sect(Automating `stealth' runs: using `cron')
+    sect(Automating `stealth' runs using `cron')
     includefile(running/cron)
 
     lsect(ROTATE)(Report File Rotation)
     includefile(running/rotate)
+
+        lsubsect(STATUS)(Status file cleanup)
+        includefile(running/status.yo)
+
+        lsubsect(LOGROTATE)
+                (Using `logrotate' to control report- and status files)
+        includefile(running/logrotate.yo)
 
 chapter(Kick starting `stealth')
 includefile(kickstart)
