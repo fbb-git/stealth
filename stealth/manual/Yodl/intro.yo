@@ -87,24 +87,25 @@ to make sure that the process-ID of the intended process is specified.
     The options tt(--suppress) and tt(--rerun) (see section ref(ROTATE)) were
 implemented to allow safe rotations of bf(stealth)'s report file. 
 
-subsect(The integrity of the stealth-V.VV.tar.gz distribution)
+subsect(The integrity of the stealth distribution)
 
-The integrity of the archive tt(stealth-V.VV.tar.gz) can be verified as
+The integrity of the archive tt(stealth-CURVERS.tar.gz) can be verified as
 follows: 
     itemization(
-    it() At the location where you found this archive, you should also find
-a file named tt(stealth-V.VV.md5.sign). This file contains the md5-sum signed
-by me using bf(gpg)(1) (bf(pgp)(1)).
-    it() Compute the MD5 checksum of the tt(stealth-V.VV.tar.gz) archive. Its
-value should match the MD5 checksum that is mentioned in the
-tt(stealth-V.VV.md5.sign) file. If not, the tt(stealth-V.VV.tar.gz) archive
-has been changed, and should em(not) be used.
+    it() At the location where you found this archive, you should also find a
+file named tt(stealth-CURVERS.dsc). This file contains a PGP signed
+bf(md5sum)(1) signature of the tt(tar.gz) archive. The PGP sigature was
+provided by me using bf(gpg)(1) (bf(pgp)(1)).
+    it() Compute the MD5 checksum of the tt(stealth-CURVERS.tar.gz)
+archive. Its value should match the MD5 checksum that is mentioned in the
+tt(stealth-CURVERS.dsc) file. If not, the tt(stealth-CURVERS.tar.gz)
+archive has been compromised, and should em(not) be used.
     it() In order to verify the validity of the electronic signature, do as
 follows: 
         itemization(
         it() Obtain my public key from a public PGP keyserver, e.g.
             verb(
-    http://www.cam.ac.uk.pgp.net/pgpnet/wwwkeys.html
+    http://pgp.surfnet.nl:11371/
             )
         it() Make sure you have the right key. Its fingerprint is
             verb(
@@ -115,16 +116,17 @@ Groningen's PGP-certificate authority. If in doubt, contact me to verify you
 have the right key.
         it() Once you're sufficiently satisfied that you indeed have obtained
 my public PGP key, verify the validity of the signature used for signing
-tt(stealth-V.VV.md5.sign). With bf(gpg)(1) this can be done by the command
+tt(stealth-CURVERS.dsc). With bf(gpg)(1) this can be done by the command
             verb(
-    gpg --verify stealth-V.VV.md5.sign
+    gpg --verify stealth-CURVERS.dsc
             )
         )
     )
-    This should produce output similar to:
+    This should produce output comparable to:
         verb(
-    gpg: Signature made Tue Oct 29 08:50:29 2002 CET using DSA key ID 38C66170
-    gpg: Good signature from "Frank B. Brokken <frank@suffix.icce.rug.nl>"
-    gpg:                 aka "Frank B. Brokken <f.b.brokken@rug.nl>"
-    gpg:                 aka "Frank B. Brokken <frank@icce.rug.nl>"
+gpg: Signature made Mon Aug  1 10:57:41 2005 CEST using DSA key ID 38C66170
+gpg: Good signature from "Frank B. Brokken <f.b.brokken@rug.nl>"
+gpg:                 aka "Frank B. Brokken <f.b.brokken@rc.rug.nl>"
         )
+
+

@@ -1,0 +1,35 @@
+htmlbodyopt(text)(#27408B)
+htmlbodyopt(bgcolor)(#FFFAF0)
+
+mailto(fbbrokken@users.sourceforge.net)
+
+affiliation(Computing Center, University of Groningen)
+
+notableofcontents()
+
+report(Stealth)
+      (Frank B. Brokken (f.b.brokken@rug.nl))
+      (2003-)
+
+center(
+    htmlcommand(
+        <a href="http://sourceforge.net">
+        <img src="http://sourceforge.net/sflogo.php?group_id=127615&amp;type=2"
+        width="125" height="37" border="0" alt="SourceForge.net Logo" />
+        </a>)
+    )
+
+This is the main page of the 
+        center(bf(Stealth File Integrity Scanner project))
+    hosted at sourceforge.net.
+
+    itemization(
+    it() The project (sources, binary package etc.) itself can be reached at
+            lurl(http://sourceforge.net/projects/stealth/)
+    it() Here is url(the Stealth userguide)(stealth.html)
+    it() Here is a html version of url(the Stealth manual page)
+                                      (stealthman.html)
+    )
+
+Contact the author through url(his sourceforge e-mail address)
+                              (mailto:fbbrokken@users.sourceforge.net)

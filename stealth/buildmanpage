@@ -4,12 +4,21 @@ void main()
 {
     int idx;
 
+    if ("VERSION" younger "release.yo")
+        system("gcc -E VERSION.h | grep -v '#' | sed 's/\"//g' > release.yo");
+
     chdir("manpage");
 
-    if ("stealth.yo" younger "stealth.1")
+    if 
+    (
+        "stealth.yo" younger "stealth.1" 
+        || 
+        "../release.yo" younger "stealth.1"
+    )
     {
         system("yodl2man stealth");
         system("mv stealth.man stealth.1");
+        system("yodl2html stealth");
     }
     printf("OK: man\n");
     exit(0);

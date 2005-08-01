@@ -100,13 +100,17 @@ void main()
 {
     list all;
 
+    if ("VERSION" younger "release.yo")
+        system("gcc -E VERSION.h | grep -v '#' | sed 's/\"//g' > release.yo");
+
     chdir("manual");
 
     system("mkdir -p html LaTeX pdf ps text");
 
     chdir("Yodl");
 
-    all = makelist("*") + makelist("*/*");
+    all = (list)"../../release.yo" + makelist("*") + makelist("*/*");
+
     chdir("..");
    
     make_html(all);

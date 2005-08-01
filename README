@@ -20,16 +20,15 @@ To create a new debian package:
         item was overlooked and the version wasn't tagged yet. Once it is
         tagged, this item MUST be executed as well:
 
-        Define the next version in stealth/VERSION
+        Define the next version/year in stealth/VERSION
 
         THEN (upgrade the version for each new distribution):
 
             cd stealth/debian
             dch -v [version just set in VERSION]
             cd ../..
-    
-    Last run:
-        dch -v 1.31
+        Last run:
+            dch -v 1.32
 
     3. Build a new, complete, package:
         run on a clean checkout:
@@ -56,3 +55,23 @@ To create a new debian package:
     or
 
         dpkg-buildpackage -rfakeroot
+
+
+Project shell server: shell.sourceforge.net
+    Path to group directory: /home/groups/s/st/stealth
+    Path to htdocs directory: /home/groups/s/st/stealth/htdocs
+    Path to CGI script directory: /home/groups/s/st/stealth/cgi-bin
+
+    Home page: http://stealth.sourceforge.net
+
+Update manuals and stuff:
+
+    In the stealth/stealth directory:
+
+    cd manpage
+    scp stealth.html 
+    fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/stealthman.html
+
+    cd ../manual
+    scp stealth*.html
+        fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/

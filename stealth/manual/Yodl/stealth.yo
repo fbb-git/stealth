@@ -3,6 +3,8 @@ COMMENT(  Starts a report. The top-level sectioning command  is chapter. )
 
 mailto(f.b.brokken@rug.nl)
 
+includefile(../../release.yo)
+
 htmlbodyopt(background)(rcbackground.jpg)
 
 COMMENT(
@@ -32,15 +34,16 @@ nosloppyhfuzz()
 IFDEF(html)
 (
     affiliation(center(Computing Center, University of Groningen))
-    report(center(Stealth))(center(Frank B. Brokken))(center(2003-2005))
+    report(center(Stealth V. CURVERS))
+           (center(Frank B. Brokken))(center(CURYRS))
 )
 (   
     affiliation(Computing Center, University of Groningen)
-    report(Stealth)(Frank B. Brokken)(2003-2005)
+    report(Stealth V.CURVERS)(Frank B. Brokken)(CURYRS)
 )
 
 chapter(Introduction)
-    sect(What's new)
+    sect(What's new in Stealth V.CURVERS)
     includefile(whatsnew)
 
     sect(Stealth)

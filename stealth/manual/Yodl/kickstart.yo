@@ -1,8 +1,8 @@
 
 Here are the steps to take to kick start bf(stealth)
     itemization(
-    it() Unpack tt(stealth-V.VV.tar.gz): tt(tar xzvf tealth-V.VV.tar.gz)
-    it() tt(cd stealth-V.VV)
+    it() Unpack tt(stealth-CURVERS.tar.gz): tt(tar xzvf tealth-CURVERS.tar.gz)
+    it() tt(cd stealth-CURVERS)
     it() Accept the provided bf(stealth) program (and skip to the next step),
 or start tt(./plain).
 
@@ -34,7 +34,7 @@ initialize the report for:
     it() and for all files under tt(/etc/) on tt(localhost). 
     )
 
-    The mail-report is written on tt(/tmp/stealth-V.VV.mail)
+    The mail-report is written on tt(/tmp/stealth-CURVERS.mail)
 
     Now change or add or remove one of these files, and rerun bf(stealth). The
-file tt(/tmp/stealth-V.VV.mail) should reflect these changes.
+file tt(/tmp/stealth-CURVERS.mail) should reflect these changes.

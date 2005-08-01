@@ -1,11 +1,17 @@
+includefile(../release.yo)
+
 DEFINEMACRO(itb)(1)(it() bf(ARG1):nl())
 DEFINEMACRO(itt)(1)(it() tt(ARG1))
 DEFINEMACRO(itrange)(2)(tt(CHAR(91)ARG1, ARG2+CHAR(41)))
 
+gagmacrowarning(stealth Stealth)
+mailto(f.b.brokken@rc.rug.nl)
+
+
 DEFINEMACRO(s)(0)(bf(stealth))
 DEFINEMACRO(S)(0)(bf(Stealth))
 
-manpage(stealth)(1)(2003-2005)(stealth-X.YY.tar.gz)(Security Enhancement)
+manpage(stealth)(1)(CURYRS)(stealth-CURVERS.tar.gz)(Security Enhancement)
 
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
@@ -605,5 +611,5 @@ mirrored at tt(www.sourceforge.net/projects/stealth).
 manpagesection(ORGANIZATION)
     Computing Center, University of Groningen.
 
-manpageauthor(Frank B. Brokken (bf(f.b.brokken@rug.nl)).)
-
+manpageauthor()
+Frank B. Brokken (bf(f.b.brokken@rug.nl)).
