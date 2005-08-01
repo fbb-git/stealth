@@ -1,3 +1,16 @@
+stealth (1.32) unstable; urgency=low
+
+  * Version 1.31 was not distributed. Version 1.32 offers identical user
+    options as V 1.31, but has some minor internal improvements in its code
+    over 1.31. In particular, a running stealth process will signal its
+    suppressor that it's ready. This simplifies the construction of, e.g., 
+    logrotate scripts.
+
+    Note btw that the date and timestamps in this file are CET (+ DST when
+    active)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon,  1 Aug 2005 10:49:36 +0200
+
 stealth (1.31) unstable; urgency=low
 
   * Added --suspend and --resume options allowing logfile rotations on a

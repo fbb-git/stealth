@@ -21,7 +21,6 @@ void Util::maybeBackground()
             throw OK;       // ::exit(0);
         }
         s_mainProcess = true;
-//        atexit(unlinkRunfile);
     }
 }
 

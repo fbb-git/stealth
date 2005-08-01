@@ -5,7 +5,7 @@
     it() tt(--suppress pidfile): suppress a currently active bf(stealth)
             process. All scheduled scans following tt(--suppress) are skipped,
             tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
-            may be issued;
+            can be issued;
     )
     The report file should not be modified while integrity scans take
 place. The new options were added to make sure this requirement is met when
@@ -19,4 +19,6 @@ ref(ROTATE) for details about these two options.
     it() automating report- and status file rotation using external
 programs. In section ref(LOGROTATE) a setup is described that can be used with
 the familiar bf(logrotate)(1) program.
+    it() When upgrading bf(stealth), make sure that all bf(stealth) processes
+using earlier versions are terminated first.
     )

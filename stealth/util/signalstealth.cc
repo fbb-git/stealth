@@ -15,20 +15,60 @@
 void Util::signalStealth(int signum, char const *signame, 
                                      string const &filename)
 {
-    unsigned pid = getPid(filename);
+    unsigned pid = getPid(filename);    // get the pid of the process to
+                                        // signal 
 
     dout("Sending " << signame << " to process " << pid);
 
-    if (kill(pid, signum))
+    // When suppressing (SIGUSR1) we must add this process' ID to the runfile
+    // so the suppressed stealth process can signal back that it has completed
+    // its suppression tasks. Note that this process still has the lock, which
+    // must be removed first before the suppressed stealth process may
+    // continue. 
+    if (signum == SIGUSR1)          // --suppress
     {
-        unlink(filename.c_str());
-        exit(1, "Can't send %s to process `%u',\n"
-                "removing stale run-file `%s'.",
-                signame,
-                pid,
-                filename.c_str());
+        pid_t myPid = getpid();     // add this process's id to the runfile
+        ofstream runFile(filename.c_str()); // rewrite the runfile
+    
+        runFile << pid << "\n" <<
+                   myPid << endl;
+        runFile.close();            // done. The runfile now contains the
+                                    // signalled process ID and the current
+                                    // process ID 
+
+                                    // install the reply handler.
+        signal(SIGUSR1, Util::handleReplySignal);
     }
 
-    dout(signame << " sent");
+    sendSignal(signum, signame, pid);   // signal the running stealth, but we
+                                    // still have the lock. It will disappear
+                                    // when  this process terminates, so below
+                                    // it must be explicitly removed when
+                                    // we're suppressing, and are waiting for
+                                    // the reply signal
+
+
+    if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
+    {
+        dout("Suppressing process " << pid);
+
+        sleep();                        // Prepare to go to sleep, by setting
+                                        // s_selector
+
+        Util::unlockRunFile();          // Remove the lock, allow the
+                                        // suppressed process to continue
+                                        // The suppressed process will wait 
+                                        // for a second allowing this process
+                                        // to start its waiting cycle.
+        dout("Waiting for the suppressed process to finish its tasks");
+
+        s_selector.wait();              // no need to use Util::wait() here, 
+                                        // because its additional sleep second
+                                        // is irrelevant here.
+
+        dout("It has. Now terminate this process");
+    }
+
     throw OK; //    ::exit(0);                              // done
 }
+

@@ -3,6 +3,7 @@
 
 #include <iosfwd>
 #include <string>
+#include <sys/types.h>
 #include "../selector/selector.h"
 
 namespace FBB
@@ -46,18 +47,16 @@ namespace FBB
             }
             static std::string fileName(std::string const &name);
                                             // exit() itself includes `endl'
+            static void handleReplySignal(int signum);
             static bool isDirectory(std::string const &name);
             static bool keepAlive();
+            static void sendSignal(int sig, char const *signame, pid_t pid);
             static bool mkdir(std::string const &path);  // pathname to a file
             static std::ostream &date(std::ostream &str);
             static std::string datetime();
             static unsigned getPid(std::string const &runFilename);
             static void exit(int exitvalue, char const *fmt, ...); 
-// OBSOLETE            static void handleRerun(int);
-// OBSOLETE            static void handleSIGUSR1(int);
-// OBSOLETE            static void handleTerminate(int);
 
-// NEW
             static bool lockRunFile(LockType lockType);
 
             static bool mainProcess();
@@ -70,15 +69,13 @@ namespace FBB
                 s_debug = value;
             }
 
-// NEW
             static void sleep();            // sleep until wakeup
 
+            static int suppressorPid();
             static void replace(std::string &str, char const *org,
                                              char const *replacement);
-// NEW
             static void signalStealth(int signum, char const *signame, 
                                      std::string const &filename);
-// NEW
             static void unlockRunFile();
 
             static char const *getVersion();
@@ -87,11 +84,9 @@ namespace FBB
             static void unlinkRunfile();
             static void usage();
             static void wait();
-// NEW
             static void wakeup();
 
         private:
-// NEW
             static void lock(std::string const &runfile);
 
     };

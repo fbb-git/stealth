@@ -18,12 +18,6 @@ unsigned Util::getPid(string const &runFilename)
         exit(1, "Can't read `%s'", runfile);
 
     in.close();
-//
-//    if (kill(pid, SIGUSR1) != 0)
-//    {
-//        unlink(runfile);
-//        exit(1, "Removing stale run-file `%s'", runfile);
-//    }
 
     return pid;
 }

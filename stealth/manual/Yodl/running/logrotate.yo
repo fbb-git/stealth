@@ -16,10 +16,5 @@ specification file (e.g., tt(/etc/logrotate.d/target) could be:
 suppressed; 
     it() Following the rotation, bf(stealth)'s actions are resumed
     )
-    Notes:
-    itemization(
-    it() tt(stealth --resume xxx) will always start with a file integrity
-scan.
-    it() The tt(/bin/sleep 1) line in the logrotate script was included to
-allow a suppression message to appear.
-    ) 
+    Note thet tt(stealth --resume xxx) will always start with another file
+integrity scan.

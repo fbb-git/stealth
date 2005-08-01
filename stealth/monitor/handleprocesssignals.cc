@@ -20,7 +20,8 @@ void Monitor::handleProcessSignals(int signum)
 
         case SIGUSR1:                       // SUPPRESS
             if (s_mode == KEEP_ALIVE)
-                s_mode = SUPPRESS;
+                s_mode = SUPPRESS;          // changed to SUPPRESSED in
+                                            // processMode() 
         break;
 
         case SIGUSR2:                       // RESUME

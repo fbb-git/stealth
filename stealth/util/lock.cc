@@ -10,7 +10,8 @@ void Util::lock(string const &runfile)
     dout("Trying to lock " << runfile << " of process " << pid);
 
     s_runFilename = runfile;
-    lockRunFile(BLOCKING);
-
-    signalStealth(SIGUSR1, "SIGUSR1", runfile);     // exits
+    lockRunFile(BLOCKING);          // Obtain the lock on the runfile
+                                    
+    signalStealth(SIGUSR1, "SIGUSR1", runfile); // exits, and releases the
+                                                // lock.
 }
