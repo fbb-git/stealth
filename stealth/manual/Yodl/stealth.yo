@@ -5,7 +5,9 @@ mailto(f.b.brokken@rug.nl)
 
 includefile(../../release.yo)
 
-htmlbodyopt(background)(rcbackground.jpg)
+COMMENT(htmlbodyopt(background)(rcbackground.jpg))
+htmlbodyopt(text)(#27408B)
+htmlbodyopt(bgcolor)(#FFFAF0)
 
 COMMENT(
     Not required for Yodl >= V2.00
@@ -76,7 +78,7 @@ includefile(running/intro)
     sect(Running `stealth' again: all files unaltered)
     includefile(running/newrunsame)
 
-    sect(Running `stealth' again: after modifications have occurred)
+    sect(Running `stealth' again: modifications have occurred)
     includefile(running/newrundelta)
 
     sect(Automating `stealth' runs using `cron')

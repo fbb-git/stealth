@@ -18,8 +18,10 @@ void main()
     {
         system("yodl2man stealth");
         system("mv stealth.man stealth.1");
-        system("yodl2html stealth");
+        system("yodl2html -o stealthman.html stealth");
     }
     printf("OK: man\n");
     exit(0);
 }
+
+

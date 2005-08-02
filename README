@@ -68,10 +68,4 @@ Update manuals and stuff:
 
     In the stealth/stealth directory:
 
-    cd manpage
-    scp stealth.html 
-    fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/stealthman.html
-
-    cd ../manual
-    scp stealth*.html
-        fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
+    scp manpage/stealthman.html manual/html/stealth*.html fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
