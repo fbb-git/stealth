@@ -89,16 +89,16 @@ implemented to allow safe rotations of bf(stealth)'s report file.
 
 subsect(The integrity of the stealth distribution)
 
-The integrity of the archive tt(stealth-CURVERS.tar.gz) can be verified as
+The integrity of the archive tt(stealth-_CurVers_.tar.gz) can be verified as
 follows: 
     itemization(
     it() At the location where you found this archive, you should also find a
-file named tt(stealth-CURVERS.dsc). This file contains a PGP signed
+file named tt(stealth-_CurVers_.dsc). This file contains a PGP signed
 bf(md5sum)(1) signature of the tt(tar.gz) archive. The PGP sigature was
 provided by me using bf(gpg)(1) (bf(pgp)(1)).
-    it() Compute the MD5 checksum of the tt(stealth-CURVERS.tar.gz)
+    it() Compute the MD5 checksum of the tt(stealth-_CurVers_.tar.gz)
 archive. Its value should match the MD5 checksum that is mentioned in the
-tt(stealth-CURVERS.dsc) file. If not, the tt(stealth-CURVERS.tar.gz)
+tt(stealth-_CurVers_.dsc) file. If not, the tt(stealth-_CurVers_.tar.gz)
 archive has been compromised, and should em(not) be used.
     it() In order to verify the validity of the electronic signature, do as
 follows: 
@@ -116,9 +116,9 @@ Groningen's PGP-certificate authority. If in doubt, contact me to verify you
 have the right key.
         it() Once you're sufficiently satisfied that you indeed have obtained
 my public PGP key, verify the validity of the signature used for signing
-tt(stealth-CURVERS.dsc). With bf(gpg)(1) this can be done by the command
+tt(stealth-_CurVers_.dsc). With bf(gpg)(1) this can be done by the command
             verb(
-    gpg --verify stealth-CURVERS.dsc
+    gpg --verify stealth-_CurVers_.dsc
             )
         )
     )

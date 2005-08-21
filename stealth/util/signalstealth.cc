@@ -62,9 +62,12 @@ void Util::signalStealth(int signum, char const *signame,
                                         // to start its waiting cycle.
         dout("Waiting for the suppressed process to finish its tasks");
 
-        s_selector.wait();              // no need to use Util::wait() here, 
-                                        // because its additional sleep second
-                                        // is irrelevant here.
+        try                             // see Util::wait() for the try {...
+        {
+            s_selector.wait();          // no need to use Util::wait() here, 
+        }                               // because its additional sleep second
+        catch(...)                      // is irrelevant here.
+        {}
 
         dout("It has. Now terminate this process");
     }

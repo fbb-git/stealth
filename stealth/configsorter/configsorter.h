@@ -3,8 +3,7 @@
 
 #include <string>
 #include <vector>
-
-#include "../hashclasses/hashclasses.h"
+#include <bobcat/hash>
 
 namespace FBB
 {
@@ -16,8 +15,8 @@ namespace FBB
     {
         ConfigFile                  &d_configfile;
         std::vector<std::string>    d_command;
-        StringHash<std::string>     d_use;
-        StringHash<std::string>     d_define;
+        HashString<std::string>     d_use;
+        HashString<std::string>     d_define;
     
         static std::pair<std::string, std::string> const s_defaultKeyword[];
         static unsigned s_nDefaultKeywords;
@@ -53,8 +52,9 @@ namespace FBB
 
         void fetchCwd();            // determine current working directory
         void fetchCommands();
-        void replaceDefines(std::string &text); // replaces the DEFINE's in text
-        void insert(StringHash<std::string> &hash, Pattern &pattern,
+                                    // replaces the DEFINE's in text
+        void replaceDefines(std::string &text); 
+        void insert(HashString<std::string> &hash, Pattern &pattern,
                                                    std::string const &line);
     };
 

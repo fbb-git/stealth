@@ -9,7 +9,7 @@ mailto(f.b.brokken@rug.nl)
 DEFINEMACRO(s)(0)(bf(stealth))
 DEFINEMACRO(S)(0)(bf(Stealth))
 
-manpage(stealth)(1)(CURYRS)(stealth-CURVERS.tar.gz)(Security Enhancement)
+manpage(stealth)(1)(_CurYrs_)(stealth__CurVers_.tar.gz)(Security Enhancement)
 
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
@@ -615,11 +615,10 @@ manpagebugs()
     None reported
 
 manpagesection(COPYRIGHT)
-    This is free software, distributed under the terms of the GNU General
-    Public License. Copyright remains with the author. The `official'
-distribution of s() is found at:nl()
-tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This distribution is
-mirrored at tt(www.sourceforge.net/projects/stealth).
+    This is free software, distributed under the terms of the `Academic Free
+License. Copyright remains with the author. The `official' distribution of s()
+is found at:nl() tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This
+distribution is mirrored at tt(www.sourceforge.net/projects/stealth).
 
 manpagesection(ORGANIZATION)
     Computing Center, University of Groningen.

@@ -1,9 +1,9 @@
 #include "configsorter.h2"
 
-void ConfigSorter::insert(StringHash<string> &hash, Pattern &firstWord,
+void ConfigSorter::insert(HashString<string> &hash, Pattern &firstWord,
                             string const &line)
 {
-    if (firstWord.match(firstWord[2]))          // fetch 'KEY definition'
+    if (firstWord << firstWord[2])      // fetch 'KEY definition'
     {
         string type = firstWord[1];
 

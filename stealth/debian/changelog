@@ -1,3 +1,17 @@
+stealth (1.33) unstable; urgency=low
+
+  * With the advent of the bobcat library (Brokken's Own Base Classes And
+    Templates) various classes were removed from stealth's distribution: Arg,
+    Configfile, Errno, Fork, Hashclasses, Ifdstreambuf, Ofdbuf, Pattern, and
+    Pipe. Also, the manual pages were adapted to reflect the fact that I'm
+    distributing Debian (source and binary) packages, rather than pure source
+    packages. No further change in functionality was implemented. To compile
+    stealth bobcat-dev is required, to run the binary bobcat itself. See
+    http://bobcat.sourceforge.net and http://sourceforge.net/projects/bobcat
+    for further information about bobcat.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 20 Aug 2005 15:35:32 +0200
+
 stealth (1.32) unstable; urgency=low
 
   * Version 1.31 was not distributed. Version 1.32 offers identical user
@@ -27,7 +41,7 @@ stealth (1.30-2a) unstable; urgency=low
   * Stupid: forgot to update the program's version itself :-( 
     Now it's 1.30-2a
 
- -- Frank B. Brokken <frank@oostum.north>  Tue, 27 Apr 2004 17:56:54 +0200
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 27 Apr 2004 17:56:54 +0200
 
 stealth (1.30-2) unstable; urgency=low
 
@@ -45,7 +59,7 @@ stealth (1.30-2) unstable; urgency=low
     /usr/local/share/yodl/macros.yo file isn't required anymore, and the
     XXsloppyhfuzz undefinition was changed into a call of nosloppyhfuzz().
 
- -- Frank B. Brokken <frank@oostum.north>  Tue, 27 Apr 2004 17:39:17 +0200
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 27 Apr 2004 17:39:17 +0200
 
 stealth (1.30-1) unstable; urgency=low
 
@@ -55,7 +69,7 @@ stealth (1.30-1) unstable; urgency=low
     removed by the corresponding stealth process when it terminates. Manpages
     and docs updated accordingly.
 
- -- Frank B. Brokken <frank@oostum.north>  Wed, 17 Dec 2003 09:21:11 +0100
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 17 Dec 2003 09:21:11 +0100
 
 stealth (1.30) unstable; urgency=low
 
@@ -63,14 +77,14 @@ stealth (1.30) unstable; urgency=low
     stealth to keep an existing connection for longer periods of
     time. Manpages and docs updated accordingly
 
- -- Frank B. Brokken <frank@oostum.north>  Fri, 12 Dec 2003 12:45:45 +0100
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 12 Dec 2003 12:45:45 +0100
 
 stealth (1.22-0) unstable; urgency=low
 
   * Added GET and PUT. Put allows stealth to put files to the client using
     the existing ssh connection.
 
- -- Frank B. Brokken <frank@oostum.north>  Wed, 26 Nov 2003 21:25:02 +0100
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 26 Nov 2003 21:25:02 +0100
 
 stealth (1.21-0) unstable; urgency=low
 
@@ -78,7 +92,7 @@ stealth (1.21-0) unstable; urgency=low
     for, e.g., local inspection, without requiring an additional ssh
     connection.
 
- -- Frank B. Brokken <frank@oostum.north>  Sat, 22 Nov 2003 13:55:40 +0100
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 22 Nov 2003 13:55:40 +0100
 
 stealth (1.20-2) unstable; urgency=low
 

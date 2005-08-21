@@ -1,37 +1,15 @@
 #include "configsorter.h"
 
-#ifndef _INCLUDED_ARG_H_
-#include "../arg/arg.h"
-#endif
+#include <bobcat/arg>
+#include <bobcat/configfile>
+#include <bobcat/pattern>
 
-#ifndef _INCLUDED_UTIL_H_
 #include "../util/util.h"
-#endif
 
-#ifndef _INCLUDED_CONFIGFILE_H_
-#include "../configfile/configfile.h"
-#endif
 
-#ifndef _INCLUDED_PATTERN_H_
-#include "../pattern/pattern.h"
-#endif
-
-#ifndef _SYSINC_IOSTREAM_
 #include <iostream>
-#define _SYSINC_IOSTREAM_
-#endif
-
-
-#ifndef _SYSINC_UNISTD_H_
 #include <unistd.h>
-#define _SYSINC_UNISTD_H_
-#endif
-
-
-#ifndef _SYSINC_ALGORITHM_
 #include <algorithm>
-#define _SYSINC_ALGORITHM_
-#endif
 
 #include "../debugmacro"
 

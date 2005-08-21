@@ -1,13 +1,16 @@
 
 Here are the steps to take to kick start bf(stealth)
     itemization(
-    it() Unpack tt(stealth-CURVERS.tar.gz): tt(tar xzvf tealth-CURVERS.tar.gz)
-    it() tt(cd stealth-CURVERS)
-    it() Accept the provided bf(stealth) program (and skip to the next step),
-or start tt(./plain).
+    it() Install the stealth Debian package tt(stealth__CurVers__i386.deb) and
+thus accept the provided binary program (skipping the next three steps) or do
+not accept the provided binary, and compile bf(stealth) yourself, as per the
+following three steps:
+    it() Unpack tt(stealth__CurVers_.tar.gz): tt(tar xzvf tealth__CurVers_.tar.gz)
+    it() tt(cd stealth)
+    it() Start tt(./plain).
 
-        This assumes that tt(g++-3.2) is available. If not: install it first,
-or tweak tt(./plain).
+        This assumes that tt(g++) version 3.3 (or higher) is available. If
+not: install it first, or tweak tt(./plain).
 
     it() tt(cp stealth      /usr/local/sbin)
     it() tt(cp stealthmail  /usr/local/sbin)
@@ -34,7 +37,7 @@ initialize the report for:
     it() and for all files under tt(/etc/) on tt(localhost). 
     )
 
-    The mail-report is written on tt(/tmp/stealth-CURVERS.mail)
+    The mail-report is written on tt(/tmp/stealth-_CurVers_.mail)
 
     Now change or add or remove one of these files, and rerun bf(stealth). The
-file tt(/tmp/stealth-CURVERS.mail) should reflect these changes.
+file tt(/tmp/stealth-_CurVers_.mail) should reflect these changes.

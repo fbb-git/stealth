@@ -31,18 +31,15 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
-	$(MAKE)
-	#/usr/bin/docbook-to-man debian/stealth.sgml > stealth.1
-
+	./build debian
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) clean
+	./build clean
 
 	dh_clean
 
@@ -53,7 +50,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/stealth.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/stealth
+	./build install debian/stealth
 
 
 # Build architecture-independent files here.

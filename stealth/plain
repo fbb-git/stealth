@@ -3,10 +3,7 @@
 FLAG="-O3"
 #FLAG=-DDEBUG
 
-# select one set of the following two defines:
-# COMPILER=g++-3.0
-# HASHNAMESPACE=std
-COMPILER=g++-3.2
+COMPILER=g++
 HASHNAMESPACE=__gnu_cxx
 
 run()
@@ -21,9 +18,10 @@ run()
 
 rm -f libstealth.a
 
+sh VERSION.sh
+
 NR=1
-for x in errno arg util configfile configsorter pattern \
-         reporter pipe fork scanner iofork control
+for x in util configsorter reporter scanner iofork monitor
 do
     run cd $x
     for c in *.cc
@@ -41,7 +39,7 @@ do
     let NR=$NR+1
 done
 
-run $COMPILER -o stealth -Wall  $FLAG stealth.cc -lstealth -L.
+run $COMPILER -o stealth -Wall  $FLAG stealth.cc -lstealth -lbobcat -L.
 run strip stealth
 
 

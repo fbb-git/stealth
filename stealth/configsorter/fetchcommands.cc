@@ -8,7 +8,7 @@ void ConfigSorter::fetchCommands()
     {
         string line = d_configfile[idx];
 
-        if (!firstWord.match(line))             // can't match a first word
+        if (!(firstWord << line))           // can't match a first word
         {
             dout("No match for `" << line << "'");
             continue;                             
@@ -30,7 +30,7 @@ void ConfigSorter::fetchCommands()
 
     for 
     (
-        StringHash<string>::iterator it = d_define.begin();
+        HashString<string>::iterator it = d_define.begin();
             it != d_define.end();
                 it++
     )
@@ -38,7 +38,7 @@ void ConfigSorter::fetchCommands()
 
     for 
     (
-        StringHash<string>::iterator it = d_use.begin();
+        HashString<string>::iterator it = d_use.begin();
             it != d_use.end();
                 it++
     )
@@ -56,7 +56,7 @@ void ConfigSorter::fetchCommands()
     {
         for
         (
-            StringHash<string>::iterator
+            HashString<string>::iterator
             begin = d_use.begin(), end = d_use.end();
                 begin != end;
                     begin++

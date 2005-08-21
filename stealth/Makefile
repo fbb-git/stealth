@@ -14,18 +14,17 @@ smanpage:
 clean: cleanstealth cleanlib cleanmanpage cleanmanual
 
 cleanlib:
-	rm -f libstealth.a
+	echo rm -f libstealth.a
 
 cleanstealth:
-	rm -f stealth
+	echo rm -f stealth
 
 cleanmanpage:
-	rm -f manpage/stealth.1
+	echo rm -f manpage/stealth.1
 
 cleanmanual:
-	rm -rf manual/{LaTeX,html,pdf,ps,text}
-
-
+	echo rm -rf manual/{LaTeX,html,pdf,ps,text}
 
 install: stealth
 	install stealth ${BIN}
+

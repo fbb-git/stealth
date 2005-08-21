@@ -10,7 +10,7 @@ void ConfigSorter::replaceDefines(string &text)
 
     string out;
 
-    while (define.match(text))                      // Got a ${NAME}
+    while (define << text)                          // Got a ${NAME}
     {
         out += define.before();                     // Get all before ${NAME}
 
@@ -18,7 +18,7 @@ void ConfigSorter::replaceDefines(string &text)
             hasDEFINE(define[2]) ?                  // if NAME is DEFINEd
                 getDEFINE(define[2])                // then its definition
             :                                       // otherwise
-                define.match();                     // ${NAME} (unmodified)
+                define.matched();                   // ${NAME} (unmodified)
 
         dout("    step: " << out);
 

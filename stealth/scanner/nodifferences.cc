@@ -20,7 +20,7 @@ bool Scanner::noDifferences(std::string const &current,
                                                                     endl <<
                         "/bin/echo \"" << d_sentinel << "\"" << endl;
 
-    StringHash< pair<string, vector<string> > >
+    HashString< pair<string, vector<string> > >
         status;
 
     dout("Scanner::noDifferences():         " << "/bin/echo " << d_sentinel);
@@ -62,7 +62,7 @@ bool Scanner::noDifferences(std::string const &current,
         if (s == d_sentinel)
             break;
 
-        if (!split.match(s))
+        if (!(split << s))
             continue;                       // no match at empty lines ?
 
         string key = split[1];              // get the key
@@ -93,7 +93,7 @@ bool Scanner::noDifferences(std::string const &current,
 
     for
     (
-        StringHash< pair<string, vector<string> > >::iterator
+        HashString< pair<string, vector<string> > >::iterator
         begin = status.begin(), end = status.end();
             begin != end;
                 begin++

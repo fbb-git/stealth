@@ -50,12 +50,17 @@ try
         Util::processControlOptions();  
 
 
-        ConfigFile configfile(arg[0]);  // ConfigFile object reads
+        ConfigFile configfile;          // ConfigFile object reads
                                         // configuration file 
 
-        if (!configfile)                // No configfile, then show message
+        try
+        {
+            configfile.open(arg[0]);
+        }
+        catch (...)                     // No configfile, then show message
+        {
             Util::exit(1, "Can't read configuration file `%s'", arg[0]);
-
+        }
                                         // ConfigSorter sorts the 
                                         // configuration file. Separates
                                         // USEs, DEFINEs and commands.
@@ -82,7 +87,7 @@ try
     }
     catch (Errno const &err)
     {
-        cerr << err.what() << ": " << err.why() << endl;
+        cerr << err.what() << ": " << err.which();
         throw Util::ERROR; // return 1;
     }
 

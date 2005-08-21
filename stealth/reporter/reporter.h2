@@ -3,8 +3,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <bobcat/errno>
+
 #include "../util/util.h"
-#include "../errno/errno.h"
 #include "../debugmacro"
 
 

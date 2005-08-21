@@ -1,6 +1,6 @@
 After downloading the bf(stealth) archive, it should be unpacked. The name of
-the archive is of the form tt(stealth-CURVERS.tar.gz), where tt(CURVERS) is a
-version number. Below, tt(CURVERS) should be altered into the version of the
+the archive is of the form tt(stealth-_CurVers_.tar.gz), where tt(_CurVers_) is a
+version number. Below, tt(_CurVers_) should be altered into the version of the
 archive that is actually used.
 
     itemization(
@@ -9,13 +9,13 @@ stored. E.g., if the files in the archive should be stored under tt(/tmp), and
 the archive itself is stored in tt(/tmp) as well, do:
         verb(
     cd /tmp
-    tar xzf stealth-CURVERS.tar.gz
+    tar xzf stealth-_CurVers_.tar.gz
         )
-    This creates a subdirectory tt(stealth-CURVERS) in which the sources are
+    This creates a subdirectory tt(stealth-_CurVers_) in which the sources are
 stored. 
     it() Next, tt(chdir) to that directory:
         verb(
-    chdir stealth-CURVERS
+    chdir stealth-_CurVers_
         )
     )
 
@@ -62,7 +62,7 @@ its sources.  The compilation may use either the tt(GNU g++) compiler version
 writing.  At least one of these compilers must have been installed.
 
     For the compilation `by hand' a simple script (tt(plain)) is provided in
-the tt(stealth-CURVERS) directory. This script can be used to compile
+the tt(stealth-_CurVers_) directory. This script can be used to compile
 bf(stealth). The following items can be edited:
     itemization(
     it() Select your choice of debug-information that can be obtained. By

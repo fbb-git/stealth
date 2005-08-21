@@ -1,3 +1,2 @@
-#define VERSION "1.32"
-#define YEARS   "2001-2005"
-
+VERSION=1.33
+YEARS=2001-2005

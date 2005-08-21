@@ -1,8 +1,9 @@
 #include "monitor.h"
 
 #include <signal.h>
+#include <bobcat/arg>
+
 #include "../util/util.h"
-#include "../arg/arg.h"
 #include "../iofork/iofork.h"
 #include "../configsorter/configsorter.h"
 #include "../reporter/reporter.h"

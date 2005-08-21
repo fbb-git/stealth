@@ -4,7 +4,7 @@
 #include <iosfwd>
 #include <string>
 #include <sys/types.h>
-#include "../selector/selector.h"
+#include <bobcat/selector>
 
 namespace FBB
 {

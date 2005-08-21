@@ -3,7 +3,7 @@
                                         // receives the next command to execute
 void Scanner::execute(string const &cmd)
 {
-    if (!d_firstWord.match(cmd))        // determine first word and the rest
+    if (!(d_firstWord << cmd))          // determine first word and the rest
         Util::exit(1, "Corrupt line in policy file: %s", cmd.c_str());
     
     if (!Arg::getInstance().option('q'))// echo the command, unless -q found

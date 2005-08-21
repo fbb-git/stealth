@@ -1,15 +1,17 @@
 #ifndef _INCLUDED_IOFORK_H_
 #define _INCLUDED_IOFORK_H_
 
-
-#include "../fork/fork.h"
-#include "../pipe/pipe.h"
-#include "../ifdnbuf/ifdnbuf.h"
-#include "../fdout/fdout.h"
 #include <vector>
 #include <istream>
 #include <ostream>
 
+#include <bobcat/fork>
+#include <bobcat/pipe>
+
+// #include "../fork/fork.h"
+// #include "../pipe/pipe.h"
+// #include "../ifdnbuf/ifdnbuf.h"
+// #include "../fdout/fdout.h"
 
 namespace FBB
 {    
@@ -24,6 +26,10 @@ namespace FBB
         std::ostream *d_outs;       // and write
 
         public:
+            int getPid()            // must be const, after updating bobcat
+            {
+                return Fork::getPid();
+            }
 
             static void handleTerminatedChild(int);
 
@@ -46,7 +52,7 @@ namespace FBB
 
             void waitForChild()
             {
-                d_in.closeWrite();
+                close(d_in.getWriteFd());   
                 Fork::waitForChild();
             }
              

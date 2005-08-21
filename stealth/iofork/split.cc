@@ -47,11 +47,11 @@ namespace
     
         static Pattern element("\\S+");         // a blank-delimited element
     
-        while (element.match(text))            // find it ?
+        while (element << text)                 // find it ?
         {
             dout("IOFork::split(): push " << element.match());
 
-            vs.push_back(element.match());      // yes, push back
+            vs.push_back(element.matched());      // yes, push back
             text = element.beyond();           // remove the element from text
         }
     }
@@ -66,7 +66,7 @@ char const **IOFork::split(vector<string> &vs)
 
                                             // while we have a dquoted 
                                             // or squoted match
-    while (dquoted.match(d_cmd) || squoted.match(d_cmd))    
+    while ((dquoted << d_cmd) || (squoted << d_cmd))    
     {
         string::size_type
             dq = dquoted.position(0).first,

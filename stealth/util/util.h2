@@ -13,8 +13,9 @@
 #include <unistd.h>
 #include <signal.h>
 #include <limits.h>
-#include "../errno/errno.h"
-#include "../arg/arg.h"
+#include <bobcat/errno>
+#include <bobcat/arg>
+
 #include "../configsorter/configsorter.h"
 
 #include "../debugmacro"

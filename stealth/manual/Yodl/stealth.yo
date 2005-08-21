@@ -36,16 +36,16 @@ nosloppyhfuzz()
 IFDEF(html)
 (
     affiliation(center(Computing Center, University of Groningen))
-    report(center(Stealth V. CURVERS))
-           (center(Frank B. Brokken))(center(CURYRS))
+    report(center(Stealth V. _CurVers_))
+           (center(Frank B. Brokken))(center(_CurYrs_))
 )
 (   
     affiliation(Computing Center, University of Groningen)
-    report(Stealth V.CURVERS)(Frank B. Brokken)(CURYRS)
+    report(Stealth V._CurVers_)(Frank B. Brokken)(_CurYrs_)
 )
 
 chapter(Introduction)
-    sect(What's new in Stealth V.CURVERS)
+    sect(What's new in Stealth V._CurVers_)
     includefile(whatsnew)
 
     sect(Stealth)
