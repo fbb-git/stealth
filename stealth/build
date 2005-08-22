@@ -90,7 +90,7 @@ void setClasses()
     Current values:
 */
 #define BUILD_LIBRARY
-#define BUILD_PROGRAM      "bin/stealth"
+#define BUILD_PROGRAM      "sbin/stealth"
 
 #define COMPILER           "g++"
 #define COPT               "-Wall -O3"
@@ -519,7 +519,7 @@ void release()
 void prog()
 {
     release();
-    system("mkdir -p bin");
+    system("mkdir -p sbin");
 
     initialize();
     setlibs();
@@ -531,7 +531,7 @@ void prog()
     );
 
 //    system(P_NOCHECK, 
-//            "bin/stealth --help > usage");
+//            "sbin/stealth --help > usage");
 }
 
 void man()
@@ -579,8 +579,8 @@ void install(string where)
     }
 
     printf("\ninstall stealth\n");
-    system("mkdir -p " + where + "/usr/bin");
-    system("cp -p " + programname + " " + where + "/usr/bin");
+    system("mkdir -p " + where + "/usr/sbin");
+    system("cp -p " + programname + " " + where + "/usr/sbin");
 
     printf("\ninstall manual page in .../man1\n");
     system("mkdir -p " +    where + "/usr/share/man/man1");
@@ -621,7 +621,7 @@ void cleanup()
         return;
     }
 
-    system("rm -rf release.{yo,h} bin o */o libstealth.a ");
+    system("rm -rf release.{yo,h} sbin o */o libstealth.a ");
     system("rm -rf manpage/*.{1,html} manual/{LaTeX,html,pdf,ps,text}");
 }
 
