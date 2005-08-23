@@ -1,6 +1,8 @@
 htmlbodyopt(text)(#27408B)
 htmlbodyopt(bgcolor)(#FFFAF0)
 
+includefile(../stealth/release.yo)
+
 COMMENT(
     scp index.html fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
 )
@@ -11,12 +13,18 @@ affiliation(Computing Center, University of Groningen)
 
 notableofcontents()
 
-report(Stealth)
+report(Stealth (V. _CurVers_))
       (Frank B. Brokken (f.b.brokken@rug.nl))
-      (2003-)
+      (_CurYrs_)
 
 center(
+    nsect(SSH-based Trust Enforcement nl()
+        Acquired  through a nl()
+        Locally Trusted Host)
+
     htmlcommand(
+        <img src="stealth.jpg">
+        <p>
         <a href="http://sourceforge.net">
         <img src="http://sourceforge.net/sflogo.php?group_id=127615&amp;type=2"
         width="125" height="37" border="0" alt="SourceForge.net Logo" />
@@ -24,7 +32,7 @@ center(
     )
 
 This is the main page of the 
-        center(bf(Stealth File Integrity Scanner project))
+        center(bf(Stealth File Integrity Scanner project (V. _CurVers_)))
     hosted at sourceforge.net.
 
     itemization(

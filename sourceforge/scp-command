@@ -1,0 +1,7 @@
+#!/bin/sh
+
+yodl2html index.yo
+
+scp ../stealth/manual/html/stealth*.html ../stealth/manpage/*.html \
+    index.html stealth.jpg \
+    fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
