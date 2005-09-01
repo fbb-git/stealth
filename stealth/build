@@ -646,6 +646,7 @@ void main(int argc, list argv, list envp)
             "   man:    build the stealth man-page (.1, .html versions)\n"
             "   manual: build the stealth manual\n"
             "   prog:   build the stealth program\n"
+            "   release:build release.yo etc.\n"
             "\n"
         );
         exit(1);
@@ -668,6 +669,8 @@ void main(int argc, list argv, list envp)
         manual();
     else if (arg1 == "prog")
         prog();
+    else if (arg1 == "release")
+        release();
     else
     {
         printf("request `", arg1, "' not yet available\n");
