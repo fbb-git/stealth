@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Argument 1: optional prefix path to installation paths, e.g., debian/debian
+
+. INSTALL.cf
+. make/parameters
+. make/substitutions
+. make/scripts
+
+    # install the executable
+req mkdir -p $1$BIN
+req cp tmp/bin/* $1$BIN
+
+    # install the manual page stealth.1
+req mkdir -p $1$MAN/man1
+reqeval "gzip < tmp/man/stealth.1 > $1$MAN/stealth.1.gz"
+
+    # install the manual page stealthman.html
+req mkdir -p $1$DOC/man $1$DOC/scripts 
+req cp tmp/manhtml/stealthman.html $1$DOC/man
+
+    # install the information directly in and under $DOC
+reqzip $1 README COPYING ACKNOWLEDGEMENTS debian/changelog
+    # scripts
+req cp  stealthmail $1$DOC/scripts
+    # examples
+req cp -r example-policies $1$DOC
+    # manual
+req cp -r tmp/manual $1$DOC
+    
+
+
+
+

@@ -1,0 +1,14 @@
+PROJECT=stealth
+    # this assumes (define alternatives using shell-vars named as last words):
+    #   main's source file: $PROJECT.cc             MAIN
+    #   project library:    lib$PROJECT.a           LIBRARY
+    #   executable:         $PROJECT                EXECUTABLE
+    #   `minimal' cleanup:  uppercase $PROJECT      MINIMAL
+    #       (i.e., name of the environment variable to contain `minimal' when 
+    #        minimal cleanup is required)
+
+COPTS="-Wall -O3"
+    # Compiler options: options used to compile the sources
+
+LOPTS="-lbobcat -lstealth -L. -s"
+    # Linker options: options used to link main()'s object module against

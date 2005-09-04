@@ -1,0 +1,21 @@
+BASE=/usr
+    # BASE=is the directory below which ALL stealth files will be stored.
+    #
+    # For an operational non-Debian installation, you probably must be `root',
+    # and BASE=/usr or BASE=/usr/local is suggested. `BASE' itself is not used
+    # outside of this file, so feel free to define BIN, SKEL, MAN and DOC in
+    # any which way you like.
+
+BIN=${BASE}/sbin
+    # the directory in which stealth will be stored
+
+SKEL=${BASE}/share/stealth
+    # SKEL is the directory in which the skeleton files will be stored
+
+MAN=${BASE}/share/man/man1
+    # MAN is the directory in which the manual page will be stored
+
+DOC=${BASE}/share/doc/stealth
+    # DOC is the directory in which all other documentation will be stored
+
+

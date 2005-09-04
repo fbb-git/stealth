@@ -1,0 +1,5 @@
+MAIN=${MAIN:-$PROJECT.cc}
+LIBRARY=${LIBRARY:-lib$PROJECT.a}
+EXECUTABLE=${EXECUTABLE:-$PROJECT}
+MINIMAL=${MINIMAL:-`echo $PROJECT | tr [:lower:] [:upper:]`}
+

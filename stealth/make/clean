@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. make/parameters
+. make/substitutions
+. make/scripts
+
+req rm -rf debian/stealth debian/stealth.substvars build-stamp configure-stamp
+
+eval "test \"\$$MINIMAL\" == \"minimal\""
+
+if [ $? == 0 ]
+then
+    echo "
+    PERFORMED MINIMAL CLEANUP
+    "
+    exit 0
+fi
+
+req rm -rf $LIBRARY tmp o */o 
+req rm -rf manual/Yodl/manual-*-stamp release.{yo,h} 

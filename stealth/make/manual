@@ -1,0 +1,56 @@
+#!/bin/sh
+
+. INSTALL.cf
+# . make/parameters
+# . make/substutions
+. make/scripts
+
+make/special
+
+mkdir -p tmp/manual/{LaTeX,html,pdf,ps,text}
+
+req cd manual/Yodl
+
+for yo in *.yo */*.yo
+do
+    if [ ! -e manual-yo-stamp -o $yo -nt manual-yo-stamp ]
+    then
+        req yodl2html stealth.yo
+        req touch manual-yo-stamp
+        req mv *.html ../../tmp/manual/html
+    fi
+done
+
+if [ ! -e manual-latex-stamp ]
+then
+    req yodl2latex -o ../../tmp/manual/LaTeX/stealth.latex stealth.yo
+    (
+        req cd ../../tmp/manual/LaTeX
+        latex stealth.latex
+        latex stealth.latex
+        req latex stealth.latex
+    )
+    req touch manual-latex-stamp
+fi
+
+(
+    req cd ../../tmp/manual/LaTeX
+    [ ! -e ../ps/stealth.ps -o stealth.dvi -nt ../ps/stealth.ps ] &&
+        req dvips -o ../ps/stealth.ps stealth.dvi
+)
+
+(
+    req cd ../../tmp/manual/ps
+    [ ! -e ../pdf/stealth.pdf -o stealth.ps -nt ../pdf/stealth.pdf ] &&
+        req ps2pdf stealth.ps ../pdf/stealth.pdf
+)
+
+STEALTHTXT=../../tmp/manual/text/stealth.txt
+for yo in *.yo */*.yo
+do
+    if [ ! -e $STEALTHTXT -o $yo -nt $STEALTHTXT ]
+    then
+        req yodl2txt -o $STEALTHTXT stealth.yo
+    fi
+done
+

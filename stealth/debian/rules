@@ -31,7 +31,7 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
-	./build debian
+	./make/program
 	touch build-stamp
 
 clean:
@@ -39,7 +39,7 @@ clean:
 	dh_testroot
 
 	# Add here commands to clean up after the build process.
-	./build clean
+	./make/clean
 
 	dh_clean
 
@@ -50,7 +50,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/stealth.
-	./build install debian/stealth
+	./make/install debian/stealth
 
 
 # Build architecture-independent files here.
@@ -71,7 +71,7 @@ binary-arch: build install
 #	dh_installmime
 #	dh_installinit
 	dh_installcron
-	dh_installman           manpage/stealth.1
+	dh_installman
 	dh_installinfo
 #	dh_undocumented
 	dh_installchangelogs 
