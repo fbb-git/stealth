@@ -4,7 +4,7 @@ doc/manual/index.html, click the kickstart chapter.
 
 
 ===========================================================================
-To Install bisonc++ by hand instead of using the binary distribution perform
+To Install stealth by hand instead of using the binary distribution perform
 the following steps:
 
     1. Inspect the values of the variables in the file INSTALL.cf
@@ -12,7 +12,7 @@ the following steps:
 
     2. Make sure the bobcat library has been installed.
 
-    3. Run `./make/program' to compile bisonc++
+    3. Run `./make/program' to compile stealth
 
         Note: it's NOT `make program'
     
@@ -21,4 +21,4 @@ the following steps:
         Note: it's NOT `make install'
 
     Following the installation nothing in this directory tree is required
-    for the proper functioning of bisonc++, so consider removing it.
+    for the proper functioning of stealth, so consider removing it.
