@@ -1,18 +1,30 @@
 
-Here are the steps to take to kick start bf(stealth)
+Here are the steps to take to kick-start bf(stealth)
     itemization(
     it() Install the stealth Debian package tt(stealth__CurVers__i386.deb) and
 thus accept the provided binary program (skipping the next three steps) or do
 not accept the provided binary, and compile bf(stealth) yourself, as per the
-following three steps:
-    it() Unpack tt(stealth__CurVers_.tar.gz): tt(tar xzvf tealth__CurVers_.tar.gz)
+following steps:
+    it() Unpack tt(stealth__CurVers_.tar.gz): 
+        tt(tar xzvf tealth__CurVers_.tar.gz)
     it() tt(cd stealth)
-    it() Start tt(./plain).
+    it() Inspect the values of the variables in the file tt(INSTALL.cf) Modify
+these values when necessary.
+    it() Make sure the bobcat library has been installed.
+(lurl(http://bobcat.sourceforge.net))
+    it() Run `tt(./make/program)' to compile bf(stealth).  Note: it's em(not)
+`tt(make program)'
+    it() Run (probably as root) `tt(./make/install)' to install.  Note: it's
+em(not) `tt(make install)'
+    )
+    Following the installation nothing in the tt(stealth) directory tree is
+required for bf(stealth)'s proper functioning, so consider removing it.
+    
+    Compiling bf(stealth) assumes that tt(g++) version 3.3 (or higher) is
+available. If not: install it first.
 
-        This assumes that tt(g++) version 3.3 (or higher) is available. If
-not: install it first, or tweak tt(./plain).
-
-    it() tt(cp stealth      /usr/local/sbin)
+    Next, do:
+    itemization(
     it() tt(cp stealthmail  /usr/local/sbin)
     it() tt(mkdir           /root/stealth)
     it() tt(cp local.pol    /root/stealth)

@@ -1,14 +1,3 @@
-To create a new stealth signed archive (which is probably obsolete, since the
-debian source package should contain it all)
-
-    rename stealth/ to stealth-X.YY
-
-    cd stealth-X.YY
-
-    buildmanpage
-    buildmanual
-    makedist
-
 To create a new debian package:
 
     0. Do
@@ -28,7 +17,7 @@ To create a new debian package:
             dch -v [version just set in VERSION]
             cd ../..
         Last run:
-            dch -v 1.33
+            dch -v 1.34
 
     3. Build a new, complete, package:
         run on a clean checkout:
