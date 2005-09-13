@@ -41,6 +41,12 @@ This is the main page of the
     it() Here is url(the Stealth userguide)(stealth.html)
     it() Here is a html version of url(the Stealth manual page)
                                       (stealthman.html)
+    it() bf(Stealth) was presented at the 2003 FIRST conference in Ottawa,
+        Canada. The paper presented there is available
+        itemization(
+        it() as url(PostScript document)(stealth.ps) or
+        it() as url(PDF document)(stealth.pdf)
+        )
     )
 
 includefile(../../PROJECTS.yo)
