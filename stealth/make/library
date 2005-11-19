@@ -20,7 +20,7 @@ do
         [ -e $OBJ -a $src -nt $OBJ  -o \
           ! -e $OBJ -a \
             \( ! -e ../$LIBRARY -o $src -nt ../$LIBRARY \) ] &&
-                             req g++ $COPTS -o  $OBJ -c ${src}
+                             req $GCC $COPTS -o  $OBJ -c ${src}
     done
     cd ..
     let NR=${NR}+1
@@ -35,7 +35,7 @@ do
     OBJ=o/${BASE}.o
     [ -e $OBJ -a $src -nt $OBJ  -o \
                 ! -e $OBJ -a \( ! -e $LIBRARY -o $src -nt $LIBRARY \) ] &&
-        req g++ $COPTS -o  $OBJ -c $src
+        req $GCC $COPTS -o  $OBJ -c $src
 done
 
 BASE=${MAIN%\.[^\.]*}

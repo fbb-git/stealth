@@ -1,3 +1,9 @@
+stealth (1.35) unstable; urgency=low
+
+  * Recompilation using g++-4.0. Requires bobcat >= 1.4.0
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 19 Nov 2005 16:47:28 +0100
+
 stealth (1.34) unstable; urgency=low
 
   * Removed dependencies on `icmake'. See the file `INSTALL' for details about
