@@ -1,6 +1,6 @@
 #!/bin/sh
 
-(cd ../stealth; build release)
+# (cd ../stealth; build release)
 
 yodl2html index.yo
 
