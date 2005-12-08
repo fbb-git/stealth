@@ -13,5 +13,5 @@ COPTS="-Wall -O3"
 LOPTS="-lbobcat -lstealth -L. -s"
     # Linker options: options used to link main()'s object module against
 
-GCC=g++-4.0
+GCC=g++
     # compiler to use
