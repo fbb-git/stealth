@@ -1,3 +1,25 @@
 removed superfluous stealth.doc-base
 
+removed classes arg, configfile, errno fdout fork ifdnbuf pattern pipe
+selector since they are available in bobcat
+
+Reporter::reset() now called Reporter::rewind()
+
+Renamed all .h2 headers to my standard .ih names:
+        util, configsorter, reporter scanner
+
+Reporter uses d_hasMail data member instead of d_sizeBeyondHeader: d_hasMail
+can simply be set to false following the writing of the header, and then to
+true at each sync() command.
+
+added:
+    Reporter::exit(), first inserting the message into the reporter,
+                    then to cerr, and exiting.
+
+class multistreambuf was added to bobcat
+
+fatal error messages are no longer suppressed with -q
+
+debugmacro removed
+
 -- all done --

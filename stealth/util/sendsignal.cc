@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 void Util::sendSignal(int signum, char const *signame, pid_t pid)
 {
@@ -6,13 +6,13 @@ void Util::sendSignal(int signum, char const *signame, pid_t pid)
     {                               
         unlink(s_runFilename.c_str());
 
-        exit(1, "Can't send %s to process `%u',\n"  
+        exit("Can't send %s to process `%u',\n"  
                 "removing stale run-file `%s'.",    
                 signame,
                 pid,
                 s_runFilename.c_str());
     }
 
-    dout(signame << " sent");
+    debug() << signame << " sent" << endl;
 }
 

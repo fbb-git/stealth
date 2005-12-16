@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 // getPid() obtains the process-id from an existing lock-file. The file must
 // exist and the pid stored in the lock-file must be the process-id of an
@@ -15,7 +15,7 @@ unsigned Util::getPid(string const &runFilename)
     pid_t pid;
 
     if (!(in >> pid))
-        exit(1, "Can't read `%s'", runfile);
+        exit("Can't read `%s'", runfile);
 
     in.close();
 

@@ -1,4 +1,4 @@
-#include "configsorter.h2"
+#include "configsorter.ih"
 
 void ConfigSorter::replaceDefines(string &text)
 {
@@ -6,7 +6,7 @@ void ConfigSorter::replaceDefines(string &text)
                                                     // [1]: all ${NAME} text
                                                     // [2]: NAME itself
 
-    dout("ConfigSorter::replaceDefines in " << text);
+    Util::debug() << "ConfigSorter::replaceDefines in " << text << endl;
 
     string out;
 
@@ -20,12 +20,12 @@ void ConfigSorter::replaceDefines(string &text)
             :                                       // otherwise
                 define.matched();                   // ${NAME} (unmodified)
 
-        dout("    step: " << out);
+        Util::debug() << "    step: " << out << endl;
 
         text = define.beyond();                     // remove all matched 
     }                                               // text from `text'
 
-    dout("ConfigSorter::replaceDefines -> " << text);
+    Util::debug() << "ConfigSorter::replaceDefines -> " << text << endl;
 
     text = out + text;                              // redefine `text'
 }

@@ -4,7 +4,7 @@ void Monitor::control()
 {
     while (true)
     {
-        dout("CONTROL: s_mode == " << s_mode);
+        Util::debug() << "CONTROL: s_mode == " << s_mode << endl;
     
         d_reporter.standby();       // locks the runfile
         processMode();
@@ -17,7 +17,7 @@ void Monitor::control()
 
         if (s_mode == SUPPRESSED)
         {
-            dout("Supressed. Now signal the suppressor");
+            Util::debug() << "Supressed. Now signal the suppressor" << endl;
 
             ::sleep(1);             // This delay is necessary to allow the
                                     // suppressor to start waiting once it has
@@ -27,7 +27,7 @@ void Monitor::control()
                                     // let the process that issued
                                     // `--suppress' know we're done.
             Util::sendSignal(SIGUSR1, "SIGUSR1", Util::suppressorPid());
-            dout("Wait for --resume...");
+            Util::debug() << "Wait for --resume..." << endl;
         }
 
         do

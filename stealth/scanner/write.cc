@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 //  SEE ALSO THE MEMBER waitForSentinel()
 
@@ -7,10 +7,10 @@ void Scanner::write(string const &fname)
     ifstream source(fname.c_str());
 
     if (!source)
-        Util::exit(1, "Can't open `%s' to read", fname.c_str());
+        d_reporter.exit() << "Can't open `" << fname << "' to read" << endl;
 
-    dout("Scanner::write(): about to read local `" << fname << "'");
-
+    Util::debug() << "Scanner::write(): about to read local `" << fname << 
+                                                                "'" << endl;
     while (true)
     {
         unsigned const SIZEOF_BUF = 1000;
@@ -22,7 +22,7 @@ void Scanner::write(string const &fname)
             break;
 
         if (!d_sshFork.out().write(buffer, nRead))
-            Util::exit(1, "PUT failed.");
+            d_reporter.exit() << "PUT failed." << endl;
     }
 
     d_sshFork.out().flush();

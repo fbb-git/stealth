@@ -1,9 +1,9 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 void Scanner::nextCommand(ostream &out, string const &command)
 {
-    dout("Scanner::nextCommand(): inserting\n" << command << \
-            "\nand: echo " << d_sentinel << " $?");
+    Util::debug() << "Scanner::nextCommand(): inserting\n" << command << \
+            "\nand: echo " << d_sentinel << " $?" << endl;
 
                         // run the command, then 
                         // echo the sentinel and returnvalue
@@ -11,6 +11,6 @@ void Scanner::nextCommand(ostream &out, string const &command)
            "/bin/echo \"" << d_sentinel << " $?\""  << endl;
 
     if (!out)
-        Util::exit(1, 
-            "Inserting command `%s' failed.", d_firstWord[0].c_str());
+        d_reporter.exit() << 
+            "Inserting command `" << d_firstWord[0] << "' failed." << endl;
 }

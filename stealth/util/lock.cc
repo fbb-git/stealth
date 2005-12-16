@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 // Called by stealth --lock ...
 //
@@ -7,7 +7,8 @@ void Util::lock(string const &runfile)
     unsigned pid;
 
     pid = getPid(runfile);
-    dout("Trying to lock " << runfile << " of process " << pid);
+    debug() << "Trying to lock " << runfile << " of process " << pid <<
+                                                                    endl;
 
     s_runFilename = runfile;
     lockRunFile(BLOCKING);          // Obtain the lock on the runfile

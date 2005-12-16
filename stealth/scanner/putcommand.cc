@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 string Scanner::putCommand(string const &source, 
                              string const &destination) const
@@ -6,7 +6,7 @@ string Scanner::putCommand(string const &source,
     struct stat statbuf;
 
     if (stat(source.c_str(), &statbuf))
-        Util::exit(1, "PUT %s: can't stat it", source.c_str());
+        d_reporter.exit() << "PUT " << source << ": can't stat it" << endl;
 
     ostringstream command;
 

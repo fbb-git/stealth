@@ -43,13 +43,14 @@ namespace
     {
         string text(src);
 
-        dout("IOFork::split(): " << src);
+        Util::debug() << "IOFork::split(): " << src << endl;
     
         static Pattern element("\\S+");         // a blank-delimited element
     
         while (element << text)                 // find it ?
         {
-            dout("IOFork::split(): push " << element.match());
+            Util::debug() << "IOFork::split(): push " << element.matched() << 
+                                                                        endl;
 
             vs.push_back(element.matched());      // yes, push back
             text = element.beyond();           // remove the element from text
@@ -62,7 +63,7 @@ char const **IOFork::split(vector<string> &vs)
     static Pattern dquoted("(^|[^\\\\])(\"(([^\"]|\\\\.)*)\")");
     static Pattern squoted("(^|[^\\\\])('(([^\"]|\\\\.)*)')");
 
-    dout("IOFork::split: " << d_cmd);
+    Util::debug() << "IOFork::split: " << d_cmd << endl;
 
                                             // while we have a dquoted 
                                             // or squoted match
@@ -84,25 +85,31 @@ char const **IOFork::split(vector<string> &vs)
 
         if (processSquoted)
         {
-            dout("IOFork::split(): squote - before: " << squoted.before());
-            dout("IOFork::split(): squote -  match: " << squoted.match());
-            dout("IOFork::split(): squote - beyond: " << squoted.beyond());
+            Util::debug() << "IOFork::split(): squote - before: " <<
+                                                squoted.before() << "\n"
+                             "                 squote -  match: " << 
+                                                squoted.matched() << "\n"
+                             "                 squote - beyond: " << 
+                                                squoted.beyond() << endl;
 
             ::split(vs, squoted.before() + squoted[1]); // split prefix
 
-            dout("IOFork::split(): push " << squoted[2]);
+            Util::debug() << "IOFork::split(): push " << squoted[2] << endl;
             vs.push_back(squoted[2]);                   // push the quoted str.
             d_cmd = squoted.beyond();                   // process next
         }
         else                                // process d-quoted string
         {
-            dout("IOFork::split(): dquote - before: " << dquoted.before());
-            dout("IOFork::split(): dquote -  match: " << dquoted.match());
-            dout("IOFork::split(): dquote - beyond: " << dquoted.beyond());
+            Util::debug() << "IOFork::split(): dquote - before: " << 
+                                                dquoted.before() << "\n" 
+                             "                 dquote -  match: " << 
+                                                dquoted.matched() << "\n"
+                             "                 dquote - beyond: " << 
+                                                dquoted.beyond() << endl;
 
             ::split(vs, dquoted.before() + dquoted[1]); // split prefix
 
-            dout("IOFork::split(): push " << dquoted[2]);
+            Util::debug() << "IOFork::split(): push " << dquoted[2] << endl;
             vs.push_back(dquoted[2]);                   // push the string
             d_cmd = dquoted.beyond();                   // process next
         }

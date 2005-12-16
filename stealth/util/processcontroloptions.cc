@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 void Util::processControlOptions()
 {
@@ -13,7 +13,7 @@ void Util::processControlOptions()
         signalStealth(SIGTERM, "SIGTERM", value);   // exits
 
     if (arg.option(&value, "suppress"))
-        Util::lock(value);                          // lock locally, let the
+        lock(value);                          // lock locally, let the
                                                     // integrity wait, exits
     if (arg.option(&value, "resume"))
         signalStealth(SIGUSR2, "SIGUSR2", value);   // exits
@@ -43,13 +43,13 @@ void Util::processControlOptions()
     if (arg.option(&value, "repeat"))
     {
         if (!s_keepAlive)
-            exit(1, "--repeat requires --keep-interval");
+            exit("--repeat requires --keep-interval");
 
         s_keepAlive = true;
         istringstream in(value);
 
         if (!(in >> s_repeatInterval))          // value 0: wait indefinite
-            exit(1, "--repeat requires <seconds> until next run");
+            exit("--repeat requires <seconds> until next run");
 
         if (s_repeatInterval < s_shortestRepeatInterval)
         {
@@ -61,7 +61,6 @@ void Util::processControlOptions()
         else if (s_repeatInterval > INT_MAX)
             s_repeatInterval = INT_MAX;
     }
-
     randomDelay();                  // determine any random delay
 }
 

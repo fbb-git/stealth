@@ -27,7 +27,8 @@ namespace FBB
         static std::string s_runFilename;    
         static unsigned s_delayInterval;    // for the random delay
         static unsigned s_repeatInterval;
-        static bool s_debug;
+        static std::ostream *s_debug;
+        static std::ostream s_cnul;
     
         public:
             enum Terminate
@@ -41,9 +42,9 @@ namespace FBB
                 BLOCKING,
             };
 
-            static bool debug()
+            static std::ostream &debug()
             {
-                return s_debug;
+                return *s_debug;
             }
             static std::string fileName(std::string const &name);
                                             // exit() itself includes `endl'
@@ -55,7 +56,7 @@ namespace FBB
             static std::ostream &date(std::ostream &str);
             static std::string datetime();
             static unsigned getPid(std::string const &runFilename);
-            static void exit(int exitvalue, char const *fmt, ...); 
+            static void exit(char const *fmt, ...); 
 
             static bool lockRunFile(LockType lockType);
 
@@ -66,7 +67,7 @@ namespace FBB
             static void setAlarm();
             static void setDebug(bool value)
             {
-                s_debug = value;
+                s_debug = value ? &std::cerr : &s_cnul;
             }
 
             static void sleep();            // sleep until wakeup

@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 // getPid() obtains the process-id from an existing lock-file. The file must
 // exist and the pid stored in the lock-file must be the process-id of an
@@ -18,7 +18,7 @@ void Util::signalStealth(int signum, char const *signame,
     unsigned pid = getPid(filename);    // get the pid of the process to
                                         // signal 
 
-    dout("Sending " << signame << " to process " << pid);
+    debug() << "Sending " << signame << " to process " << pid << endl;
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile
     // so the suppressed stealth process can signal back that it has completed
@@ -37,7 +37,7 @@ void Util::signalStealth(int signum, char const *signame,
                                     // process ID 
 
                                     // install the reply handler.
-        signal(SIGUSR1, Util::handleReplySignal);
+        signal(SIGUSR1, handleReplySignal);
     }
 
     sendSignal(signum, signame, pid);   // signal the running stealth, but we
@@ -50,17 +50,18 @@ void Util::signalStealth(int signum, char const *signame,
 
     if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
     {
-        dout("Suppressing process " << pid);
+        debug() << "Suppressing process " << pid << endl;
 
         sleep();                        // Prepare to go to sleep, by setting
                                         // s_selector
 
-        Util::unlockRunFile();          // Remove the lock, allow the
-                                        // suppressed process to continue
-                                        // The suppressed process will wait 
-                                        // for a second allowing this process
-                                        // to start its waiting cycle.
-        dout("Waiting for the suppressed process to finish its tasks");
+        unlockRunFile();            // Remove the lock, allow the
+                                    // suppressed process to continue
+                                    // The suppressed process will wait 
+                                    // for a second allowing this process
+                                    // to start its waiting cycle.
+        debug() << "Waiting for the suppressed process to finish its tasks" <<
+                                                                        endl;
 
         try                             // see Util::wait() for the try {...
         {
@@ -69,7 +70,7 @@ void Util::signalStealth(int signum, char const *signame,
         catch(...)                      // is irrelevant here.
         {}
 
-        dout("It has. Now terminate this process");
+        debug() << "It has. Now terminate this process" << endl;
     }
 
     throw OK; //    ::exit(0);                              // done

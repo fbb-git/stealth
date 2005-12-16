@@ -16,8 +16,6 @@
 #include "scanner/scanner.h"
 #include "monitor/monitor.h"
 
-#include "debugmacro"
-
 using namespace std;
 using namespace FBB;
 

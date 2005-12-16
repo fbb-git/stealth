@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 void Scanner::removeLOG()
 {
@@ -12,13 +12,16 @@ void Scanner::removeLOG()
         // remove 'LOG =' and proceed.
         if (pos != string::npos && matched[pos] == '=')
         {
-            dout("removed `LOG =', kept `" << matched.substr(pos + 1) << "'");
+            Util::debug() << "removed `LOG =', kept `" << 
+                            matched.substr(pos + 1) << "'" << endl;
             d_firstWord.match(matched.substr(pos + 1));
         }
         else
-            dout("LOG is (partial) logname in `" << matched << "'");
+            Util::debug() << "LOG is (partial) logname in `" << 
+                                                    matched << "'" << endl;
     }
     else
-        dout("No `LOG =' in CHECK command `" << matched << "'");
+        Util::debug() << "No `LOG =' in CHECK command `" << matched << "'" <<
+                                                                        endl;
 }
 

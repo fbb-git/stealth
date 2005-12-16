@@ -6,8 +6,6 @@
 #include <bobcat/errno>
 
 #include "../util/util.h"
-#include "../debugmacro"
-
 
 using namespace FBB;
 using namespace std;

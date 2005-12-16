@@ -6,7 +6,8 @@ IOFork::~IOFork()
 
     if (pid > 0)
     {
-        dout("IOFork::~IOFork(): terminating childprocess " << pid);
+        Util::debug() << "IOFork::~IOFork(): terminating childprocess " << 
+                                                                pid << endl;
         kill(pid, SIGTERM);
         kill(pid, SIGQUIT);
     }

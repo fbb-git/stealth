@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 void Scanner::run(volatile bool const *quit)
 {

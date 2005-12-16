@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 /*
     Since the Scanner's destruction is also the termination of the program, no

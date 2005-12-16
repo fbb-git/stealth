@@ -18,7 +18,5 @@
 
 #include "../configsorter/configsorter.h"
 
-#include "../debugmacro"
-
 using namespace std;
 using namespace FBB;

@@ -8,6 +8,7 @@
 static Arg::LongOption longOpt_begin[] =
 {
     Arg::LongOption("debug", 'd'),
+    Arg::LongOption("echo-commands", 'e'),
     Arg::LongOption("no-child-processes", 'n'),
     Arg::LongOption("only-stdout", 'o'),
     Arg::LongOption("parse-config-file", 'c'),
@@ -36,15 +37,12 @@ try
     try
     {
                                         // construct Arg object to process
-        Arg::initialize("cdi:noqr:v", 
+        Arg &arg = Arg::initialize("cdei:noqr:v", 
                 longOpt_begin, longOpt_end, 
                 argc, argv); 
 
-                                        // command-line arguments. 
-                                        // Arg is singleton: obtain it
-                                        // everwhere using Arg()
-        Arg &arg = Arg::getInstance();
-        Util::setDebug(arg.option('d'));
+        bool debug = arg.option('d');
+        Util::setDebug(debug);
 
                                         // handle process control options
         Util::processControlOptions();  
@@ -59,7 +57,7 @@ try
         }
         catch (...)                     // No configfile, then show message
         {
-            Util::exit(1, "Can't read configuration file `%s'", arg[0]);
+            Util::exit("Can't read configuration file `%s'", arg[0]);
         }
                                         // ConfigSorter sorts the 
                                         // configuration file. Separates
@@ -70,12 +68,14 @@ try
 
         Scanner scanner(sorter, reporter);  // Construct the integrityscanner
 
-#ifdef DEBUG
-        dout("SH and SSH childprocesses are now active. Press Enter...");
-        string enter;
-        if (arg.option('d'))  
+        if (debug)
+        {
+             Util::debug() << 
+                "SH and SSH childprocesses are now active. Press Enter..." <<
+                                                                        endl;
+            string enter;
             getline(cin, enter);
-#endif
+        }
 
         Util::maybeBackground();        // maybe run Stealth in the background
 
@@ -87,7 +87,7 @@ try
     }
     catch (Errno const &err)
     {
-        cerr << err.what() << ": " << err.which();
+        cerr << err.what() << ": " << err.which() << endl;
         throw Util::ERROR; // return 1;
     }
 

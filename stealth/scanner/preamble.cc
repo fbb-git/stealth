@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 void Scanner::preamble()
 {
@@ -10,14 +10,16 @@ void Scanner::preamble()
 
                                 // try to echo a sentinel by having
                                 // the ssh connection echo it    
-    dout("Inserting " << d_sentinel << " into " << d_sorter["SSH"]);
+    Util::debug() << "Inserting " << d_sentinel << " into " << 
+                    d_sorter["SSH"] << endl;
+
     d_sshFork.out() << "/bin/echo \"" << d_sentinel << "\"" << endl;
 
-    dout("Waiting for " << d_sentinel << " from " << d_sorter["SSH"]);
+    Util::debug() << "Waiting for " << d_sentinel << " from " << 
+                                                d_sorter["SSH"] << endl;
 
     d_testExitValue = false;
     waitForSentinel(d_sshFork.in());  // continue after reading 
 
-    if (Util::debug())
-        cerr << d_sorter["SSH"] << " appears to be functioning well\n";
+    Util::debug() << d_sorter["SSH"] << " appears to be functioning well\n";
 }

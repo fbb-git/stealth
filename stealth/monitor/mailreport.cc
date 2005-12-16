@@ -2,26 +2,25 @@
 
 void Monitor::mailReport()
 {
-    dout("Monitor::mailReport() starts");
+    Util::debug() << "Monitor::mailReport() starts" << endl;
 
-    if (!d_reporter.hasText())
+    if (!d_reporter.hasMail())
     {
-        if (Util::debug())
-            cerr << "no report to mail\n";
+        Util::debug() << "no report to mail" << endl;
         return;
     }
 
-    d_reporter.reset();
+    d_reporter.rewind();
 
     if (Arg::getInstance().option("o"))     // mail the report to stdout
     {
-        dout("Monitor::mailReport() mails report to stdout");
+        Util::debug() << "Monitor::mailReport() mails report to stdout" << 
+                                                                        endl;
         cout << d_reporter.rdbuf() << endl;
         return;
     }
 
-    if (Util::debug())
-        cerr << "mailing report using: " << d_sorter["MAILER"] << 
+    Util::debug() << "mailing report using: " << d_sorter["MAILER"] << 
             " " << d_sorter["MAILARGS"] << " " << d_sorter["EMAIL"] << endl;
 
     // mailcommand subject and email are called as separate arguments
@@ -34,9 +33,9 @@ void Monitor::mailReport()
 
     mail.fork();            // call the script/program
 
-    for (string s; getline(d_reporter, s); )
+    for (string s; getline(d_reporter.in(), s); )
     {
-        dout("Monitor::mailReport() contains: " << s);
+        Util::debug() << "Monitor::mailReport() contains: " << s << endl;
         mail.out() << s << endl;
     }
 

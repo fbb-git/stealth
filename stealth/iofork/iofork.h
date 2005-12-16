@@ -8,11 +8,6 @@
 #include <bobcat/fork>
 #include <bobcat/pipe>
 
-// #include "../fork/fork.h"
-// #include "../pipe/pipe.h"
-// #include "../ifdnbuf/ifdnbuf.h"
-// #include "../fdout/fdout.h"
-
 namespace FBB
 {    
     class IOFork: public Fork

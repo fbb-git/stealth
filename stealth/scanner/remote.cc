@@ -1,9 +1,8 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 void Scanner::remote(string const &cmd)
 {
-    if (Util::debug())
-        cerr << "REMOTE: Command Run At The Client\n";
+    Util::debug() << "REMOTE: Command Run At The Client" << endl;
 
     d_testExitValue = !removeFirstWord("NOTEST");   // [NOTEST] ...
 
@@ -12,5 +11,5 @@ void Scanner::remote(string const &cmd)
     else
         doPlainCommand(d_sshFork);
 
-    dout("Scanner::remote(): " << cmd << " DONE");
+    Util::debug() << "Scanner::remote(): " << cmd << " DONE" << endl;
 }

@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 // Command forms:
 //      GET                   remote-file local-file
@@ -6,8 +6,7 @@
 
 void Scanner::get(string const &cmd)
 {
-    if (Util::debug())
-        cerr << "Scanner::get(): " << cmd << endl;
+    Util::debug() << "Scanner::get(): " << cmd << endl;
 
     removeFirstWord("GET");                         // strip off `GET'
 
@@ -21,22 +20,23 @@ void Scanner::get(string const &cmd)
     string source = d_firstWord[1];                 // get the (remote) source
 
     if (!source.length())
-        Util::exit(1, "GET command requires source and destination");
+        d_reporter.exit() << "GET command requires source and destination" <<
+                            endl;
             
 
     d_firstWord.match(d_firstWord[3]);              // strip off source
     string destination = d_firstWord[1];            // get the local dest.
 
     if (!destination.length())
-        Util::exit(1, "At `GET %s <destination>': destination missing", 
-                                    source.c_str());
+        d_reporter.exit() << 
+            "At `GET " << source << " <destination>': destination missing" <<
+            endl;
             
     if (Util::isDirectory(destination))             // is the dest. a dir. ?
         destination += "/" + Util::fileName(source); 
 
 
-    if (Util::debug())
-        cerr << "Scanner::get(): scp <client>:" << source << " " << 
+    Util::debug() << "Scanner::get(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
     if (Arg::getInstance().option('n'))     // no run if -n
@@ -47,8 +47,7 @@ void Scanner::get(string const &cmd)
 
     read(d_sshFork.in(), destination); // read its output, tests exit value
 
-    if (Util::debug())
-        cerr << "Scanner::get(): " << cmd << " DONE" << endl;
+    Util::debug() << "Scanner::get(): " << cmd << " DONE" << endl;
 }
 
 

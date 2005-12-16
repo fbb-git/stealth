@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 string Util::fileName(string const &name)
 {

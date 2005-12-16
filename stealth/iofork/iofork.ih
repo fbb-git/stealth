@@ -7,14 +7,12 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <bobcat/arg>
 #include <bobcat/pattern>
 #include <bobcat/ifdstreambuf>
 #include <bobcat/ofdstreambuf>
 
-
 #include "../util/util.h"
-
-#include "../debugmacro"
 
 using namespace std;
 using namespace FBB;

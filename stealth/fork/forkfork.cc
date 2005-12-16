@@ -14,7 +14,7 @@ void Fork::fork()
                             // exit
     }
 
-    dout("Fork::fork(): childprocess " << d_pid << " started");
+    Util::debug() << "Fork::fork(): childprocess " << d_pid << " started");
 
     parentRedirections();
     parentProcess();

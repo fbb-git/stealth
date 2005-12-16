@@ -7,16 +7,14 @@ void IOFork::childProcess()
 
     argv = split(vs);                                   // split commandline
 
-#ifdef DEBUG
     if (Arg::getInstance().option('d'))
         for (char const **it = argv; *it; it++)
             cerr << "childProcess arg: " << *it << endl;
-#endif
 
     int stdErr = open("/dev/null", O_WRONLY);           // ignore stdError
 
     if (stdErr == -1)
-        Util::exit(1, "Can't open /dev/null");
+        Util::exit("Can't open /dev/null");
 
     dup2(stdErr, STDERR_FILENO);
     close(stdErr);                                      // stdError ignored

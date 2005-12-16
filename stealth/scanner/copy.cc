@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 //  SEE ALSO THE MEMBER waitForSentinel()
 
@@ -7,18 +7,19 @@ void Scanner::copy(std::istream &src, string const &fname)
     ofstream currentReport(fname.c_str());
 
     if (!currentReport)
-        Util::exit(1, "Can't open `%s' to write", fname.c_str());
+        d_reporter.exit() << "Can't open `" << fname << "' to write" << endl;
 
     string s;
 
-    dout("Scanner::copy(): about to read child input ");
+    Util::debug() << "Scanner::copy(): about to read child input " << endl;
+
     while (getline(src, s))
     {
-        dout("copy SAW: `" << s << "'");
+        Util::debug() << "copy SAW: `" << s << "'" << endl;
 
         if (s.find(d_sentinel) == 0)
         {
-            dout("GOT Sentinel");
+            Util::debug() << "GOT Sentinel" << endl;
             break;
         }
         currentReport << s << endl;

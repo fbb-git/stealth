@@ -1,8 +1,9 @@
-#include "reporter.h2"
+#include "reporter.ih"
 
 void Reporter::relax()
 {
-    close();
+    flush();
+    d_out.close();
     Util::unlockRunFile();              // release the lock on an existing
                                         // run file.
 }

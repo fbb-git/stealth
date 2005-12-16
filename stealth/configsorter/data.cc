@@ -1,4 +1,4 @@
-#include "configsorter.h2"
+#include "configsorter.ih"
 
 pair<string, string> const
     ConfigSorter::s_defaultKeyword[] =

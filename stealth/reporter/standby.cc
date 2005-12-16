@@ -1,4 +1,4 @@
-#include "reporter.h2"
+#include "reporter.ih"
 
 void Reporter::standby()
 {
@@ -6,15 +6,18 @@ void Reporter::standby()
         return;                                 // existing run file. 
                                                 // No run file: no lock
 
-    open(d_name.c_str(), ios::out | ios::ate | ios::in);
-    if (!is_open())
+    d_out.open(d_name.c_str(), ios::out | ios::ate | ios::in);
+    if (!d_out.is_open())
     {
-        clear();
-        open(d_name.c_str(), ios::out | ios::in | ios::trunc);    // open if 
-    }                                                   // construction fails:
-                                                        // new file
-    if (!is_open())
-        throw Errno((s_msg = "Can't open " +  d_name).c_str());
+        d_out.clear();
+        d_out.open(d_name.c_str(), ios::out | ios::in | ios::trunc);    
+                                                        // open if construction
+    }                                                   // fails: new file
+
+    if (!d_out.is_open())
+        throw Errno("Can't open ") << insertable << d_name << throwable;
+
+    insert(d_out);                              // insertions go to the report
 
     reinit();
 }

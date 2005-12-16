@@ -5,8 +5,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include "../debugmacro"
-
 using namespace FBB;
 
 

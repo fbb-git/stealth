@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 //  SEE ALSO THE MEMBER copy()
 
@@ -8,11 +8,11 @@ void Scanner::waitForSentinel(istream &extractor)
 
     while (getline(extractor, s))
     {
-        dout("Read line `" << s << "'");
+        Util::debug() << "Read line `" << s << "'" << endl;
 
         if (s.find(d_sentinel) == 0)
         {
-            dout("GOT Sentinel");
+            Util::debug() << "GOT Sentinel" << endl;
             break;
         }
     }

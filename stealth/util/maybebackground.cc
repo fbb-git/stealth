@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 void Util::maybeBackground()
 {
@@ -8,12 +8,11 @@ void Util::maybeBackground()
 
         ofstream out(runfile);
         if (!out)
-            exit(1, "Can't write `%s'", runfile);
+            exit("Can't write `%s'", runfile);
 
         int pid = fork();
         if (pid < 0)
-            exit(1, "--keepalive failed due to failing "
-                            "fork() system call.");
+            exit("--keepalive failed due to failing fork() system call.");
 
         if (pid > 0)        // parent process (gets child pid)
         {

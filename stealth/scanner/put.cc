@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 // Command forms:
 //      PUT                   local-file remote-file 
@@ -6,8 +6,7 @@
 
 void Scanner::put(string const &cmd)
 {
-    if (Util::debug())
-        cerr << "Scanner::put(): " << cmd << endl;
+    Util::debug() << "Scanner::put(): " << cmd << endl;
 
     removeFirstWord("PUT");                         // strip off `PUT'
 
@@ -20,21 +19,21 @@ void Scanner::put(string const &cmd)
 
     string source = d_firstWord[1];                 // get the (remote) source
     if (!source.length())
-        Util::exit(1, "PUT command requires source and destination");
+        d_reporter.exit() << "PUT command requires source and destination" <<
+                                                                        endl;
             
     d_firstWord.match(d_firstWord[3]);              // strip off source
 
     string destination = d_firstWord[1];            // get the local dest.
     if (!destination.length())
-        Util::exit(1, "At `PUT %s <destination>': destination missing", 
-                                    source.c_str());
+        d_reporter.exit() << "At `PUT " << source << 
+                            " <destination>': destination missing" << endl;
             
     if (Util::isDirectory(destination))             // is the dest. a dir. ?
         destination += "/" + Util::fileName(source);// then append sourcename
 
 
-    if (Util::debug())
-        cerr << "Scanner::put(): scp <client>:" << source << " " << 
+    Util::debug() << "Scanner::put(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
     string command = putCommand(source, destination);
@@ -51,9 +50,7 @@ void Scanner::put(string const &cmd)
     
     waitForSentinel(d_sshFork.in());
 
-    if (Util::debug())
-        cerr << "Scanner::put(): " << cmd << " DONE" << endl;
-
+    Util::debug() << "Scanner::put(): " << cmd << " DONE" << endl;
 }
 
 

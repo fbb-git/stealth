@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 ostream & Util::date(std::ostream &str)
 { 

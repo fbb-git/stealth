@@ -7,7 +7,7 @@
 
 mkdir -p tmp/bin tmp/o
 
-make/library
+req make/library
 
 BASE=${MAIN%\.[^\.]*}
 OBJ=tmp/o/${BASE}.o

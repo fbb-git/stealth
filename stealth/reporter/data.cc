@@ -1,3 +1,3 @@
-#include "reporter.h2"
+#include "reporter.ih"
 
 string Reporter::s_msg;

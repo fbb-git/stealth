@@ -2,39 +2,51 @@
 #define _REPORTER_H_
 
 #include <fstream>
+#include <bobcat/multistreambuf>
 
 namespace FBB
 {
-    class Reporter: public std::fstream    
+    class Reporter: private MultiStreambuf, public std::ostream
     {
         static std::string  s_msg;
 
         unsigned long   d_sizeAtConstruction;
-        unsigned long   d_sizeBeyondHeader;
         std::string     d_name;
+        bool            d_continue;
+        bool            d_hasMail;
+
+        std::fstream d_out;
 
         public:
             Reporter(std::string const &name); 
 
-            void reset();           // reset to the position when
+            void rewind();          // rewind to the position when
                                     // Reporter was constructed or at
                                     // the last reinit(). Information inserted
                                     // after calling this member will be
                                     // extracted
 
-            bool hasText()
+            std::istream &in()
             {
-                return static_cast<unsigned long>(tellp())
-                        > d_sizeBeyondHeader;
+                return d_out;
             }
 
-// NEW
+            bool hasMail() const
+            {
+                return d_hasMail;
+            }
+
             void relax();           // close the report file, release a 
                                     // runfile lock
-// NEW
             void standby();         // obtain a runfile lock, open the report
                                     // file
+
+            std::ostream &exit();   // inserts a message and exits,
+                                    // writing the same message to stderr,
+                                    // and throwing ERROR.
         private:
+            virtual int sync();
+
             void reinit();
 
             Reporter(Reporter const &other);            // NI

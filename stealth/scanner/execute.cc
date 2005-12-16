@@ -1,12 +1,12 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
                                         // receives the next command to execute
 void Scanner::execute(string const &cmd)
 {
     if (!(d_firstWord << cmd))          // determine first word and the rest
-        Util::exit(1, "Corrupt line in policy file: %s", cmd.c_str());
+        d_reporter.exit() << "Corrupt line in policy file: " << cmd << endl;
     
-    if (!Arg::getInstance().option('q'))// echo the command, unless -q found
+    if (Arg::getInstance().option("de"))// echo the command with -d, -e
         cerr << *d_cmdIterator << endl;
 
     if (d_firstWord[1] == "LABEL")      // set a label 

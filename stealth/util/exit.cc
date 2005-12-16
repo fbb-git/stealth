@@ -1,16 +1,13 @@
-#include "util.h2"
+#include "util.ih"
 
-void Util::exit(int exitnr, char const *fmt, ...)
+void Util::exit(char const *fmt, ...)
 {
-    va_list 
-        list;
-
-    if (!exitnr && Arg::getInstance().option('q'))
-        return;
-
+    va_list list;
     va_start(list, fmt);
 
     vfprintf(stderr, fmt, list);
     cerr << endl;
+    va_end(list);
+
     throw ERROR;    // ::exit(1);
 }

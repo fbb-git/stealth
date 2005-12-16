@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 void Util::replace(std::string &str, char const *org, char const *replacement)
 {

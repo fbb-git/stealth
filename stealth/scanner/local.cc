@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 /*
     At this point: LOCAL was seen. Beyond that, we must see:
@@ -14,8 +14,7 @@
 
 void Scanner::local(string const &d_firstWord2)
 {
-    if (Util::debug())
-        cerr << "Command Run At The Controller\n";
+    Util::debug() << "Command Run At The Controller\n";
 
     d_firstWord.match(d_firstWord2);                // what's beyond `LOCAL' ?
 

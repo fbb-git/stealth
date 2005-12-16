@@ -1,4 +1,4 @@
-#include "configsorter.h2"
+#include "configsorter.ih"
 
 void ConfigSorter::fetchCommands()
 {
@@ -10,7 +10,7 @@ void ConfigSorter::fetchCommands()
 
         if (!(firstWord << line))           // can't match a first word
         {
-            dout("No match for `" << line << "'");
+            Util::debug() << "No match for `" << line << "'" << endl;
             continue;                             
         }
 
@@ -20,13 +20,12 @@ void ConfigSorter::fetchCommands()
             insert(d_define, firstWord, line);
         else
         {
-            dout("Regular command: `" << line << "'");
+            Util::debug() << "Regular command: `" << line << "'" << endl;
             d_command.push_back(line);
         }
     }
 
     bool    ok = d_use.count("SSH");
-
 
     for 
     (
@@ -67,9 +66,9 @@ void ConfigSorter::fetchCommands()
             cout << (idx + 1) << ": " << d_command[idx] << endl;
 
         if (Arg::getInstance().option('c'))
-            Util::exit(1, "ConfigSorter file processed"); 
+            Util::exit("ConfigSorter file processed"); 
     }
 
     if (!ok)
-        Util::exit(1, "USE SSH ... entry missing in the configuration file");
+        Util::exit("USE SSH ... entry missing in the configuration file");
 }

@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 bool Scanner::doCHECKcommand(IOFork &child)
 {

@@ -1,4 +1,4 @@
-#include "util.h2"
+#include "util.ih"
 
 void Util::usage()
 {
@@ -17,6 +17,8 @@ void Util::usage()
         "Where:\n"
         "   options: (long options between parentheses) select from:\n"
         "       -d: (--debug) write debug messages to std error\n"
+        "       -e: (--echo-commands) echo commands to std error when they\n"
+        "           are processed (implied by -d)\n"
         "       -c: (--parse-config-file) process the config file,\n"
         "           no further action, report the results to std output.\n"
         "       -i <interval>[m]: (--random-interval) start the "

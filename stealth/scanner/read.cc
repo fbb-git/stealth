@@ -1,4 +1,4 @@
-#include "scanner.h2"
+#include "scanner.ih"
 
 //  SEE ALSO THE MEMBER waitForSentinel()
 
@@ -7,9 +7,9 @@ void Scanner::read(std::istream &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        Util::exit(1, "Can't open `%s' to write", fname.c_str());
+        d_reporter.exit() << "Can't open `" << fname << "' to write" << endl;
 
-    dout("Scanner::read(): about to read child input ");
+    Util::debug() << "Scanner::read(): about to read child input" << endl;
 
     char c;
     string partialSentinel;
@@ -25,7 +25,7 @@ void Scanner::read(std::istream &src, string const &fname)
 
             if (length == d_sentinel.length())  // matched the sentinel
             {
-                dout("GOT Sentinel");
+                Util::debug() << "GOT Sentinel" << endl;
 
                 string tail;                    // get the end-chars as well
                 getline(src, tail);
@@ -46,7 +46,6 @@ void Scanner::read(std::istream &src, string const &fname)
             target.write(&c, 1);
         }
     }
-
     testExitValue(partialSentinel);
 }
 

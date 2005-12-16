@@ -1,4 +1,4 @@
-#include "configsorter.h2"
+#include "configsorter.ih"
 
 ConfigSorter::ConfigSorter(ConfigFile &configfile)
 :
@@ -12,5 +12,5 @@ ConfigSorter::ConfigSorter(ConfigFile &configfile)
     char const *cp = base.c_str();
 
     if (!Util::mkdir(cp) || chdir(cp))
-        Util::exit(1, "Can't chdir to `%s'", cp);
+        Util::exit("Can't chdir to `%s'", cp);
 }
