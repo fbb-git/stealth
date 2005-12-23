@@ -1,5 +1,9 @@
 #include "reporter.ih"
 
+// This function is called from Monitor::control() at the beginning of the
+// configuration processing loop. It (re)opens the report file and prepares it
+// for the next run.
+
 void Reporter::standby()
 {
     if (!Util::lockRunFile(Util::NONBLOCKING))  // wait for the lock on an 
@@ -16,8 +20,6 @@ void Reporter::standby()
 
     if (!d_out.is_open())
         throw Errno("Can't open ") << insertable << d_name << throwable;
-
-    insert(d_out);                              // insertions go to the report
 
     reinit();
 }

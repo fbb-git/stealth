@@ -12,7 +12,7 @@ void Scanner::run(volatile bool const *quit)
                                                 // add values to it, below.
     string cmdNr;
 
-    if (Arg::getInstance().option(&cmdNr, 'r')) // is there  a command number?
+    if (Arg::instance().option(&cmdNr, 'r')) // is there  a command number?
     {
                                                 // if so, add its number to
                                                 // d_cmdIterator    

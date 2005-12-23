@@ -1,23 +1,24 @@
 #include "configsorter.ih"
 
+// called from ConfigSorter()
+
 void ConfigSorter::fetchCommands()
 {
-    Pattern     firstWord("(\\S+)\\s+(.*)");
-
     for (int idx = 0, n = d_configfile.size(); idx < n; ++idx)
     {
         string line = d_configfile[idx];
 
-        if (!(firstWord << line))           // can't match a first word
+        if (!(s_firstWord << line))           // can't match a first word
         {
-            Util::debug() << "No match for `" << line << "'" << endl;
+            if (!(s_comment << line))
+                Util::debug() << "No match for `" << line << "'" << endl;
             continue;                             
         }
 
-        if (firstWord[1] == "USE")
-            insert(d_use, firstWord, line);
-        else if (firstWord[1] == "DEFINE")
-            insert(d_define, firstWord, line);
+        if (s_firstWord[1] == "USE")
+            insert(d_use, s_firstWord, line);
+        else if (s_firstWord[1] == "DEFINE")
+            insert(d_define, s_firstWord, line);
         else
         {
             Util::debug() << "Regular command: `" << line << "'" << endl;
@@ -51,7 +52,7 @@ void ConfigSorter::fetchCommands()
     )
         replaceDefines(*it);
 
-    if (Arg::getInstance().option("dc"))
+    if (Arg::instance().option("dc"))
     {
         for
         (
@@ -65,7 +66,7 @@ void ConfigSorter::fetchCommands()
         for (int idx = 0; idx < static_cast<int>(d_command.size()); idx++)
             cout << (idx + 1) << ": " << d_command[idx] << endl;
 
-        if (Arg::getInstance().option('c'))
+        if (Arg::instance().option('c'))
             Util::exit("ConfigSorter file processed"); 
     }
 

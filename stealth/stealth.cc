@@ -47,6 +47,8 @@ try
                                         // handle process control options
         Util::processControlOptions();  
 
+        Util::maybeBackground();        // maybe run Stealth in the background
+
 
         ConfigFile configfile;          // ConfigFile object reads
                                         // configuration file 
@@ -68,17 +70,6 @@ try
 
         Scanner scanner(sorter, reporter);  // Construct the integrityscanner
 
-        if (debug)
-        {
-             Util::debug() << 
-                "SH and SSH childprocesses are now active. Press Enter..." <<
-                                                                        endl;
-            string enter;
-            getline(cin, enter);
-        }
-
-        Util::maybeBackground();        // maybe run Stealth in the background
-
                                             // Contruct the process monitor
         Monitor monitor(sorter, reporter, scanner); 
 
@@ -94,13 +85,13 @@ try
     Util::unlinkRunfile();
     return 0;
 }
-catch (Util::Terminate terminate)
+catch (Util::Terminate terminate)   // may also be OK
 {
-    if (Util::mainProcess())
-        Scanner::killChildren();
-        
+    Util::mainProcess();
     return terminate;
 }
+
+
 
 
 

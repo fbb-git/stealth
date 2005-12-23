@@ -2,7 +2,7 @@
 
 void Scanner::removeLOG()
 {
-    string matched = d_firstWord[0];    // complete matched text
+    string matched = s_firstWord[0];    // complete matched text
 
     if (matched.find("LOG") == 0)       // LOG at the beginning
     {
@@ -14,7 +14,7 @@ void Scanner::removeLOG()
         {
             Util::debug() << "removed `LOG =', kept `" << 
                             matched.substr(pos + 1) << "'" << endl;
-            d_firstWord.match(matched.substr(pos + 1));
+            s_firstWord.match(matched.substr(pos + 1));
         }
         else
             Util::debug() << "LOG is (partial) logname in `" << 

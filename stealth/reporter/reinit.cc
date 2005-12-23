@@ -1,5 +1,10 @@
 #include "reporter.ih"
 
+// This function is called from standby(), and (re)inits the report file. It
+// remembers its initial size, writes the header and sets `d_hasMail' to
+// false. New entries inserted into the report file will automatically set
+// `d_hasMail' to true.
+
 void Reporter::reinit()
 {
     Util::debug() << "Reinit the reporter" << endl;

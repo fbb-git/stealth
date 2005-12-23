@@ -12,11 +12,19 @@ is used.
 Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 :
     d_sorter(sorter),
-    d_reporter(reporter),// ostream
+    d_reporter(reporter),                       // ostream
     d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")),// firstword ([1]) and 
                                                 // the rest ([3]) of a text
-    d_sshFork(d_sorter["SSH"]),                 // child: ignores stderr, reads
-    d_shFork(d_sorter["SH"]),                   // from stdin/stdout
+    d_sshFork
+    (
+        d_sorter["SSH"], 
+        Process::CIN | Process::COUT | Process::IGNORE_CERR
+    ),                 // child: ignores stderr, reads
+    d_shFork
+    (
+        d_sorter["SH"],
+        Process::CIN | Process::COUT | Process::IGNORE_CERR
+    ),                   // from stdin/stdout
                                                 // parent process communicates
                                                 // via the Fork object's 
                                                 // stream interface.

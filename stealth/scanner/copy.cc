@@ -27,3 +27,8 @@ void Scanner::copy(std::istream &src, string const &fname)
 
     testExitValue(s);
 }
+
+
+
+
+

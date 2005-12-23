@@ -12,5 +12,5 @@ void Scanner::nextCommand(ostream &out, string const &command)
 
     if (!out)
         d_reporter.exit() << 
-            "Inserting command `" << d_firstWord[0] << "' failed." << endl;
+            "Inserting command `" << s_firstWord[0] << "' failed." << endl;
 }

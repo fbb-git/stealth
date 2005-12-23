@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include <iosfwd>
-#include "../iofork/iofork.h"
+#include <bobcat/process>
+// #include "../iofork/iofork.h"
 
 namespace FBB
 {
@@ -14,19 +15,19 @@ namespace FBB
 
     class Scanner
     {
-        static int              s_shPid;
-        static int              s_sshPid;
-        
         ConfigSorter                               &d_sorter;
         Reporter                                   &d_reporter;
         Pattern                                    &d_firstWord;
-        IOFork                                      d_sshFork;
-        IOFork                                      d_shFork;
+        Process                                     d_sshFork;
+        Process                                     d_shFork;
         std::string                                 d_sentinel;
         std::string                                 d_label;
         std::vector<std::string>::const_iterator    d_cmdIterator;
         bool                                        d_testExitValue;
         unsigned                                    d_nScans;
+
+        static Pattern  s_split;
+        static Pattern  s_firstWord;
 
         public:
             Scanner(ConfigSorter &sorter, Reporter &reporter);
@@ -39,7 +40,7 @@ namespace FBB
             void        run(volatile bool const *done);    
 
 
-            static void killChildren();
+            void killChildren();
             
         private:
                             // copy a textfile
@@ -49,12 +50,12 @@ namespace FBB
                                         // its output to previously
                                         // generated output. Returns true if
                                         // the outputs are identical
-            bool        doCHECKcommand(IOFork &child);
+            bool        doCHECKcommand(Process &child);
 
                                         // executes a command, without
                                         // comparing its output to previously
                                         // generated output
-            void        doPlainCommand(IOFork &child);
+            void        doPlainCommand(Process &child);
 
                                         // execute the command from d_sorter
             void        execute(std::string const &command);    

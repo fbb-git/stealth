@@ -8,9 +8,10 @@
 #include <bobcat/configfile>
 #include <bobcat/errno>
 #include <bobcat/selector>
+#include <bobcat/process>
 
 #include "util/util.h"
-#include "iofork/iofork.h"
+// #include "iofork/iofork.h"
 #include "configsorter/configsorter.h"
 #include "reporter/reporter.h"
 #include "scanner/scanner.h"

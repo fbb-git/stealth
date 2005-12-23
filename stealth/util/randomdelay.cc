@@ -4,7 +4,7 @@ void Util::randomDelay()
 { 
     string delay;
 
-    if (!Arg::getInstance().option(&delay, 'i'))
+    if (!Arg::instance().option(&delay, 'i'))
         return;
 
     delay += "\n";                  // to make sure the istr doesn't fail

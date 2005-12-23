@@ -12,11 +12,11 @@
     CHECK   means that the output is compared with a former log
 */
 
-void Scanner::local(string const &d_firstWord2)
+void Scanner::local(string const &s_firstWord2)
 {
     Util::debug() << "Command Run At The Controller\n";
 
-    d_firstWord.match(d_firstWord2);                // what's beyond `LOCAL' ?
+    s_firstWord.match(s_firstWord2);                // what's beyond `LOCAL' ?
 
                                                     // set d_testExitValue
     d_testExitValue = !removeFirstWord("NOTEST");   // according to !NOTEST

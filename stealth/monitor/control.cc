@@ -1,19 +1,24 @@
 #include "monitor.ih"
 
+// Called by main() once all preliminary actions have been completed. This
+// function controls the processing of the configuration file.
+
 void Monitor::control()
 {
     while (true)
     {
         Util::debug() << "CONTROL: s_mode == " << s_mode << endl;
     
-        d_reporter.standby();       // locks the runfile
+        d_reporter.standby();       // locks the runfile, opens the report
+                                    // file
         processMode();
         mailReport();
-        d_reporter.relax();
+
+        d_reporter.relax();         // close the report file, unlock the run
+                                    // file. 
 
         if (s_mode == TERMINATED || s_mode == ONCE)
             break;
-
 
         if (s_mode == SUPPRESSED)
         {

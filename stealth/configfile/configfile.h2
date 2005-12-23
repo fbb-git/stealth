@@ -1,7 +1,0 @@
-#include "configfile.h"
-#include <fstream>
-
-#include "../debugmacro"
-
-using namespace std;
-using namespace FBB;

@@ -7,7 +7,7 @@ void Monitor::processMode()
         switch (s_mode)
         {
             case TERMINATE:
-                d_reporter <<
+                d_reporter << 
                     "STEALTH was terminated after " << d_scanner.nScans() << 
                     " scans at " << Util::date << endl;
                 s_mode = TERMINATED;

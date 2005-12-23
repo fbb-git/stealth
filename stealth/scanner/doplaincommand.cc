@@ -1,15 +1,15 @@
 #include "scanner.ih"
 
-void Scanner::doPlainCommand(IOFork &child)
+void Scanner::doPlainCommand(Process &child)
 {
-    if (Util::debug())
-        cerr << "running unchecked command: `" << d_firstWord[0] << "'\n";
+    Util::debug() << "running unchecked command: `" << s_firstWord[0] << "'"
+                                                                    << endl;
 
-    if (!Arg::getInstance().option('n'))    // unless -n (no execute commands)
+    if (!Arg::instance().option('n'))    // unless -n (no execute commands)
     {
-        nextCommand(child.out(),            // start the next command
-                        d_firstWord[0]);    
+        nextCommand(child,                  // start the next command
+                        s_firstWord[0]);    
 
-        waitForSentinel(child.in());        // read its output
+        waitForSentinel(child);             // read its output
     }
 }

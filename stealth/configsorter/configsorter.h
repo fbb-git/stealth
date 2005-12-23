@@ -20,7 +20,11 @@ namespace FBB
     
         static std::pair<std::string, std::string> const s_defaultKeyword[];
         static unsigned s_nDefaultKeywords;
-
+        static Pattern              s_firstWord;
+        static Pattern              s_comment;
+        static Pattern              s_define;   // [0]: all text,
+                                                // [1]: all ${NAME} text
+                                                // [2]: NAME itself
     public:
         ConfigSorter(ConfigFile &configfile);
 

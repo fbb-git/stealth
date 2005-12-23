@@ -1,5 +1,7 @@
 #include "monitor.ih"
 
+// Called from control()
+
 void Monitor::mailReport()
 {
     Util::debug() << "Monitor::mailReport() starts" << endl;
@@ -10,9 +12,9 @@ void Monitor::mailReport()
         return;
     }
 
-    d_reporter.rewind();
+    d_reporter.rewind();                    // resets the `hasmail' variable
 
-    if (Arg::getInstance().option("o"))     // mail the report to stdout
+    if (Arg::instance().option("o"))     // mail the report to stdout
     {
         Util::debug() << "Monitor::mailReport() mails report to stdout" << 
                                                                         endl;
@@ -28,21 +30,18 @@ void Monitor::mailReport()
     // arguments by the `mail' IOFork. Ususally d_sorter["MAILER"] will
     // call a script.
 
-    IOFork mail(d_sorter["MAILER"] + " " + d_sorter["MAILARGS"] +
-                    " " + d_sorter["EMAIL"]);
+    Process mail(5, d_sorter["MAILER"] + " " + d_sorter["MAILARGS"] +
+                    " " + d_sorter["EMAIL"], Process::CIN | 
+                                             Process::IGNORE_COUT |
+                                             Process::IGNORE_CERR);
 
-    mail.fork();            // call the script/program
+    mail.start(Process::USE_SHELL);
 
     for (string s; getline(d_reporter.in(), s); )
     {
         Util::debug() << "Monitor::mailReport() contains: " << s << endl;
-        mail.out() << s << endl;
+        mail << s << endl;
     }
 
-    mail.waitForChild();
+    Util::debug() << "Mailing report" << endl;
 }
-
-
-
-
-

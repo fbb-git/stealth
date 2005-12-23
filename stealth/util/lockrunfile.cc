@@ -34,7 +34,7 @@ try
                                                     fileno(s_runFILE) << endl;
         for (unsigned idx = 0; idx < s_maxBlockAttempts; ++idx)
         {
-            if (flock(fileno(s_runFILE), LOCK_EX | LOCK_NB) == 0)
+            if (flock(fileno(s_runFILE), LOCK_EX  | LOCK_NB) == 0)
                 throw true;
             debug() << "." << flush;
             ::sleep(1);

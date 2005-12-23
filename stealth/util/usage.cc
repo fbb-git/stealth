@@ -2,7 +2,7 @@
 
 void Util::usage()
 {
-    string stealth = Arg::getInstance().basename();
+    string stealth = Arg::instance().basename();
 
     cerr <<
         stealth << " by Frank B. Brokken (f.b.brokken@rug.nl)\n"
@@ -16,11 +16,11 @@ void Util::usage()
         "   " << stealth << " options policy\n"
         "Where:\n"
         "   options: (long options between parentheses) select from:\n"
+        "       -c: (--parse-config-file) process the config file,\n"
+        "           no further action, report the results to std output.\n"
         "       -d: (--debug) write debug messages to std error\n"
         "       -e: (--echo-commands) echo commands to std error when they\n"
         "           are processed (implied by -d)\n"
-        "       -c: (--parse-config-file) process the config file,\n"
-        "           no further action, report the results to std output.\n"
         "       -i <interval>[m]: (--random-interval) start the "
                                             "scan between now and \n"
         "           a random interval of interval seconds, or minutes\n"

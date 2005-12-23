@@ -8,7 +8,7 @@ void Util::setAlarm()
         :
             0;
 
-    if (Arg::getInstance().option('d'))
+    if (Arg::instance().option('d'))
     {
         cerr << "Would have waited " << random_wait << " seconds\n"
              << "Randomly selected from " << s_delayInterval << 

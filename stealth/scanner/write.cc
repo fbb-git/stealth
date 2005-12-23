@@ -21,11 +21,11 @@ void Scanner::write(string const &fname)
         if (!nRead)
             break;
 
-        if (!d_sshFork.out().write(buffer, nRead))
+        if (!d_sshFork.write(buffer, nRead))
             d_reporter.exit() << "PUT failed." << endl;
     }
 
-    d_sshFork.out().flush();
+    d_sshFork.flush();
 }
 
 

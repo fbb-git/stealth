@@ -17,14 +17,14 @@ void Scanner::put(string const &cmd)
     //          d_firstword[3] contains the rest    
 
 
-    string source = d_firstWord[1];                 // get the (remote) source
+    string source = s_firstWord[1];                 // get the (remote) source
     if (!source.length())
         d_reporter.exit() << "PUT command requires source and destination" <<
                                                                         endl;
             
-    d_firstWord.match(d_firstWord[3]);              // strip off source
+    s_firstWord.match(s_firstWord[3]);              // strip off source
 
-    string destination = d_firstWord[1];            // get the local dest.
+    string destination = s_firstWord[1];            // get the local dest.
     if (!destination.length())
         d_reporter.exit() << "At `PUT " << source << 
                             " <destination>': destination missing" << endl;
@@ -38,17 +38,16 @@ void Scanner::put(string const &cmd)
 
     string command = putCommand(source, destination);
 
-    if (Arg::getInstance().option('n'))     // no run if -n
+    if (Arg::instance().option('n'))     // no run if -n
         return;
 
-    d_sshFork.out() << command << endl;
+    d_sshFork << command << endl;
 
     write(source);                      // write the file using dd
 
-    d_sshFork.out() <<
-            "/bin/echo \"" << d_sentinel << " $?\""  << endl;
+    d_sshFork << "/bin/echo \"" << d_sentinel << " $?\""  << endl;
     
-    waitForSentinel(d_sshFork.in());
+    waitForSentinel(d_sshFork);
 
     Util::debug() << "Scanner::put(): " << cmd << " DONE" << endl;
 }

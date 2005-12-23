@@ -16,8 +16,8 @@ bool Scanner::noDifferences(std::string const &current,
     Util::debug() << "Scanner::noDifferences(): started " << 
             d_sorter["DIFF"] << " " << current << " " << logfile << endl;
 
-    d_shFork.out() << d_sorter["DIFF"] << " " << current << " " << logfile <<
-                                                                    endl <<
+    d_shFork << d_sorter["DIFF"] << " " << current << " " << logfile <<
+                                                                endl <<
                         "/bin/echo \"" << d_sentinel << "\"" << endl;
 
     HashString< pair<string, vector<string> > > status;
@@ -25,37 +25,35 @@ bool Scanner::noDifferences(std::string const &current,
     Util::debug() << "Scanner::noDifferences():         " << "/bin/echo " << 
                         d_sentinel << endl;
 
-    /*
-        key is string, case sensitive.
-
-        The last element of the lines produced by diff is used as the
-        key. For the current function to operate sensibly, this should be
-        a filename or path/file.
-
-        If the first character of the line is a < or >, then a modification is
-        detected: for these lines the following happens:
-            1. If the key already existed its .first element is set to
-                "modified". If the key didn't exist yet, it is set to
-                "added" at at '<', and to "removed" at a '>'
-            2. The line itself is pushed back to the .second (vector) element
-                of the pair.
-
-        At the end, if the hashtable has any elements, the table is inserted
-        into the d_reporter and `false' is returned. If the hashtable contains
-        no elements, 'true' is returned.
-    */
+    //  key is string, case sensitive.
+    //
+    //  The last element of the lines produced by diff is used as the
+    //  key. For the current function to operate sensibly, this should be
+    //  a filename or path/file.
+    //
+    //  If the first character of the line is a < or >, then a modification is
+    //  detected: for these lines the following happens:
+    //      1. If the key already existed its .first element is set to
+    //          "modified". If the key didn't exist yet, it is set to
+    //          "added" at at '<', and to "removed" at a '>'
+    //      2. The line itself is pushed back to the .second (vector) element
+    //          of the pair.
+    //
+    //  At the end, if the hashtable has any elements, the table is inserted
+    //  into the d_reporter and `false' is returned. If the hashtable contains
+    //  no elements, 'true' is returned.
 
     string  s;
-    Pattern split("(\\S+)\\s*$");
+//    Pattern split("(\\S+)\\s*$");
 
     Util::debug() << "Scanner::noDifferences(): starting to read lines" << 
                                                                         endl;
 
-    if (!d_shFork.in())
-        d_reporter.exit() << "`" << d_sorter["SH"] << "': no output from " <<
-                             d_sorter["DIFF"] << endl;
+//    if (!d_shFork.available())
+//        d_reporter.exit() << "`" << d_sorter["SH"] << "': no output from " <<
+//                             d_sorter["DIFF"] << endl;
 
-    while (getline(d_shFork.in(), s))
+    while (getline(d_shFork, s))
     {
         Util::debug() << "Scanner::noDifferences():      got: `" << s << 
                                                                     "'\n" <<
@@ -64,10 +62,10 @@ bool Scanner::noDifferences(std::string const &current,
         if (s == d_sentinel)
             break;
 
-        if (!(split << s))
+        if (!(s_split << s))
             continue;                       // no match at empty lines ?
 
-        string key = split[1];              // get the key
+        string key = s_split[1];            // get the key
         bool exists = status.count(key);
 
         if (s[0] == '>')                // removal, e.g.,   > b88d0b....  out

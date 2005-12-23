@@ -1,3 +1,5 @@
+all local Pattern objects are now static data members
+
 removed superfluous stealth.doc-base
 
 removed classes arg, configfile, errno fdout fork ifdnbuf pattern pipe

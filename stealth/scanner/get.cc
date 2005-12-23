@@ -17,15 +17,15 @@ void Scanner::get(string const &cmd)
     //          d_firstword[3] contains the rest    
 
 
-    string source = d_firstWord[1];                 // get the (remote) source
+    string source = s_firstWord[1];                 // get the (remote) source
 
     if (!source.length())
         d_reporter.exit() << "GET command requires source and destination" <<
                             endl;
             
 
-    d_firstWord.match(d_firstWord[3]);              // strip off source
-    string destination = d_firstWord[1];            // get the local dest.
+    s_firstWord.match(s_firstWord[3]);              // strip off source
+    string destination = s_firstWord[1];            // get the local dest.
 
     if (!destination.length())
         d_reporter.exit() << 
@@ -39,13 +39,13 @@ void Scanner::get(string const &cmd)
     Util::debug() << "Scanner::get(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
-    if (Arg::getInstance().option('n'))     // no run if -n
+    if (Arg::instance().option('n'))     // no run if -n
         return;
 
-    nextCommand(d_sshFork.out(),        // start the next command
+    nextCommand(d_sshFork,                  // start the next command
         d_sorter["DD"] + " if=" + source);
 
-    read(d_sshFork.in(), destination); // read its output, tests exit value
+    read(d_sshFork, destination);       // read its output, tests exit value
 
     Util::debug() << "Scanner::get(): " << cmd << " DONE" << endl;
 }

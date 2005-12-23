@@ -2,7 +2,7 @@
 
 void Util::processControlOptions()
 {
-    Arg &arg = Arg::getInstance();
+    Arg &arg = Arg::instance();
 
     string value;
                                     // options for other stealth processes
@@ -34,6 +34,7 @@ void Util::processControlOptions()
 
                                                 // options for this process:
     s_keepAlive = arg.option(&value, "keep-alive");
+
     if (s_keepAlive)
     {
         s_repeatInterval = INT_MAX;
