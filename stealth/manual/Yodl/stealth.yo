@@ -26,10 +26,6 @@ latexcommand(
 \addtolength{\textwidth}{4cm}
 \addtolength{\hoffset}{-2cm})
 
-COMMENT(
-    NOT WITH Yodl >= V2.00
-    IFDEF(latex)(UNDEFINESYMBOL(XXsloppyhfuzz))()
-)
 nosloppyhfuzz()
     
 
@@ -102,8 +98,3 @@ includefile(usage)
 
 chapter(Errormessages)
 includefile(errors)
-
-
-
-
-

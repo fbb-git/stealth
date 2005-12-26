@@ -1,3 +1,20 @@
+COMMENT(
+    With 1.40:
+END COMMENT)
+
+    itemization(
+    it() The tt(-e) (tt(--echo-commands)) option was added to echo commands to
+std error when they are processed (this option is implied by tt(-d));
+    it() When a command fails (except for commands for which tt(NOTEST) was
+specified), the reason why the command failed is written to the report file or
+to the standard error stream;
+    it() The debugging facility is now always available, and does not require
+recompilation of bf(stealth) anymore.
+    )
+
+COMMENT(
+    With 1.35:
+
     Two new options were added to facilitate report-file rotations:
     itemization(
     it() tt(--resume pidfile): resume a suppressed bf(stealth)
@@ -22,3 +39,4 @@ the familiar bf(logrotate)(1) program.
     it() When upgrading bf(stealth), make sure that all bf(stealth) processes
 using earlier versions are terminated first.
     )
+END COMMENT)

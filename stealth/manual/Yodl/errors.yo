@@ -37,6 +37,12 @@ itself.
 the file exists, and if you have read permissions for it.
     )
 
+    tt(Config line `...' invalid)
+    quote(The mentioned line of the specified policy file was
+ill-formed. Check the line's contents against the description of the policy
+file. 
+    )
+
     tt(ConfigSorter file processed)
     quote(In this case, the tt(-c) option has been given. When tt(-c) was
 provided, bf(stealth) stops after having processed the configuration file.
@@ -61,10 +67,11 @@ unacceptable.
     )
 
     tt(Non-zero exit value for `...')
-    quote(A local command (not using the
-tt(CHECK) keyword), returned with a non-zero exit. This will terminate further
-processing of the policy file. Inspect and/or rerun the command `by hand' to
-find indications about what went wrong.
+    quote(A local command (not using the tt(CHECK) keyword), returned with a
+non-zero exit. This will terminate further processing of the policy
+file. Inspect and/or rerun the command `by hand' to find indications about
+what went wrong. The report file or the standard error stream may also contain
+additional information about the reason of the failure.
     )
 
     tt(Unable to create the logfile `...')

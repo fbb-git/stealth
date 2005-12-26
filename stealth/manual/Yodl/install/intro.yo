@@ -1,15 +1,4 @@
-This chapter describes bf(stealth)'s installation. The following topics
-will be covered:
+This chapter describes bf(stealth)'s compilation and installation. 
 
-    itemization(
-    it() Compiling bf(stealth) using the tt(icmake) program
-    it() Compiling bf(stealth) using the tt(plain) script
-    )
-
-sect(Compiling Stealth using icmake)
-includefile(install/icmake)
-
-sect(Compiling Stealth using plain)
-includefile(install/hand)
-
-
+sect(Compiling and installing Stealth)
+includefile(install/compile)

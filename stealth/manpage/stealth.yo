@@ -86,7 +86,10 @@ bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
 of appearance. Examples are given below. Normally, return values of the
 programs are  tested. Non-zero return values will terminate s()
-prematurely.
+prematurely. In this case, a message about the reason why s() terminated is
+written to the report file (and into the mail message sent by s()). In some
+cases (e.g., when the report file could not be written), the message is
+written to the standard error stream.
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
 program, calling programs like bf(ls)(1), bf(md5sum)(1) or its own
 tt(-printf) method to produce file-integrity related statistics. Most of these
@@ -218,8 +221,10 @@ controller):nl()
 
     it() bf(USE MAILER) tt(<mailer>)nl()
         The bf(MAILER) specification defines the program that is used to send
-the mail to the bf(EMAIL)-address. By default this is
-bf(/usr/bin/mail)(1). bf(MAILER) is called with the following
+the mail to the bf(EMAIL)-address. Contrary to bf(DIFF) and bf(DD) and (see
+below) bf(SH) and bf(SSH), bf(MAILER) is run as a tt(/bin/sh) command, to
+allow shell-scripts to process the mail too. By default bf(MAILER) is defined
+as bf(/usr/bin/mail)(1). bf(MAILER) is called with the following
 arguments:nl()
     ----------------------------------------------------------nl()
     bf(MAILARGS), see below;nl()
@@ -546,6 +551,9 @@ equivalents, if available. Either can be used.
     it() tt(-c --parse-config-file): 
             Process the config file, no further action,nl()
             report the results to std output;
+    it() tt(-e --echo-commands):
+            echo commands to std error when they are processed (implied by 
+            tt(-d));
     it() tt(-i --random-interval <interval>[m]>): 
             start the scan between now and nl()
            a random interval of interval seconds, or nl()

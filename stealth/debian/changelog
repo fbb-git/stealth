@@ -1,3 +1,29 @@
+stealth (1.40) unstable; urgency=low
+
+  * all local Pattern objects are now static data members
+
+    removed: superfluous stealth.doc-base; debugmacro;
+    classes arg, configfile, errno fdout fork ifdnbuf pattern pipe selector
+    (now in bobcat)
+    
+    Renamed all .h2 headers to my standard .ih names:
+            util, configsorter, reporter scanner
+    
+    Reporter::reset() now calls Reporter::rewind()
+    
+    Reporter uses d_hasMail data member instead of d_sizeBeyondHeader:
+    d_hasMail can simply be set to false following the writing of the header,
+    and then to true at each sync() command.
+    
+    added: Reporter::exit(), first inserting the message into the reporter,
+    then to cerr, and exiting.
+    
+    fatal error messages are no longer suppressed with -q
+
+    man(ual) pages adapted accordingly.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 26 Dec 2005 18:23:25 +0100
+
 stealth (1.35) unstable; urgency=low
 
   * Recompilation using g++-4.0. Requires bobcat >= 1.4.0

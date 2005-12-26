@@ -3,7 +3,7 @@ to start it. A message like the following is produced:
         verb(
 stealth by Frank B. Brokken (f.b.brokken@rug.nl)
 
-stealth V1.31
+stealth V1.40
 SSH-based Trust Enhancement Acquired through a Locally Trusted Host
 Copyright (c) GPL 2001-2005
 
@@ -11,9 +11,11 @@ Usage 1:
    stealth options policy
 Where:
    options: (long options between parentheses) select from:
-       -d: (--debug) write debug messages to std error
        -c: (--parse-config-file) process the config file,
            no further action, report the results to std output.
+       -d: (--debug) write debug messages to std error
+       -e: (--echo-commands) echo commands to std error when they
+           are processed (implied by -d)
        -i <interval>[m]: (--random-interval) start the scan between now and 
            a random interval of interval seconds, or minutes
            if an `m' is appended immediately after the specified interval.
@@ -38,10 +40,8 @@ Where:
    --resume: resume stealth following --suppress
    --suppress: suppress stealth activities
    --terminate: terminate stealth
-   pidfile: file containing the pid of the stealth process
-                                    to rerun or terminate.
+   pidfile: file containing the pid of the stealth process to rerun or
+            terminate.
     )
     Note that with the second type of usage the policy file is not required:
 here only the tt(pidfile) must be specified.
-
-        
