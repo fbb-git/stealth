@@ -3,12 +3,12 @@ Section: admin
 Priority: optional
 Maintainer: Frank B. Brokken <f.b.brokken@rug.nl>
 Build-Depends: debhelper (>> 3.0.0), icmake (>= 6.22-2), g++ (>= 4.0.2-2),
-                bobcat-dev (>= 1.5.0)
+                bobcat-dev (>= 1.6.0)
 Standards-Version: 3.5.2
 
 Package: stealth
 Architecture: any
-Depends: ${shlibs:Depends}, bobcat (>= 1.5.0)
+Depends: ${shlibs:Depends}, bobcat (>= 1.6.0)
 Description: A stealthy file integrity checker.
  The STEALTH program performs File Integrity Checks on (remote) clients. It
  uses standard available software to perform file integrity checks (like

@@ -1,3 +1,9 @@
+stealth (1.41) unstable; urgency=low
+
+  * Library requirement up-to-date: bobcat 1.6.0
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 26 Dec 2005 19:17:24 +0100
+
 stealth (1.40) unstable; urgency=low
 
   * all local Pattern objects are now static data members

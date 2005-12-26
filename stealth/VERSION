@@ -1,4 +1,3 @@
-VERSION=1.40
-# not yet upgraded in dch.
+VERSION=1.41
 
 YEARS=2001-2005
