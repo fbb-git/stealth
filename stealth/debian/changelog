@@ -1,3 +1,11 @@
+stealth (1.41a) unstable; urgency=low
+
+  * Minor changes to the make/library script, adapted the program's release
+    years. Dependency check in debian/control for g++ removed since it fails
+    for unkown reasons. The version should be >= 4.0.2
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed,  1 Feb 2006 12:46:01 +0100
+
 stealth (1.41) unstable; urgency=low
 
   * Library requirement up-to-date: bobcat 1.6.0
