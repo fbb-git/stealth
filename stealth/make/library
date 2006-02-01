@@ -10,7 +10,7 @@ NR=0
 for x in `cat CLASSES`
 do
     req cd $x
-    SRC=`find ./ -regex '.*\.cc' -maxdepth 1 -printf "%f\n"`
+    SRC=`find ./  -maxdepth 1 -regex '.*\.cc' -printf "%f\n"`
     [ "$SRC" == "" ] && (cd ..; continue)
     mkdir -p o
     for src in $SRC
