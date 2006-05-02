@@ -1,3 +1,12 @@
+stealth (1.41b) unstable; urgency=low
+
+  * Recompilation because of changes in the bobcat library.
+    This version of Stealth depends on bobcat 1.7.0.
+    No changes to Stealth itself. The compilation dependency for the
+    g++ compiler has been restored.
+
+ -- root <f.b.brokken@rug.nl>  Tue,  2 May 2006 21:37:31 +0200
+
 stealth (1.41a) unstable; urgency=low
 
   * Minor changes to the make/library script, adapted the program's release

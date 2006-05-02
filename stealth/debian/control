@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Frank B. Brokken <f.b.brokken@rug.nl>
 Build-Depends: debhelper (>> 3.0.0), icmake (>= 6.22-2),
-                bobcat-dev (>= 1.6.0)
+               bobcat-dev (>= 1.7.0), g++-4.0 (>= 4.0.3)
 Standards-Version: 3.5.2
 
 Package: stealth
@@ -26,6 +26,3 @@ Description: A stealthy file integrity checker.
  .
  STEALTH's acronym is expanded to `Ssh-based Trust Enforcement Acquired
  through a Locally Trusted Host'
- .
- Note that the source compilation dependencies somehow fail for the version
- check of the g++ compiler, which should be:  g++ (>= 4.0.2-2)
