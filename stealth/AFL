@@ -1,16 +1,7 @@
-This package was debianized by Frank B. Brokken <f.b.brokken@rug.nl> on
-Wed, 18 Jun 2003 12:13:41 +0200.
+Stealth is distributed according to the `Academic Free License' (AFL), shown
+below.
 
-Copyright:  
-    Stealth File Integrity Scanner
-    Copyright (c) 2003 - now by Frank B. Brokken, University of Groningen.
-
-Licensed under the Academic Free License version 2.1
-
-Upstream Author: Frank B. Brokken <f.b.brokken@rug.nl> 
-
-------------------------------------------------------------------------------
-
+===============================================================================
                           The Academic Free License
                                     v. 2.1
 
@@ -168,4 +159,3 @@ This license is Copyright (C) 2003-2004 Lawrence E. Rosen. All rights
 reserved. Permission is hereby granted to copy and distribute this license
 without modification. This license may not be modified without the express
 written permission of its copyright owner.
-

@@ -17,7 +17,7 @@ reqzip()
 
     for x in $*
     do
-        reqeval "gzip < $x > $DEST/`basename $x`.gz"
+        reqeval "gzip -9 < $x > $DEST/`basename $x`.gz"
     done
 }
 

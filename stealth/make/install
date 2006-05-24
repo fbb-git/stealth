@@ -7,25 +7,28 @@
 . make/substitutions
 . make/scripts
 
-    # install the executable
+echo "  install the executable"
 req mkdir -p $1$BIN
 req cp tmp/bin/* $1$BIN
 
-    # install the manual page stealth.1
+echo "  install the manual page stealth.1"
 req mkdir -p $1$MAN
-reqeval "gzip < tmp/man/stealth.1 > $1$MAN/stealth.1.gz"
+reqeval "gzip -9 < tmp/man/stealth.1 > $1$MAN/stealth.1.gz"
 
-    # install the manual page stealthman.html
+echo "  install the manual page stealthman.html"
 req mkdir -p $1$DOC/man $1$DOC/scripts 
 req cp tmp/manhtml/stealthman.html $1$DOC/man
 
-    # install the information directly in and under $DOC
-reqzip $1 README COPYING ACKNOWLEDGEMENTS debian/changelog
-    # scripts
+echo "  install the information directly in and under $DOC"
+reqzip $1 README ACKNOWLEDGEMENTS debian/changelog
+
+echo "  install scripts"
 req cp  stealthmail $1$DOC/scripts
-    # examples
+
+echo "  install examples"
 req cp -r example-policies $1$DOC
-    # manual
+
+echo "  install manual"
 req cp -r tmp/manual $1$DOC
     
 
