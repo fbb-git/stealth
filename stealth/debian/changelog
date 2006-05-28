@@ -1,3 +1,11 @@
+stealth (1.41c) unstable; urgency=low
+
+  * Stealth was `lintianized' and `lindanized'. The info in debian's control
+    file was adapted. As the bobcat libraries are now in libbobcat1* packages,
+    stealth's dependencies were adapted accordingly.
+
+ -- Frank B. Brokken <f.b.broken@rug.nl>  Sun, 28 May 2006 12:39:15 +0200
+
 stealth (1.41b) unstable; urgency=low
 
   * Recompilation because of changes in the bobcat library.
@@ -5,7 +13,7 @@ stealth (1.41b) unstable; urgency=low
     No changes to Stealth itself. The compilation dependency for the
     g++ compiler has been restored.
 
- -- root <f.b.brokken@rug.nl>  Tue,  2 May 2006 21:37:31 +0200
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue,  2 May 2006 21:37:31 +0200
 
 stealth (1.41a) unstable; urgency=low
 

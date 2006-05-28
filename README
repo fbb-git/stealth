@@ -17,7 +17,7 @@ To create a new debian package:
             dch -v [version just set in VERSION]
             cd ../..
         Last run:
-            dch -v 1.40
+            dch -v 1.41c
 
     3. Build a new, complete, package:
         run on a clean checkout:
