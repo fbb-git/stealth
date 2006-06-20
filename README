@@ -17,20 +17,11 @@ To create a new debian package:
             dch -v [version just set in VERSION]
             cd ../..
         Last run:
-            dch -v 1.41c
+            dch -v 1.42
 
     3. Build a new, complete, package:
-        run on a clean checkout:
-            (file:///usr/share/doc/maint-guide/
-                maint-guide.en.html/ch-build.en.html#s-completebuild):
-
-        From the directory where this file is located in, do:
-
-        cvsremove
-        cd stealth
-        dpkg-buildpackage -mf.b.brokken@rug.nl -rfakeroot
-        cd ..
-        cvsrestore
+        run 
+            `distribution'
 
     optionally:
         cvs commit 

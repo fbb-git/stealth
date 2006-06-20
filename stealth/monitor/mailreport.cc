@@ -2,10 +2,6 @@
 
 // Called from control()
 
-namespace{
-unsigned x;
-}
-
 void Monitor::mailReport()
 {
     Util::debug() << "Monitor::mailReport() starts" << endl;
@@ -16,9 +12,6 @@ void Monitor::mailReport()
         return;
     }
 
-//    ofstream out("/tmp/stealth", ios::app);
-//    out << ++x << ": reporter signals `has mail'\n";
-    
     d_reporter.rewind();                    // resets the `hasmail' variable
 
     if (Arg::instance().option("o"))     // mail the report to stdout

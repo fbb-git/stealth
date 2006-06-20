@@ -14,9 +14,11 @@ void Monitor::control()
         processMode();
         mailReport();
 
-        d_reporter.relax();         // close the report file, unlock the run
-                                    // file. 
-
+        if (!d_reporter.relax())    // close the report file, unlock the run
+            throw Util::ERROR;      // file. If the reporter has set
+                                    // d_continue to false, then terminate.
+                                    // This happens when a (remote) 
+                                    // command returns a non-zero exit value.
         if (s_mode == TERMINATED || s_mode == ONCE)
             break;
 
@@ -43,8 +45,3 @@ void Monitor::control()
         while (s_mode == SUPPRESSED);
     }        
 }
-
-
-
-
-

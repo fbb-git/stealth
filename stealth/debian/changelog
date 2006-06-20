@@ -1,3 +1,13 @@
+stealth (1.42) unstable; urgency=low
+
+  * When a (remote) CHECK command failed to return 0, Stealth didn't properly
+    terminate. This was repaired by changing the return value of
+    Reporter::relax() to type bool, returning d_continue. This return value is
+    now checked in Monitor::control(). If not true, the Monitor::control()
+    loop terminates, thus terminating the program with exit value 1.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 20 Jun 2006 15:27:34 +0200
+
 stealth (1.41c) unstable; urgency=low
 
   * Stealth was `lintianized' and `lindanized'. The info in debian's control

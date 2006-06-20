@@ -5,7 +5,7 @@ void Scanner::testExitValue(std::string const &s)
     if (d_testExitValue && s.substr(s.find_last_not_of(" ")) != "0")
         d_reporter.exit() << 
             "Program terminated due to non-zero exit value for\n" <<
-            *d_cmdIterator << " (" << s << ")" <<endl;
+            *d_cmdIterator << " (" << s << ")" << endl;
 }
 
 

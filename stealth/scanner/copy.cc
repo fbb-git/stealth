@@ -24,7 +24,6 @@ void Scanner::copy(std::istream &src, string const &fname)
         }
         currentReport << s << endl;
     }
-
     testExitValue(s);
 }
 

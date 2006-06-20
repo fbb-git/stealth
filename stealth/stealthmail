@@ -9,6 +9,8 @@ do
     shift
 done
 
-echo "=============================================" >> /tmp/stealth.mail
+echo "== contents begin ===========================" >> /tmp/stealth.mail
 
 cat >> /tmp/stealth.mail
+
+echo "== contents end =============================" >> /tmp/stealth.mail

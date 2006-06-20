@@ -21,6 +21,7 @@ bool Scanner::doCHECKcommand(Process &child)
     nextCommand(child,                  // otherwise run the command
                     s_firstWord[0]);
 
+
                                         // and return whether there are any
                                         // differences. 
     return sameOutput(logfile, child);

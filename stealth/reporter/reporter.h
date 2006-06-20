@@ -36,14 +36,16 @@ namespace FBB
                 return d_hasMail;
             }
 
-            void relax();           // close the report file, release a 
-                                    // runfile lock
+            bool relax();           // close the report file, release a 
+                                    // runfile lock, returns d_continue
+
             void standby();         // obtain a runfile lock, open the report
                                     // file
 
-            std::ostream &exit();   // inserts a message and exits,
-                                    // writing the same message to stderr,
-                                    // and throwing ERROR.
+            std::ostream &exit();   // inserts a message and prepares for 
+                                    // exit. The error message is also written
+                                    // to stderr. Once `sync()' is called,
+                                    // ERROR is thrown.
         private:
             virtual int sync();
 

@@ -9,9 +9,6 @@ BASE=/usr
 BIN=${BASE}/sbin
     # the directory in which stealth will be stored
 
-SKEL=${BASE}/share/stealth
-    # SKEL is the directory in which the skeleton files will be stored
-
 MAN=${BASE}/share/man/man1
     # MAN is the directory in which the manual page will be stored
 
