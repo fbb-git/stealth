@@ -624,9 +624,8 @@ manpagebugs()
 
 manpagesection(COPYRIGHT)
     This is free software, distributed under the terms of the `Academic Free
-License. Copyright remains with the author. The `official' distribution of s()
-is found at:nl() tt(ftp.rug.nl/contrib/frank/software/linux/stealth). This
-distribution is mirrored at tt(www.sourceforge.net/projects/stealth).
+License. Copyright remains with the author. S() is found at
+tt(http://stealth.sourceforge.net/).
 
 manpagesection(ORGANIZATION)
     Computing Center, University of Groningen.
