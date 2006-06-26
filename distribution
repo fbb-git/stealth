@@ -5,6 +5,8 @@ cvsremove
 
 cd stealth
 
+# When recreating to repair lintian/linda messages, uncomment the following
+# three commands and rerun `distribution'
 make/clean
 make/man
 make/manual
@@ -16,3 +18,7 @@ cd ..
 
 cvsrestore
 
+echo LINTIAN ...
+lintian -i *.changes 
+echo LINDA ...
+linda   -i *.changes

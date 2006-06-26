@@ -6,7 +6,9 @@ stealth (1.42) unstable; urgency=low
     now checked in Monitor::control(). If not true, the Monitor::control()
     loop terminates, thus terminating the program with exit value 1.
 
- -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 20 Jun 2006 15:27:34 +0200
+    make/install script now defines PREFIX=/ if called without argument.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 26 Jun 2006 09:27:34 +0200
 
 stealth (1.41c) unstable; urgency=low
 
