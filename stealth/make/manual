@@ -1,8 +1,6 @@
 #!/bin/sh
 
 . INSTALL.cf
-# . make/parameters
-# . make/substutions
 . make/scripts
 
 make/special

@@ -1,3 +1,5 @@
+. INSTALL.cf
+
 PROJECT=stealth
     # this assumes (define alternatives using shell-vars named as last words):
     #   main's source file: $PROJECT.cc             MAIN
@@ -13,5 +15,5 @@ COPTS="-Wall -O3"
 LOPTS="-lbobcat -lstealth -L. -s"
     # Linker options: options used to link main()'s object module against
 
-GCC=g++
+GCC=${COMPILER}
     # compiler to use
