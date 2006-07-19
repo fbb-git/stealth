@@ -23,7 +23,7 @@ req mkdir -p $1$DOC/man $1$DOC/scripts
 req cp tmp/manhtml/stealthman.html $1$DOC/man
 
 echo "  install the information directly in and under $DOC"
-reqzip ${PREFIX} README ACKNOWLEDGEMENTS Changelog debian/changelog
+reqzip ${PREFIX} README ACKNOWLEDGEMENTS changelog
 
 echo "  install scripts"
 req cp  stealthmail $1$DOC/scripts
