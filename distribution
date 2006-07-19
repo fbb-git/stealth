@@ -45,7 +45,7 @@ mv ${DISTRIBUTION} ${PROJECT}           # back to the cvs's dir name
 cvsrestore
 
 echo LINTIAN ...
-lintian -i ${PROJECT}_${VERSION}_*.changes 
+lintian -i ${PROJECT}_${VERSION}*.changes 
 
 echo LINDA ...
-linda   -i ${PROJECT}_${VERSION}_*.changes
+linda   -i ${PROJECT}_${VERSION}*.changes
