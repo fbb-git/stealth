@@ -5,9 +5,8 @@ stealth (1.44) unstable; urgency=low
 
     Introduced George Danchev <danchev@spnet.net> as uploader
 
-    From now on this file will only reflect Debian-specific changes. See the
-    newly added file Changelog for `upstream' changes. At this point, 
-    Changelog will be a mere copy of debian's changelog file.
+    From now on this file will contain the `upstream' changes. The Debian
+    related changes are in changelog.Debian.gz
 
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 19 Jul 2006 12:57:17 +0200
 
