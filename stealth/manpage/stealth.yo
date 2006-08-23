@@ -623,8 +623,8 @@ manpagebugs()
     None reported
 
 manpagesection(COPYRIGHT)
-    This is free software, distributed under the terms of the `Academic Free
-License. Copyright remains with the author. S() is found at
+    This is free software, distributed under the terms of the `GNU General
+Public License'. Copyright remains with the author. S() is found at
 tt(http://stealth.sourceforge.net/).
 
 manpagesection(ORGANIZATION)

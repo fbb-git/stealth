@@ -1,0 +1,66 @@
+void rungzip9(string src, string dest)
+{
+    int idx;
+    string file;
+    list man;
+
+    chdir(src);
+    man = makelist("*");
+    chdir(g_cwd);
+    for (idx = sizeof(man); idx--; )
+    {
+        file = element(idx, man);
+        run("gzip -9 < " + src + file + " > " + dest + file + ".gz");
+    }
+}
+
+void reqzip(string dest, string srcPath, string src)
+{
+    list files;
+    int idx;
+    string file;
+
+    files = strtok(src, " ");
+    for (idx = sizeof(files); idx--; )
+    {
+        file = element(idx, files);
+        run("gzip -9 < " + srcPath + file + " > " + dest + file + ".gz");
+    }
+}
+
+void install(string where)
+{
+    printf("  installing the executable\n");
+    run("mkdir -p " + where + BIN);
+    run("cp tmp/bin/* " + where + BIN);
+
+    printf("  installing the manual page stealth.1\n");
+    run("mkdir -p " + where + MAN);
+    reqzip(where + MAN + "/", "tmp/man/", "stealth.1");
+
+    printf("  installing the manual page stealthman.html\n");
+    run("mkdir -p " + where + DOC + "/man");
+    reqzip(where + DOC + "/man/", "tmp/manhtml/", "stealthman.html");
+
+    printf("  installing the information directly in and under $DOC\n");
+    reqzip(where + DOC + "/", "./", "changelog README ACKNOWLEDGEMENTS");
+
+    printf("  installing scripts\n");
+    run("mkdir -p " + where + DOC + "/scripts");
+    reqzip(where + DOC + "/scripts/", "./", "stealthmail");
+
+    printf("  installing examples\n");
+    run("mkdir -p " + where + DOC + "/examples");
+    rungzip9("example-policies/", where + DOC + "/examples/");
+
+    printf("  installing manual\n");
+    run("cp -r tmp/manual " + where + DOC);
+
+    printf("  Installation completed\n");
+
+    exit(0);
+}
+
+
+
+

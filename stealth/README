@@ -25,7 +25,7 @@
     * To install `by hand', you should probably be `root'. Running (as root) 
       `./make/install /' installs the files ready for system-wide usage.
 
-    * Remark, comments please to my email addres. The software is AFL, the
+    * Remark, comments please to my email addres. The software is GPL, the
         copyright rests with me. This is to make sure that the most recent
         version is always with me. All suggestions for improvements
         will be seriously considered, and if possible, incorporated in the 

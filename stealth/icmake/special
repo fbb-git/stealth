@@ -1,0 +1,35 @@
+void special()
+{
+    list cut;
+    list line;
+    int refresh;
+    string years;
+    string version;
+
+    refresh = "VERSION" newer "release.yo";
+
+    if (refresh)
+        run("rm -f release.yo");
+
+    while (sizeof(line = fgets("VERSION", (int)element(1, line))))
+    {
+        cut = strtok(element(0, line), "= \t\n");
+
+        if (element(0, cut) == "VERSION")
+        {
+            version = element(1, cut);
+
+            if (refresh)
+            {
+                fprintf("release.yo", "SUBST(_CurVers_)(", version, ")\n");
+                fprintf("release.h", "#define _CurVers_ \"", version, "\"\n");
+            }
+        }
+        else if (refresh && element(0, cut) == "YEARS")
+        {
+            years = element(1, cut);
+            fprintf("release.yo", "SUBST(_CurYrs_)(", years, ")\n");
+            fprintf("release.h", "#define _CurYrs_ \"", years, "\"\n");
+        }
+    }
+}
