@@ -4,29 +4,32 @@ doc/manual/index.html, click the kickstart chapter.
 
 
 ===========================================================================
-To Install stealth by hand instead of using the binary distribution perform
+To install stealth by hand instead of using the binary distribution perform
 the following steps:
 
-    1. Inspect the values of the variables in the file INSTALL.cf Modify these
+    0. Reverted back to using icmake. It is assumed that icmake is installed
+       on your system if you want to compile stealth yourself. If not, and
+       you don't install icmake: for the time being the make/ scripts are
+       maintained, but they may be removed in future releases.
+
+
+    1. Inspect the values of the variables in the file INSTALL.im Modify these
        when necessary.  In particular note the definition of the COMPILER
-       shell variable, which is set to Gnu's g++ compiler as used in Debian's
-       `unstable' distribution. Removing the definition using the explicit
-       version results in the definition of COMPILER as `g++', which should be
-       your default g++ compiler.
+       variable, which is set to Gnu's g++ compiler as used in Debian's
+       `unstable' distribution. Redefining COMPILER as `g++', should result in
+       you using your default g++ compiler.
+
 
     2. Make sure the bobcat library has been installed.
 
-       (If you compile the bobcat library yourself, note that bisonc++ does
+       (If you compile the bobcat library yourself, note that stealth does
         not use the classes Milter and Xpointer; they may --as far as stealth
         is concerned-- be left out of the library)
 
-    3. Run `./make/program' to compile stealth
+    3. Run `./build program' to compile stealth
 
-        Note: it's NOT `make program'
-    
-    4. Run (probably as root) ./make/install to install
-
-        Note: it's NOT `make install'
+    4. Run (probably as root) ./build install 
+       to install
 
     Following the installation nothing in this directory tree is required
     for the proper functioning of stealth, so consider removing it.

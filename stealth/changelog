@@ -1,3 +1,11 @@
+stealth (1.45)
+
+  * The scripts below make/ should be considered obsolete: I reverted back to
+    using icmake, which is available on a great many architectures. See the
+    file INSTALL (and INSTALL.im, rather than INSTALL.cf) for further details.
+    For the time being the make/ directory and its files will be
+    kept. However, they may be removed in a future release.
+
 stealth (1.44) unstable; urgency=low
 
   * License changed to the GNU GENERAL PUBLIC LICENSE. See the file
