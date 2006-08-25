@@ -49,7 +49,7 @@ em(/root/client/report) file.
     The report itself could be beautified further. I myself use the following
 script to mail the report to the addressee:
         verb(
-    #!/bin/sh
+    #!/bin/bash
     
     NAME=`basename $0`
     

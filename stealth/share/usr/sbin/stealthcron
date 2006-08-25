@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PROG=`basename $0`
 STEALTH=/usr/sbin/stealth
