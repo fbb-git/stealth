@@ -10,7 +10,8 @@ void setRemovals()
 
     // unless `minimal':
         remove2 = 
-        "tmp/{bin,o} o */o libstealth.a manual-*-stamp release.{yo,h}";
+        "tmp/bin tmp/o o */o libstealth.a manual-*-stamp "
+        "release.yo release.h";
 }
 
 void clean(int dist)
