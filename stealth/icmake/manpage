@@ -1,0 +1,18 @@
+#define MANPAGE "../tmp/man/stealth.1"
+#define MANHTML "../tmp/manhtml/stealthman.html"
+
+void manpage()
+{
+    md("tmp/man tmp/manhtml");
+
+    special();
+
+    chdir("manpage");
+
+    if ("stealth.yo" younger MANPAGE || "release.yo" younger MANPAGE)
+    {
+        run("yodl2man  -o " MANPAGE " stealth");
+        run("yodl2html  -o " MANHTML " stealth");
+    }
+    exit(0);
+}

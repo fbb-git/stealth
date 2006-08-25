@@ -7,7 +7,7 @@
 // to the obtained process-ID. If this fails, the lock-file is apparently
 // stale. It is removed and an error message is issued.
 
-unsigned Util::getPid(string const &runFilename)
+size_t Util::getPid(string const &runFilename)
 {
     char const *runfile = runFilename.c_str();
 

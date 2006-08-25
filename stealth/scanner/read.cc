@@ -14,7 +14,7 @@ void Scanner::read(std::istream &src, string const &fname)
     char c;
     string partialSentinel;
 
-    unsigned length = 0;
+    size_t length = 0;
     while (true)
     {
         src.read(&c, 1);                    // read char by char

@@ -98,7 +98,7 @@ void c_compile(int prefix, string srcDir, list cfiles)
     string file;
 
     compiler = COMPILER + " -c -o " + srcDir + "/o/" + (string)prefix;
-    system("mkdir -p " + srcDir + "/o");
+    md(srcDir + "/o");
 
     for (idx = sizeof(cfiles); idx--; )
     {
@@ -167,7 +167,7 @@ void program()
     initialize();
     setlibs();
     
-    system(P_NOCHECK, "mkdir -p tmp/bin tmp/o");
+    md("tmp/bin tmp/o");
     
     special();
 

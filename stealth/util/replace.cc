@@ -2,7 +2,7 @@
 
 void Util::replace(std::string &str, char const *org, char const *replacement)
 {
-    unsigned orglen = strlen(org);
+    size_t orglen = strlen(org);
 
     while (true)
     {

@@ -13,7 +13,7 @@ pair<string, string> const
         pair<string,string>("MAILARGS", "-s \"STEALTH scan report\""),
     };
 
-unsigned ConfigSorter::s_nDefaultKeywords =
+size_t ConfigSorter::s_nDefaultKeywords =
                 sizeof(s_defaultKeyword) / sizeof(pair<string, string>);
 
 Pattern ConfigSorter::s_firstWord("^\\s*(\\w+)\\s+(.*)");

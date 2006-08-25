@@ -4,7 +4,7 @@
 //
 void Util::lock(string const &runfile)
 {
-    unsigned pid;
+    size_t pid;
 
     pid = getPid(runfile);
     debug() << "Trying to lock " << runfile << " of process " << pid <<

@@ -19,7 +19,7 @@ namespace FBB
         HashString<std::string>     d_define;
     
         static std::pair<std::string, std::string> const s_defaultKeyword[];
-        static unsigned s_nDefaultKeywords;
+        static size_t s_nDefaultKeywords;
         static Pattern              s_firstWord;
         static Pattern              s_comment;
         static Pattern              s_define;   // [0]: all text,

@@ -15,7 +15,7 @@
 void Util::signalStealth(int signum, char const *signame, 
                                      string const &filename)
 {
-    unsigned pid = getPid(filename);    // get the pid of the process to
+    size_t pid = getPid(filename);    // get the pid of the process to
                                         // signal 
 
     debug() << "Sending " << signame << " to process " << pid << endl;

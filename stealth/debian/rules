@@ -20,6 +20,8 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	./build program
+	./build man
+	./build manual
 	touch build-stamp
 
 clean:

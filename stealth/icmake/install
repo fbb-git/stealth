@@ -31,26 +31,26 @@ void reqzip(string dest, string srcPath, string src)
 void install(string where)
 {
     printf("  installing the executable\n");
-    run("mkdir -p " + where + BIN);
+    md(where + BIN);
     run("cp tmp/bin/* " + where + BIN);
 
     printf("  installing the manual page stealth.1\n");
-    run("mkdir -p " + where + MAN);
+    md(where + MAN);
     reqzip(where + MAN + "/", "tmp/man/", "stealth.1");
 
     printf("  installing the manual page stealthman.html\n");
-    run("mkdir -p " + where + DOC + "/man");
+    md(where + DOC + "/man");
     reqzip(where + DOC + "/man/", "tmp/manhtml/", "stealthman.html");
 
     printf("  installing the information directly in and under $DOC\n");
     reqzip(where + DOC + "/", "./", "changelog README ACKNOWLEDGEMENTS");
 
     printf("  installing scripts\n");
-    run("mkdir -p " + where + DOC + "/scripts");
+    md(where + DOC + "/scripts");
     reqzip(where + DOC + "/scripts/", "./", "stealthmail");
 
     printf("  installing examples\n");
-    run("mkdir -p " + where + DOC + "/examples");
+    md(where + DOC + "/examples");
     rungzip9("example-policies/", where + DOC + "/examples/");
 
     printf("  installing manual\n");

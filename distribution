@@ -15,10 +15,7 @@ cd  ${PROJECT}
 
 if [ "$REPAIR" == "" ] 
 then
-    build clean
-    rm -r tmp
-    make/man
-    make/manual
+    build distclean
 fi
 
 export STEALTH=minimal 

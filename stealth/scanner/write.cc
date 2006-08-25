@@ -13,10 +13,10 @@ void Scanner::write(string const &fname)
                                                                 "'" << endl;
     while (true)
     {
-        unsigned const SIZEOF_BUF = 1000;
+        size_t const SIZEOF_BUF = 1000;
         char buffer[SIZEOF_BUF];
 
-        unsigned nRead = source.read(buffer, SIZEOF_BUF).gcount();
+        size_t nRead = source.read(buffer, SIZEOF_BUF).gcount();
 
         if (!nRead)
             break;

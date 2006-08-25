@@ -10,13 +10,13 @@ namespace FBB
 {
     class Util
     {
-        static unsigned const s_maxBlockAttempts = 10; // # seconds & tries
+        static size_t const s_maxBlockAttempts = 10; // # seconds & tries
                                             // recompile lockrunfile.cc when
                                             // modifying this value
 
                         // recompile processcontroloptions.cc after changing
-                        // the next unsigned const value:
-        static unsigned const s_shortestRepeatInterval = 60;
+                        // the next size_t const value:
+        static size_t const s_shortestRepeatInterval = 60;
 
         static FILE *s_runFILE;             // pointer used for locking
         static Selector s_selector;
@@ -25,8 +25,8 @@ namespace FBB
         static char version[];
         static char year[];
         static std::string s_runFilename;    
-        static unsigned s_delayInterval;    // for the random delay
-        static unsigned s_repeatInterval;
+        static size_t s_delayInterval;    // for the random delay
+        static size_t s_repeatInterval;
         static std::ostream *s_debug;
         static std::ostream s_cnul;
     
@@ -55,7 +55,7 @@ namespace FBB
             static bool mkdir(std::string const &path);  // pathname to a file
             static std::ostream &date(std::ostream &str);
             static std::string datetime();
-            static unsigned getPid(std::string const &runFilename);
+            static size_t getPid(std::string const &runFilename);
             static void exit(char const *fmt, ...); 
 
             static bool lockRunFile(LockType lockType);

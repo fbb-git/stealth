@@ -1,0 +1,72 @@
+#define YOSTAMP     "../../manual-yo-stamp"
+#define LATEXSTAMP  "manual-latex-stamp"
+#define HTMLDEST    "../../tmp/manual/html"
+#define LATEXDEST   "../../tmp/manual/LaTeX/stealth.latex"
+#define TXTMANUAL   "../../tmp/manual/text/stealth.txt"
+
+void manual()
+{
+    list files;
+    string file;
+    string cwd;
+    int idx;
+
+    md("tmp/manual/LaTeX tmp/manual/html tmp/manual/pdf tmp/manual/ps "
+       "tmp/manual/text");
+
+    special();
+
+    cwd = chdir(".");
+
+    chdir("manual/Yodl");
+
+    files = makelist("*.yo") + makelist("*/*.yo");
+    for (idx = sizeof(files); idx--; )
+    {
+        file = element(idx, files);
+        if (file younger YOSTAMP)
+        {
+            run("yodl2html stealth.yo");
+            run("touch " YOSTAMP);
+            run("mv *.html " HTMLDEST);
+            break;
+        }
+    }
+
+    for (idx = sizeof(files); idx--; )
+    {
+        file = element(idx, files);
+        if (file younger TXTMANUAL)
+        {
+            run("yodl2txt -o " TXTMANUAL " stealth.yo");
+            break;
+        }
+    }
+
+    chdir(cwd);
+
+    if (! exists(LATEXSTAMP))
+    {
+        chdir("manual/Yodl");
+        run("yodl2latex -o " LATEXDEST " stealth.yo");
+
+        chdir(cwd + "/tmp/manual/LaTeX");
+        runP(P_NOCHECK, "latex stealth.latex");
+        runP(P_NOCHECK, "latex stealth.latex");
+        run("latex stealth.latex");
+        chdir(cwd);
+        run("touch " LATEXSTAMP);
+    }
+
+    chdir(cwd + "/tmp/manual/LaTeX");
+    if ("stealth.dvi" newer "../ps/stealth.ps")
+        run("dvips -o ../ps/stealth.ps stealth.dvi");
+
+    chdir(cwd + "/tmp/manual/ps");
+    if ("stealth.ps" newer "../pdf/stealth.pdf")
+        run("ps2pdf stealth.ps ../pdf/stealth.pdf");
+
+    exit(0);
+}
+
+

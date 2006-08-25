@@ -17,20 +17,18 @@
         which was used to construct the manpage. 
         
     * The standard way to compile stealth is using the provided `build'
-      script, which is an `icmake' script (see the next item). Alternatively,
-      some shell scripts are available in the ./make/ directory. These scripts
-      were used in earlier versions but are no longer supported or
-      maintained. Once again: consult the next item for information on how to
-      compile stealth.
+      script, which is an `icmake' script (see the next item). 
 
-    * To compile from scratch, run ./build program from this directory. The
-      file INSTALL.im in this directory contains the definitions of variables
-      defining the locations of the directories in which the binary, the
-      man-page and the manual will be stored. Changing these definitions will
-      install files in other locations.
+    * To compile from scratch, run 
+            ./build program 
+      from this directory. The file INSTALL.im in this directory contains the
+      definitions of variables defining the locations of the directories in
+      which the binary, the man-page and the manual will be stored. Changing
+      these definitions will install files in other locations.
 
     * To install `by hand', you should probably be `root'. Running (as root) 
-      `./buidl install /' installs the files ready for system-wide usage.
+            ./buidl install /
+      installs the files ready for system-wide usage.
 
     * Remark, comments please to my email addres. The software is GPL, the
         copyright rests with me. This is to make sure that the most recent

@@ -10,17 +10,16 @@ void setRemovals()
 
     // unless `minimal':
         remove2 = 
-        "tmp/{bin,o} o */o libstealth.a manual/Yodl/manual-*-stamp "
-        "release.{yo,h}";
+        "tmp/{bin,o} o */o libstealth.a manual-*-stamp release.{yo,h}";
 }
 
-void clean()
+void clean(int dist)
 {
     setRemovals();
 
     run("rm -rf " + remove1);
 
-    if (getenv("STEALTH") == "minimal")
+    if (!dist && getenv("STEALTH") == "minimal")
     {
         printf("\n"
             "WARNING: PERFORMED MINIMAL CLEANUP\n");
@@ -28,6 +27,10 @@ void clean()
     }
 
     run("rm -rf " + remove2);
+
+    if (dist)
+        run("rm -rf tmp");
+
     exit(0);
 }
 

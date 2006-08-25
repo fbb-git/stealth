@@ -24,14 +24,14 @@ namespace FBB
         std::string                                 d_label;
         std::vector<std::string>::const_iterator    d_cmdIterator;
         bool                                        d_testExitValue;
-        unsigned                                    d_nScans;
+        size_t                                    d_nScans;
 
         static Pattern  s_split;
         static Pattern  s_firstWord;
 
         public:
             Scanner(ConfigSorter &sorter, Reporter &reporter);
-            unsigned nScans() const
+            size_t nScans() const
             {
                 return d_nScans;
             }

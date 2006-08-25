@@ -2,9 +2,9 @@
 
 void Util::setAlarm()
 {
-    unsigned random_wait = 
+    size_t random_wait = 
         s_delayInterval ? 
-            static_cast<unsigned>(random() % s_delayInterval)
+            static_cast<size_t>(random() % s_delayInterval)
         :
             0;
 

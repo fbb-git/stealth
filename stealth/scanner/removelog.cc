@@ -6,7 +6,7 @@ void Scanner::removeLOG()
 
     if (matched.find("LOG") == 0)       // LOG at the beginning
     {
-        unsigned pos = matched.find_first_not_of(" \t", 3);
+        size_t pos = matched.find_first_not_of(" \t", 3);
 
         // got '=', so we got 'LOG ='
         // remove 'LOG =' and proceed.
