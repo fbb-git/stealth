@@ -7,6 +7,8 @@ stealth (1.45)
     file INSTALL (and INSTALL.im, replacing the previously used INSTALL.cf)
     for further details.
 
+    All plain `unsigned' variables were changed to `size_t'
+
 stealth (1.44) unstable; urgency=low
 
   * License changed to the GNU GENERAL PUBLIC LICENSE. See the file
