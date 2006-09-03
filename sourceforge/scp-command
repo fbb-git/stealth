@@ -1,6 +1,6 @@
 #!/bin/sh
 
-yodl2html index.yo
+yodl2html index.yo | exit 1
 
 scp ../stealth/tmp/manual/html/stealth*.html ../stealth/tmp/manhtml/*.html \
     index.html stealth.jpg \
