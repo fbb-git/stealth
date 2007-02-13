@@ -20,7 +20,7 @@ void main(int argc, list argv, list envp)
 
     setLocations();     // from INSTALL.im
 
-    getenv("DRYRUN");
+    my_getenv("DRYRUN");
     g_dryrun = g_envvar;
 
     option = element(1, argv);

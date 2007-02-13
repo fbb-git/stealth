@@ -60,7 +60,3 @@ void install(string where)
 
     exit(0);
 }
-
-
-
-
