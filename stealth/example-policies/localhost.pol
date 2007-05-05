@@ -20,4 +20,4 @@ CHECK LOG = remote/setuid \
 
 LABEL \nfiles in /usr/local/etc
 CHECK remote/etcmd5 \
-        /usr/bin/find /usr/local/etc -type f -xdev -exec /usr/bin/md5sum {} \;
+        /usr/bin/find /usr/local/etc  -xdev -type f -exec /usr/bin/md5sum {} \;

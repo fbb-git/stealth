@@ -555,10 +555,9 @@ equivalents, if available. Either can be used.
             echo commands to std error when they are processed (implied by 
             tt(-d));
     it() tt(-i --random-interval <interval>[m]>): 
-            start the scan between now and nl()
-           a random interval of interval seconds, or nl()
-           minutes if an `m' is appended immediately after nl()
-           the specified interval.
+            start the scan a random interval of <interval> seconds (or 
+            minutes if an `m' is appended to <interval>) following the delay
+            specified at tt(--repeat) (see below).
     it() tt(-n --no-child-processes): No child processes are executed: 
                 child actions+nl()
                  are faked to be OK.
@@ -572,7 +571,9 @@ equivalents, if available. Either can be used.
     it() tt(--keep-alive pidfile): Keep running as a daemon, 
             wake up at interrupts. 
     it() tt(--repeat <seconds>): keep running as a daemon, wake up at
-            interrupts or after <seconds> seconds.
+            interrupts or after <seconds> seconds. The interval will be at 
+            least 60 seconds. To this interval a random delay may be added
+            (see tt(--random-interval)).
     it() tt(--rerun pidfile): restart the scan of a currently active s()
             process;
     it() tt(--resume pidfile): resume a suppressed s()

@@ -7,6 +7,12 @@ void Util::randomDelay()
     if (!Arg::instance().option(&delay, 'i'))
         return;
 
+    if (!Arg::instance().option(0, "repeat"))
+    {
+        cerr << "--random-interval ignored unless --repeat is specified\n";
+        return;
+    }
+
     delay += "\n";                  // to make sure the istr doesn't fail
                                     // if only a number is read: no separating
                                     // ws at the end would cause istr.peek() 
@@ -20,7 +26,7 @@ void Util::randomDelay()
         s_delayInterval *= 60;
 
     if (!istr || s_delayInterval < 0)
-        throw Errno(-1, "Invalid interval for -i");
+        throw Errno(-1, "Invalid interval for --random-interval");
 
     srandom(time(0));               // seed the random time generator
 }

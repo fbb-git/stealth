@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# sort | grep 'STEALTH\|MODIFIED\|ADDED\|REMOVED' | /usr/bin/mail -s "$2" $3
+
 echo "$0 started with arguments:
 =============================================" > /tmp/stealth.mail
 

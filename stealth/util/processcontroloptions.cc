@@ -62,6 +62,7 @@ void Util::processControlOptions()
         else if (s_repeatInterval > INT_MAX)
             s_repeatInterval = INT_MAX;
     }
+
     randomDelay();                  // determine any random delay
 }
 
