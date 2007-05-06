@@ -4,17 +4,17 @@ grep 'STEALTH\|MODIFIED\|ADDED\|REMOVED' | sort | uniq |
                                                     /usr/bin/mail -s "$2" $3
 
 
-//echo "$0 started with arguments:
-//=============================================" > /tmp/stealth.mail
-//
-//while [ "$1" != "" ]
-//do
-//    echo "$1"  >> /tmp/stealth.mail
-//    shift
-//done
-//
-//echo "== contents begin ===========================" >> /tmp/stealth.mail
-//
-//cat >> /tmp/stealth.mail
-//
-//echo "== contents end =============================" >> /tmp/stealth.mail
+# echo "$0 started with arguments:
+# =============================================" > /tmp/stealth.mail
+# 
+# while [ "$1" != "" ]
+# do
+#     echo "$1"  >> /tmp/stealth.mail
+#     shift
+# done
+# 
+# echo "== contents begin ===========================" >> /tmp/stealth.mail
+# 
+# cat >> /tmp/stealth.mail
+# 
+# echo "== contents end =============================" >> /tmp/stealth.mail

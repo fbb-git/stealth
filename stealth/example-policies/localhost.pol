@@ -1,6 +1,6 @@
 # create several DEFINEs
     DEFINE CLIENT   localhost
-    DEFINE SETUID -xdev -type f -perm +u+s,g+s \( -user root -or -group root \)
+    DEFINE SETUID -xdev -type f -perm /u+s,g+s \( -user root -or -group root \)
 
 # set up the non-default USE variables 
     USE BASE        /root/stealth/${CLIENT}

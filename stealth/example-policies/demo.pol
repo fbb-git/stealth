@@ -10,7 +10,7 @@
     DEFINE TARGET   target
 
     # A useful DEFINE for the find command.
-    DEFINE SETUID -xdev -type f -perm +u+s,g+s \( -user root -or -group root \)
+    DEFINE SETUID -xdev -type f -perm /u+s,g+s \( -user root -or -group root \)
 
 # set up the non-default USE variables 
     # where will stealth store its results?
@@ -61,10 +61,10 @@ LOCAL rm -rf tmp                                # remove locally copied files
 
 LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
 CHECK remote/print.root \
-    /usr/bin/find / -xdev -perm +6111 \( -user root -or -group root \) \
+    /usr/bin/find / -xdev -perm /6111 \( -user root -or -group root \) \
         -type f -printf "%m %n %s %p\n"
 CHECK remote/md5.root \
-    /usr/bin/find / -xdev -perm +6111  \( -user root -or -group root \) \
+    /usr/bin/find / -xdev -perm /6111  \( -user root -or -group root \) \
         -type f -exec /usr/bin/md5sum {} \;
 
 ########################################################
@@ -75,29 +75,29 @@ CHECK remote/md5.root \
 ##########################################
 LABEL \nlibraries under /lib
 CHECK remote/print.lib \
-    /usr/bin/find /lib -type f -not -perm +6111 -printf "%m %n %u %g %s %p\n"
+    /usr/bin/find /lib -type f -not -perm /6111 -printf "%m %n %u %g %s %p\n"
 CHECK remote/md5.lib \
-    /usr/bin/find /lib -type f -not -perm +6111 -exec /usr/bin/md5sum {} \;
+    /usr/bin/find /lib -type f -not -perm /6111 -exec /usr/bin/md5sum {} \;
 ##########################################
 
 
 ##########################################
 LABEL \nlibraries under /usr/lib
 CHECK remote/print.usr.lib \
-    /usr/bin/find /usr/lib -type f -not -perm +6111 \
+    /usr/bin/find /usr/lib -type f -not -perm /6111 \
         -printf "%m %n %u %g %s %p\n"
 
 CHECK remote/md5.usr.lib \
-    /usr/bin/find /usr/lib -type f -not -perm +6111 -exec /usr/bin/md5sum {} \;
+    /usr/bin/find /usr/lib -type f -not -perm /6111 -exec /usr/bin/md5sum {} \;
 
 ##########################################
 LABEL \nlibraries under /usr/X11R6/lib
 CHECK remote/print.usr.X11R6.lib \
     /usr/bin/find /usr/X11R6/lib  -type f \
-        -not -perm +6111 -printf "%m %n %u %g %s %p\n"
+        -not -perm /6111 -printf "%m %n %u %g %s %p\n"
 CHECK remote/md5.usr.X11R6.lib \
     /usr/bin/find /usr/X11R6/lib -type f \
-        -not -perm +6111 -exec /usr/bin/md5sum {} \;   
+        -not -perm /6111 -exec /usr/bin/md5sum {} \;   
 
 ########################################################
 # Check all non-executable files in the /etc directory
@@ -106,11 +106,11 @@ CHECK remote/md5.usr.X11R6.lib \
 ##########################################
 LABEL \nfiles in /etc
 CHECK remote/print.etc \
-    /usr/bin/find /etc -type f -not -perm +6111 \
+    /usr/bin/find /etc -type f -not -perm /6111 \
         -not -regex "/etc/\(adjtime\|mtab\|hosts\.deny\)" \
         -printf "%m %n %u %g %s %p\n"
 CHECK remote/md5.etc \
-    /usr/bin/find /etc -type f -not -perm +6111 \
+    /usr/bin/find /etc -type f -not -perm /6111 \
         -not -regex "/etc/\(adjtime\|mtab\|hosts\.deny\)" \
         -exec /usr/bin/md5sum {} \;
 
