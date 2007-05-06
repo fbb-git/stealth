@@ -6,7 +6,7 @@
 # set up the non-default USE variables 
     USE BASE        SIMPLE
     USE MAILER      ../stealthmail
-    USE MAILARGS    "simple STEALTH report"
+    USE MAILARGS    -s "simple STEALTH report"
     USE SSH         /usr/bin/ssh localhost -q
 
 CHECK bin /usr/bin/find /bin  -xdev -type f -exec /usr/bin/md5sum {} \;

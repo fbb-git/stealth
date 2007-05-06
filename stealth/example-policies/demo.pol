@@ -24,7 +24,7 @@
     USE MAILER      ${HOME}/bin/stealthmail
 
     # what arguments will the mailer receive? 
-    USE MAILARGS    "${TARGET} STEALTH report"
+    USE MAILARGS    -s "${TARGET} STEALTH report"
 
     # arguments used when executing a scp command reaching TARGET
     # using a special ssh-key:

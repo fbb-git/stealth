@@ -8,7 +8,7 @@
     USE EMAIL       root@${CLIENT}
 #    USE MAILER      /usr/local/sbin/stealthmail
     USE MAILER      /usr/bin/mail
-    USE MAILARGS    "${CLIENT} STEALTH report"
+    USE MAILARGS    -s "${CLIENT} STEALTH report"
 
     USE SSH         /usr/bin/ssh rootbash@${CLIENT} -q
 
