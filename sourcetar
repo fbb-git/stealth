@@ -1,7 +1,9 @@
 #!/bin/bash
 PROJECT=stealth
 
-. ${PROJECT}/VERSION                    # load the version
+                                        # load the version
+VERSION=`grep VERSION ${PROJECT}/VERSION |
+    sed 's/#define[[:space:]]\+VERSION[[:space:]]\+"\(.*\)"/\1/'`
 
 DISTRIBUTION=${PROJECT}-${VERSION}      # define the distribution's dir name
 
@@ -10,7 +12,8 @@ ln -s ${PROJECT} ${DISTRIBUTION}        # distribution's dir name
 if [ "$#" != "0" ]                      # any arg? make debian .orig file
 then
                                         # create the .orig source tar
-    tar czvf ${PROJECT}_${VERSION}.orig.tar.gz \
+    tar czvf \
+        ${HOME}/debian/${PROJECT}/tarballs/${PROJECT}_${VERSION}.orig.tar.gz \
              --exclude-from=excluded  ${DISTRIBUTION}/*
 else
     tar czvf ${PROJECT}_${VERSION}.tar.gz \

@@ -1,6 +1,6 @@
 #include "util.ih"
 
-#include "../release.h"
+#include "../VERSION"
 
-char Util::version[] = _CurVers_;
-char Util::year[]    = _CurYrs_;
+char Util::version[] = VERSION;
+char Util::year[]    = YEARS;

@@ -20,6 +20,12 @@ void manual()
 
     chdir("manual/Yodl");
 
+    if (!exists("usagetxt") || "../../util/usage2.cc" younger "usagetxt")
+    {
+        run("g++ -o genusage usage.cc");
+        run("./genusage > usagetxt");
+    }
+
     files = makelist("*.yo") + makelist("*/*.yo");
     for (idx = sizeof(files); idx--; )
     {

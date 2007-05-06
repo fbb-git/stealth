@@ -11,7 +11,7 @@ void setRemovals()
     // unless `minimal':
         remove2 = 
         "tmp/bin tmp/o o */o libstealth.a manual-*-stamp "
-        "release.yo release.h";
+        "release.yo release.h manual/Yodl/{genusage,usagetxt}";
 }
 
 void clean(int dist)

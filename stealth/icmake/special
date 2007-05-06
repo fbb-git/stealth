@@ -6,30 +6,9 @@ void special()
     string years;
     string version;
 
-    refresh = "VERSION" newer "release.yo";
-
-    if (refresh)
-        run("rm -f release.yo");
-
-    while (sizeof(line = fgets("VERSION", (int)element(1, line))))
+    if (! exists("release.yo") || "VERSION" newer "release.yo") 
     {
-        cut = strtok(element(0, line), "= \t\n");
-
-        if (element(0, cut) == "VERSION")
-        {
-            version = element(1, cut);
-
-            if (refresh)
-            {
-                fprintf("release.yo", "SUBST(_CurVers_)(", version, ")\n");
-                fprintf("release.h", "#define _CurVers_ \"", version, "\"\n");
-            }
-        }
-        else if (refresh && element(0, cut) == "YEARS")
-        {
-            years = element(1, cut);
-            fprintf("release.yo", "SUBST(_CurYrs_)(", years, ")\n");
-            fprintf("release.h", "#define _CurYrs_ \"", years, "\"\n");
-        }
+        system("touch util/version.cc");
+        run("gcc -E VERSION.h | grep -v '#' | sed 's/\\\"//g' > release.yo");
     }
 }

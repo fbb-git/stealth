@@ -1,47 +1,12 @@
 When bf(stealth) is started without arguments, it provides some help about how
 to start it. A message like the following is produced:
-        verb(
-stealth by Frank B. Brokken (f.b.brokken@rug.nl)
+    COMMENT(The usage file should be removed by cleanup, in order to make sure
+            that it is created using the latest bisonc++ version)
 
-stealth V1.40
-SSH-based Trust Enhancement Acquired through a Locally Trusted Host
-Copyright (c) GPL 2001-2005
-
-Usage 1:
-   stealth options policy
-Where:
-   options: (long options between parentheses) select from:
-       -c: (--parse-config-file) process the config file,
-           no further action, report the results to std output.
-       -d: (--debug) write debug messages to std error
-       -e: (--echo-commands) echo commands to std error when they
-           are processed (implied by -d)
-       -i <interval>[m]: (--random-interval) start the scan between now and 
-           a random interval of interval seconds, or minutes
-           if an `m' is appended immediately after the specified interval.
-       -n: (--no-child-processes) no child processes are
-            executed: child actions are faked to be OK.
-       -o: (--only-stdout) scan report is written to stdout. No mail is sent.
-       -q: (--quiet) suppress progress messages to stderr.
-       -r <nr>: (--run-command) only run command <nr> (natural  number).
-       -v: (--version): display version information (and exit).
-   --keep-alive pidfile: keep running as a daemon, wake up at interrupts.
-   --repeat <seconds>: keep running as a daemon, wake up at
-           interrupts. or after <seconds> seconds.
-           Requires --keep-alive.
-   --usage: provide this help (and exit)
-   --help: provide this help (and exit)
-   policy: path to the policyfile
-
-Usage 2:
-   stealth [--rerun|--resume|--suppress|--terminate] pidfile
-Where:
-   --rerun: restart a stealth integrity scan
-   --resume: resume stealth following --suppress
-   --suppress: suppress stealth activities
-   --terminate: terminate stealth
-   pidfile: file containing the pid of the stealth process to rerun or
-            terminate.
-    )
+    TYPEOUT(
+    If a message about a failing NOEXPANDINCLUDE is shown, create the file 
+`usage' in documentation/manual/invoking containing the latest usage info
+)
+    verbinclude(usagetxt)
     Note that with the second type of usage the policy file is not required:
 here only the tt(pidfile) must be specified.
