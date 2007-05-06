@@ -1,10 +1,10 @@
-  * ISN
+stealth (1.46)
 
     Stealth's icmake scripts adapted to work with icmake > V 7.00 as well.
     (not yet distributed in a new release version 1.46)
 
     Random interval based activation time clarified and implementation
-    slightly changed. Man-page changed accordingly
+    slightly changed. Man-page and manual changed accordingly
 
     Examples now have `find' options (like -xdev) at their proper places.
 

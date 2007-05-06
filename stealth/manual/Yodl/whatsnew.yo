@@ -1,6 +1,16 @@
 COMMENT(
+    With 1.46:
+)
+
+    itemization(
+    it() The tt(--random-interval) option is ignored unless tt(--repeat) is
+specified as well. The random interval is em(added) to the the interval
+specified at tt(--repeat) before the next tt(stealth)-run is started.
+    )
+
+COMMENT(
     With 1.40:
-END COMMENT)
+
 
     itemization(
     it() The tt(-e) (tt(--echo-commands)) option was added to echo commands to
@@ -11,6 +21,7 @@ to the standard error stream;
     it() The debugging facility is now always available, and does not require
 recompilation of bf(stealth) anymore.
     )
+END COMMENT)
 
 COMMENT(
     With 1.35:

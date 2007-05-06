@@ -201,3 +201,17 @@ profile-initialization:
     USE SSH root@localhost -T -q exec /bin/bash --noprofile 
         )    
     )
+    Note, however, that using tt(stealth) to inspect tt(localhost) is em(not)
+recommended, as it counters one of the main reasons for tt(stealth)'s
+existence. 
+
+    As yet another alternative, applicable only to tt(localhost), tt(ssh)
+could be avoided altogether. In that case tt(/bin/bash) or a comparable shell
+may be specified with tt(USE SSH). For example:
+        verb(
+    # For stealth inspecting localhost:
+        USE SSH /bin/bash --noprofile
+        )
+
+
+

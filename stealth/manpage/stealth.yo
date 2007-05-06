@@ -233,6 +233,12 @@ arguments:nl()
     Example showing the default:nl()
     tt(USE MAILER /usr/bin/mail)
 
+    As an alternative, the script tt(stealthmail) is provided. It offers a
+convenient filter sorting s()'s output and keeping only lines containing
+tt(ADDED), tt(MODIFIED), tt(REMOVED) and tt(STEALTH). Usually these lines are
+are the ones system managers are interested in. The report and log files can
+always be consulted to determine the actual nature of the changes.
+
     it() bf(USE MAILARGS) tt(<args>)nl()
         The bf(MAILARGS) specification defines the arguments that are passed
 to tt(MAILER), followed by the specification of tt(EMAIL).
@@ -283,6 +289,16 @@ tt(/bin/sh) in the bf(USE SSH) specification.
         USE SSH root@client -T -q exec /bin/bash --noprofile 
         )    
     )
+
+    In some installations s() is used to inspect the computer itself, even
+though this is em(not) recommended, as it counters one of the main reasons
+for s()'s existence. In situations where s() is used to monitor the integrity
+of the tt(localhost), tt(/bin/bash) could be specified with the tt(USE SSH)
+directive. For example:
+        verb(
+    # For stealth inspecting localhost:
+        USE SSH /bin/bash --noprofile
+        )
 
 nsect(COMMANDS)
 
@@ -557,7 +573,8 @@ equivalents, if available. Either can be used.
     it() tt(-i --random-interval <interval>[m]>): 
             start the scan a random interval of <interval> seconds (or 
             minutes if an `m' is appended to <interval>) following the delay
-            specified at tt(--repeat) (see below).
+            specified at tt(--repeat) (see below). This option is ignored
+            unless tt(--repeat) is provided as well.
     it() tt(-n --no-child-processes): No child processes are executed: 
                 child actions+nl()
                  are faked to be OK.
