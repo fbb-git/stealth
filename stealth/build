@@ -41,7 +41,11 @@ void main(int argc, list argv, list envp)
         manual();
 
     if (option == "program")
+    {
+        if (element(2, argv) == "strip")
+            g_strip = "-s";
         program();
+    }
 
     printf("Usage: build what\n"
         "Where `what' is one of:\n"
@@ -49,7 +53,8 @@ void main(int argc, list argv, list envp)
         "   distclean       - clean + fully remove tmp/\n"
         "   man             - build the man-page (requires Yodl)\n"
         "   manual          - build the manual (requires Yodl)\n"
-        "   program         - build stealth\n"
+        "   program [strip] - build stealth (optionally strip the "
+                                                            "executable)\n"
         "   install <base>  - to install the software in the locations\n"
         "                     defined in the INSTALL.im file, optionally\n"
         "                     below <base>\n"

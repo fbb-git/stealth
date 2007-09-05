@@ -12,7 +12,8 @@ string                  // contain options for
     libs,               // extra libs, e.g., "-lrss -licce"
     libpath,            // extra lib-paths, eg, "-L../rss"
     g_sources,          // sources to be used
-    g_binary;           // the name of the program to create
+    g_binary,           // the name of the program to create
+    g_strip;            // "-s" strips the binary  
 int
     g_nClasses;         // number of classes/subdirectories
 list
@@ -59,7 +60,7 @@ void initialize()
 void link(string library)
 {
     exec(COMPILER, "-o", g_binary,
-            "-l" + library, libs, "-L.", libpath , "-s");
+            "-l" + library, libs, "-L.", libpath, g_strip);
 }
 
 
@@ -179,3 +180,8 @@ void program()
 
     exit(0);
 }
+
+
+
+
+
