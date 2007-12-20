@@ -34,5 +34,5 @@ void setLocations()
     MAN  = BASE + "/share/man/man1";    
     DOC  = BASE + "/share/doc/stealth";
 
-    COMPILER = "g++-4.3";
+    COMPILER = "g++";
 }
