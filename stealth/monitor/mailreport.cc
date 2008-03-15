@@ -45,3 +45,4 @@ void Monitor::mailReport()
 
     Util::debug() << "Mailing report" << endl;
 }
+

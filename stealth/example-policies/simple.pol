@@ -9,4 +9,4 @@
     USE MAILARGS    -s "simple STEALTH report"
     USE SSH         /usr/bin/ssh localhost -q
 
-CHECK bin /usr/bin/find /bin  -xdev -type f -exec /usr/bin/md5sum {} \;
+CHECK bin /usr/bin/find /bin  -xdev -type f -exec /usr/bin/sha1sum {} \;

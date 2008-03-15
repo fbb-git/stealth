@@ -1,16 +1,28 @@
 COMMENT(
-    With 1.46:
+    With 1.47:
 )
+
+    itemization(
+    it() Since the MD5 hash is no longer considered to be cryptographically
+secure, bf(stealth)(1) should now use an alternative way to compute
+hash-values. In this manual it is suggested to switch to SHA1 hash
+computations. 
+    it() The tt(--max-size) option was implement to restrict the maximum sizes
+of files that are downloaded from clients. By default it is 10M.
+    )
+
+COMMENT(
+    With 1.46:
 
     itemization(
     it() The tt(--random-interval) option is ignored unless tt(--repeat) is
 specified as well. The random interval is em(added) to the the interval
 specified at tt(--repeat) before the next tt(stealth)-run is started.
     )
+END COMMENT)
 
 COMMENT(
     With 1.40:
-
 
     itemization(
     it() The tt(-e) (tt(--echo-commands)) option was added to echo commands to

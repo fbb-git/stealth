@@ -15,15 +15,26 @@ void Scanner::read(std::istream &src, string const &fname)
     string partialSentinel;
 
     size_t length = 0;
+    off_t size = 0;
+
     while (true)
     {
-        src.read(&c, 1);                    // read char by char
+        if (!src.read(&c, 1))               // read char by char
+        {
+            d_quit = true;
+            d_reporter.exit() << "Incomplete read from `" << fname << "'" <<
+                                                                        endl;
+            return;
+        }
+
+        if (!checkSize(fname, ++size))
+            return;
 
         if (c == d_sentinel[length])       // got next sentinel char
         {
             length++;
-
-            if (length == d_sentinel.length())  // matched the sentinel
+                                            // matched the sentinel
+            if (length == d_sentinel.length())
             {
                 Util::debug() << "GOT Sentinel" << endl;
 

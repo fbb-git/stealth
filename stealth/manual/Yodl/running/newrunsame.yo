@@ -5,8 +5,8 @@ new info on the file tt(/root/client/report):
         verb(
     STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
     
-    Check the client's md5sum program
-    Initialized report on local/md5
+    Check the client's sha1sum program
+    Initialized report on local/sha1
     
     checking the client's /usr/bin/find program
     Initialized report on remote/binfind

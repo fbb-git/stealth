@@ -15,9 +15,9 @@
 
 LABEL \nroot setuid/setgid files
 CHECK LOG = remote/setuid \
-        /usr/bin/find / ${SETUID} -exec /usr/bin/md5sum {} \;
+        /usr/bin/find / ${SETUID} -exec /usr/bin/sha1sum {} \;
 
 
 LABEL \nfiles in /usr/local/etc
-CHECK remote/etcmd5 \
-        /usr/bin/find /usr/local/etc  -xdev -type f -exec /usr/bin/md5sum {} \;
+CHECK remote/etcsha1 \
+        /usr/bin/find /usr/local/etc  -xdev -type f -exec /usr/bin/sha1sum {} \;

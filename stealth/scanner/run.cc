@@ -1,6 +1,6 @@
 #include "scanner.ih"
 
-void Scanner::run(volatile bool const *quit)
+void Scanner::run(volatile bool *quit)
 {
     ++d_nScans;
 
@@ -16,7 +16,8 @@ void Scanner::run(volatile bool const *quit)
     {
                                                 // if so, add its number to
                                                 // d_cmdIterator    
-        d_cmdIterator += atoi(cmdNr.c_str()) - 1;
+        d_cmdIterator += A2x(cmdNr).to<int>() - 1;
+
         execute(*d_cmdIterator);                // and execute that command
     }
     else                                        // no number: process all
@@ -28,8 +29,11 @@ void Scanner::run(volatile bool const *quit)
                     d_cmdIterator++
         )
         {
+            if (d_quit)
+                *quit = true;
             if (*quit)
                 break;
+
             execute(*d_cmdIterator);
         }
     }

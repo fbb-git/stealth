@@ -11,32 +11,32 @@ initialize the reports. Running bf(stealth) this way for the just constructed
 tt(policy) file results in the following output (lines were wrapped to improve
 readability):
         verb(
-    GET /usr/bin/md5sum /root/tmp
-    LABEL \nCheck the client's md5sum program
-    LOCAL CHECK LOG = local/md5 /usr/bin/md5sum /root/tmp/md5sum
+    GET /usr/bin/sha1sum /root/tmp
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
     LABEL \nchecking the client's /usr/bin/find program
-    CHECK LOG = remote/binfind /usr/bin/md5sum /usr/bin/find
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find
     LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
     CHECK LOG = remote/setuidgid /usr/bin/find / -xdev -perm +u+s,g+s 
             \( -user root -or -group root \) -type f 
-            -exec /usr/bin/md5sum {} \;
+            -exec /usr/bin/sha1sum {} \;
     LABEL \nconfiguration files under /etc
     CHECK LOG = remote/etcfiles                         /usr/bin/find /etc 
             -type f -not -perm +6111   -not -regex "/etc/\(adjtime\|mtab\)"
-            -exec /usr/bin/md5sum {} \;
-    LOCAL /usr/bin/scp -q root@client:/usr/bin/md5sum /root/tmp
-    LABEL \nCheck the client's md5sum program
-    LOCAL CHECK LOG = local/md5 /usr/bin/md5sum /root/tmp/md5sum
+            -exec /usr/bin/sha1sum {} \;
+    LOCAL /usr/bin/scp -q root@client:/usr/bin/sha1sum /root/tmp
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
     LABEL \nchecking the client's /usr/bin/find program
-    CHECK LOG = remote/binfind /usr/bin/md5sum /usr/bin/find
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find
     LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
     CHECK LOG = remote/setuidgid /usr/bin/find / -xdev -perm +u+s,g+s 
             \( -user root -or -group root \) -type f 
-            -exec /usr/bin/md5sum {} \;
+            -exec /usr/bin/sha1sum {} \;
     LABEL \nconfiguration files under /etc
     CHECK LOG = remote/etcfiles                        /usr/bin/find /etc 
             -type f -not -perm +6111   -not -regex "/etc/\(adjtime\|mtab\)"
-            -exec /usr/bin/md5sum {} \;
+            -exec /usr/bin/sha1sum {} \;
     )
 
 This all produces the following output:
@@ -53,8 +53,8 @@ next time bf(stealth) is run):
         verb(
     STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
         
-    Check the client's md5sum program
-    Initialized report on local/md5
+    Check the client's sha1sum program
+    Initialized report on local/sha1
     
     checking the client's /usr/bin/find program
     Initialized report on remote/binfind
@@ -73,10 +73,10 @@ subsect(Files under /root/stealth/client)
 
     it() tt(local): below this directory the reports of the locally performed
 checks are found. Using our demo tt(policy) file, only one logfile is found
-here: tt(md5), containing the client's MD5 checksum of its tt(/usr/bin/md5sum)
+here: tt(sha1), containing the client's SHA1 checksum of its tt(/usr/bin/sha1sum)
 program: 
         verb(
-    45251e259bfaf1951658a7b66c328c52  /root/tmp/md5sum
+    45251e259bfaf1951658a7b66c328c52  /root/tmp/sha1sum
         )
     it() tt(remote): at this directory the reports of the remotely performed
 checks are found. Using our demo tt(policy) file, three files were created:
@@ -131,8 +131,8 @@ the systems administrator at `controller').
         verb(
     STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
 
-    Check the client's md5sum program
-    Initialized report on local/md5
+    Check the client's sha1sum program
+    Initialized report on local/sha1
     
     checking the client's /usr/bin/find program
     Initialized report on remote/binfind

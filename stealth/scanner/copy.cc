@@ -10,11 +10,15 @@ void Scanner::copy(std::istream &src, string const &fname)
         d_reporter.exit() << "Can't open `" << fname << "' to write" << endl;
 
     string s;
+    off_t length = 0;
 
     Util::debug() << "Scanner::copy(): about to read child input " << endl;
 
     while (getline(src, s))
     {
+        if (!checkSize(fname, length += s.length() + 1))
+            return;
+
         Util::debug() << "copy SAW: `" << s << "'" << endl;
 
         if (s.find(d_sentinel) == 0)

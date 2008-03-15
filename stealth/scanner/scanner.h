@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 #include <iosfwd>
+#include <sys/types.h>
 #include <bobcat/process>
-// #include "../iofork/iofork.h"
 
 namespace FBB
 {
@@ -24,7 +24,10 @@ namespace FBB
         std::string                                 d_label;
         std::vector<std::string>::const_iterator    d_cmdIterator;
         bool                                        d_testExitValue;
-        size_t                                    d_nScans;
+        size_t                                      d_nScans;
+        off_t                                       d_maxSize;
+        std::string                                 d_maxSizeStr;
+        bool                                        d_quit;
 
         static Pattern  s_split;
         static Pattern  s_firstWord;
@@ -37,7 +40,7 @@ namespace FBB
             }
             void preamble();
                                         // run one series of tests
-            void        run(volatile bool const *done);    
+            void        run(volatile bool *done);    
 
 
             void killChildren();
@@ -45,6 +48,10 @@ namespace FBB
         private:
                             // copy a textfile
             void        copy(std::istream &src, std::string const &fname);
+
+                            // terminate or return 'false' if the retrieved 
+                            // file's size exceeds d_max_size.
+            bool        checkSize(std::string const &fname, off_t length);
 
                                         // executes a command, and compares
                                         // its output to previously

@@ -9,6 +9,7 @@ static Arg::LongOption longOpt_begin[] =
 {
     Arg::LongOption("debug", 'd'),
     Arg::LongOption("echo-commands", 'e'),
+    Arg::LongOption("max-size", Arg::Required),         // 10m by default
     Arg::LongOption("no-child-processes", 'n'),
     Arg::LongOption("only-stdout", 'o'),
     Arg::LongOption("parse-config-file", 'c'),

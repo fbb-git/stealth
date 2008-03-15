@@ -1,3 +1,13 @@
+stealth (1.47.1) (not yet distributed)
+    
+  * Defined the --max-get-size option to restrict the size of files
+    that can be received from a target system. By default 10M.
+
+  * As the MD5 hash is no longer considered to be cryptographically
+    secure, stealth users should now use an alternative way to compute
+    hash-values. It is suggested to switch to SHA1 hash computations. All
+    stealth documentation was updated accordingly.
+
 stealth (1.46.1)
 
   * Introduced sub-sub-version numbers for minor changes

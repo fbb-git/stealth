@@ -1,6 +1,6 @@
     DEFINE  SSHCMD  /usr/bin/ssh root@client -T -q exec /bin/bash --noprofile
-    DEFINE  EXECMD5 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
-                    -type f -exec /usr/bin/md5sum {} \;
+    DEFINE  EXECSHA1 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
+                    -type f -exec /usr/bin/sha1sum {} \;
 
     USE BASE        /root/stealth/client
     USE EMAIL       admin@elswhere
@@ -14,22 +14,22 @@
     USE REPORT      report
     USE SH          /bin/sh
 
-    GET /usr/bin/md5sum /root/tmp
+    GET /usr/bin/sha1sum /root/tmp
 
-    LABEL \nCheck the client's md5sum program
-    LOCAL CHECK LOG = local/md5 /usr/bin/md5sum /root/tmp/md5sum
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
 
     LABEL \nchecking the client's /usr/bin/find program
-    CHECK LOG = remote/binfind /usr/bin/md5sum /usr/bin/find
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find
  
     LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
-    CHECK LOG = remote/setuidgid /usr/bin/find / ${EXECMD5}
+    CHECK LOG = remote/setuidgid /usr/bin/find / ${EXECSHA1}
 
     LABEL \nconfiguration files under /etc
     CHECK LOG = remote/etcfiles                         \ 
           /usr/bin/find /etc -type f -not -perm +6111   \ 
             -not -regex "/etc/\(adjtime\|mtab\)"        \ 
-            -exec /usr/bin/md5sum {} \;
+            -exec /usr/bin/sha1sum {} \;
 
 
 

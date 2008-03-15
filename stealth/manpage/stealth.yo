@@ -15,6 +15,7 @@ manpagename(stealth)(Stealthy File Integrity Scanner)
 
 manpagesynopsis()
         s()  -dcnoq -i <interval> -r <nr> nl()
+            [--max-size <size>[BKMG] ] nl()
             [--keep-alive pidfile [--repeat <seconds> ] ]  policy nl()
         s()  [--rerun | --resume | --suppress | --terminate] pidfile
 
@@ -91,7 +92,7 @@ written to the report file (and into the mail message sent by s()). In some
 cases (e.g., when the report file could not be written), the message is
 written to the standard error stream.
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
-program, calling programs like bf(ls)(1), bf(md5sum)(1) or its own
+program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its own
 tt(-printf) method to produce file-integrity related statistics. Most of these
 programs write file names at the end of generated lines. This characteristic
 is used by an internal routine of s() to detect changes in the generated
@@ -168,7 +169,7 @@ nsect(DEFINE DIRECTIVES)
 
     bf(DEFINE) directives may be used to associate longer strings of text with
 certain symbols. E.g., after
-    tt(DEFINE FINDARGS -xdev -type f -exec /usr/bin/md5sum {} \;)
+    tt(DEFINE FINDARGS -xdev -type f -exec /usr/bin/sha1sum {} \;)
     the text tt(${FINDARGS}) may be used in bf(USE DIRECTIVES) and
 bf(commands) (see below) to use the text associated with the bf(FINDARGS)
 symbol. 
@@ -337,8 +338,8 @@ controller:
         Execute tt(command) on the controller, using the bf(SH) command
 shell. The command must succeed (i.e., must return a zero exit value). nl()
     Example:nl()
-    tt(LOCAL scp rootsh@client:/usr/bin/md5sum /tmp)nl()
-    This command will copy the client's bf(md5sum)(1) program to the
+    tt(LOCAL scp rootsh@client:/usr/bin/sha1sum /tmp)nl()
+    This command will copy the client's bf(sha1sum)(1) program to the
 controller.
 
     it() bf(LOCAL NOTEST) tt(<command>)nl()
@@ -369,10 +370,10 @@ directories implied by the tt(logfile) specifications do not yet exist, they
 are created first.
 
     Example:nl()
-    tt(LOCAL CHECK LOG = local/md5sum md5sum /tmp/md5sum)nl()
-    This command will check the MD5 sum of the tt(/tmp/md5sum) program. The
-resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
-succeed (i.e., tt(md5sum) must return a zero exit-value).
+    tt(LOCAL CHECK LOG = local/sha1sum sha1sum /tmp/sha1sum)nl()
+    This command will check the SHA1 sum of the tt(/tmp/sha1sum) program. The
+resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
+succeed (i.e., tt(sha1sum) must return a zero exit-value).
 
     it() bf(LOCAL NOTEST CHECK) tt(<logfile> <command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
@@ -380,10 +381,10 @@ shell. The command may or may not succeed. Otherwise, the program acts
 identically as the bf(LOCAL CHECK ...) command, discussed previously.
 
     Example:nl()
-    tt(LOCAL NOTEST CHECK LOG=local/md5sum md5sum /tmp/md5sum)nl()
-    This command will check the MD5 sum of the tt(/tmp/md5sum) program. The
-resulting output is saved at bf(BASE)tt(/local/md5sum). The program must
-succeed (i.e., tt(md5sum) must return a zero exit-value).
+    tt(LOCAL NOTEST CHECK LOG=local/sha1sum sha1sum /tmp/sha1sum)nl()
+    This command will check the SHA1 sum of the tt(/tmp/sha1sum) program. The
+resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
+succeed (i.e., tt(sha1sum) must return a zero exit-value).
     )
 
     Note that the bf(scp)(1) command can be used to copy files between the
@@ -427,8 +428,8 @@ which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
 
     Example:nl()
-    tt(GET /usr/bin/md5sum /tmp)nl()
-    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+    tt(GET /usr/bin/sha1sum /tmp)nl()
+    The program tt(/usr/bin/sha1sum), available at the client, is copied to the
 controller's tt(/tmp) directory. If the copying fails for some reason,
 any subsequent commands are skipped, and bf(stealth) terminates.
 
@@ -441,8 +442,8 @@ which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
 
     Example:nl()
-    tt(GET NOTEST /usr/bin/md5sum /tmp)nl()
-    The program tt(/usr/bin/md5sum), available at the client, is copied to the
+    tt(GET NOTEST /usr/bin/sha1sum /tmp)nl()
+    The program tt(/usr/bin/sha1sum), available at the client, is copied to the
 controller's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
     )
@@ -457,9 +458,9 @@ must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:nl()
-    tt(PUT /tmp/md5sum /usr/bin/md5sum)nl()
-    The program tt(/tmp/md5sum), available at the controller, is copied to the
-client as tt(usr/bin/md5sum). If the copying fails for some reason,
+    tt(PUT /tmp/sha1sum /usr/bin/sha1sum)nl()
+    The program tt(/tmp/sha1sum), available at the controller, is copied to the
+client as tt(usr/bin/sha1sum). If the copying fails for some reason,
 any subsequent commands are skipped, and bf(stealth) terminates.
 
     it() bf(PUT NOTEST) tt(<local-path> <remote-path>)nl()
@@ -470,7 +471,7 @@ must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:nl()
-    tt(PUT NOTEST /tmp/md5sum /usr/bin/md5sum)nl()
+    tt(PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum)nl()
     Copy the file indicated by tt(local-path) at the controller to
 tt(remote-path) at the client. The argument tt(local-path) must be the full
 path of an existing file on the controller. The argument tt(remote-path) must
@@ -531,13 +532,13 @@ information. The resulting listing is written on the file
 bf(BASE)tt(/remote/ls.root).
 
 
-tt(CHECK remote/md5.root \)nl()
+tt(CHECK remote/sha1.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
+tt(    -xdev -perm +6111 -type f -exec /usr/bin/sha1sum {} \;)
 
-    The MD5 checksums of all suid/gid/executable files on the same device as
+    The SHA1 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/md5.root).
+listing is written on the file bf(BASE)tt(/remote/sha1.root).
 
     it() bf(NOTEST CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
         Execute tt(command) on the client, using the bf(SSH) command
@@ -546,16 +547,20 @@ succeed. Otherwise, the program acts identically as the bf(CHECK ...) command,
 discussed previously.
 
     Example:nl()
-tt(NOTEST CHECK LOG = remote/md5.root \)nl()
+tt(NOTEST CHECK LOG = remote/sha1.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm +6111 -type f -exec /usr/bin/md5sum {} \;)
+tt(    -xdev -perm +6111 -type f -exec /usr/bin/sha1sum {} \;)
 
 
-    The MD5 checksums of all suid/gid/executable files on the same device as
+    The SHA1 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/md5.root). s() will not
+listing is written on the file bf(BASE)tt(/remote/sha1.root). s() will not
 terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
-    )   
+    )
+
+    The maximum download size (using GET or CHECK) can be specified using the
+tt(--max-size) option, see below. By default it is set at 10M.
+
 
 manpagesection(OPTIONS)
 
@@ -587,6 +592,10 @@ equivalents, if available. Either can be used.
     it() tt(-v --version): Display version information and exit;
     it() tt(--keep-alive pidfile): Keep running as a daemon, 
             wake up at interrupts. 
+    it() tt(--max-size <size>[BKMG]): the maximum file size that can be
+            downloaded from the client in bytes (B), Kbytes (K), Mbytes (M),
+            Gbytes (G). By default download size is 10M. When specified, the
+            default unit is B.
     it() tt(--repeat <seconds>): keep running as a daemon, wake up at
             interrupts or after <seconds> seconds. The interval will be at 
             least 60 seconds. To this interval a random delay may be added
@@ -630,7 +639,7 @@ manpagefiles()
 
 manpageseealso() 
    bf(cron)(1), bf(dd)(1), bf(diff)(1), bf(dpkg)(1), bf(find)(1),
-    bf(logrotate)(1), bf(ls)(1), bf(mail)(1), bf(md5sum)(1), bf(passwd)(5),
+    bf(logrotate)(1), bf(ls)(1), bf(mail)(1), bf(sha1sum)(1), bf(passwd)(5),
     bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
 
 manpagesection(DIAGNOSTICS)

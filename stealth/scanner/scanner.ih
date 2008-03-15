@@ -1,12 +1,12 @@
 #include "scanner.h"
 
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sstream>
 #include <unistd.h>
 #include <signal.h>
 
+#include <bobcat/a2x>
 #include <bobcat/arg>
 #include <bobcat/pattern>
 #include <bobcat/hash>
