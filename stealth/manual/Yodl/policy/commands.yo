@@ -362,6 +362,7 @@ terminating bf(stealth). This results in the following set of logfiles:
 tt(stealth.20080316-110215) containing its previous contents.
 
     Now the reasons for the size-violation should be investigated and
-removed. Following this the file tt(stealth.20080316-110215) can be moved to
-the file tt(stealth), as it represents the state before the size violation was
-encountered. bf(Stealth) should now once again operate normally.
+removed. It is suggested to move the file last saved
+(tt(stealth.20080316-110215)) to the file tt(stealth), as it represents the
+state before the size violation was encountered. Following this bf(stealth)
+should operate normally again.

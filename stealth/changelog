@@ -1,4 +1,4 @@
-stealth (1.47.1) (not yet distributed)
+stealth (1.47.1)
     
   * Defined the --max-get-size option to restrict the size of files
     that can be received from a target system. By default 10M.
