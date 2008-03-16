@@ -23,7 +23,7 @@ em(locally trusts) the controller. Hence, em(locally trusted host).
     )
 
     bf(stealth) is based on an idea by em(Hans Gankema) and em(Kees Visser),
-both at the Computing Center of the University of Groningen.
+both at the Center for Information Technology of the University of Groningen.
 
     bf(stealth)'s main task is to perform file integrity tests. However, the
 testing will leave no sediments on the tested computer. Therefore, bf(stealth)

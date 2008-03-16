@@ -26,7 +26,7 @@ manpagedescription()
     bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
     )
     s() is based on an idea by em(Hans Gankema) and em(Kees Visser), both
-at the Computing Center of the University of Groningen. em(Hopko Meijering)
+at the Center for Information Technology of the University of Groningen. em(Hopko Meijering)
 provided valuable suggestions for improvement.
 
     s()'s main task is to perform file integrity tests. However, the
@@ -655,7 +655,7 @@ Public License'. Copyright remains with the author. S() is found at
 tt(http://stealth.sourceforge.net/).
 
 manpagesection(ORGANIZATION)
-    Computing Center, University of Groningen.
+    Center for Information Technology, University of Groningen.
 
 manpageauthor()
     Frank B. Brokken (bf(f.b.brokken@rug.nl)).

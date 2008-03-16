@@ -31,12 +31,12 @@ nosloppyhfuzz()
 
 IFDEF(html)
 (
-    affiliation(center(Computing Center, University of Groningen))
+    affiliation(center(Center for Information Technology, University of Groningen))
     report(center(Stealth V. _CurVers_))
            (center(Frank B. Brokken))(center(_CurYrs_))
 )
 (   
-    affiliation(Computing Center, University of Groningen)
+    affiliation(Center for Information Technology, University of Groningen)
     report(Stealth V._CurVers_)(Frank B. Brokken)(_CurYrs_)
 )
 
