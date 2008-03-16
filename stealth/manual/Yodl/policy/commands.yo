@@ -325,3 +325,43 @@ maximum is used for each individual download and can be specified in bytes
 (using no suffix or the tt(B) suffix), kilo-bytes (using tt(K)), mega-bytes
 (using tt(M)) or giga-bytes (using tt(G)). The default is set at 10M,
 equivalent to the command line specification of tt(--max-size 10M). 
+
+If a file or report received from the client exceeds its maximum allowed size
+then bf(stealth) terminates after writing the following message to the report
+file (which is sent to the configured mail address):
+        verb(
+    STEALTH - CAN'T CONTINUE: `<name of offending file>' EXCEEDS MAX. 
+                                                DOWNLOAD SIZE (<size shown>)
+    STEALTH - THIS COULD SIGNAL A SERIOUS PROBLEM WITH THE CLIENT
+    STEALTH - ONE OR MORE LOG FILES MAY BE INVALID AS A RESULT
+    STEALTH - *** INVESTIGATE ***
+        )
+    Since a tt(--max-size) specification may cause bf(stealth) to terminate
+while receiving the output of a (remotely run) command, an empty or partial
+log file will be the result. Of course this partial result is spurious as it
+is a direct result of bf(stealth) terminating due to a size violation. 
+
+    After investigating (and removing) the reasons for the size violation a
+new bf(stealth) run using the previous log file as the latest baseline should
+show only expected changes.
+
+    For example, assume the following situation represents a (valid) state of
+logfiles:
+        verb(
+    etc                       stealth                   
+    setuid                    stealth.20080316-105756   
+        )
+    Now bf(stealth) is run with tt(--max-size 20), prematurely 
+terminating bf(stealth). This results in the following set of logfiles:
+        verb(
+    etc                       stealth
+    setuid                    stealth.20080316-105756   
+                              stealth.20080316-110215 
+        )
+    The file tt(stealth) now contains incomplete data with the (latest) file
+tt(stealth.20080316-110215) containing its previous contents.
+
+    Now the reasons for the size-violation should be investigated and
+removed. Following this the file tt(stealth.20080316-110215) can be moved to
+the file tt(stealth), as it represents the state before the size violation was
+encountered. bf(Stealth) should now once again operate normally.

@@ -26,3 +26,7 @@ bool Scanner::doCHECKcommand(Process &child)
                                         // differences. 
     return sameOutput(logfile, child);
 }
+
+
+
+
