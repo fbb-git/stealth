@@ -1,3 +1,12 @@
+stealth (1.47.2)
+
+  * Minor changes wrt Process object definitions to prevent `obsolete'
+    warnings from by now (since bobcat 1.21.1) obsolete Process
+    constructors. Also, the Process mail constructor no longer needs to call
+    the mail program as a command to /bin/sh.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 24 Oct 2008 14:37:19 +0200
+    
 stealth (1.47.1)
     
   * Defined the --max-get-size option to restrict the size of files

@@ -24,10 +24,6 @@ future.
 
     The numbers will of course follow stealth's version.
 
-    The `distribution' script is also probably not useful to anybody but me,
-    and it may be removed from new distributions at some future point in time.
-
-    
     To create the program from its sources, either descend into the stealth
     directory, or unpack a created archive, cd into its top-level directory 
     and follow the instructions provided in the INSTALL file found there.

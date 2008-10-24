@@ -17,13 +17,13 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
                                                 // the rest ([3]) of a text
     d_sshFork
     (
-        d_sorter["SSH"], 
-        Process::CIN | Process::COUT | Process::IGNORE_CERR
+        Process::CIN | Process::COUT | Process::IGNORE_CERR,
+        d_sorter["SSH"]
     ),                 // child: ignores stderr, reads
     d_shFork
     (
-        d_sorter["SH"],
-        Process::CIN | Process::COUT | Process::IGNORE_CERR
+        Process::CIN | Process::COUT | Process::IGNORE_CERR,
+        d_sorter["SH"]
     ),                   // from stdin/stdout
                                                 // parent process communicates
                                                 // via the Fork object's 

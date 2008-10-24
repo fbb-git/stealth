@@ -30,18 +30,21 @@ void Monitor::mailReport()
     // arguments by the `mail' IOFork. Ususally d_sorter["MAILER"] will
     // call a script.
 
-    Process mail(5, d_sorter["MAILER"] + " " + d_sorter["MAILARGS"] +
-                    " " + d_sorter["EMAIL"], Process::CIN | 
-                                             Process::IGNORE_COUT |
-                                             Process::IGNORE_CERR);
+    Process mail(Process::CIN | Process::IGNORE_COUT | Process::IGNORE_CERR,
+                 d_sorter["MAILER"] + ' ' + d_sorter["MAILARGS"] + ' ' + 
+                 d_sorter["EMAIL"]);
 
-    mail.start(Process::USE_SHELL);
+//    mail.start(Process::USE_SHELL);
+    mail.start();
 
     for (string s; getline(d_reporter.in(), s); )
     {
         Util::debug() << "Monitor::mailReport() contains: " << s << endl;
         mail << s << endl;
     }
+    
+    mail.close();
+    mail.waitForChild();
 
     Util::debug() << "Mailing report" << endl;
 }

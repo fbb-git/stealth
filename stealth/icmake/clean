@@ -11,7 +11,9 @@ void setRemovals()
     // unless `minimal':
         remove2 = 
         "tmp/bin tmp/o o */o libstealth.a manual-*-stamp "
-        "release.yo release.h manual/Yodl/{genusage,usagetxt}";
+        "release.yo release.h manual/Yodl/{genusage,usagetxt,*.idx}";
+    // the .idx file is temporarily: Yodl doesn't clean up its idx file
+    // if no post-processing is required.
 }
 
 void clean(int dist)
