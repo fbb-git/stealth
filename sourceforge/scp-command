@@ -4,4 +4,4 @@ yodl2html index.yo | exit 1
 
 scp ../stealth/tmp/manual/html/stealth*.html ../stealth/tmp/manhtml/*.html \
     index.html stealth.jpg \
-    fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
+    fbb,stealth@web.sourceforge.net:htdocs/
