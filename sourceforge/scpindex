@@ -1,7 +1,11 @@
 #!/bin/sh
 
-# (cd ../stealth; build release)
+WD=`pwd`
 
-yodl2html index.yo
+cd ../stealth
+    build man || exit 1
+cd $WD
 
-scp index.html fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
+yodl2html index.yo || exit 1
+
+scp index.html fbb,stealth@web.sourceforge.net:htdocs/
