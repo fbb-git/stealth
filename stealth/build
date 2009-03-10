@@ -50,6 +50,12 @@ void main(int argc, list argv, list envp)
         program();
     }
 
+    if (option == "sourceforge")
+    {
+        special();
+        exit(0);
+    }
+
     printf("Usage: build what\n"
         "Where `what' is one of:\n"
         "   clean           - clean up remnants of previous compilations\n"
@@ -62,6 +68,8 @@ void main(int argc, list argv, list envp)
         "   install <base>  - to install the software in the locations\n"
         "                     defined in the INSTALL.im file, optionally\n"
         "                     below <base>\n"
+        "   sourceforge     - Prepare .yo files for a sourceforge index "
+                                                                "update\n"
         "If the environment variable DRYRUN is defined, no commands are\n"
         "actually executed\n"
     );

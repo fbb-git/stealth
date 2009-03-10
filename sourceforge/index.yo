@@ -24,20 +24,33 @@ center(
 
     htmlcommand(
         <img src="stealth.jpg">
-        <p>
+    )
+ )
+
+COMMENT(
+    htmlcommand(
         <a href="http://sourceforge.net">
         <img src="http://sourceforge.net/sflogo.php?group_id=127615&amp;type=2"
         width="125" height="37" border="0" alt="SourceForge.net Logo" />
-        </a>)
+        </a>
     )
+END COMMENT)
 
 This is the main page of the 
         center(bf(Stealth File Integrity Scanner project (V. _CurVers_)))
     hosted at sourceforge.net.
 
-    itemization(
-    it() The project (sources, binary package etc.) itself can be reached at
+The project (sources, binary package etc.) itself can be reached at
             lurl(http://sourceforge.net/projects/stealth/)
+
+htmlcommand(
+<a href="http://sourceforge.net/projects/stealth"><img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=124995&type=8"
+width="80" height="15" border="0" alt="Get Stealthy File Integrity Checker at
+SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+  )
+
+    itemization(
     it() Here is url(the Stealth userguide)(stealth.html)
     it() Here is a html version of url(the Stealth manual page)
                                       (stealthman.html)
