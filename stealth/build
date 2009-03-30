@@ -23,7 +23,7 @@ void main(int argc, list argv, list envp)
     my_getenv("DRYRUN");
     g_dryrun = g_envvar;
 
-    option = element(1, argv);
+    option = argv[1];
 
     if (option == "clean")
         clean(0);
@@ -32,20 +32,17 @@ void main(int argc, list argv, list envp)
         clean(1);
 
     if (option == "install")
-        install(element(2, argv));
+        install(argv[2], argv[3]);
 
     if (option == "man")
         manpage();
 
     if (option == "manual")
-        exit(0);
-
-    if (option == "manual-tmp")
         manual();
 
     if (option == "program")
     {
-        if (element(2, argv) == "strip")
+        if (argv[2] == "strip")
             g_strip = "-s";
         program();
     }
@@ -61,13 +58,21 @@ void main(int argc, list argv, list envp)
         "   clean           - clean up remnants of previous compilations\n"
         "   distclean       - clean + fully remove tmp/\n"
         "   man             - build the man-page (requires Yodl)\n"
-        "   manual          - DO NOTHING (temporarily)\n"
-        "   manual-tmp      - build the manual (requires Yodl)\n"
+        "   manual          - build the manual (requires Yodl)\n"
         "   program [strip] - build stealth (optionally strip the "
                                                             "executable)\n"
-        "   install <base>  - to install the software in the locations\n"
-        "                     defined in the INSTALL.im file, optionally\n"
-        "                     below <base>\n"
+        "   install program <base> - install the program in the locations "
+                                                        "defined\n"
+        "                        in the INSTALL.cf file, optionally "
+                                                            "below <base>\n"
+        "   install man <base> - install the man pages in the location "
+                                                        "defined\n"
+        "                        in the INSTALL.cf file, optionally "
+                                                            "below <base>\n"
+        "   install manual <base> - install the manual in the location "
+                                                        "defined\n"
+        "                        in the INSTALL.cf file, optionally "
+                                                            "below <base>\n"
         "   sourceforge     - Prepare .yo files for a sourceforge index "
                                                                 "update\n"
         "If the environment variable DRYRUN is defined, no commands are\n"

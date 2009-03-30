@@ -1,26 +1,31 @@
 #!/bin/bash
 PROJECT=stealth
 
-manual()
-{
-    echo "
-Due to some problem with the latest Debian pdf-construction the manual
-is preconstructed here and the distribution will simply contain the
-manual in its ready-to-run form. The Debian control files are modified
-accordingly.
-This state should be lifted once Debian's problems are solved.
-"
-    pause
-    cd stealth
-        build distclean
-        build manual-tmp
-        rm -rf documentation/manual
-        rm tmp/manual/LaTeX/*.{aux,dvi,log,toc}
-        mv tmp/manual documentation
-        build distclean
-    cd ..
-    pause
-}
+# manual()
+# {
+#     echo "
+# Due to some problem with the latest Debian pdf-construction the manual
+# is preconstructed here and the distribution will simply contain the
+# manual in its ready-to-run form. The Debian control files are modified
+# accordingly.
+# This state should be lifted once Debian's problems are solved.
+# "
+#     pause
+#     cd stealth
+#         build distclean
+#         build manual-tmp
+#         rm -rf documentation/manual
+#         rm tmp/manual/LaTeX/*.{aux,dvi,log,toc}
+#         mv tmp/manual documentation
+#         build distclean
+#     cd ..
+#     pause
+# }
+
+if [ -e /usr/share/common-licenses/GPL ] ; then
+    cp /usr/share/common-licenses/GPL ${PROJECT}/LICENSE
+fi
+
                                         # load the version
 VERSION=`grep VERSION ${PROJECT}/VERSION |
     sed 's/#define[[:space:]]\+VERSION[[:space:]]\+"\(.*\)"/\1/'`
@@ -31,19 +36,15 @@ tgz()
 {
     ln -s ${PROJECT} ${DISTRIBUTION}        # distribution's dir name
     tar czvf $1 --exclude-from=excluded  ${DISTRIBUTION}/*
-    rm ${DISTRIBUTION}                      # rm the link
+    rm -f ${DISTRIBUTION} ${PROJECT}/LICENSE  # rm the link/LICENSE file
 }
 
 case "$1" in 
     (d)
-        manual                          # REMOVE EVENTUALLY
-
         tgz ${HOME}/debian/${PROJECT}/tarballs/${PROJECT}_${VERSION}.orig.tar.gz
     ;;
 
     (t|u)
-        manual                          # REMOVE EVENTUALLY
-
         tgz ${PROJECT}_${VERSION}.tar.gz
 
         if [ "$1" == "u" ]

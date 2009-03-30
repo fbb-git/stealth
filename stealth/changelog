@@ -1,3 +1,10 @@
+stealth (1.47.3)
+
+  * Build script's `manual-tmp' removed, reactivated `manual'. Build now
+    allows separate installation of program, man-page and manual
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 30 Mar 2009 09:53:39 +0200
+    
 stealth (1.47.2)
 
   * Minor changes wrt Process object definitions to prevent `obsolete'

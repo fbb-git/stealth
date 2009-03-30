@@ -28,42 +28,55 @@ void reqzip(string dest, string srcPath, string src)
     }
 }
 
-void install(string where)
+void install(string what, string where)
 {
-    printf("  installing the executable\n");
-    md(where + BIN);
-    run("cp tmp/bin/* " + where + BIN);
+    string docdoc;
+    docdoc = DOC + "-doc";
 
-    printf("  installing the manual page stealth.1\n");
-    md(where + MAN);
-    reqzip(where + MAN + "/", "tmp/man/", "stealth.1");
+    if (what == "program")
+    {
+        printf("  installing the executable\n");
+        md(where + BIN);
+        run("cp tmp/bin/* " + where + BIN);
 
-    printf("  installing the manual page stealthman.html\n");
-    md(where + DOC + "/man");
-    reqzip(where + DOC + "/man/", "tmp/manhtml/", "stealthman.html");
+        printf("  installing the information directly in and under $DOC\n");
+        reqzip(where + DOC + "/", "./", "changelog");
+        run("cp README ACKNOWLEDGEMENTS " + where + DOC);
+    }
 
-    printf("  installing the information directly in and under $DOC\n");
-    reqzip(where + DOC + "/", "./", "changelog");
-    run("cp README ACKNOWLEDGEMENTS " + where + DOC);
+    if (what == "man")
+    {
+        printf("  installing the manual page stealth.1\n");
+        md(where + MAN);
+        reqzip(where + MAN + "/", "tmp/man/", "stealth.1");
+    
+        printf("  installing the manual page stealthman.html\n");
+        md(where + DOC + "/man");
+        reqzip(where + DOC + "/man/", "tmp/manhtml/", "stealthman.html");
 
-    printf("  installing scripts\n");
-    md(where + DOC + "/scripts/etc/logrotate.d");
-    reqzip(where + DOC + "/scripts/etc/logrotate.d/", 
+        printf("  installing scripts\n");
+        md(where + DOC + "/scripts/etc/logrotate.d");
+        reqzip(where + DOC + "/scripts/etc/logrotate.d/", 
                                         "share/etc/logrotate.d/", "target");
-    md(where + DOC + "/scripts/etc/stealth");
-    reqzip(where + DOC + "/scripts/etc/stealth/", "share/etc/stealth/", 
+        md(where + DOC + "/scripts/etc/stealth");
+        reqzip(where + DOC + "/scripts/etc/stealth/", "share/etc/stealth/", 
                                                                 "cleanup.rc");
-    md(where + DOC + "/scripts/usr/sbin");
-    rungzip9("share/usr/sbin/", where + DOC + "/scripts/usr/sbin/");
+        md(where + DOC + "/scripts/usr/sbin");
+        rungzip9("share/usr/sbin/", where + DOC + "/scripts/usr/sbin/");
+    }
 
-    printf("  installing examples\n");
-    md(where + DOC + "/examples");
-    rungzip9("example-policies/", where + DOC + "/examples/");
+    if (what == "manual")
+    {
+        printf("  installing examples\n");
+        md(where + docdoc + "/examples");
+        rungzip9("example-policies/", where + docdoc + "/examples/");
 
-    printf("  installing manual\n");
-    run("cp -r tmp/manual " + where + DOC);
+        printf("  installing manual\n");
+        run("cp -r tmp/manual " + where + docdoc);
+    }
 
-    printf("  Installation completed\n");
+    printf("  " + what + " installation completed\n");
 
     exit(0);
 }
+
