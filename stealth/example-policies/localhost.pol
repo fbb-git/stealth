@@ -6,7 +6,7 @@
     USE BASE        /root/stealth/${CLIENT}
 
     USE EMAIL       root@${CLIENT}
-#    USE MAILER      /usr/local/sbin/stealthmail
+#    USE MAILER      /usr/local/bin/stealthmail
     USE MAILER      /usr/bin/mail
     USE MAILARGS    -s "${CLIENT} STEALTH report"
 

@@ -1,3 +1,16 @@
+stealth (1.47.4)
+
+  * Added g++ option --std=c++0x to match the latest Bobcat library
+  * Stealth and support scripts (stealthcleanup, stealthcron, stealthmail) are
+    now by default installed in /usr/bin (instead of /usr/sbin) as non-root
+    users are also able to use stealth, e.g., to monitor the integrity of
+    their own files. 
+
+    **MAKE SURE** that `/sbin/' is changed to `/bin/' in any scripts you may
+    use to activate stealth (e.g. /etc/cron.d/stealth, calling stealthcron)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 03 Sep 2009 13:52:38 +0200
+
 stealth (1.47.3)
 
   * Build script's `manual-tmp' removed, reactivated `manual'. Build now

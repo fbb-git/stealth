@@ -5,7 +5,7 @@ result in many status files. While report files can be rotated, it is
 pointless to rotate old status files, since they never are modified. Instead
 status files exceeding a certain age could be removed and more recent files
 might be zipped to conserve space. In bf(stealth)'s binary distribution the
-file tt(/usr/share/doc/stealth/usr/sbin/stealthcleanup) is provided which can
+file tt(/usr/share/doc/stealth/usr/bin/stealthcleanup) is provided which can
 be used to perform this cleanup. The script expects one argument: a resource
 file defining the following shell variables:
     itemization(
@@ -17,8 +17,8 @@ file defining the following shell variables:
         files. Files exceeding this age are removed using bf(rm)(1).
     )
     Here is the tt(stealthcleanup) script as it is found in the binary distribution's
-tt(/usr/share/doc/stealth/usr/sbin) directory:
-        verbinclude(../../share/usr/sbin/stealthcleanup)
+tt(/usr/share/doc/stealth/usr/bin) directory:
+        verbinclude(../../share/usr/bin/stealthcleanup)
     Assuming that the status files are written in
 tt(/var/stealth/target/local) and tt(/var/stealth/target/remote); that status
 file should be compressed when older than 2 days and removed after 30 days,
@@ -26,10 +26,10 @@ the resource file is:
         verbinclude(../../share/etc/stealth/cleanup.rc)
     Furthermore assuming that the resourcefile is installed in
 tt(/etc/stealth/cleanup.rc) and the tt(stealthcleanup) script itself in
-tt(/usr/sbin/stealthcleanup), the tt(stealthcleanup) script could be called
+tt(/usr/bin/stealthcleanup), the tt(stealthcleanup) script could be called
 as follows:
         verb(
-    /usr/sbin/stealthcleanup /etc/stealth/cleanup.rc
+    /usr/bin/stealthcleanup /etc/stealth/cleanup.rc
         )
     Note that tt(stealthcleanup) may be called whether or not there are active
 bf(stealth) processes, as bf(stealth) does not use status files anymore once

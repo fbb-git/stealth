@@ -25,7 +25,7 @@ available. If not: install it first.
 
     Next, do:
     itemization(
-    it() tt(cp stealthmail  /usr/local/sbin)
+    it() tt(cp stealthmail  /usr/local/bin)
     it() tt(mkdir           /root/stealth)
     it() tt(cp local.pol    /root/stealth)
     )

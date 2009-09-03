@@ -36,5 +36,5 @@ and the development (bf(bobcat-dev_...)) versions.
         )
     This command (note that it is bf(not) em(make program)!) will create the
 program bf(./tmp/bin/stealth), which may then be installed in, e.g.,
-tt(/usr/sbin).
+tt(/usr/bin).
     )

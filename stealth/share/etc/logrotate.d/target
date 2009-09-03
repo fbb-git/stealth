@@ -4,9 +4,9 @@
     compress
     missingok
     prerotate
-        /usr/sbin/stealth --suppress /var/run/stealth.target
+        /usr/bin/stealth --suppress /var/run/stealth.target
     endscript
     postrotate
-        /usr/sbin/stealth --resume /var/run/stealth.target
+        /usr/bin/stealth --resume /var/run/stealth.target
     endscript 
 }

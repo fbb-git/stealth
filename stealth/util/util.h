@@ -2,6 +2,7 @@
 #define _INCLUDED_UTIL_H_
 
 #include <iosfwd>
+#include <iostream>
 #include <string>
 #include <sys/types.h>
 #include <bobcat/selector>

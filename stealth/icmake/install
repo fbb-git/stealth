@@ -61,8 +61,8 @@ void install(string what, string where)
         md(where + DOC + "/scripts/etc/stealth");
         reqzip(where + DOC + "/scripts/etc/stealth/", "share/etc/stealth/", 
                                                                 "cleanup.rc");
-        md(where + DOC + "/scripts/usr/sbin");
-        rungzip9("share/usr/sbin/", where + DOC + "/scripts/usr/sbin/");
+        md(where + DOC + "/scripts/usr/bin");
+        rungzip9("share/usr/bin/", where + DOC + "/scripts/usr/bin/");
     }
 
     if (what == "manual")

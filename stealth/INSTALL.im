@@ -1,6 +1,6 @@
 string BASE;
 
-    // BASE=is the directory below which ALL bisonc++ files will be stored.
+    // BASE=is the directory below which ALL stealth files will be stored.
 
     // For an operational non-Debian installation, you probably must be
     // `root', and BASE "/usr" or BASE "/usr/local" is suggested (see
@@ -8,7 +8,7 @@ string BASE;
     // define BIN, SKEL, MAN and DOC (below) in any which way you like.
 
 string BIN;
-    // the directory in which bisonc++ will be stored
+    // the directory in which stealth will be stored
 
 string MAN;
     // MAN is the directory in which the manual page will be stored
@@ -30,7 +30,7 @@ void setLocations()
 {
     BASE  = "/usr";
 
-    BIN  = BASE + "/sbin";
+    BIN  = BASE + "/bin";
     MAN  = BASE + "/share/man/man1";    
     DOC  = BASE + "/share/doc/stealth";
 

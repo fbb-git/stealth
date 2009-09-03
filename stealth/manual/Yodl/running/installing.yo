@@ -1,8 +1,8 @@
 As bf(stealth) is mainly a system administrator's tool, it could be
-installed in tt(/usr/local/sbin). In that case, do (as em(root)) from the
+installed in tt(/usr/local/bin). In that case, do (as em(root)) from the
 directory where bf(stealth) was compiled/unpacked:
         verb(
-    install stealth /usr/local/sbin
+    install stealth /usr/local/bin
         )
     options given to bf(install)(1) may restrict further use of bf(stealth).
 
