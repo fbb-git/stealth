@@ -1,10 +1,12 @@
 stealth (1.47.4)
 
   * Added g++ option --std=c++0x to match the latest Bobcat library
-  * Stealth and support scripts (stealthcleanup, stealthcron, stealthmail) are
-    now by default installed in /usr/bin (instead of /usr/sbin) as non-root
-    users are also able to use stealth, e.g., to monitor the integrity of
-    their own files. 
+  * Stealth is now by default installed in /usr/bin (instead of /usr/sbin) as
+    non-root users are also able to use stealth, e.g., to monitor the
+    integrity of their own files. Stealth support scripts (stealthcleanup,
+    stealthcron, stealthmail) are found by default in in
+    /usr/share/doc/stealth/scripts/usr/bin and you might want to install them
+    in /usr/bin rather than /usr/sbin, as suggested previously.
 
     **MAKE SURE** that `/sbin/' is changed to `/bin/' in any scripts you may
     use to activate stealth (e.g. /etc/cron.d/stealth, calling stealthcron)
