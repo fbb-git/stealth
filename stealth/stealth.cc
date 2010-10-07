@@ -79,12 +79,11 @@ try
     }
     catch (Errno const &err)
     {
-        cerr << err.what() << ": " << err.which() << endl;
-        throw Util::ERROR; // return 1;
+        cerr << err.why() << ": " << err.which() << endl;
+        throw Util::ERROR;              // return 1;
     }
 
     Util::unlinkRunfile();
-    return 0;
 }
 catch (Util::Terminate terminate)   // may also be OK
 {

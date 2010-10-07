@@ -1,3 +1,7 @@
+stealth (1.47.5) (ISN)
+
+  * Changed Errno::what() call to Errno::why()
+
 stealth (1.47.4)
 
   * Added g++ option --std=c++0x to match the latest Bobcat library
