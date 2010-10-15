@@ -1,6 +1,11 @@
-stealth (1.47.5) (ISN)
+stealth (1.50.0)
 
   * Changed Errno::what() call to Errno::why()
+  * Repaired handling of the -o flag (wasn't working: checked for option "o"
+    rather than 'o'.
+  * Implemented option -s (--skip-files) to disregard the integrity of
+    specified files.
+  * NOTE: requires bobcat 2.09.00 or later
 
 stealth (1.47.4)
 
