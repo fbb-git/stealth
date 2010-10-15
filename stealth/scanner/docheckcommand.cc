@@ -10,8 +10,7 @@ bool Scanner::doCHECKcommand(Process &child)
     s_firstWord.match(s_firstWord[3]);  // redefine s_firstWord: 1st word
                                         // removed 
 
-    Util::debug() << "running checked command: `" << s_firstWord[0] << "'"
-                                                                    << endl;
+    Util::debug() << "running checked command: `" << s_firstWord[0] << "'\n";
 
     if (Arg::instance().option('n')) // -n (no go) option?
         return true;                    // then indicate by implication that
@@ -21,11 +20,12 @@ bool Scanner::doCHECKcommand(Process &child)
     nextCommand(child,                  // otherwise run the command
                     s_firstWord[0]);
 
-
+    child << flush;
                                         // and return whether there are any
                                         // differences. 
     return sameOutput(logfile, child);
 }
+
 
 
 

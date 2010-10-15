@@ -7,23 +7,24 @@
 
 void Reporter::reinit()
 {
-    Util::debug() << "Reinit the reporter" << endl;
+    Util::debug() << "Reinit the reporter\n";
 
     d_out.clear();
 
     struct stat statbuf;
 
     if (stat(d_name.c_str(), &statbuf))
-        throw Errno("Can't stat ") << insertable << d_name << throwable;
+        throw Errno("Can't stat ") << d_name;
 
     d_sizeAtConstruction = statbuf.st_size;
 
     Util::debug() << "Reinit next report starts at " << 
-                                            d_sizeAtConstruction << endl;
+                                            d_sizeAtConstruction << "\n";
 
     *this << "\n"
             "STEALTH (" << Util::getVersion() << ") started at " << 
-            Util::date << "\n" << endl;
+            Util::date << "\n"
+                          "\n";
 
     d_hasMail = false;
 }

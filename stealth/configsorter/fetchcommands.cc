@@ -11,7 +11,7 @@ void ConfigSorter::fetchCommands()
         if (!(s_firstWord << line))           // can't match a first word
         {
             if (!(s_comment << line))
-                Util::debug() << "No match for `" << line << "'" << endl;
+                Util::debug() << "No match for `" << line << "'\n";
             continue;                             
         }
 
@@ -21,7 +21,7 @@ void ConfigSorter::fetchCommands()
             insert(d_define, s_firstWord, line);
         else
         {
-            Util::debug() << "Regular command: `" << line << "'" << endl;
+            Util::debug() << "Regular command: `" << line << "'\n";
             d_command.push_back(line);
         }
     }
@@ -61,10 +61,10 @@ void ConfigSorter::fetchCommands()
                 begin != end;
                     begin++
         )
-            cout << "USE " << begin->first << ": " << begin->second << endl;
+            cout << "USE " << begin->first << ": " << begin->second << "\n";
 
         for (int idx = 0; idx < static_cast<int>(d_command.size()); idx++)
-            cout << (idx + 1) << ": " << d_command[idx] << endl;
+            cout << (idx + 1) << ": " << d_command[idx] << "\n";
 
         if (Arg::instance().option('c'))
             Util::exit("ConfigSorter file processed"); 

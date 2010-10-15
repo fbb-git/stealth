@@ -8,32 +8,32 @@ bool Scanner::sameOutput(string const &logfile, istream &extractor)
         d_reporter.exit() << "Unable to create the logfile `" <<
                                                     current << "'" << endl;
  
-    Util::debug() << "Scanner::sameOutput(): logs to " << current << endl;
+    Util::debug() << "Scanner::sameOutput(): logs to " << current << "\n";
    
     copy(extractor, current);               // copy the info in extractor
                                             // to the current logfile
 
     if (access(logfile.c_str(), R_OK))      // no old report yet
     {
-        Util::debug() << "writing new report: " << logfile << endl;
+        Util::debug() << "writing new report: " << logfile << "\n";
 
         rename(current.c_str(), logfile.c_str());   // install `logfile'
 
         if (d_label.length())
         {
             Util::debug() << "Scanner::sameOutput(): writing label: " << 
-                                                            d_label << endl;
+                                                            d_label << "\n";
             d_reporter << d_label << endl;
         }
 
         d_reporter << "Initialized report on " << logfile << endl;
         Util::debug() << "Scanner::sameOutput(): Initialized  report on " <<
-                                                            logfile << endl;
+                                                            logfile << "\n";
         return true;
     }
 
     Util::debug() << "comparing new integrity scan results to: `" << 
-                                                    logfile << "'" << endl;
+                                                    logfile << "'\n";
 
     return noDifferences(current, logfile); // return true if there aren't any
                                             // differences.

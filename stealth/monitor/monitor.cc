@@ -26,3 +26,6 @@ Monitor::Monitor(ConfigSorter &sorter, Reporter &reporter, Scanner &scanner)
     signal(SIGUSR2, Monitor::handleProcessSignals);
 }
 
+
+
+

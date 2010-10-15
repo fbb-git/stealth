@@ -21,7 +21,7 @@ int main(int argc, char **argv, char **envp)
         cout << "========= 0 ===========\n";
     
         while (getline(rep, s))
-            cout << "Added: " << s << endl;
+            cout << "Added: " << s << "\n";
 
         cout << "========= 1 ===========\n";
 
@@ -36,7 +36,7 @@ int main(int argc, char **argv, char **envp)
         rep.reset();                    // reset the stream to read it again
     
         while (getline(rep, s))
-            cout << "Added: " << s << endl;
+            cout << "Added: " << s << "\n";
 
         cout << "========= 2 ===========\n";
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv, char **envp)
     }
     catch(Errno &e)
     {
-        cerr << "Exception " << e.why() << endl;
+        cerr << "Exception " << e.why() << "\n";
         return 1;
     }
 }

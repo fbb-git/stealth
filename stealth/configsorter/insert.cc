@@ -7,13 +7,13 @@ void ConfigSorter::insert(HashString<string> &hash, Pattern &firstWord,
     {
         string type = firstWord[1];
 
-        Util::debug() << type << " line: " << line << endl;
+        Util::debug() << type << " line: " << line << "\n";
         hash[firstWord[1]] = firstWord[2];      // store key and value
         Util::debug() << type << " key: " << firstWord[1] <<
-                  ", value: " << hash[firstWord[1]] << endl;
+                  ", value: " << hash[firstWord[1]] << "\n";
         return;
     }
                                                 // error on failure
-    cerr << "Config line `" << line << "' invalid" << endl;
+    cerr << "Config line `" << line << "' invalid\n";
 }
 

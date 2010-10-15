@@ -12,9 +12,9 @@ is used.
 Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 :
     d_sorter(sorter),
-    d_reporter(reporter),                       // ostream
-    d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")),// firstword ([1]) and 
-                                                // the rest ([3]) of a text
+    d_reporter(reporter),                           // ostream
+    d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")), // firstword ([1]) and the
+                                                    // rest ([3]) of a text
     d_sshFork
     (
         Process::CIN | Process::COUT | Process::IGNORE_CERR,
@@ -35,7 +35,15 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 {
     setSentinel();
 
-    if (Arg::instance().option(&d_maxSizeStr, "max-size"))
+    Arg &arg = Arg::instance();
+
+    string name;
+    if (arg.option(&name, 's'))         // skip files
+        setAccept(name);
+    else                                // or accept all
+        d_accept = &Scanner::doAccept;
+
+    if (arg.option(&d_maxSizeStr, "max-size"))
     {
         d_maxSize = A2x(d_maxSizeStr);
         switch(d_maxSizeStr.find_first_not_of("0123456789"))

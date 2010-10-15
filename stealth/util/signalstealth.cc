@@ -18,7 +18,7 @@ void Util::signalStealth(int signum, char const *signame,
     size_t pid = getPid(filename);    // get the pid of the process to
                                         // signal 
 
-    debug() << "Sending " << signame << " to process " << pid << endl;
+    debug() << "Sending " << signame << " to process " << pid << "\n";
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile
     // so the suppressed stealth process can signal back that it has completed
@@ -31,7 +31,7 @@ void Util::signalStealth(int signum, char const *signame,
         ofstream runFile(filename.c_str()); // rewrite the runfile
     
         runFile << pid << "\n" <<
-                   myPid << endl;
+                   myPid << "\n";
         runFile.close();            // done. The runfile now contains the
                                     // signalled process ID and the current
                                     // process ID 
@@ -50,7 +50,7 @@ void Util::signalStealth(int signum, char const *signame,
 
     if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
     {
-        debug() << "Suppressing process " << pid << endl;
+        debug() << "Suppressing process " << pid << "\n";
 
         sleep();                        // Prepare to go to sleep, by setting
                                         // s_selector
@@ -60,8 +60,7 @@ void Util::signalStealth(int signum, char const *signame,
                                     // The suppressed process will wait 
                                     // for a second allowing this process
                                     // to start its waiting cycle.
-        debug() << "Waiting for the suppressed process to finish its tasks" <<
-                                                                        endl;
+        debug() << "Waiting for the suppressed process to finish its tasks\n";
 
         try                             // see Util::wait() for the try {...
         {
@@ -70,9 +69,9 @@ void Util::signalStealth(int signum, char const *signame,
         catch(...)                      // is irrelevant here.
         {}
 
-        debug() << "It has. Now terminate this process" << endl;
+        debug() << "It has. Now terminate this process\n";
     }
 
-    throw OK; //    ::exit(0);                              // done
+    throw OK;                           // done
 }
 

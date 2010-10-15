@@ -60,5 +60,5 @@ void usage(string const &stealth, string const &version, string const &year)
         "   pidfile: file containing the pid of the stealth process to "
                                                                 "rerun or\n"
         "            terminate.\n" <<
-        endl;
+        "\n";
 }

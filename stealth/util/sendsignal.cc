@@ -13,6 +13,6 @@ void Util::sendSignal(int signum, char const *signame, pid_t pid)
                 s_runFilename.c_str());
     }
 
-    debug() << signame << " sent" << endl;
+    debug() << signame << " sent\n";
 }
 

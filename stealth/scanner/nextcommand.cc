@@ -3,12 +3,12 @@
 void Scanner::nextCommand(ostream &out, string const &command)
 {
     Util::debug() << "Scanner::nextCommand(): inserting\n" << command << \
-            "\nand: echo " << d_sentinel << " $?" << endl;
+            "\nand: echo " << d_sentinel << " $?\n";
 
                         // run the command, then 
                         // echo the sentinel and returnvalue
-    out << command << endl <<
-           "/bin/echo \"" << d_sentinel << " $?\""  << endl;
+    out << command << "\n" <<
+           "/bin/echo \"" << d_sentinel << " $?\""  << "\n";
 
     if (!out)
         d_reporter.exit() << 

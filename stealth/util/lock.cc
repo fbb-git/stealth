@@ -7,8 +7,7 @@ void Util::lock(string const &runfile)
     size_t pid;
 
     pid = getPid(runfile);
-    debug() << "Trying to lock " << runfile << " of process " << pid <<
-                                                                    endl;
+    debug() << "Trying to lock " << runfile << " of process " << pid << "\n";
 
     s_runFilename = runfile;
     lockRunFile(BLOCKING);          // Obtain the lock on the runfile

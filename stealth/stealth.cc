@@ -5,32 +5,37 @@
 
 #include "stealth.h"
 
-static Arg::LongOption longOpt_begin[] =
-{
-    Arg::LongOption("debug", 'd'),
-    Arg::LongOption("echo-commands", 'e'),
-    Arg::LongOption("max-size", Arg::Required),         // 10m by default
-    Arg::LongOption("no-child-processes", 'n'),
-    Arg::LongOption("only-stdout", 'o'),
-    Arg::LongOption("parse-config-file", 'c'),
-    Arg::LongOption("quiet", 'q'),
-    Arg::LongOption("random-interval", 'i'),
-    Arg::LongOption("run-command", 'r'),
-    Arg::LongOption("version", 'v'),
+namespace{
 
-    Arg::LongOption("keep-alive", Arg::Required),       // runfilename
-    Arg::LongOption("suppress", Arg::Required),         // runfilename
-    Arg::LongOption("repeat", Arg::Required),
-    Arg::LongOption("rerun", Arg::Required),
-    Arg::LongOption("terminate", Arg::Required),        // runfilename
-    Arg::LongOption("resume", Arg::Required),           // runfilename
-    
+Arg::LongOption longOpt_begin[] =
+{
+    {"debug", 'd'},
+    {"echo-commands", 'e'},
+    {"max-size", Arg::Required},         // 10m by default
+    {"no-child-processes", 'n'},
+    {"only-stdout", 'o'},
+    {"parse-config-file", 'c'},
+    {"quiet", 'q'},
+    {"random-interval", 'i'},
+    {"run-command", 'r'},
+    {"skip-files", 's'},
+    {"version", 'v'},
+
+    {"keep-alive", Arg::Required},       // runfilename
+    {"suppress", Arg::Required},         // runfilename
+    {"repeat", Arg::Required},
+    {"rerun", Arg::Required},
+    {"terminate", Arg::Required},        // runfilename
+    {"resume", Arg::Required},           // runfilename
+
     Arg::LongOption("usage"),
     Arg::LongOption("help"),
 };
 
-static Arg::LongOption const * const longOpt_end = 
+Arg::LongOption const * const longOpt_end = 
        longOpt_begin + sizeof(longOpt_begin) / sizeof(Arg::LongOption);
+
+}   // anonymous namespace ends
     
 int main(int argc, char **argv)
 try
@@ -38,7 +43,7 @@ try
     try
     {
                                         // construct Arg object to process
-        Arg &arg = Arg::initialize("cdei:noqr:v", 
+        Arg &arg = Arg::initialize("cdei:noqr:s:v", 
                 longOpt_begin, longOpt_end, 
                 argc, argv); 
 
@@ -53,7 +58,6 @@ try
 
         ConfigFile configfile;          // ConfigFile object reads
                                         // configuration file 
-
         try
         {
             configfile.open(arg[0]);
@@ -79,7 +83,7 @@ try
     }
     catch (Errno const &err)
     {
-        cerr << err.why() << ": " << err.which() << endl;
+        cerr << err.why() << ": " << err.which() << '\n';
         throw Util::ERROR;              // return 1;
     }
 

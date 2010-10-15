@@ -13,15 +13,15 @@ void Scanner::removeLOG()
         if (pos != string::npos && matched[pos] == '=')
         {
             Util::debug() << "removed `LOG =', kept `" << 
-                            matched.substr(pos + 1) << "'" << endl;
+                            matched.substr(pos + 1) << "'\n";
             s_firstWord.match(matched.substr(pos + 1));
         }
         else
             Util::debug() << "LOG is (partial) logname in `" << 
-                                                    matched << "'" << endl;
+                                                    matched << "'\n";
     }
     else
         Util::debug() << "No `LOG =' in CHECK command `" << matched << "'" <<
-                                                                        endl;
+                                                                        "\n";
 }
 

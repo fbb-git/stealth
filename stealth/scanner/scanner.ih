@@ -5,17 +5,34 @@
 #include <sstream>
 #include <unistd.h>
 #include <signal.h>
+#include <iterator>
+#include <algorithm>
 
 #include <bobcat/a2x>
 #include <bobcat/arg>
 #include <bobcat/pattern>
 #include <bobcat/hash>
+#include <bobcat/msg>
+#include <bobcat/fnwrap>
 
 #include "../util/util.h"
 #include "../configsorter/configsorter.h"
 #include "../reporter/reporter.h"
 
+
 using namespace FBB;
 using namespace std;
+
+struct Line: public string
+{};
+
+
+inline istream &operator>>(istream &in, Line &line)
+{
+    return getline(in, line);
+}
+
+
+
 
 

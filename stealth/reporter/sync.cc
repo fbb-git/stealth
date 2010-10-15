@@ -3,5 +3,5 @@
 int Reporter::sync()
 {
     d_hasMail = true;
-    return MultiStreambuf::sync();
+    return MultiStreambuf::pSync();
 }

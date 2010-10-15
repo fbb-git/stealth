@@ -28,6 +28,8 @@ namespace FBB
         off_t                                       d_maxSize;
         std::string                                 d_maxSizeStr;
         bool                                        d_quit;
+        std::vector<std::string>                    d_skipFiles;
+        bool                        (Scanner::*d_accept)(std::string const &);
 
         static Pattern  s_split;
         static Pattern  s_firstWord;
@@ -125,7 +127,21 @@ namespace FBB
             void        write(std::string const &fname);
 
             void        removeLOG();    // remove LOG = from current command
+
+                                        // true if filename not in d_skipFiles
+            bool        testAccept(std::string const &line);
+
+                                        // always true
+            bool        doAccept(std::string const &line);
+
+                                        // fill the d_skipFiles vector and set
+                                        // d_accept to testAccept
+            void        setAccept(std::string const &fname);
     };
 
+    inline bool Scanner::doAccept(std::string const &line)
+    {
+        return true;
+    }
 }
 #endif

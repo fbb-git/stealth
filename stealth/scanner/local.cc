@@ -24,9 +24,9 @@ void Scanner::local(string const &s_firstWord2)
     if  (removeFirstWord("CHECK"))                  // ...      CHECK ...
     {
         if (!doCHECKcommand(d_shFork))              // so, do the command
-            d_reporter  << endl                     // and check the result
-            << "*** BE CAREFUL *** REMAINING RESULTS MAY BE FORGED" << endl
-            << endl;
+            d_reporter  << "\n"                     // and check the result
+               "*** BE CAREFUL *** REMAINING RESULTS MAY BE FORGED\n" <<
+               endl;
     }
     else
         doPlainCommand(d_shFork);                   // do unchecked command

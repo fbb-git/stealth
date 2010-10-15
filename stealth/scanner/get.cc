@@ -6,7 +6,7 @@
 
 void Scanner::get(string const &cmd)
 {
-    Util::debug() << "Scanner::get(): " << cmd << endl;
+    Util::debug() << "Scanner::get(): " << cmd << "\n";
 
     removeFirstWord("GET");                         // strip off `GET'
 
@@ -37,7 +37,7 @@ void Scanner::get(string const &cmd)
 
 
     Util::debug() << "Scanner::get(): scp <client>:" << source << " " << 
-                                                     destination << endl;
+                                                     destination << "\n";
 
     if (Arg::instance().option('n'))     // no run if -n
         return;
@@ -47,7 +47,7 @@ void Scanner::get(string const &cmd)
 
     read(d_sshFork, destination);       // read its output, tests exit value
 
-    Util::debug() << "Scanner::get(): " << cmd << " DONE" << endl;
+    Util::debug() << "Scanner::get(): " << cmd << " DONE\n";
 }
 
 

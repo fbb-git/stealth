@@ -6,7 +6,7 @@
 
 void Scanner::put(string const &cmd)
 {
-    Util::debug() << "Scanner::put(): " << cmd << endl;
+    Util::debug() << "Scanner::put(): " << cmd << "\n";
 
     removeFirstWord("PUT");                         // strip off `PUT'
 
@@ -34,14 +34,14 @@ void Scanner::put(string const &cmd)
 
 
     Util::debug() << "Scanner::put(): scp <client>:" << source << " " << 
-                                                     destination << endl;
+                                                     destination << "\n";
 
     string command = putCommand(source, destination);
 
     if (Arg::instance().option('n'))     // no run if -n
         return;
 
-    d_sshFork << command << endl;
+    d_sshFork << command << endl;       // flush
 
     write(source);                      // write the file using dd
 
@@ -49,7 +49,7 @@ void Scanner::put(string const &cmd)
     
     waitForSentinel(d_sshFork);
 
-    Util::debug() << "Scanner::put(): " << cmd << " DONE" << endl;
+    Util::debug() << "Scanner::put(): " << cmd << " DONE\n";
 }
 
 

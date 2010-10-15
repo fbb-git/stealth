@@ -16,7 +16,7 @@ void Util::maybeBackground()
 
         if (pid > 0)        // parent process (gets child pid)
         {
-            out << pid << endl;
+            out << pid << "\n";
             throw OK;       // ::exit(0);
         }
         s_mainProcess = true;

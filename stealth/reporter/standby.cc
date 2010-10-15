@@ -19,7 +19,7 @@ void Reporter::standby()
     }                                                   // fails: new file
 
     if (!d_out.is_open())
-        throw Errno("Can't open ") << insertable << d_name << throwable;
+        throw Errno("Can't open ") << d_name;
 
     reinit();
 }
