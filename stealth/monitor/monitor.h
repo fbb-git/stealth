@@ -3,16 +3,16 @@
 
 #include <iosfwd>
 #include <string>
+#include <memory>
 
 namespace FBB
 {
     class Selector;
 }
 
-#include "../configsorter/configsorter.h"
-#include "../scanner/scanner.h"
-#include "../reporter/reporter.h"
-
+class ConfigSorter;
+class Reporter;
+class Scanner;
 
 class Monitor
 {
@@ -30,9 +30,9 @@ class Monitor
     static bool             s_quit; // passed to Scanner::run() for
                                     // inspection         
 
-    ConfigSorter    d_sorter;
-    Reporter        d_reporter;
-    Scanner         d_scanner;
+    std::unique_ptr<ConfigSorter> d_sorter;
+    std::unique_ptr<Reporter>     d_reporter;
+    std::unique_ptr<Scanner>      d_scanner;
 
     static bool s_keepAlive;
 
@@ -47,7 +47,7 @@ class Monitor
     static bool             s_mainProcess;
 
     public:
-        Monitor(char const *conffile);
+        Monitor();
         ~Monitor();
 
         void control();             // control the scanning process
@@ -59,12 +59,16 @@ class Monitor
     private:
 
         void processMode();         // process the current mode
+        void processControlOptions();  // determine the running mode
+        void contactOtherStealth();
+        void startStealth();
+        void handleKeepAliveOption();
+        void handleRepeatOption();
 
         static void setDelay();     // set delay interval matching the
                                     // current mode.
 
         static void maybeBackground();
-        static void processControlOptions();  // determine the running mode
         
         static void signalStealth(int signum, char const *signame, 
                                   std::string const &filename);

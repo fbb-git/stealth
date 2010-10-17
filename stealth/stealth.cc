@@ -22,12 +22,13 @@ Arg::LongOption longOpt_begin[] =
     {"version", 'v'},
     {"help", 'h'},
 
-    {"keep-alive", Arg::Required},       // runfilename
-    {"suppress", Arg::Required},         // runfilename
     {"repeat", Arg::Required},
-    {"rerun", Arg::Required},
-    {"terminate", Arg::Required},        // runfilename
-    {"resume", Arg::Required},           // runfilename
+    {"keep-alive", Arg::Required},
+
+    {"rerun", Arg::None},               // arg[0] is the runfilename
+    {"resume", Arg::None},              // also for this and the next options
+    {"suppress", Arg::None},
+    {"terminate", Arg::None},
 };
 
 Arg::LongOption const * const longOpt_end = 
@@ -48,7 +49,7 @@ try
     if (!arg.option('d'))
         Msg::setDisplay(Msg::INFO, false);
 
-    Monitor monitor(arg[0]);
+    Monitor monitor;
     monitor.control();              // control the scanning process,
                                     // run all the Scanner's tests
 }

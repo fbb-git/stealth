@@ -33,8 +33,7 @@ void static_lib(string ofiles, string library)
 {
     if (sizeof(makelist(ofiles)))
     {
-        run("ar cru " + library + " " + ofiles);
-        run("ranlib " + library);
+        run("ar crsu " + library + " " + ofiles);
         run("rm " + ofiles);
     }
 }

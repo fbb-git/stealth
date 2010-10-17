@@ -9,12 +9,12 @@ void Monitor::control()
     {
         msg() << "CONTROL: s_mode == " << s_mode << info;
     
-        d_reporter.standby();       // locks the runfile, opens the report
+        d_reporter->standby();      // locks the runfile, opens the report
                                     // file
         processMode();
         mailReport();
 
-        if (!d_reporter.relax())    // close the report file, unlock the run
+        if (!d_reporter->relax())   // close the report file, unlock the run
             throw Errno(1);         // file. If the reporter has set
                                     // d_continue to false, then terminate.
                                     // This happens when a (remote) 

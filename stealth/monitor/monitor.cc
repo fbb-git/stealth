@@ -1,10 +1,6 @@
 #include "monitor.ih"
 
-Monitor::Monitor(char const *conffile)
-:
-    d_sorter(conffile),
-    d_reporter(d_sorter["REPORT"]),
-    d_scanner(d_sorter, d_reporter)
+Monitor::Monitor()
 {
     processControlOptions();            // handle process control options
     maybeBackground();                  // maybe run Stealth in the background
@@ -12,7 +8,7 @@ Monitor::Monitor(char const *conffile)
     if (keepAlive())
         s_mode = KEEP_ALIVE;
 
-    d_scanner.preamble();
+    d_scanner->preamble();
 
     signal(SIGHUP,  Monitor::handleProcessSignals);
     signal(SIGTERM, Monitor::handleProcessSignals);
