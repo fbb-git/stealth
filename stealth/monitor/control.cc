@@ -7,7 +7,7 @@ void Monitor::control()
 {
     while (true)
     {
-        Util::debug() << "CONTROL: s_mode == " << s_mode << "\n";
+        msg() << "CONTROL: s_mode == " << s_mode << info;
     
         d_reporter.standby();       // locks the runfile, opens the report
                                     // file
@@ -15,7 +15,7 @@ void Monitor::control()
         mailReport();
 
         if (!d_reporter.relax())    // close the report file, unlock the run
-            throw Util::ERROR;      // file. If the reporter has set
+            throw Errno(1);         // file. If the reporter has set
                                     // d_continue to false, then terminate.
                                     // This happens when a (remote) 
                                     // command returns a non-zero exit value.
@@ -24,23 +24,23 @@ void Monitor::control()
 
         if (s_mode == SUPPRESSED)
         {
-            Util::debug() << "Supressed. Now signal the suppressor\n";
+            msg() << "Supressed. Now signal the suppressor" << info;
 
             ::sleep(1);             // This delay is necessary to allow the
                                     // suppressor to start waiting once it has
                                     // signalled this process. See
-                                    // Util::signalStealth(). 
+                                    // signalStealth(). 
 
                                     // let the process that issued
                                     // `--suppress' know we're done.
-            Util::sendSignal(SIGUSR1, "SIGUSR1", Util::suppressorPid());
-            Util::debug() << "Wait for --resume...\n";
+            sendSignal(SIGUSR1, "SIGUSR1", suppressorPid());
+            msg() << "Wait for --resume..." << info;
         }
 
         do
         {
             setDelay();
-            Util::wait();
+            wait();
         }
         while (s_mode == SUPPRESSED);
     }        

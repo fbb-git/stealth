@@ -1,16 +1,16 @@
-#include "util.ih"
+#include "monitor.ih"
 
 // Called by stealth --lock ...
 //
-void Util::lock(string const &runfile)
+void Monitor::lock(string const &runfile)
 {
     size_t pid;
 
     pid = getPid(runfile);
-    debug() << "Trying to lock " << runfile << " of process " << pid << "\n";
+    msg() << "Trying to lock " << runfile << " of process " << pid << info;
 
-    s_runFilename = runfile;
-    lockRunFile(BLOCKING);          // Obtain the lock on the runfile
+    Lock::setRunFilename(runfile);
+    Lock::lockRunFile(Lock::BLOCKING);      // Obtain the lock on the runfile
                                     
     signalStealth(SIGUSR1, "SIGUSR1", runfile); // exits, and releases the
                                                 // lock.

@@ -13,17 +13,17 @@
 bool Scanner::noDifferences(std::string const &current,
                                   std::string const &logfile)
 {
-    Util::debug() << "Scanner::noDifferences(): started " << 
-            d_sorter["DIFF"] << " " << current << " " << logfile << "\n";
+    msg() << "Scanner::noDifferences(): started " << 
+            d_sorter["DIFF"] << " " << current << " " << logfile << info;
 
     d_shFork << d_sorter["DIFF"] << " " << current << " " << logfile <<
-                                                                "\n" <<
+                                                                     "\n" <<
                         "/bin/echo \"" << d_sentinel << "\"" << endl;
 
-    HashString< pair<string, vector<string> > > status;
+    HashString<pair<string, vector<string>>> status;
 
-    Util::debug() << "Scanner::noDifferences():         /bin/echo " << 
-                        d_sentinel << "\n";
+    msg() << "Scanner::noDifferences():         /bin/echo " << d_sentinel << 
+                                                                        info;
 
     //  key is string, case sensitive.
     //
@@ -35,7 +35,9 @@ bool Scanner::noDifferences(std::string const &current,
     //  detected: for these lines the following happens:
     //      1. If the key already existed its .first element is set to
     //          "modified". If the key didn't exist yet, it is set to
-    //          "added" at at '<', and to "removed" at a '>'
+    //          "added" at at '<'. It is set to "skipping" at a '>' if the
+    //          pathname is found in the array of files to skip. Otherwise
+    //          it's set to "removed".
     //      2. The line itself is pushed back to the .second (vector) element
     //          of the pair.
     //
@@ -44,21 +46,14 @@ bool Scanner::noDifferences(std::string const &current,
     //  no elements, 'true' is returned.
 
     string  s;
-//    Pattern split("(\\S+)\\s*$");
 
-    Util::debug() << "Scanner::noDifferences(): starting to read lines" << 
-                                                                        "\n";
-
-//    if (!d_shFork.available())
-//        d_reporter.exit() << "`" << d_sorter["SH"] << "': no output from " <<
-//                             d_sorter["DIFF"] << "\n";
+    msg() << "Scanner::noDifferences(): starting to read lines" << info;
 
     while (getline(d_shFork, s))
     {
-        Util::debug() << "Scanner::noDifferences():      got: `" << s << 
-                                                                    "'\n" <<
-            "Scanner::noDifferences(): sentinel: `" << d_sentinel << 
-                                                                "'\n";
+        msg() << "Scanner::noDifferences():      got: `" << s << "'\n" 
+            "Scanner::noDifferences(): sentinel: `" << d_sentinel << '\'' <<
+                                                                        info;
         if (s == d_sentinel)
             break;
 
@@ -68,10 +63,15 @@ bool Scanner::noDifferences(std::string const &current,
         string key = s_split[1];            // get the key
         bool exists = status.count(key);
 
-        if (s[0] == '>')                // removal, e.g.,   > b88d0b....  out
-                status[key].first = exists ? "MODIFIED" : "REMOVED";
-        else if (s[0] == '<')
+        if (s[0] == '<')
                 status[key].first = exists ? "MODIFIED" : "ADDED";
+        if (s[0] == '>')         // removal or skip, e.g.,   > b88d0b....  out
+        {
+            if ((this->*d_skip)(key))
+                status[key].first = "SKIPPING";
+            else
+                status[key].first = exists ? "MODIFIED" : "REMOVED";
+        }
         else
             continue;
 
@@ -80,7 +80,7 @@ bool Scanner::noDifferences(std::string const &current,
 
     if (!status.size())                 // no elements ?
     {
-        Util::debug() << "no differences were observed\n";
+        msg() << "no differences were observed\n";
 
         rename(current.c_str(), logfile.c_str());   // install `logfile'
         return true;                   // nothing to report
@@ -110,13 +110,12 @@ bool Scanner::noDifferences(std::string const &current,
             d_reporter << "    " << *sbegin << endl;
     }
 
-    string
-        datetime = logfile + "." + Util::datetime();
+    string logFilename = logfile + "." + datetime();
 
-    rename(logfile.c_str(), datetime.c_str());
+    rename(logfile.c_str(), logFilename.c_str());
     rename(current.c_str(), logfile.c_str());   // install `logfile'
 
-    Util::debug() << "differences were observed: see `" << 
+    msg() << "differences were observed: see `" << 
                  d_sorter["REPORT"] << "'  and `" << logfile << "'\n";
 
     return false;

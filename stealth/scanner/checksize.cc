@@ -5,7 +5,7 @@ bool Scanner::checkSize(std::string const &fname, off_t length)
     if (length > d_maxSize)
     {
         d_quit = true;
-        d_reporter.exit() << 
+        d_reporter.error() << 
             "STEALTH - CAN'T CONTINUE: `" << fname << "' EXCEEDS MAX. "
                                 "DOWNLOAD SIZE (" << d_maxSizeStr << ")\n" 
             "STEALTH - THIS COULD POINT TO A SERIOUS SITUATION EXISTING AT "

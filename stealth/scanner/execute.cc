@@ -4,7 +4,7 @@
 void Scanner::execute(string const &cmd)
 {
     if (!(s_firstWord << cmd))          // determine first word and the rest
-        d_reporter.exit() << "Corrupt line in policy file: " << cmd << endl;
+        d_reporter.error() << "Corrupt line in policy file: " << cmd << endl;
     
     if (Arg::instance().option("de"))// echo the command with -d, -e
         cerr << *d_cmdIterator << "\n";
@@ -12,7 +12,7 @@ void Scanner::execute(string const &cmd)
     if (s_firstWord[1] == "LABEL")      // set a label 
     {
         d_label = s_firstWord[3];       // the text beyond the LABEL keyword
-        Util::replace(d_label,          // change \\n into newlines
+        replace(d_label,          // change \\n into newlines
                         "\\n", "\n");   
     }
     else if (s_firstWord[1] == "LOCAL") // run a local command

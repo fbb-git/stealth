@@ -3,7 +3,7 @@
 
 */
 
-#include "stealth.h"
+#include "stealth.ih"
 
 namespace{
 
@@ -20,6 +20,7 @@ Arg::LongOption longOpt_begin[] =
     {"run-command", 'r'},
     {"skip-files", 's'},
     {"version", 'v'},
+    {"help", 'h'},
 
     {"keep-alive", Arg::Required},       // runfilename
     {"suppress", Arg::Required},         // runfilename
@@ -27,9 +28,6 @@ Arg::LongOption longOpt_begin[] =
     {"rerun", Arg::Required},
     {"terminate", Arg::Required},        // runfilename
     {"resume", Arg::Required},           // runfilename
-
-    Arg::LongOption("usage"),
-    Arg::LongOption("help"),
 };
 
 Arg::LongOption const * const longOpt_end = 
@@ -40,58 +38,43 @@ Arg::LongOption const * const longOpt_end =
 int main(int argc, char **argv)
 try
 {
-    try
-    {
                                         // construct Arg object to process
-        Arg &arg = Arg::initialize("cdei:noqr:s:v", 
-                longOpt_begin, longOpt_end, 
-                argc, argv); 
+    Arg &arg = Arg::initialize("cdehi:noqr:s:v", longOpt_begin, longOpt_end, 
+                                argc, argv); 
 
-        bool debug = arg.option('d');
-        Util::setDebug(debug);
+    arg.versionHelp(usage, version, 1);
 
-                                        // handle process control options
-        Util::processControlOptions();  
+    Msg::setDisplay(cerr);
+    if (!arg.option('d'))
+        Msg::setDisplay(Msg::INFO, false);
 
-        Util::maybeBackground();        // maybe run Stealth in the background
-
-
-        ConfigFile configfile;          // ConfigFile object reads
-                                        // configuration file 
-        try
-        {
-            configfile.open(arg[0]);
-        }
-        catch (...)                     // No configfile, then show message
-        {
-            Util::exit("Can't read configuration file `%s'", arg[0]);
-        }
-                                        // ConfigSorter sorts the 
-                                        // configuration file. Separates
-                                        // USEs, DEFINEs and commands.
-        ConfigSorter sorter(configfile);
-
-        Reporter reporter(sorter["REPORT"]);
-
-        Scanner scanner(sorter, reporter);  // Construct the integrityscanner
-
-                                            // Contruct the process monitor
-        Monitor monitor(sorter, reporter, scanner); 
-
-        monitor.control();              // control the scanning process,
-                                        // run all the Scanner's tests
-    }
-    catch (Errno const &err)
-    {
-        cerr << err.why() << ": " << err.which() << '\n';
-        throw Util::ERROR;              // return 1;
-    }
-
-    Util::unlinkRunfile();
+    Monitor monitor(arg[0]);
+    monitor.control();              // control the scanning process,
+                                    // run all the Scanner's tests
 }
-catch (Util::Terminate terminate)   // may also be OK
+catch (Errno const &err)
 {
-    Util::mainProcess();
-    return terminate;
+    if (err.which())
+        cerr << err.why() << '\n';
+    return err.which();
 }
+catch (int ret)
+{
+    return ret;
+}
+catch (...)
+{
+    cerr << "\n"
+            "Program ended due to an UNEXPECTED EXCEPTION.\n"
+            "This should not happen, please report this error and the "
+                                                            "circumstances\n" 
+            "causing it to Stealth's author\n";
+
+    return 1;
+}
+
+
+
+
+
 

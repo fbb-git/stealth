@@ -1,6 +1,6 @@
-#include "util.ih"
+#include "scanner.ih"
 
-string Util::datetime()
+string Scanner::datetime()
 { 
     time_t curtime = time(0);
 

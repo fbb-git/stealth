@@ -1,22 +1,10 @@
 #include "util.h"
 
-#include <iostream>
-#include <fstream>
-#include <libgen.h>
-#include <stdarg.h>
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
-#include <sys/stat.h>
-#include <sys/file.h>
-#include <sstream>
-#include <unistd.h>
-#include <signal.h>
-#include <limits.h>
-#include <bobcat/errno>
-#include <bobcat/arg>
+#include <string>
+#include <ostream>
 
-#include "../configsorter/configsorter.h"
+#include <libgen.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 using namespace std;
-using namespace FBB;

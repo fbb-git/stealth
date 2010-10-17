@@ -38,8 +38,11 @@ void Scanner::run(volatile bool *quit)
         }
     }
 
-    if (Util::debug())
+    if (Arg::instance().option('d'))
         cerr << "Stealth: policy file processed\n";
 }
+
+
+
 
 

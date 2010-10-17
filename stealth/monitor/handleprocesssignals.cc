@@ -30,6 +30,6 @@ void Monitor::handleProcessSignals(int signum)
         break;
     }
 
-    Util::wakeup();
+    wakeup();
     signal(signum, handleProcessSignals);
 }

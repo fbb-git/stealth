@@ -1,6 +1,6 @@
-#include "util.ih"
+#include "lock.ih"
 
-void Util::unlockRunFile()
+void Lock::unlockRunFile()
 {
     if (s_runFILE)
     {

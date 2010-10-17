@@ -1,6 +1,6 @@
-#include "util.ih"
+#include "scanner.ih"
 
-string Util::fileName(string const &name)
+string Scanner::fileName(string const &name)
 {
     string::size_type pos;
 

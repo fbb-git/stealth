@@ -8,7 +8,7 @@ void special()
 
     if (! exists("release.yo") || "VERSION" newer "release.yo") 
     {
-        system("touch util/version.cc");
+        system("touch version.cc");
         run("gcc -E VERSION.h | grep -v '#' | sed 's/\\\"//g' > release.yo");
     }
 }

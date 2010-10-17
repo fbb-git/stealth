@@ -4,6 +4,6 @@ void Scanner::setSentinel()
 {
     ostringstream oss;
 
-    oss << "EOC " << Util::date;
+    oss << "EOC " << DateTime();
     d_sentinel = oss.str();
 }

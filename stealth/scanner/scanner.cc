@@ -39,9 +39,9 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 
     string name;
     if (arg.option(&name, 's'))         // skip files
-        setAccept(name);
-    else                                // or accept all
-        d_accept = &Scanner::doAccept;
+        setSkip(name);
+    else                                // or skip none
+        d_skip = &Scanner::dontSkip;
 
     if (arg.option(&d_maxSizeStr, "max-size"))
     {
@@ -70,7 +70,7 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
                 break;
 
             default:
-                d_reporter.exit() << 
+                d_reporter.error() << 
                     "Error in --max-size option specification: " << 
                      d_maxSizeStr << endl;
         }

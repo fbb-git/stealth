@@ -1,4 +1,4 @@
-#include "util.ih"
+#include "monitor.ih"
 
 // getPid() obtains the process-id from an existing lock-file. The file must
 // exist and the pid stored in the lock-file must be the process-id of an
@@ -7,15 +7,13 @@
 // to the obtained process-ID. If this fails, the lock-file is apparently
 // stale. It is removed and an error message is issued.
 
-size_t Util::getPid(string const &runFilename)
+size_t Monitor::getPid(string const &runFile)
 {
-    char const *runfile = runFilename.c_str();
-
-    ifstream in(runfile);
+    ifstream in(runFile.c_str());
     pid_t pid;
 
     if (!(in >> pid))
-        exit("Can't read `%s'", runfile);
+        msg() << "Can't read `" << runFile << '\'' << fatal;
 
     in.close();
 

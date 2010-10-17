@@ -1,6 +1,7 @@
-#include "util.ih"
+#include "scanner.ih"
 
-void Util::replace(std::string &str, char const *org, char const *replacement)
+void Scanner::replace(std::string &str, char const *org, 
+                                        char const *replacement)
 {
     size_t orglen = strlen(org);
 

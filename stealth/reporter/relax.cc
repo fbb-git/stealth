@@ -4,7 +4,7 @@ bool Reporter::relax()
 {
     flush();
     d_out.close();
-    Util::unlockRunFile();              // release the lock on an existing
+    Lock::unlockRunFile();              // release the lock on an existing
                                         // run file.
     return d_continue;                  // inform the monitor about the 
                                         // need to continue

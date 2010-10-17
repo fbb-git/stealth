@@ -1,6 +1,6 @@
-#include "util.ih"
+#include "monitor.ih"
 
-void Util::setAlarm()
+void Monitor::setAlarm()
 {
     size_t random_wait = 
         s_delayInterval ? 

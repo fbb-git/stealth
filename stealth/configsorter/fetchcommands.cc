@@ -4,6 +4,11 @@
 
 void ConfigSorter::fetchCommands()
 {
+    Arg &arg = Arg::instance();
+
+    if (arg.option('c'))
+        Msg::setDisplay(Msg::INFO, cout);
+
     for (int idx = 0, n = d_configfile.size(); idx < n; ++idx)
     {
         string line = d_configfile[idx];
@@ -11,7 +16,7 @@ void ConfigSorter::fetchCommands()
         if (!(s_firstWord << line))           // can't match a first word
         {
             if (!(s_comment << line))
-                Util::debug() << "No match for `" << line << "'\n";
+                msg() << "No match for `" << line << '\'' << info;
             continue;                             
         }
 
@@ -21,7 +26,7 @@ void ConfigSorter::fetchCommands()
             insert(d_define, s_firstWord, line);
         else
         {
-            Util::debug() << "Regular command: `" << line << "'\n";
+            msg() << "Regular command: `" << line << '\'' << info;
             d_command.push_back(line);
         }
     }
@@ -52,7 +57,7 @@ void ConfigSorter::fetchCommands()
     )
         replaceDefines(*it);
 
-    if (Arg::instance().option("dc"))
+    if (arg.option("dc"))
     {
         for
         (
@@ -61,15 +66,21 @@ void ConfigSorter::fetchCommands()
                 begin != end;
                     begin++
         )
-            cout << "USE " << begin->first << ": " << begin->second << "\n";
+            msg() << "USE " << begin->first << ": " << begin->second << info;
 
         for (int idx = 0; idx < static_cast<int>(d_command.size()); idx++)
-            cout << (idx + 1) << ": " << d_command[idx] << "\n";
+           msg() << (idx + 1) << ": " << d_command[idx] << info;
 
         if (Arg::instance().option('c'))
-            Util::exit("ConfigSorter file processed"); 
+        {
+            msg() << "ConfigSorter file processed" << info;
+            throw 1;
+        }
     }
 
     if (!ok)
-        Util::exit("USE SSH ... entry missing in the configuration file");
+        msg() << "USE SSH ... entry missing in the configuration file" << 
+                                                                        fatal;
 }
+
+

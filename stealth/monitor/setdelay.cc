@@ -5,16 +5,16 @@ void Monitor::setDelay()
     switch (s_mode)
     {
         case KEEP_ALIVE:
-            Util::setAlarm();
+            setAlarm();
         break;
 
         case TERMINATE:
-            Util::wakeup();
+            wakeup();
         break;
 
         case SUPPRESS:
         case SUPPRESSED:
-            Util::sleep();
+            sleep();
         break;
 
         default:

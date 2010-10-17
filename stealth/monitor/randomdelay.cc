@@ -1,6 +1,6 @@
-#include "util.ih"
+#include "monitor.ih"
 
-void Util::randomDelay()
+void Monitor::randomDelay()
 { 
     string delay;
 
@@ -9,7 +9,8 @@ void Util::randomDelay()
 
     if (!Arg::instance().option(0, "repeat"))
     {
-        cerr << "--random-interval ignored unless --repeat is specified\n";
+        msg() << "--random-interval ignored unless --repeat is specified" <<
+                                                                warning;
         return;
     }
 
@@ -26,7 +27,7 @@ void Util::randomDelay()
         s_delayInterval *= 60;
 
     if (!istr || s_delayInterval < 0)
-        throw Errno(-1, "Invalid interval for --random-interval");
+        msg() << "Invalid interval for --random-interval" << fatal;
 
     srandom(time(0));               // seed the random time generator
 }

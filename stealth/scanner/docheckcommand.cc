@@ -10,7 +10,7 @@ bool Scanner::doCHECKcommand(Process &child)
     s_firstWord.match(s_firstWord[3]);  // redefine s_firstWord: 1st word
                                         // removed 
 
-    Util::debug() << "running checked command: `" << s_firstWord[0] << "'\n";
+    msg() << "running checked command: `" << s_firstWord[0] << '\'' << info;
 
     if (Arg::instance().option('n')) // -n (no go) option?
         return true;                    // then indicate by implication that

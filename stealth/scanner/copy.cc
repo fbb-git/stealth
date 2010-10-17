@@ -7,9 +7,9 @@ void Scanner::copy(std::istream &src, string const &fname)
     ofstream currentReport(fname.c_str());
 
     if (!currentReport)
-        d_reporter.exit() << "Can't open `" << fname << "' to write" << endl;
+        d_reporter.error() << "Can't open `" << fname << "' to write" << endl;
 
-    Util::debug() << "Scanner::copy(): about to read child input\n";
+    msg() << "Scanner::copy(): about to read child input" << info;
 
     string s;
     off_t length = 0;
@@ -18,14 +18,15 @@ void Scanner::copy(std::istream &src, string const &fname)
         if (!checkSize(fname, length += s.length() + 1))
             return;
 
-        Util::debug() << "copy SAW: `" << s << "'\n";
+        msg() << "copy SAW: `" << s << '\'' << info;
 
         if (s.find(d_sentinel) == 0)
         {
-            Util::debug() << "GOT Sentinel\n";
+            msg() << "GOT Sentinel" << info;
             break;
         }
-        if ((this->*d_accept)(s))
+
+        if (not (this->*d_skip)(s))
             currentReport << s << "\n";
     }
     testExitValue(s);

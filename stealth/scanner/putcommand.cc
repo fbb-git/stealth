@@ -6,7 +6,7 @@ string Scanner::putCommand(string const &source,
     struct stat statbuf;
 
     if (stat(source.c_str(), &statbuf))
-        d_reporter.exit() << "PUT " << source << ": can't stat it" << endl;
+        d_reporter.error() << "PUT " << source << ": can't stat it" << endl;
 
     ostringstream command;
 

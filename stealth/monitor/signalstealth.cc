@@ -1,4 +1,4 @@
-#include "util.ih"
+#include "monitor.ih"
 
 // getPid() obtains the process-id from an existing lock-file. The file must
 // exist and the pid stored in the lock-file must be the process-id of an
@@ -12,13 +12,13 @@
 // SIGUSR1: suppress stealth from starting a new run
 // SIGUSR2: resume normal actions. 
 
-void Util::signalStealth(int signum, char const *signame, 
+void Monitor::signalStealth(int signum, char const *signame, 
                                      string const &filename)
 {
     size_t pid = getPid(filename);    // get the pid of the process to
                                         // signal 
 
-    debug() << "Sending " << signame << " to process " << pid << "\n";
+    msg() << "Sending " << signame << " to process " << pid << info;
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile
     // so the suppressed stealth process can signal back that it has completed
@@ -27,11 +27,12 @@ void Util::signalStealth(int signum, char const *signame,
     // continue. 
     if (signum == SIGUSR1)          // --suppress
     {
-        pid_t myPid = getpid();     // add this process's id to the runfile
-        ofstream runFile(filename.c_str()); // rewrite the runfile
+        ofstream runFile;
+        Msg::open(runFile, Lock::runFilename());    // rewrite the runfile
     
         runFile << pid << "\n" <<
-                   myPid << "\n";
+                   getpid() << "\n";// add this process's id to the runfile
+
         runFile.close();            // done. The runfile now contains the
                                     // signalled process ID and the current
                                     // process ID 
@@ -50,28 +51,29 @@ void Util::signalStealth(int signum, char const *signame,
 
     if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
     {
-        debug() << "Suppressing process " << pid << "\n";
+        msg() << "Suppressing process " << pid << info;
 
         sleep();                        // Prepare to go to sleep, by setting
                                         // s_selector
 
-        unlockRunFile();            // Remove the lock, allow the
+        Lock::unlockRunFile();      // Remove the lock, allow the
                                     // suppressed process to continue
                                     // The suppressed process will wait 
                                     // for a second allowing this process
                                     // to start its waiting cycle.
-        debug() << "Waiting for the suppressed process to finish its tasks\n";
+        msg() << "Waiting for the suppressed process to finish its task" << 
+                                                                        info;
 
-        try                             // see Util::wait() for the try {...
+        try                             // see wait() for the try {...
         {
-            s_selector.wait();          // no need to use Util::wait() here, 
+            s_selector.wait();          // no need to use wait() here, 
         }                               // because its additional sleep second
         catch(...)                      // is irrelevant here.
         {}
 
-        debug() << "It has. Now terminate this process\n";
+        msg() << "It has. Now terminate this process" << info;
     }
 
-    throw OK;                           // done
+    throw 0;                            // done
 }
 

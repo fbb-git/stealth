@@ -2,6 +2,8 @@
 
 void Monitor::processMode()
 {
+    DateTime now;
+
     while (true)
     {
         switch (s_mode)
@@ -9,14 +11,14 @@ void Monitor::processMode()
             case TERMINATE:
                 d_reporter << 
                     "STEALTH was terminated after " << d_scanner.nScans() << 
-                    " scans at " << Util::date << endl;
+                    " scans at " << now << endl;
                 s_mode = TERMINATED;
             return;
     
             case SUPPRESS:
                 d_reporter <<
                     "STEALTH was suppressed after " << d_scanner.nScans() << 
-                    " scans at " << Util::date << endl;
+                    " scans at " << now << endl;
                 s_mode = SUPPRESSED;
             return;
 

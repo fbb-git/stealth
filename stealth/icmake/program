@@ -47,6 +47,7 @@ void static_library(string library)
 
 void initialize()
 {
+    system(P_NOCHECK, "tput clear");
     echo(ECHO_REQUEST);
     g_sources = "*.cc";
 

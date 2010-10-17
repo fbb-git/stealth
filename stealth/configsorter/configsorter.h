@@ -4,64 +4,68 @@
 #include <string>
 #include <vector>
 #include <bobcat/hash>
+#include <bobcat/configfile>
 
 namespace FBB
 {
-    class Arg;
-    class ConfigFile;
     class Pattern;
+}
 
-    class ConfigSorter
-    {
-        ConfigFile                  &d_configfile;
-        std::vector<std::string>    d_command;
-        HashString<std::string>     d_use;
-        HashString<std::string>     d_define;
+class ConfigSorter
+{
+        FBB::ConfigFile                 d_configfile;
+        std::vector<std::string>        d_command;
+        FBB::HashString<std::string>    d_use;
+        FBB::HashString<std::string>    d_define;
     
         static std::pair<std::string, std::string> const s_defaultKeyword[];
         static size_t s_nDefaultKeywords;
-        static Pattern              s_firstWord;
-        static Pattern              s_comment;
-        static Pattern              s_define;   // [0]: all text,
+        static FBB::Pattern              s_firstWord;
+        static FBB::Pattern              s_comment;
+        static FBB::Pattern              s_define;   // [0]: all text,
                                                 // [1]: all ${NAME} text
                                                 // [2]: NAME itself
     public:
-        ConfigSorter(ConfigFile &configfile);
-
-        std::vector<std::string>::const_iterator firstCmd()
-        {
-            return d_command.begin();
-        }
-
-        std::vector<std::string>::const_iterator beyondCmd()
-        {
-            return d_command.end();
-        }
-
-        std::string const &operator[](std::string const &key)
-        {
-            return d_use[key];
-        }
-
+        ConfigSorter(char const *confFname);
+    
+        std::vector<std::string>::const_iterator firstCmd() const;
+        std::vector<std::string>::const_iterator beyondCmd() const;
+        std::string const &operator[](std::string const &key) const;
+    
     private:
-        std::string const &getDEFINE(std::string const &key)
-        {
-            return d_define[key];
-        }
-
-        bool  hasDEFINE(std::string const &key)
-        {
-            return d_define.count(key);
-        }
+        std::string const &getDEFINE(std::string const &key) const;
+        bool  hasDEFINE(std::string const &key) const;
 
         void fetchCwd();            // determine current working directory
         void fetchCommands();
                                     // replaces the DEFINE's in text
         void replaceDefines(std::string &text); 
-        void insert(HashString<std::string> &hash, Pattern &pattern,
-                                                   std::string const &line);
-    };
+        void insert(FBB::HashString<std::string> &hash, FBB::Pattern &pattern,
+                    std::string const &line);
+};
 
+inline std::vector<std::string>::const_iterator ConfigSorter::firstCmd() const
+{
+    return d_command.begin();
+}
+
+inline std::vector<std::string>::const_iterator 
+                                            ConfigSorter::beyondCmd() const
+{
+    return d_command.end();
+}
+
+inline std::string const &ConfigSorter::operator[](
+                                                std::string const &key) const
+{
+    return d_use.find(key)->second;
 }
 
 #endif
+
+
+
+
+
+
+

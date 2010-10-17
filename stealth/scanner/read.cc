@@ -7,9 +7,9 @@ void Scanner::read(std::istream &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        d_reporter.exit() << "Can't open `" << fname << "' to write" << endl;
+        d_reporter.error() << "Can't open `" << fname << "' to write" << endl;
 
-    Util::debug() << "Scanner::read(): about to read child input\n";
+    msg() << "Scanner::read(): about to read child input" << info;
 
     char c;
     string partialSentinel;
@@ -22,7 +22,7 @@ void Scanner::read(std::istream &src, string const &fname)
         if (!src.read(&c, 1))               // read char by char
         {
             d_quit = true;
-            d_reporter.exit() << "Incomplete read from `" << fname << "'" <<
+            d_reporter.error() << "Incomplete read from `" << fname << "'" <<
                                                                         endl;
             return;
         }
@@ -36,7 +36,7 @@ void Scanner::read(std::istream &src, string const &fname)
                                             // matched the sentinel
             if (length == d_sentinel.length())
             {
-                Util::debug() << "GOT Sentinel\n";
+                msg() << "GOT Sentinel" << info;
 
                 string tail;                    // get the end-chars as well
                 getline(src, tail);

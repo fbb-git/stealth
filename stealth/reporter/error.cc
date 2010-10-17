@@ -1,6 +1,6 @@
 #include "reporter.ih"
 
-ostream &Reporter::exit()
+ostream &Reporter::error()
 {
     setOnce();
     d_continue = false;

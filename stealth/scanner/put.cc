@@ -6,7 +6,7 @@
 
 void Scanner::put(string const &cmd)
 {
-    Util::debug() << "Scanner::put(): " << cmd << "\n";
+    msg() << "Scanner::put(): " << cmd << info;
 
     removeFirstWord("PUT");                         // strip off `PUT'
 
@@ -19,22 +19,22 @@ void Scanner::put(string const &cmd)
 
     string source = s_firstWord[1];                 // get the (remote) source
     if (!source.length())
-        d_reporter.exit() << "PUT command requires source and destination" <<
+        d_reporter.error() << "PUT command requires source and destination" <<
                                                                         endl;
             
     s_firstWord.match(s_firstWord[3]);              // strip off source
 
     string destination = s_firstWord[1];            // get the local dest.
     if (!destination.length())
-        d_reporter.exit() << "At `PUT " << source << 
+        d_reporter.error() << "At `PUT " << source << 
                             " <destination>': destination missing" << endl;
             
-    if (Util::isDirectory(destination))             // is the dest. a dir. ?
-        destination += "/" + Util::fileName(source);// then append sourcename
+    if (Stat(destination).isType(Stat::DIRECTORY))  // is the dest. a dir. ?
+        destination += "/" + fileName(source);      // then append sourcename
 
 
-    Util::debug() << "Scanner::put(): scp <client>:" << source << " " << 
-                                                     destination << "\n";
+    msg() << "Scanner::put(): scp <client>:" << source << " " << 
+                                                     destination << info;
 
     string command = putCommand(source, destination);
 
@@ -49,7 +49,7 @@ void Scanner::put(string const &cmd)
     
     waitForSentinel(d_sshFork);
 
-    Util::debug() << "Scanner::put(): " << cmd << " DONE\n";
+    msg() << "Scanner::put(): " << cmd << " DONE" << info;
 }
 
 

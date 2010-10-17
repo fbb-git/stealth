@@ -1,8 +1,8 @@
 #include "configsorter.ih"
 
-ConfigSorter::ConfigSorter(ConfigFile &configfile)
+ConfigSorter::ConfigSorter(char const *confFile)
 :
-    d_configfile(configfile),
+    d_configfile(confFile),
     d_use(&s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords])
 {
     fetchCommands();
@@ -12,5 +12,5 @@ ConfigSorter::ConfigSorter(ConfigFile &configfile)
     char const *cp = base.c_str();
 
     if (!Util::mkdir(cp) || chdir(cp))
-        Util::exit("Can't chdir to `%s'", cp);
+        msg() << "Can't chdir to `" << cp << '\'' << fatal;
 }

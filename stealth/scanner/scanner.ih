@@ -1,7 +1,6 @@
 #include "scanner.h"
 
 #include <sys/stat.h>
-#include <unistd.h>
 #include <sstream>
 #include <unistd.h>
 #include <signal.h>
@@ -14,6 +13,8 @@
 #include <bobcat/hash>
 #include <bobcat/msg>
 #include <bobcat/fnwrap>
+#include <bobcat/stat>
+#include <bobcat/datetime>
 
 #include "../util/util.h"
 #include "../configsorter/configsorter.h"

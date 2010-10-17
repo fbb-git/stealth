@@ -1,21 +1,15 @@
 #include "monitor.ih"
 
-/*
-    Since the Monitor's destruction is also the termination of the program, no
-explicit destruction of the newly created objects is necessary. A pointer is
-used to prevent the construction of a constant object. As the constructor
-itself would create a constant object, the construction *new... 
-is used.
-
-*/
-
-Monitor::Monitor(ConfigSorter &sorter, Reporter &reporter, Scanner &scanner)
+Monitor::Monitor(char const *conffile)
 :
-    d_scanner(scanner),
-    d_sorter(sorter),
-    d_reporter(reporter)
+    d_sorter(conffile),
+    d_reporter(d_sorter["REPORT"]),
+    d_scanner(d_sorter, d_reporter)
 {
-    if (Util::keepAlive())
+    processControlOptions();            // handle process control options
+    maybeBackground();                  // maybe run Stealth in the background
+
+    if (keepAlive())
         s_mode = KEEP_ALIVE;
 
     d_scanner.preamble();

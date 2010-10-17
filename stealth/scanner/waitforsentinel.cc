@@ -8,11 +8,11 @@ void Scanner::waitForSentinel(istream &extractor)
 
     while (getline(extractor, s))
     {
-        Util::debug() << "Read line `" << s << "'\n";
+        msg() << "Read line `" << s << '\'' << info;
 
         if (s.find(d_sentinel) == 0)
         {
-            Util::debug() << "GOT Sentinel\n";
+            msg() << "GOT Sentinel" << info;
             break;
         }
     }
