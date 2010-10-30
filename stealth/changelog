@@ -9,6 +9,7 @@ stealth (2.0.0)
     log-message "SKIPPING"
   * A full overhaul of Stealth's sources warrants an upgrade of the major
     version to 2.
+  * replacing Msg by Mstream and Errno facilities
   * NOTE: requires bobcat 2.09.00 or later
 
 stealth (1.47.4)
