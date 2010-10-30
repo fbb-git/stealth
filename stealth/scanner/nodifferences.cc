@@ -13,8 +13,8 @@
 bool Scanner::noDifferences(std::string const &current,
                                   std::string const &logfile)
 {
-    msg() << "Scanner::noDifferences(): started " << 
-            d_sorter["DIFF"] << " " << current << " " << logfile << info;
+    imsg << "Scanner::noDifferences(): started " << 
+            d_sorter["DIFF"] << " " << current << " " << logfile << endl;
 
     d_shFork << d_sorter["DIFF"] << " " << current << " " << logfile <<
                                                                      "\n" <<
@@ -22,8 +22,8 @@ bool Scanner::noDifferences(std::string const &current,
 
     HashString<pair<string, vector<string>>> status;
 
-    msg() << "Scanner::noDifferences():         /bin/echo " << d_sentinel << 
-                                                                        info;
+    imsg << "Scanner::noDifferences():         /bin/echo " << d_sentinel << 
+                                                                        endl;
 
     //  key is string, case sensitive.
     //
@@ -47,13 +47,13 @@ bool Scanner::noDifferences(std::string const &current,
 
     string  s;
 
-    msg() << "Scanner::noDifferences(): starting to read lines" << info;
+    imsg << "Scanner::noDifferences(): starting to read lines" << endl;
 
     while (getline(d_shFork, s))
     {
-        msg() << "Scanner::noDifferences():      got: `" << s << "'\n" 
+        imsg << "Scanner::noDifferences():      got: `" << s << "'\n" 
             "Scanner::noDifferences(): sentinel: `" << d_sentinel << '\'' <<
-                                                                        info;
+                                                                        endl;
         if (s == d_sentinel)
             break;
 
@@ -80,7 +80,7 @@ bool Scanner::noDifferences(std::string const &current,
 
     if (!status.size())                 // no elements ?
     {
-        msg() << "no differences were observed\n";
+        imsg << "no differences were observed" << endl;
 
         rename(current.c_str(), logfile.c_str());   // install `logfile'
         return true;                   // nothing to report
@@ -115,8 +115,8 @@ bool Scanner::noDifferences(std::string const &current,
     rename(logfile.c_str(), logFilename.c_str());
     rename(current.c_str(), logfile.c_str());   // install `logfile'
 
-    msg() << "differences were observed: see `" << 
-                 d_sorter["REPORT"] << "'  and `" << logfile << "'\n";
+    imsg << "differences were observed: see `" << 
+                 d_sorter["REPORT"] << "'  and `" << logfile << '\'' << endl;
 
     return false;
 }

@@ -2,7 +2,7 @@
 
 #include <bobcat/arg>
 #include <bobcat/errno>
-#include <bobcat/msg>
+#include <bobcat/mstream>
 
 #include "monitor/monitor.h"
 

@@ -1,10 +1,6 @@
 #include "reporter.h"
 
-// #include <sys/types.h>
-// #include <sys/stat.h>
-// #include <unistd.h>
-
-#include <bobcat/msg>
+#include <bobcat/errno>
 #include <bobcat/stat>
 #include <bobcat/datetime>
 

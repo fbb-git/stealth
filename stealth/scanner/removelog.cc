@@ -12,15 +12,15 @@ void Scanner::removeLOG()
         // remove 'LOG =' and proceed.
         if (pos != string::npos && matched[pos] == '=')
         {
-            msg() << "removed `LOG =', kept `" << 
-                            matched.substr(pos + 1) << '\'' << info;
+            imsg << "removed `LOG =', kept `" << 
+                            matched.substr(pos + 1) << '\'' << endl;
             s_firstWord.match(matched.substr(pos + 1));
         }
         else
-            msg() << "LOG is (partial) logname in `" << matched << '\'' << 
-                                                                        info;
+            imsg << "LOG is (partial) logname in `" << matched << '\'' << 
+                                                                        endl;
     }
     else
-        msg() << "No `LOG =' in CHECK command `" << matched << "'" << info;
+        imsg << "No `LOG =' in CHECK command `" << matched << "'" << endl;
 }
 

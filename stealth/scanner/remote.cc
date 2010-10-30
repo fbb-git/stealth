@@ -2,7 +2,7 @@
 
 void Scanner::remote(string const &cmd)
 {
-    msg() << "REMOTE: Command Run At The Client" << info;
+    imsg << "REMOTE: Command Run At The Client" << endl;
 
     d_testExitValue = !removeFirstWord("NOTEST");   // [NOTEST] ...
 
@@ -11,5 +11,5 @@ void Scanner::remote(string const &cmd)
     else
         doPlainCommand(d_sshFork);
 
-    msg() << "Scanner::remote(): " << cmd << " DONE" << info;
+    imsg << "Scanner::remote(): " << cmd << " DONE" << endl;
 }

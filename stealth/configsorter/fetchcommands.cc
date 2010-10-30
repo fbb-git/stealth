@@ -7,7 +7,7 @@ void ConfigSorter::fetchCommands()
     Arg &arg = Arg::instance();
 
     if (arg.option('c'))
-        Msg::setDisplay(Msg::INFO, cout);
+        imsg.reset(cout);
 
     for (int idx = 0, n = d_configfile.size(); idx < n; ++idx)
     {
@@ -16,7 +16,7 @@ void ConfigSorter::fetchCommands()
         if (!(s_firstWord << line))           // can't match a first word
         {
             if (!(s_comment << line))
-                msg() << "No match for `" << line << '\'' << info;
+                imsg << "No match for `" << line << '\'' << endl;
             continue;                             
         }
 
@@ -26,7 +26,7 @@ void ConfigSorter::fetchCommands()
             insert(d_define, s_firstWord, line);
         else
         {
-            msg() << "Regular command: `" << line << '\'' << info;
+            imsg << "Regular command: `" << line << '\'' << endl;
             d_command.push_back(line);
         }
     }
@@ -66,21 +66,20 @@ void ConfigSorter::fetchCommands()
                 begin != end;
                     begin++
         )
-            msg() << "USE " << begin->first << ": " << begin->second << info;
+            imsg << "USE " << begin->first << ": " << begin->second << endl;
 
         for (int idx = 0; idx < static_cast<int>(d_command.size()); idx++)
-           msg() << (idx + 1) << ": " << d_command[idx] << info;
+           imsg << (idx + 1) << ": " << d_command[idx] << endl;
 
         if (Arg::instance().option('c'))
         {
-            msg() << "ConfigSorter file processed" << info;
+            imsg << "ConfigSorter file processed" << info;
             throw 1;
         }
     }
 
     if (!ok)
-        msg() << "USE SSH ... entry missing in the configuration file" << 
-                                                                        fatal;
+        fmsg << "USE SSH ... entry missing in the configuration file" << endl;
 }
 
 

@@ -2,7 +2,7 @@
 
 void Scanner::doPlainCommand(Process &child)
 {
-    msg() << "running unchecked command: `" << s_firstWord[0] << '\'' << info;
+    imsg << "running unchecked command: `" << s_firstWord[0] << '\'' << endl;
     if (!Arg::instance().option('n'))    // unless -n (no execute commands)
     {
         nextCommand(child, s_firstWord[0]); // start the next command

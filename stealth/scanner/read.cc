@@ -9,7 +9,7 @@ void Scanner::read(std::istream &src, string const &fname)
     if (!target)
         d_reporter.error() << "Can't open `" << fname << "' to write" << endl;
 
-    msg() << "Scanner::read(): about to read child input" << info;
+    imsg << "Scanner::read(): about to read child input" << endl;
 
     char c;
     string partialSentinel;
@@ -36,7 +36,7 @@ void Scanner::read(std::istream &src, string const &fname)
                                             // matched the sentinel
             if (length == d_sentinel.length())
             {
-                msg() << "GOT Sentinel" << info;
+                imsg << "GOT Sentinel" << endl;
 
                 string tail;                    // get the end-chars as well
                 getline(src, tail);

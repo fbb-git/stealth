@@ -45,9 +45,8 @@ try
 
     arg.versionHelp(usage, version, 1);
 
-    Msg::setDisplay(cerr);
-    if (!arg.option('d'))
-        Msg::setDisplay(Msg::INFO, false);
+    if (imsg.setActive(arg.option('d')))
+        imsg.reset(cerr);
 
     Monitor monitor;
     monitor.control();              // control the scanning process,

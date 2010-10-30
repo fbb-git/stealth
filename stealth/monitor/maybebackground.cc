@@ -5,12 +5,12 @@ void Monitor::maybeBackground()
     if (keepAlive())
     {
         ofstream out;
-        Msg::open(out, Lock::runFilename());
+        Errno::open(out, Lock::runFilename());
 
         int pid = fork();
         if (pid < 0)
-            msg() << "--keepalive failed due to failing fork() system "
-                                                            "call." << fatal;
+            fmsg << "--keepalive failed due to failing fork() system "
+                                                            "call." << endl;
 
         if (pid > 0)        // parent process (gets child pid)
         {

@@ -2,8 +2,8 @@
 
 void Scanner::nextCommand(ostream &out, string const &command)
 {
-    msg() << "Scanner::nextCommand(): inserting\n" << command << "\n"
-                "and: echo " << d_sentinel << " $?" << info;
+    imsg << "Scanner::nextCommand(): inserting\n" << command << "\n"
+                "and: echo " << d_sentinel << " $?" << endl;
 
                         // run the command, then 
                         // echo the sentinel and returnvalue

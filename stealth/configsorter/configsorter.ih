@@ -2,7 +2,7 @@
 
 #include <bobcat/arg>
 #include <bobcat/pattern>
-#include <bobcat/msg>
+#include <bobcat/mstream>
 
 #include "../util/util.h"
 

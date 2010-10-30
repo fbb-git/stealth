@@ -14,7 +14,7 @@
 
 void Scanner::local(string const &s_firstWord2)
 {
-    msg() << "Command Run At The Controller" << info;
+    imsg << "Command Run At The Controller" << endl;
 
     s_firstWord.match(s_firstWord2);                // what's beyond `LOCAL' ?
 

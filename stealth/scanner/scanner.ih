@@ -11,7 +11,7 @@
 #include <bobcat/arg>
 #include <bobcat/pattern>
 #include <bobcat/hash>
-#include <bobcat/msg>
+#include <bobcat/mstream>
 #include <bobcat/fnwrap>
 #include <bobcat/stat>
 #include <bobcat/datetime>

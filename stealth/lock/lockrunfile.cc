@@ -7,49 +7,49 @@ bool Lock::lockRunFile(LockType type)
 try
 {
     if (s_runFILE)
-        msg() << "Internal error: runfile already locked" << fatal;
+        fmsg << "Internal error: runfile already locked" << endl;
 
-    msg() << "locking " << s_runFilename << info;
+    fmsg << "locking " << s_runFilename << endl;
 
     if (s_runFilename.empty())          // no runfilename, no lock.
         return true;
 
-    msg() << "open to read " << s_runFilename << info;
+    fmsg << "open to read " << s_runFilename << endl;
 
     s_runFILE = fopen(s_runFilename.c_str(), "r");
 
     if (s_runFILE == 0)
-        msg() << "Can't open run-file `" << s_runFilename.c_str() << '\'' <<
-                                                                        fatal;
+        fmsg << "Can't open run-file `" << s_runFilename.c_str() << '\'' <<
+                                                                        endl;
 
     if (type == BLOCKING)
     {
-        msg() << "attempting blocking mode lock" << info;
+        imsg << "attempting blocking mode lock" << endl;
         if (flock(fileno(s_runFILE), LOCK_EX) == 0)
             throw true;
-        msg() << "blocking mode lock FAILED" << info;
+        imsg << "blocking mode lock FAILED" << endl;
     }
     else
     {
-        msg() << "attempting non-blocking mode lock on FD " << 
-                                                    fileno(s_runFILE) << info;
+        imsg << "attempting non-blocking mode lock on FD " << 
+                                                    fileno(s_runFILE) << endl;
         for (size_t idx = 0; idx < s_maxBlockAttempts; ++idx)
         {
             if (flock(fileno(s_runFILE), LOCK_EX  | LOCK_NB) == 0)
                 throw true;
-            msg() << "." << spool;
+            imsg << '.';
             ::sleep(1);
-            msg() << "\nNon-blocking mode lock FAILED" << info;
+            imsg << "\nNon-blocking mode lock FAILED" << endl;
         }
     }
     throw false;
 }
 catch (bool ret)
 {
-    msg() << "locked (and return): " << ret << info;
+    imsg << "locked (and return): " << ret << endl;
 
     if (!ret)
-        msg() << "Failed to lock run-file `" << s_runFilename << '\'' << 
-                                                                    fatal;
+        fmsg << "Failed to lock run-file `" << s_runFilename << '\'' << endl;
+
     return true;
 }

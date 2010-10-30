@@ -6,7 +6,7 @@
 
 void Scanner::put(string const &cmd)
 {
-    msg() << "Scanner::put(): " << cmd << info;
+    imsg << "Scanner::put(): " << cmd << endl;
 
     removeFirstWord("PUT");                         // strip off `PUT'
 
@@ -33,8 +33,8 @@ void Scanner::put(string const &cmd)
         destination += "/" + fileName(source);      // then append sourcename
 
 
-    msg() << "Scanner::put(): scp <client>:" << source << " " << 
-                                                     destination << info;
+    imsg << "Scanner::put(): scp <client>:" << source << " " << 
+                                                     destination << endl;
 
     string command = putCommand(source, destination);
 
@@ -49,7 +49,7 @@ void Scanner::put(string const &cmd)
     
     waitForSentinel(d_sshFork);
 
-    msg() << "Scanner::put(): " << cmd << " DONE" << info;
+    imsg << "Scanner::put(): " << cmd << " DONE" << endl;
 }
 
 

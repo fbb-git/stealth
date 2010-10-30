@@ -18,7 +18,7 @@ void Monitor::signalStealth(int signum, char const *signame,
     size_t pid = getPid(filename);    // get the pid of the process to
                                         // signal 
 
-    msg() << "Sending " << signame << " to process " << pid << info;
+    imsg << "Sending " << signame << " to process " << pid << endl;
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile
     // so the suppressed stealth process can signal back that it has completed
@@ -28,7 +28,7 @@ void Monitor::signalStealth(int signum, char const *signame,
     if (signum == SIGUSR1)          // --suppress
     {
         ofstream runFile;
-        Msg::open(runFile, Lock::runFilename());    // rewrite the runfile
+        Errno::open(runFile, Lock::runFilename());    // rewrite the runfile
     
         runFile << pid << "\n" <<
                    getpid() << "\n";// add this process's id to the runfile

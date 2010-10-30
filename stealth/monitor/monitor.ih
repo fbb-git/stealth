@@ -5,8 +5,8 @@
 
 #include <bobcat/arg>
 #include <bobcat/process>
-#include <bobcat/msg>
-#include <bobcat/selector>
+#include <bobcat/mstream>
+#include <bobcat/errno>
 #include <bobcat/datetime>
 
 #include "../lock/lock.h"

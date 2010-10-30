@@ -7,16 +7,15 @@ void Scanner::preamble()
 
                                 // try to echo a sentinel by having
                                 // the ssh connection echo it    
-    msg() << "Inserting " << d_sentinel << " into " << d_sorter["SSH"] << 
-                                                                        info;
+    imsg << "Inserting " << d_sentinel << " into " << d_sorter["SSH"] << endl;
 
     d_sshFork << "/bin/echo \"" << d_sentinel << "\"" << endl;   // must flush
 
-    msg() << "Waiting for " << d_sentinel << " from " << d_sorter["SSH"] << 
-                                                                        info;
+    imsg << "Waiting for " << d_sentinel << " from " << d_sorter["SSH"] << 
+                                                                        endl;
 
     d_testExitValue = false;
     waitForSentinel(d_sshFork);  // continue after reading 
 
-    msg() << d_sorter["SSH"] << " appears to be functioning well" << info;
+    imsg << d_sorter["SSH"] << " appears to be functioning well" << endl;
 }

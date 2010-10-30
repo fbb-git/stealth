@@ -9,8 +9,8 @@ void Scanner::write(string const &fname)
     if (!source)
         d_reporter.error() << "Can't open `" << fname << "' to read\n";
 
-    msg() << "Scanner::write(): about to read local `" << fname << '\'' << 
-                                                                        info;
+    imsg << "Scanner::write(): about to read local `" << fname << '\'' << 
+                                                                        endl;
     while (true)
     {
         size_t const SIZEOF_BUF = 1000;

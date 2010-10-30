@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <sys/file.h>
 
-#include <bobcat/msg>
+#include <bobcat/mstream>
 
 using namespace std;
 using namespace FBB;

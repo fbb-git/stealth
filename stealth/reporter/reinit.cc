@@ -7,18 +7,18 @@
 
 void Reporter::reinit()
 {
-    msg() << "Reinit the reporter" << info;
+    imsg << "Reinit the reporter" << endl;
 
     d_out.clear();
 
     Stat stat(d_name);
 
     if (!stat)
-        msg() << "Can't stat " << d_name << fatal;
+        fmsg << "Can't stat " << d_name << endl;
 
     d_sizeAtConstruction = stat.size();
 
-    msg() << "Reinit next report starts at " << d_sizeAtConstruction << info;
+    imsg << "Reinit next report starts at " << d_sizeAtConstruction << endl;
 
     *this << "\n"
             "STEALTH (" << version << ") started at " << 
