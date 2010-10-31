@@ -1,6 +1,6 @@
 #!/bin/bash
 
-grep 'STEALTH\|MODIFIED\|ADDED\|REMOVED' | sort | uniq |
+grep 'STEALTH\|MODIFIED\|ADDED\|REMOVED\|IGNORED' | sort | uniq |
                                                     /usr/bin/mail -s "$2" $3
 
 
