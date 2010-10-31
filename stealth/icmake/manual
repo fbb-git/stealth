@@ -22,7 +22,7 @@ void manual()
 
     if (!exists("usagetxt") || "../../util/usage2.cc" younger "usagetxt")
     {
-        run("g++ -o genusage usage.cc");
+        run("g++ --std=c++0x -o genusage usage.cc");
         run("./genusage > usagetxt");
     }
 

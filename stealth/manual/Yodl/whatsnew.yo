@@ -1,6 +1,18 @@
 COMMENT(
-    With 1.47:
+    With 2.0.0:
 )
+    itemization(
+    it() Repaired handling of the tt(-o) flag;
+    it() Implemented option -s (--skip-files) to skip the integrity-test of
+    specified files. When appearing in the logs so far the initial appearance
+    of a path in the file containing the files to skip results in a
+    log-message "SKIPPING"
+    it() NOTE: requires bobcat 2.09.00 or later
+    )
+
+COMMENT(
+    With 1.47:
+
 
     itemization(
     it() Since the MD5 hash is no longer considered to be cryptographically
@@ -10,6 +22,8 @@ computations.
     it() The tt(--max-size) option was implement to restrict the maximum sizes
 of files that are downloaded from clients. By default it is 10M.
     )
+)
+
 
 COMMENT(
     With 1.46:

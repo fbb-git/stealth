@@ -9,12 +9,6 @@ COMMENT(htmlbodyopt(background)(rcbackground.jpg))
 htmlbodyopt(text)(#27408B)
 htmlbodyopt(bgcolor)(#FFFAF0)
 
-COMMENT(
-    Not required for Yodl >= V2.00
-    includefile(/usr/local/share/yodl/macros)
-    includefile(/usr/local/share/yodl/options)
-)
-
 COMMENT(    include(abstract)   )
 
 latexoptions(a4paper)
@@ -71,11 +65,15 @@ includefile(running/intro)
     sect(Running `stealth' for the first time)
     includefile(running/firstrun)
 
-    sect(Running `stealth' again: all files unaltered)
-    includefile(running/newrunsame)
+    sect(Running `stealth' again)
+        subsect(All files unaltered)
+        includefile(running/newrunsame)
 
-    sect(Running `stealth' again: modifications have occurred)
-    includefile(running/newrundelta)
+        subsect(Modifications have occurred)
+        includefile(running/newrundelta)
+
+        subsect(Skipping (some) integrity checks)
+        includefile(running/skipping)
 
     sect(Automating `stealth' runs using `cron')
     includefile(running/cron)

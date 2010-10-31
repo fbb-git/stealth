@@ -14,7 +14,7 @@ manpage(stealth)(1)(_CurYrs_)(stealth__CurVers_.tar.gz)(Security Enhancement)
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
 manpagesynopsis()
-        s()  -dcnoq -i <interval> -r <nr> nl()
+        s()  -dcnoq -i <interval> -r <nr> -s skip-files nl()
             [--max-size <size>[BKMG] ] nl()
             [--keep-alive pidfile [--repeat <seconds> ] ]  policy nl()
         s()  [--rerun | --resume | --suppress | --terminate] pidfile
@@ -189,9 +189,8 @@ specifications to be given by users of s():
         bf(BASE) defines the directory from where s() operates. All
 relative path specifications are interpreted relative to bf(BASE). em(By
 default) this is the directory where s() was started. nl()
-    bf(BASE) is the em(only) directory that em(must) exist when s() is
-started. All other non-existing paths are created automatically by
-s().nl()
+    bf(BASE) and other non-existing paths are created automatically by
+s() if not yet existing.nl()
     Example:nl()
     tt(USE BASE /root/client)
 
@@ -589,6 +588,12 @@ equivalents, if available. Either can be used.
     it() tt(-q --quiet): Suppress progress messages written to stderr;
     it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
             Command numbers are shown by s() tt(-c);
+    it() tt(-s --skip-files <skippath>): All files mentioned in tt(skippath)
+(using an absolute path) are skipped. Their integrity is not monitored. If a
+file is already present in a log file then s() will once generate an
+tt(IGNORING) message in the mail sent to the address specified at tt(EMAIL) in
+the policy file. Each file mentioned in tt(filepath) must be on a line of
+its own and must be specified using absolute file paths.
     it() tt(-v --version): Display version information and exit;
     it() tt(--keep-alive pidfile): Keep running as a daemon, 
             wake up at interrupts. 

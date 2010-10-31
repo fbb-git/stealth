@@ -9,12 +9,13 @@ try
     if (s_runFILE)
         fmsg << "Internal error: runfile already locked" << endl;
 
-    fmsg << "locking " << s_runFilename << endl;
-
     if (s_runFilename.empty())          // no runfilename, no lock.
+    {
+        imsg << "No need to lock a run file" << endl;
         return true;
+    }
 
-    fmsg << "open to read " << s_runFilename << endl;
+    imsg << "opening `" << s_runFilename << "' for reading" << endl;
 
     s_runFILE = fopen(s_runFilename.c_str(), "r");
 

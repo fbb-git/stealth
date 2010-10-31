@@ -5,10 +5,11 @@ using namespace std;
 
 #include "../../VERSION"
 
-#include "../../util/usage2.cc"
+#include "../../version.cc"
+#include "../../usage.cc"
 
 int main(int argc, char **argv)
 {
-    usage("stealth", VERSION, YEARS);
+    usage("stealth");
     return 0;
 }
