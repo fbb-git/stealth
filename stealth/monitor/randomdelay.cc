@@ -9,12 +9,12 @@ void Monitor::randomDelay()
 
     if (!Arg::instance().option(0, "repeat"))
     {
-        msg() << "--random-interval ignored unless --repeat is specified" <<
-                                                                warning;
+        wmsg << "--random-interval ignored unless --repeat is specified" <<
+                                                                        endl;
         return;
     }
 
-    delay += "\n";                  // to make sure the istr doesn't fail
+    delay += '\n';                  // to make sure the istr doesn't fail
                                     // if only a number is read: no separating
                                     // ws at the end would cause istr.peek() 
                                     // to fail.
@@ -27,7 +27,7 @@ void Monitor::randomDelay()
         s_delayInterval *= 60;
 
     if (!istr || s_delayInterval < 0)
-        msg() << "Invalid interval for --random-interval" << fatal;
+        fmsg << "Invalid interval for --random-interval" << endl;
 
     srandom(time(0));               // seed the random time generator
 }

@@ -73,7 +73,7 @@ void ConfigSorter::fetchCommands()
 
         if (Arg::instance().option('c'))
         {
-            imsg << "ConfigSorter file processed" << info;
+            imsg << "ConfigSorter file processed" << endl;
             throw 1;
         }
     }

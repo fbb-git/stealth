@@ -13,7 +13,7 @@ size_t Monitor::getPid(string const &runFile)
     pid_t pid;
 
     if (!(in >> pid))
-        msg() << "Can't read `" << runFile << '\'' << fatal;
+        fmsg << "Can't read `" << runFile << '\'' << endl;
 
     in.close();
 

@@ -7,8 +7,8 @@ void Scanner::nextCommand(ostream &out, string const &command)
 
                         // run the command, then 
                         // echo the sentinel and returnvalue
-    out << command << "\n" <<
-           "/bin/echo \"" << d_sentinel << " $?\""  << "\n";
+    out << command << "\n" 
+           "/bin/echo \"" << d_sentinel << " $?\""  << endl;
 
     if (!out)
         d_reporter.error() << 

@@ -9,12 +9,12 @@ void Monitor::maybeBackground()
 
         int pid = fork();
         if (pid < 0)
-            fmsg << "--keepalive failed due to failing fork() system "
-                                                            "call." << endl;
+            fmsg << "--keepalive failed due to failing fork() system call." <<
+                                                                        endl;
 
         if (pid > 0)        // parent process (gets child pid)
         {
-            out << pid << "\n";
+            out << pid << '\n';
             throw 0;
         }
 

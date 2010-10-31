@@ -7,7 +7,7 @@ void Monitor::lock(string const &runfile)
     size_t pid;
 
     pid = getPid(runfile);
-    msg() << "Trying to lock " << runfile << " of process " << pid << info;
+    imsg << "Trying to lock " << runfile << " of process " << pid << endl;
 
     Lock::setRunFilename(runfile);
     Lock::lockRunFile(Lock::BLOCKING);      // Obtain the lock on the runfile

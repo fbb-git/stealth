@@ -6,7 +6,7 @@ void ConfigSorter::replaceDefines(string &text)
 //                                                    // [1]: all ${NAME} text
 //                                                    // [2]: NAME itself
 
-    msg() << "ConfigSorter::replaceDefines in " << text << info;
+    imsg << "ConfigSorter::replaceDefines in " << text << endl;
 
     string out;
 
@@ -20,12 +20,12 @@ void ConfigSorter::replaceDefines(string &text)
             :                                       // otherwise
                 s_define.matched();                 // ${NAME} (unmodified)
 
-        msg() << "    step: " << out << info;
+        imsg << "    step: " << out << endl;
 
         text = s_define.beyond();                   // remove all matched 
     }                                               // text from `text'
 
-    msg() << "ConfigSorter::replaceDefines -> " << text << info;
+    imsg << "ConfigSorter::replaceDefines -> " << text << endl;
 
     text = out + text;                              // redefine `text'
 }

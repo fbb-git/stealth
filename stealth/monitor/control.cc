@@ -7,7 +7,7 @@ void Monitor::control()
 {
     while (true)
     {
-        msg() << "CONTROL: s_mode == " << s_mode << info;
+        imsg << "CONTROL: s_mode == " << s_mode << endl;
     
         d_reporter->standby();      // locks the runfile, opens the report
                                     // file
@@ -24,7 +24,7 @@ void Monitor::control()
 
         if (s_mode == SUPPRESSED)
         {
-            msg() << "Supressed. Now signal the suppressor" << info;
+            imsg << "Supressed. Now signal the suppressor" << endl;
 
             ::sleep(1);             // This delay is necessary to allow the
                                     // suppressor to start waiting once it has
@@ -34,7 +34,7 @@ void Monitor::control()
                                     // let the process that issued
                                     // `--suppress' know we're done.
             sendSignal(SIGUSR1, "SIGUSR1", suppressorPid());
-            msg() << "Wait for --resume..." << info;
+            imsg << "Wait for --resume..." << endl;
         }
 
         do

@@ -4,11 +4,11 @@
 
 void Monitor::mailReport()
 {
-    msg() << "Monitor::mailReport() starts" << info;
+    imsg << "Monitor::mailReport() starts" << endl;
 
     if (!d_reporter->hasMail())
     {
-        msg() << "no report to mail" << info;
+        imsg << "no report to mail" << endl;
         return;
     }
 
@@ -16,13 +16,13 @@ void Monitor::mailReport()
 
     if (Arg::instance().option('o'))     // mail the report to stdout
     {
-        msg() << "Monitor::mailReport() mails report to stdout" << info;
+        imsg << "Monitor::mailReport() mails report to stdout" << endl;
         cout << d_reporter->in().rdbuf() << endl;
         return;
     }
 
-    msg() << "mailing report using: " << (*d_sorter)["MAILER"] << ' ' <<
-            (*d_sorter)["MAILARGS"] << " " << (*d_sorter)["EMAIL"] << info;
+    imsg << "mailing report using: " << (*d_sorter)["MAILER"] << ' ' <<
+            (*d_sorter)["MAILARGS"] << " " << (*d_sorter)["EMAIL"] << endl;
 
     // mailcommand subject and email are called as separate arguments
     // If subject contains blanks, they will be interpreted as separate
@@ -37,13 +37,13 @@ void Monitor::mailReport()
 
     for (string s; getline(d_reporter->in(), s); )
     {
-        msg() << "Monitor::mailReport() contains: " << s << info;
-        mail << s << "\n";
+        imsg << "Monitor::mailReport() contains: " << s << endl;
+        mail << s << '\n';
     }
     
     mail.close();
     mail.waitForChild();
 
-    msg() << "Mailing report" << info;
+    imsg << "Mailing report" << endl;
 }
 

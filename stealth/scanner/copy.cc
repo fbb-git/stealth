@@ -27,7 +27,7 @@ void Scanner::copy(std::istream &src, string const &fname)
         }
 
         if (not (this->*d_skip)(s))
-            currentReport << s << "\n";
+            currentReport << s << '\n';
     }
     testExitValue(s);
 }

@@ -1,6 +1,7 @@
 #include "reporter.h"
 
 #include <bobcat/errno>
+#include <bobcat/mstream>
 #include <bobcat/stat>
 #include <bobcat/datetime>
 

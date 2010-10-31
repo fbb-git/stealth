@@ -6,11 +6,11 @@ void Monitor::sendSignal(int signum, char const *signame, pid_t pid)
     {                               
         Lock::unlinkRunFile();
 
-        msg() << "Can't send " << signame << " to process `" << pid << "',\n"  
+        fmsg << "Can't send " << signame << " to process `" << pid << "',\n"  
                  "removed stale run-file `" << Lock::runFilename << '.' << 
-                                                                        fatal;
+                                                                        endl;
     }
 
-    msg() << signame << " sent" << info;
+    imsg << signame << " sent" << endl;
 }
 

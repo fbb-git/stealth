@@ -7,7 +7,7 @@ void Scanner::execute(string const &cmd)
         d_reporter.error() << "Corrupt line in policy file: " << cmd << endl;
     
     if (Arg::instance().option("de"))// echo the command with -d, -e
-        cerr << *d_cmdIterator << "\n";
+        cerr << *d_cmdIterator << '\n';
 
     if (s_firstWord[1] == "LABEL")      // set a label 
     {

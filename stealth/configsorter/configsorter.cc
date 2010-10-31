@@ -12,5 +12,5 @@ ConfigSorter::ConfigSorter(char const *confFile)
     char const *cp = base.c_str();
 
     if (!Util::mkdir(cp) || chdir(cp))
-        msg() << "Can't chdir to `" << cp << '\'' << fatal;
+        fmsg << "Can't chdir to `" << cp << '\'' << endl;
 }

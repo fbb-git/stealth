@@ -7,10 +7,10 @@ void ConfigSorter::insert(HashString<string> &hash, Pattern &firstWord,
     {
         string type = firstWord[1];
 
-        msg() << type << " line: " << line << info;
+        imsg << type << " line: " << line << endl;
         hash[firstWord[1]] = firstWord[2];      // store key and value
-        msg() << type << " key: " << firstWord[1] <<
-                  ", value: " << hash[firstWord[1]] << info;
+        imsg << type << " key: " << firstWord[1] <<
+                  ", value: " << hash[firstWord[1]] << endl;
         return;
     }
                                                 // error on failure

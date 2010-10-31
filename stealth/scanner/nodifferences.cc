@@ -17,7 +17,7 @@ bool Scanner::noDifferences(std::string const &current,
             d_sorter["DIFF"] << " " << current << " " << logfile << endl;
 
     d_shFork << d_sorter["DIFF"] << " " << current << " " << logfile <<
-                                                                     "\n" <<
+                                                                     '\n' <<
                         "/bin/echo \"" << d_sentinel << "\"" << endl;
 
     HashString<pair<string, vector<string>>> status;

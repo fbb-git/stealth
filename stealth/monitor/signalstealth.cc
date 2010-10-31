@@ -30,8 +30,8 @@ void Monitor::signalStealth(int signum, char const *signame,
         ofstream runFile;
         Errno::open(runFile, Lock::runFilename());    // rewrite the runfile
     
-        runFile << pid << "\n" <<
-                   getpid() << "\n";// add this process's id to the runfile
+        runFile << pid << '\n' <<
+                   getpid() << '\n';// add this process's id to the runfile
 
         runFile.close();            // done. The runfile now contains the
                                     // signalled process ID and the current
@@ -51,7 +51,7 @@ void Monitor::signalStealth(int signum, char const *signame,
 
     if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
     {
-        msg() << "Suppressing process " << pid << info;
+        imsg << "Suppressing process " << pid << endl;
 
         sleep();                        // Prepare to go to sleep, by setting
                                         // s_selector
@@ -61,8 +61,8 @@ void Monitor::signalStealth(int signum, char const *signame,
                                     // The suppressed process will wait 
                                     // for a second allowing this process
                                     // to start its waiting cycle.
-        msg() << "Waiting for the suppressed process to finish its task" << 
-                                                                        info;
+        imsg << "Waiting for the suppressed process to finish its task" << 
+                                                                        endl;
 
         try                             // see wait() for the try {...
         {
@@ -71,7 +71,7 @@ void Monitor::signalStealth(int signum, char const *signame,
         catch(...)                      // is irrelevant here.
         {}
 
-        msg() << "It has. Now terminate this process" << info;
+        imsg << "It has. Now terminate this process" << endl;
     }
 
     throw 0;                            // done
