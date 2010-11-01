@@ -40,6 +40,7 @@ void install(string what, string where)
         run("cp tmp/bin/* " + where + BIN);
 
         printf("  installing the information directly in and under $DOC\n");
+        md(where + DOC);
         reqzip(where + DOC + "/", "./", "changelog");
         run("cp README ACKNOWLEDGEMENTS " + where + DOC);
     }
@@ -58,6 +59,7 @@ void install(string what, string where)
         md(where + DOC + "/scripts/etc/logrotate.d");
         reqzip(where + DOC + "/scripts/etc/logrotate.d/", 
                                         "share/etc/logrotate.d/", "target");
+
         md(where + DOC + "/scripts/etc/stealth");
         reqzip(where + DOC + "/scripts/etc/stealth/", "share/etc/stealth/", 
                                                                 "cleanup.rc");
