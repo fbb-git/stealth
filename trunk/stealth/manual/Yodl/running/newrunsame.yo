@@ -1,0 +1,25 @@
+    When bf(stealth) is run again, it will update
+its report files under tt(root/stealth/client). If nothing has changed,
+the log-files will remain unaltered. The new run will, however, produce some
+new info on the file tt(/root/client/report):
+        verb(
+    STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
+    
+    Check the client's sha1sum program
+    Initialized report on local/sha1
+    
+    checking the client's /usr/bin/find program
+    Initialized report on remote/binfind
+    
+    suid/sgid/executable files uid or gid root on the / partition     
+    Initialized report on remote/setuidgid
+    
+    configuration files under /etc
+    Initialized report on remote/etcfiles
+    
+    
+    STEALTH (1.21) started at Mon Nov 24 10:54:35 2003
+        )
+    Note that just one extra line was added: a timestamp showing the date/time
+of the last run. The systems administrator may reduce/remove the report file
+every once in a while to reclaim some disk space.

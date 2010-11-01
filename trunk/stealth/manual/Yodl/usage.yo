@@ -1,0 +1,12 @@
+When bf(stealth) is started without arguments, it provides some help about how
+to start it. A message like the following is produced:
+    COMMENT(The usage file should be removed by cleanup, in order to make sure
+            that it is created using the latest bisonc++ version)
+
+    TYPEOUT(
+    If a message about a failing NOEXPANDINCLUDE is shown, create the file 
+`usage' in documentation/manual/invoking containing the latest usage info
+)
+    verbinclude(usagetxt)
+    Note that with the second type of usage the policy file is not required:
+here only the tt(pidfile) must be specified.

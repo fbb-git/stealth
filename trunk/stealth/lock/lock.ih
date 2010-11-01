@@ -1,0 +1,10 @@
+#include "lock.h"
+
+#include <cstdio>
+#include <sys/file.h>
+
+#include <bobcat/mstream>
+
+using namespace std;
+using namespace FBB;
+

@@ -1,0 +1,25 @@
+#include "configsorter.h"
+
+#include <bobcat/arg>
+#include <bobcat/pattern>
+#include <bobcat/mstream>
+
+#include "../util/util.h"
+
+#include <iostream>
+#include <unistd.h>
+#include <algorithm>
+
+using namespace std;
+using namespace FBB;
+
+inline std::string const &ConfigSorter::getDEFINE(
+                                            std::string const &key) const
+{
+    return d_define.find(key)->second;
+}
+
+inline bool ConfigSorter::hasDEFINE(std::string const &key) const
+{
+    return d_define.count(key);
+}

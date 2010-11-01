@@ -1,0 +1,45 @@
+#!/bin/bash
+
+usage()
+{
+    echo "
+Usage: $0 rc-file
+Where:
+    rc-file: resource file defining:
+            \`directories' - one or more directories containing status files
+            \`gzdays'      - number of days status files may exist before they
+                             are compressed
+            \`rmdays'      - number of days gzipped status files may exist
+                             before they are removed. 
+"
+    exit 1
+}
+
+
+error()
+{
+    echo "$*" >&2
+    exit 1
+}
+
+[ $# == 1 ] || usage
+
+# now source the configuration file
+. $1           
+
+for x in $directories
+do
+    cd $x || error "\`$x' must be a directory"
+
+    /usr/bin/find ./ -mtime +$rmdays -type f -regex '.*[0-9]+-[0-9]+\.gz' \
+        -exec /bin/rm {} \;
+
+    /usr/bin/find ./ -mtime +$gzdays -type f -regex '.*[0-9]+-[0-9]+' \
+        -exec /bin/gzip {} \;
+done
+
+exit 0
+
+
+
+

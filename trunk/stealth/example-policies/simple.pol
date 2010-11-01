@@ -1,0 +1,12 @@
+# this policy will scan the files in /bin, writing the results in /tmp. 
+# the base directory is SIMPLE
+# The user running stealth should be able to make an ssh connection to itself.
+# Use this file with, e.g., ./stealth simple.pol
+
+# set up the non-default USE variables 
+    USE BASE        SIMPLE
+    USE MAILER      ../stealthmail
+    USE MAILARGS    -s "simple STEALTH report"
+    USE SSH         /usr/bin/ssh localhost -q
+
+CHECK bin /usr/bin/find /bin  -xdev -type f -exec /usr/bin/sha1sum {} \;

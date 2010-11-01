@@ -1,0 +1,44 @@
+sect(DEFINE directives)
+
+    tt(DEFINE) directives can be used to define symbols for longer strings.
+A tt(DEFINE) directive is constructed as follows:
+        verb(
+    DEFINE name     that what is defined by `name'
+        )
+    Here,
+    itemization(
+    it() the tt(name) following tt(DEFINE) is the symbol that may be used in
+tt(USE) directives (see below) and tt(commands) (see below). 
+    it() tt(DEFINE) symbols can be used in other tt(DEFINE) symbols. However,
+it is the responsibility of the author of the policy file to make sure that
+(indirect) circular definitions are avoided. E.g., after:
+        verb(
+    DEFINE A    ${B}
+    DEFINE B    ${A}
+    DEFINE C    ${C}
+
+    USE MAILARGS ${A} ${B} ${C}
+        )
+    tt(MAILARGS) will be expanded to 
+        verb(
+     ${A} ${A} ${C}    
+        )
+    it() The text following tt(DEFINE name) is then inserted literally into
+the tt(USE) directive or tt(command).
+
+    Example:
+        verb(
+    DEFINE  SSH         /usr/bin/ssh frankbash@localhost -q
+    DEFINE  EXECSHA1     -xdev -perm +111  -type f -exec /usr/bin/sha1sum {} \;
+        )
+    The symbols  defined by tt(DEFINE) directives may consist of
+letters, digits and the underscore character (tt(_)). 
+In the definition of the symbol any character can be used. The
+definition is, however, trimmed of initial or trailing blanks.
+
+    To insert a definition into a tt(USE) directive or tt(command) use the 
+        verb(
+    ${name}
+        )
+    form. E.g., tt(${EXECSHA1}). Concrete examples will be given below.
+    )

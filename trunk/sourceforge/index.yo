@@ -1,0 +1,70 @@
+htmlbodyopt(text)(#27408B)
+htmlbodyopt(bgcolor)(#FFFAF0)
+
+includefile(../stealth/release.yo)
+
+COMMENT(
+    scp index.html fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
+)
+
+mailto(fbbrokken@users.sourceforge.net)
+
+affiliation(Center for Information Technology, University of Groningen)
+
+notableofcontents()
+
+report(Stealth (V. _CurVers_))
+      (Frank B. Brokken (f.b.brokken@rug.nl))
+      (_CurYrs_)
+
+center(
+    nsect(SSH-based Trust Enforcement nl()
+        Acquired  through a nl()
+        Locally Trusted Host)
+
+    htmlcommand(
+        <img src="stealth.jpg">
+    )
+ )
+
+COMMENT(
+    htmlcommand(
+        <a href="http://sourceforge.net">
+        <img src="http://sourceforge.net/sflogo.php?group_id=127615&amp;type=2"
+        width="125" height="37" border="0" alt="SourceForge.net Logo" />
+        </a>
+    )
+END COMMENT)
+
+This is the main page of the 
+        center(bf(Stealth File Integrity Scanner project (V. _CurVers_)))
+    hosted at sourceforge.net.
+
+The project (sources, binary package etc.) itself can be reached at
+            lurl(http://sourceforge.net/projects/stealth/)
+
+htmlcommand(
+<a href="http://sourceforge.net/projects/stealth"><img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=124995&type=8"
+width="80" height="15" border="0" alt="Get Stealthy File Integrity Checker at
+SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+  )
+
+    itemization(
+    it() Here is url(the Stealth userguide)(stealth.html)
+    it() Here is a html version of url(the Stealth manual page)
+                                      (stealthman.html)
+    it() bf(Stealth) was presented at the 2003 FIRST conference in Ottawa,
+        Canada. The paper presented there is available
+        itemization(
+        it() as url(PostScript document)(stealth.ps) or
+        it() as url(PDF document)(stealth.pdf)
+        )
+    )
+
+includefile(/home/frank/svn/PROJECTS.yo)
+
+Contact the author through url(his sourceforge e-mail address)
+                              (mailto:fbbrokken@users.sourceforge.net)
+
+
