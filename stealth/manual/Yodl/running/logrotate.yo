@@ -7,7 +7,7 @@ bf(logrotate)(1). Logrotate (on Debian systems) keeps its configuration files
 in tt(/etc/logrotate.d), and assuming there is a host tt(target), whose report
 file is tt(/var/stealth/target/report), the required bf(logrotate)(1)
 specification file (e.g., tt(/etc/logrotate.d/target) could be:
-        verbinclude(../../share/etc/logrotate.d/target)
+        verbinclude(../../../share/etc/logrotate.d/target)
     Using this specification file, bf(logrotate)(1) will 
     itemization(
     it() Perform weekly rotations of the report file;

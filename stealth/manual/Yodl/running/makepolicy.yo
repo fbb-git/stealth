@@ -151,5 +151,5 @@ subsect(The complete `policy' file)
 
 Here is the complete policy file that we've constructed so far:
 
-    verbinclude(running/policy.demo)
+    verbinclude(policy.demo)
 

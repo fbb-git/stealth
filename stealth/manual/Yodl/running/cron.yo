@@ -43,7 +43,7 @@ which must be absolute paths). The first argument is the path to the
 em(pidfile) to use, the second argument is the path to the policy file to
 use. The script is found in the distribution package as
 tt(/usr/share/doc/stealth/usr/bin/stealthcron): 
-        verbinclude(../../share/usr/bin/stealthcron)
+        verbinclude(../../../share/usr/bin/stealthcron)
     The script could be called from tt(/etc/cron.d/stealth) using a line like
         verb(
 22  8  * * * root test -x /usr/bin/stealthcron && /usr/bin/stealthcron

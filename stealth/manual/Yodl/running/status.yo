@@ -18,12 +18,12 @@ file defining the following shell variables:
     )
     Here is the tt(stealthcleanup) script as it is found in the binary distribution's
 tt(/usr/share/doc/stealth/usr/bin) directory:
-        verbinclude(../../share/usr/bin/stealthcleanup)
+        verbinclude(../../../share/usr/bin/stealthcleanup)
     Assuming that the status files are written in
 tt(/var/stealth/target/local) and tt(/var/stealth/target/remote); that status
 file should be compressed when older than 2 days and removed after 30 days,
 the resource file is:
-        verbinclude(../../share/etc/stealth/cleanup.rc)
+        verbinclude(../../../share/etc/stealth/cleanup.rc)
     Furthermore assuming that the resourcefile is installed in
 tt(/etc/stealth/cleanup.rc) and the tt(stealthcleanup) script itself in
 tt(/usr/bin/stealthcleanup), the tt(stealthcleanup) script could be called
