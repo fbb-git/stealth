@@ -1,3 +1,11 @@
+stealth (2.00.2) [ISN]
+
+  * Stealthcleanup now has a -v flag, showing its actions
+
+  * After upgrading to bobcat 2.11.00 stealth should be recompiled
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 11 Jan 2011 10:44:30 +0100
+
 stealth (2.00.1)
 
   * Documentation requires >= Yodl 3.00.0
