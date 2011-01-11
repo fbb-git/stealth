@@ -3,8 +3,9 @@
 usage()
 {
     echo "
-Usage: $0 rc-file
+Usage: $0 [-v] rc-file
 Where:
+    -v: Show the actions that are performed
     rc-file: resource file defining:
             \`directories' - one or more directories containing status files
             \`gzdays'      - number of days status files may exist before they
@@ -22,6 +23,14 @@ error()
     exit 1
 }
 
+if [ "$1" == "-v" ]
+then
+    verbose=1
+    shift 1
+else
+    verbose=0
+fi
+
 [ $# == 1 ] || usage
 
 # now source the configuration file
@@ -30,10 +39,27 @@ error()
 for x in $directories
 do
     cd $x || error "\`$x' must be a directory"
+    if [ $verbose -eq 1 ]
+    then
+        echo "
+cd $x"
+    fi
 
+    if [ $verbose -eq 1 ]
+    then
+        echo \
+    /usr/bin/find ./ -mtime +$rmdays -type f -regex '.*[0-9]+-[0-9]+\.gz' \
+        -exec /bin/rm {} \;
+    fi
     /usr/bin/find ./ -mtime +$rmdays -type f -regex '.*[0-9]+-[0-9]+\.gz' \
         -exec /bin/rm {} \;
 
+    if [ $verbose -eq 1 ]
+    then
+        echo \
+    /usr/bin/find ./ -mtime +$gzdays -type f -regex '.*[0-9]+-[0-9]+' \
+        -exec /bin/gzip {} \;
+    fi 
     /usr/bin/find ./ -mtime +$gzdays -type f -regex '.*[0-9]+-[0-9]+' \
         -exec /bin/gzip {} \;
 done
