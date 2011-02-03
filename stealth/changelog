@@ -1,10 +1,16 @@
-stealth (2.00.2) [ISN]
+stealth (2.01.00)
 
   * Stealthcleanup now has a -v flag, showing its actions
 
-  * After upgrading to bobcat 2.11.00 stealth should be recompiled
+  * Following an upgrade to bobcat 2.11.00 stealth should be recompiled
 
- -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 11 Jan 2011 10:44:30 +0100
+  * Identifiers in #defines in configuration files may contain hyphens and
+    underscores.
+
+  * The fatal message about 'can't read Mstream...' when stealth starts with
+    --keep-alive is suppressed
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>
 
 stealth (2.00.1)
 

@@ -21,9 +21,9 @@ void ConfigSorter::fetchCommands()
         }
 
         if (s_firstWord[1] == "USE")
-            insert(d_use, s_firstWord, line);
+            insert(d_use, line);
         else if (s_firstWord[1] == "DEFINE")
-            insert(d_define, s_firstWord, line);
+            insert(d_define, line);
         else
         {
             imsg << "Regular command: `" << line << '\'' << endl;

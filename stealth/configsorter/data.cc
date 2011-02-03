@@ -16,9 +16,9 @@ pair<string, string> const
 size_t ConfigSorter::s_nDefaultKeywords =
                 sizeof(s_defaultKeyword) / sizeof(pair<string, string>);
 
-Pattern ConfigSorter::s_firstWord("^\\s*(\\w+)\\s+(.*)");
+Pattern ConfigSorter::s_firstWord("^\\s*([-_[:alnum:]]+)\\s+(.*)");
 Pattern ConfigSorter::s_comment("^\\s*[#]?");
-Pattern ConfigSorter::s_define("(\\$\\{([a-zA-Z0-9_]+)\\})");   
+Pattern ConfigSorter::s_define("(\\$\\{([-_[:alnum:]]+)\\})");   
                                                     // [0]: all text,
                                                     // [1]: all ${NAME} text
                                                     // [2]: NAME itself

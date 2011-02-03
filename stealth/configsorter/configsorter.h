@@ -40,8 +40,8 @@ class ConfigSorter
         void fetchCommands();
                                     // replaces the DEFINE's in text
         void replaceDefines(std::string &text); 
-        void insert(FBB::HashString<std::string> &hash, FBB::Pattern &pattern,
-                    std::string const &line);
+        void insert(FBB::HashString<std::string> &hash, 
+                                                    std::string const &line);
 };
 
 inline std::vector<std::string>::const_iterator ConfigSorter::firstCmd() const
