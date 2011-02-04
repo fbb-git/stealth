@@ -58,6 +58,16 @@ catch (Errno const &err)
         cerr << err.why() << '\n';
     return err.which();
 }
+catch (exception const &ex)
+{
+    cerr << "\n"
+            "Stealth terminated with an exception `" << ex.what() << "'\n" <<
+            "This should not have happened, please report this error and the "
+                                                            "circumstances\n" 
+            "causing it to Stealth's author\n";
+
+    return 1;
+}
 catch (int ret)
 {
     return ret;
@@ -65,8 +75,8 @@ catch (int ret)
 catch (...)
 {
     cerr << "\n"
-            "Program ended due to an UNEXPECTED EXCEPTION.\n"
-            "This should not happen, please report this error and the "
+            "Stealth terminated with an UNEXPECTED EXCEPTION.\n" <<
+            "This should not have happened, please report this error and the "
                                                             "circumstances\n" 
             "causing it to Stealth's author\n";
 

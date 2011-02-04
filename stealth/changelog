@@ -7,8 +7,8 @@ stealth (2.01.00)
   * Identifiers in #defines in configuration files may contain hyphens and
     underscores.
 
-  * The fatal message about 'can't read Mstream...' when stealth starts with
-    --keep-alive is suppressed
+  * The fatal message about 'can't read Mstream...' when stealth started with
+    --keep-alive is now prevented
 
  -- Frank B. Brokken <f.b.brokken@rug.nl>
 
