@@ -4,13 +4,13 @@ stealth (2.01.00)
 
   * Following an upgrade to bobcat 2.11.00 stealth should be recompiled
 
-  * Identifiers in #defines in configuration files may contain hyphens and
-    underscores.
+  * Identifiers in #defines in configuration files may now also contain 
+    hyphens and underscores.
 
-  * The fatal message about 'can't read Mstream...' when stealth started with
+  * The message about 'can't read Mstream...' when stealth started with
     --keep-alive is now prevented
 
- -- Frank B. Brokken <f.b.brokken@rug.nl>
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 05 Feb 2011 12:38:23 +0100
 
 stealth (2.00.1)
 
