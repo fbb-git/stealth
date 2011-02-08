@@ -22,7 +22,7 @@ void Reporter::reinit()
 
     *this << "\n"
             "STEALTH (" << version << ") started at " << 
-            DateTime() << "\n"
+            DateTime().rfc2822() << "\n"
                           "\n";
 
     d_hasMail = false;

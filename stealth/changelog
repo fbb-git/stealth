@@ -10,6 +10,12 @@ stealth (2.01.00)
   * The message about 'can't read Mstream...' when stealth started with
     --keep-alive is now prevented
 
+  * Stealth's timestamp now is according to the rfc 2822 format, using UTC
+
+  * Inclusion and exclusion diff-output are again part of the report. Due to
+    an omitted else in scanner/nodifferences only the > (old) parts were
+    shown. 
+
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 05 Feb 2011 12:38:23 +0100
 
 stealth (2.00.1)

@@ -65,7 +65,7 @@ bool Scanner::noDifferences(std::string const &current,
 
         if (s[0] == '<')
                 status[key].first = exists ? "MODIFIED" : "ADDED";
-        if (s[0] == '>')         // removal or skip, e.g.,   > b88d0b....  out
+        else if (s[0] == '>')   // removal or skip, e.g.,   > b88d0b....  out
         {
             if ((this->*d_skip)(key))
                 status[key].first = "SKIPPING";
