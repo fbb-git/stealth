@@ -150,6 +150,7 @@ class Scanner
         static std::string datetime();
         static void replace(std::string &str, char const *org,
                                          char const *replacement);
+        static void add(std::string const &line, StringVector &skipFiles);
 };
 
 inline bool Scanner::dontSkip(std::string const &line)

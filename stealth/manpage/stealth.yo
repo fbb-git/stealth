@@ -593,7 +593,9 @@ equivalents, if available. Either can be used.
 file is already present in a log file then s() will once generate an
 tt(IGNORING) message in the mail sent to the address specified at tt(EMAIL) in
 the policy file. Each file mentioned in tt(filepath) must be on a line of
-its own and must be specified using absolute file paths.
+its own and must be specified using absolute file paths. Initial and trailing
+blanks, empty lines and lines having a tt(#) as their 1st non blank character
+are ignored.
     it() tt(-v --version): Display version information and exit;
     it() tt(--keep-alive pidfile): Keep running as a daemon, 
             wake up at interrupts. 

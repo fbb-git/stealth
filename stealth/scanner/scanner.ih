@@ -15,6 +15,7 @@
 #include <bobcat/fnwrap>
 #include <bobcat/stat>
 #include <bobcat/datetime>
+#include <bobcat/string>
 
 #include "../util/util.h"
 #include "../configsorter/configsorter.h"

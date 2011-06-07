@@ -1,3 +1,8 @@
+#define CPPOPT    "-O2 -g"
+    // Specify compiler options that should be used.
+    // This is overruled by the environment variable CPPFLAGS
+    // The option "-Wall" is always used, and should not be altered.
+
 string BASE;
 
     // BASE=is the directory below which ALL stealth files will be stored.

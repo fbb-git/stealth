@@ -1,3 +1,15 @@
+stealth (2.02.00)
+
+  * The file specifying the names of files whose integrity should not be
+    checked may contain empty lines and lines whose 1st non-blank characters
+    start with #. Such lines are ignored.
+
+  * The 'build' script now uses the -g option by default (set in
+    INSTALL.im). To modify the g++ compilation options change the #define
+    CPPOPT in INSTALL.im. By default it is set to "-O2 -g". To modify the
+    flags `on the fly' set the environment variable CPPFLAGS, overruling
+    CPPOPT.  The option "-Wall" is always used and should not be altered.
+
 stealth (2.01.00)
 
   * Stealthcleanup now has a -v flag, showing its actions

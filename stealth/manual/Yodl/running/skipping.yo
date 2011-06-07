@@ -6,7 +6,9 @@ without any additional information.
 
 bf(Stealth) can be informed about this file using the tt(-s skippath) or
 tt(--skip-files skippath) option. The file holding the paths of the files to
-be skipped should be specified using an absolute path. 
+be skipped should be specified using absolute paths, one file per
+line. Initial and trailing blanks, empty lines and lines having a tt(#) as
+their first non blank character are ignored.
 
 Here is an example:
         verb(
