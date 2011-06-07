@@ -10,6 +10,8 @@ stealth (2.02.00)
     flags `on the fly' set the environment variable CPPFLAGS, overruling
     CPPOPT.  The option "-Wall" is always used and should not be altered.
 
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 07 Jun 2011 13:06:18 +0200
+
 stealth (2.01.00)
 
   * Stealthcleanup now has a -v flag, showing its actions
