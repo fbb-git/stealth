@@ -1,3 +1,10 @@
+stealth (2.02.01)
+
+  * Removed FnWrap* calls from Stealth's sources
+  
+  * `build' script now recognizes CXXFLAGS and LDFLAGS for, resp. g++ and ld
+    flags. Default values are set in INSTALL.im, as before.
+
 stealth (2.02.00)
 
   * The file specifying the names of files whose integrity should not be

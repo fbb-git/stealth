@@ -1,12 +1,15 @@
-#define CPPOPT    "-O2 -g"
-    // Specify compiler options that should be used.
-    // This is overruled by the environment variable CPPFLAGS
-    // The option "-Wall" is always used, and should not be altered.
+#define CXXFLAGS    "-O2 -g"
+    // Specify compiler options that should be used. Overruled by the CXXFLAGS
+    // environment variables. 
+    // The option "-Wall" is always used.
+    // For profiling use the  -pg flags, and don't strip
+
+#define LDFLAGS     ""
+    // Specify linker options. None by default. Do not specify -s (strip) here
+    // as strip is handled by adding a command to the build call.
 
 string BASE;
-
     // BASE=is the directory below which ALL stealth files will be stored.
-
     // For an operational non-Debian installation, you probably must be
     // `root', and BASE "/usr" or BASE "/usr/local" is suggested (see
     // below). `BASE' itself is not used outside of this file, so feel free to
