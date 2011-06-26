@@ -5,6 +5,8 @@ stealth (2.02.01)
   * `build' script now recognizes CXXFLAGS and LDFLAGS for, resp. g++ and ld
     flags. Default values are set in INSTALL.im, as before.
 
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 26 Jun 2011 14:24:10 +0200
+
 stealth (2.02.00)
 
   * The file specifying the names of files whose integrity should not be
