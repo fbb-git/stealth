@@ -1,0 +1,19 @@
+#!/bin/bash
+
+WD=`pwd`
+
+cd ../stealth
+    build manual
+    build man
+    build sourceforge || exit 1
+cd $WD
+
+yodl2html index.yo | exit 1
+
+scp ../stealth/tmp/manual/html/stealth*.html ../stealth/tmp/manhtml/*.html \
+    index.html stealth.jpg \
+    fbb,stealth@web.sourceforge.net:htdocs/
+
+cd ../stealth
+    build distclean
+

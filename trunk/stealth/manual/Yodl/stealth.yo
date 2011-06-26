@@ -1,0 +1,98 @@
+
+COMMENT(  Starts a report. The top-level sectioning command  is chapter. )
+
+mailto(f.b.brokken@rug.nl)
+
+includefile(../../release.yo)
+
+COMMENT(htmlbodyopt(background)(rcbackground.jpg))
+htmlbodyopt(text)(#27408B)
+htmlbodyopt(bgcolor)(#FFFAF0)
+
+COMMENT(    include(abstract)   )
+
+latexoptions(a4paper)
+latexpackage()(epsf)
+
+latexcommand(
+\hfuzz=70pt
+\addtolength{\textheight}{2cm}
+\addtolength{\textwidth}{4cm}
+\addtolength{\hoffset}{-2cm})
+
+nosloppyhfuzz()
+    
+
+IFDEF(html)
+(
+    affiliation(center(Center for Information Technology, University of Groningen))
+    report(center(Stealth V. _CurVers_))
+           (center(Frank B. Brokken))(center(_CurYrs_))
+)
+(   
+    affiliation(Center for Information Technology, University of Groningen)
+    report(Stealth V._CurVers_)(Frank B. Brokken)(_CurYrs_)
+)
+
+chapter(Introduction)
+    sect(What's new in Stealth V._CurVers_)
+    includefile(whatsnew)
+
+    sect(Stealth)
+    includefile(intro)
+
+chapter(Installation)
+includefile(install/intro)
+
+chapter(The `policy' file)
+includefile(policy/intro)
+includefile(policy/defines)
+includefile(policy/use)
+includefile(policy/commands)
+
+chapter(Granting access)
+includefile(policy/access)
+
+chapter(Running `stealth')
+includefile(running/intro)
+
+    sect(Installing `stealth')
+    includefile(running/installing)
+    
+    sect(Construct one or more policy files)
+    includefile(running/makepolicy)
+
+    sect(Running `stealth' for the first time)
+    includefile(running/firstrun)
+
+    sect(Running `stealth' again)
+        subsect(All files unaltered)
+        includefile(running/newrunsame)
+
+        subsect(Modifications have occurred)
+        includefile(running/newrundelta)
+
+        subsect(Skipping (some) integrity checks)
+        includefile(running/skipping)
+
+    sect(Automating `stealth' runs using `cron')
+    includefile(running/cron)
+
+    lsect(ROTATE)(Report File Rotation)
+    includefile(running/rotate)
+
+        lsubsect(STATUS)(Status file cleanup)
+        includefile(running/status.yo)
+
+        lsubsect(LOGROTATE)
+                (Using `logrotate' to control report- and status files)
+        includefile(running/logrotate.yo)
+
+chapter(Kick starting `stealth')
+includefile(kickstart)
+
+lchapter(USAGE)(Usage info)
+includefile(usage)
+
+chapter(Errormessages)
+includefile(errors)

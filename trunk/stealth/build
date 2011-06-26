@@ -1,0 +1,82 @@
+#!/usr/bin/icmake -qt/tmp/stealth.ib
+
+#include "INSTALL.im"
+
+#include "icmake/run"
+#include "icmake/md"
+#include "icmake/getenv"
+#include "icmake/clean"
+#include "icmake/special"
+#include "icmake/manpage"
+#include "icmake/manual"
+#include "icmake/program"
+#include "icmake/install"
+
+void main(int argc, list argv, list envp)
+{
+    string option;
+
+    g_env = envp;
+
+    setLocations();     // from INSTALL.im
+
+    my_getenv("DRYRUN");
+    g_dryrun = g_envvar;
+
+    option = argv[1];
+
+    if (option == "clean")
+        clean(0);
+
+    if (option == "distclean")
+        clean(1);
+
+    if (option == "install")
+        install(argv[2], argv[3]);
+
+    if (option == "man")
+        manpage();
+
+    if (option == "manual")
+        manual();
+
+    if (option == "program")
+    {
+        if (argv[2] == "strip")
+            g_strip = "-s";
+        program();
+    }
+
+    if (option == "sourceforge")
+    {
+        special();
+        exit(0);
+    }
+
+    printf("Usage: build what\n"
+        "Where `what' is one of:\n"
+        "   clean           - clean up remnants of previous compilations\n"
+        "   distclean       - clean + fully remove tmp/\n"
+        "   man             - build the man-page (requires Yodl)\n"
+        "   manual          - build the manual (requires Yodl)\n"
+        "   program [strip] - build stealth (optionally strip the "
+                                                            "executable)\n"
+        "   install program <base> - install the program in the locations "
+                                                        "defined\n"
+        "                        in the INSTALL.cf file, optionally "
+                                                            "below <base>\n"
+        "   install man <base> - install the man pages in the location "
+                                                        "defined\n"
+        "                        in the INSTALL.cf file, optionally "
+                                                            "below <base>\n"
+        "   install manual <base> - install the manual in the location "
+                                                        "defined\n"
+        "                        in the INSTALL.cf file, optionally "
+                                                            "below <base>\n"
+        "   sourceforge     - Prepare .yo files for a sourceforge index "
+                                                                "update\n"
+        "If the environment variable DRYRUN is defined, no commands are\n"
+        "actually executed\n"
+    );
+    exit(1);
+}

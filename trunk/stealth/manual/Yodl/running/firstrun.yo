@@ -1,0 +1,148 @@
+    When bf(stealth) is now run, it will create its initial report files under
+tt(root/stealth/client).
+
+    The first time bf(stealth) is run, it is usually run `by hand':
+
+        verb(
+    stealth policy
+        )
+    this will show all executed commands on the standard output, and will
+initialize the reports. Running bf(stealth) this way for the just constructed
+tt(policy) file results in the following output (lines were wrapped to improve
+readability):
+        verb(
+    GET /usr/bin/sha1sum /root/tmp
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
+    LABEL \nchecking the client's /usr/bin/find program
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find
+    LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
+    CHECK LOG = remote/setuidgid /usr/bin/find / -xdev -perm +u+s,g+s 
+            \( -user root -or -group root \) -type f 
+            -exec /usr/bin/sha1sum {} \;
+    LABEL \nconfiguration files under /etc
+    CHECK LOG = remote/etcfiles                         /usr/bin/find /etc 
+            -type f -not -perm +6111   -not -regex "/etc/\(adjtime\|mtab\)"
+            -exec /usr/bin/sha1sum {} \;
+    LOCAL /usr/bin/scp -q root@client:/usr/bin/sha1sum /root/tmp
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
+    LABEL \nchecking the client's /usr/bin/find program
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find
+    LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
+    CHECK LOG = remote/setuidgid /usr/bin/find / -xdev -perm +u+s,g+s 
+            \( -user root -or -group root \) -type f 
+            -exec /usr/bin/sha1sum {} \;
+    LABEL \nconfiguration files under /etc
+    CHECK LOG = remote/etcfiles                        /usr/bin/find /etc 
+            -type f -not -perm +6111   -not -regex "/etc/\(adjtime\|mtab\)"
+            -exec /usr/bin/sha1sum {} \;
+    )
+
+This all produces the following output:
+
+subsect(The mailed report)
+
+The tt(/root/bin/stealthmail) is called with the following arguments:
+        verb(
+    "Client STEALTH report" admin@elswhere
+        )
+
+The contents of the mailed report now is (the date will of course change, the
+next time bf(stealth) is run):
+        verb(
+    STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
+        
+    Check the client's sha1sum program
+    Initialized report on local/sha1
+    
+    checking the client's /usr/bin/find program
+    Initialized report on remote/binfind
+    
+    suid/sgid/executable files uid or gid root on the / partition     
+    Initialized report on remote/setuidgid
+    
+    configuration files under /etc
+    Initialized report on remote/etcfiles
+        )
+    
+subsect(Files under /root/stealth/client)
+
+    Under tt(/root/stealth/client) the following entries are now available:
+    itemization(
+
+    it() tt(local): below this directory the reports of the locally performed
+checks are found. Using our demo tt(policy) file, only one logfile is found
+here: tt(sha1), containing the client's SHA1 checksum of its tt(/usr/bin/sha1sum)
+program: 
+        verb(
+    45251e259bfaf1951658a7b66c328c52  /root/tmp/sha1sum
+        )
+    it() tt(remote): at this directory the reports of the remotely performed
+checks are found. Using our demo tt(policy) file, three files were created:
+    
+    The file tt(binfind), containing the checksum of the client's
+tt(/usr/bin/find) program:
+        verb(
+    fc62fc774999584f1e29e0f94279a652  /usr/bin/find
+        )
+
+    The file tt(etcfiles), containing the checksums of the client's
+configuration files under tt(/etc) (shown only partially):
+        verb(
+    ced739ecb2c43a20053a9f0eb308b2b0  /etc/modutils/aliases
+    a2322d7e2f95317b2ddf3543eb4c74c0  /etc/modutils/paths
+    f9e3eac60200d41dd5569eeabb4eddff  /etc/modutils/arch/i386
+    f07da2ebf00c6ed6649bae5501b84c4f  /etc/modutils/arch/m68k.amiga
+    2893201cc7f7556160fa9cd1fb5ba56a  /etc/modutils/arch/m68k.atari
+        ...
+    bf73b4e76066381cd3caf80369ce1d0e  /etc/deluser.conf
+    4cd70d9aee333307a09caa4ef003501d  /etc/adduser.conf.dpkg-save
+    8c749353c5027d0065359562d4383b8d  /etc/gimp/1.2/gtkrc_user
+    3ec404ec597ef5460600cccf0192f4d6  /etc/gimp/1.2/unitrc
+    8c740345b891179228e3d1066291167b  /etc/gimp/1.2/gtkrc
+        )
+
+    The file tt(setuidgid), containing the checksums of the client's
+setuid/setgid root files (shown only partially):
+        verb(
+    030f3f84ec76a8181cca087c4ba655ea  /bin/login
+    b6c0209547d88928f391d2bf88af34aa  /bin/ping
+    5d324ad212b2ff8f767637ac1a8071ec  /bin/su
+    344dbedc398d5114966914419ef53fcc  /usr/bin/wall
+    27b045bd7306001f9ea31bc18712d8b7  /usr/bin/rxvt-xpm
+    ...
+    3567b18ffc39c2dc6ec0c0d0fc483f4f  /usr/lib/ssh-keysign
+    3383a7955ac2406311e9aa51c6ac9c2c  /usr/X11R6/bin/X
+    3c99ea0425c6e0278039e16478d2fb57  /usr/X11R6/bin/xterm
+    d590f7f5b4d6ae61680692a52235d342  /usr/local/bin/setuidcall
+    4c17203d7d91ec4946dea2f0ae365d5b  /sbin/unix_chkpwd
+        )
+
+    Of course, the checksums and the filenames shown are only for
+documentation purposes. At other systems this will show different files and/or
+checksums, no doubt.
+    
+    it() The file tt(/root/client/report) bf(New lines are always appended to
+the tt(/root/client/report) file.  It will never shorten, unless shorten by
+the systems administrator at `controller').
+
+    This file contains the following:
+        verb(
+    STEALTH (1.21) started at Mon Nov 24 10:50:30 2003
+
+    Check the client's sha1sum program
+    Initialized report on local/sha1
+    
+    checking the client's /usr/bin/find program
+    Initialized report on remote/binfind
+    
+    suid/sgid/executable files uid or gid root on the / partition     
+    Initialized report on remote/setuidgid
+    
+    configuration files under /etc
+    Initialized report on remote/etcfiles
+        )
+    )
+
+This completes the information created by bf(stealth) during its first run.

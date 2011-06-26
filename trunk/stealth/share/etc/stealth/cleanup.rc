@@ -1,0 +1,7 @@
+directories="
+    /var/stealth/target/local
+    /var/stealth/target/remote
+    "
+
+rmdays=30
+gzdays=3

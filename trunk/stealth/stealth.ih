@@ -1,0 +1,15 @@
+#include <iostream>
+
+#include <bobcat/arg>
+#include <bobcat/errno>
+#include <bobcat/mstream>
+
+#include "monitor/monitor.h"
+
+extern char version[];
+extern char year[];
+
+void usage(std::string const &progname);
+
+using namespace std;
+using namespace FBB;

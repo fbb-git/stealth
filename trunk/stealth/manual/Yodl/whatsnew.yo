@@ -1,0 +1,91 @@
+COMMENT(
+    With 2.02.00:
+)
+    itemization(
+    it() The file specified at the option -s (--skip-files) may contain empty
+lines and lines having a tt(#) as their 1st non-blank character. These lines
+are ignored. Furthermore, initial and trailing blanks on its lines are
+ignored.
+    it() NOTE: requires bobcat 2.17.00 or later
+    )
+
+COMMENT(
+    With 2.0.0:
+
+    itemization(
+    it() Repaired handling of the tt(-o) flag;
+    it() Implemented option -s (--skip-files) to skip the integrity-test of
+    specified files. When appearing in the logs so far the initial appearance
+    of a path in the file containing the files to skip results in a
+    log-message "SKIPPING"
+    it() NOTE: requires bobcat 2.09.00 or later
+    )
+)
+
+COMMENT(
+    With 1.47:
+
+
+    itemization(
+    it() Since the MD5 hash is no longer considered to be cryptographically
+secure, bf(stealth)(1) should now use an alternative way to compute
+hash-values. In this manual it is suggested to switch to SHA1 hash
+computations. 
+    it() The tt(--max-size) option was implement to restrict the maximum sizes
+of files that are downloaded from clients. By default it is 10M.
+    )
+)
+
+
+COMMENT(
+    With 1.46:
+
+    itemization(
+    it() The tt(--random-interval) option is ignored unless tt(--repeat) is
+specified as well. The random interval is em(added) to the the interval
+specified at tt(--repeat) before the next tt(stealth)-run is started.
+    )
+END COMMENT)
+
+COMMENT(
+    With 1.40:
+
+    itemization(
+    it() The tt(-e) (tt(--echo-commands)) option was added to echo commands to
+std error when they are processed (this option is implied by tt(-d));
+    it() When a command fails (except for commands for which tt(NOTEST) was
+specified), the reason why the command failed is written to the report file or
+to the standard error stream;
+    it() The debugging facility is now always available, and does not require
+recompilation of bf(stealth) anymore.
+    )
+END COMMENT)
+
+COMMENT(
+    With 1.35:
+
+    Two new options were added to facilitate report-file rotations:
+    itemization(
+    it() tt(--resume pidfile): resume a suppressed bf(stealth)
+            process (implying tt(--rerun));
+    it() tt(--suppress pidfile): suppress a currently active bf(stealth)
+            process. All scheduled scans following tt(--suppress) are skipped,
+            tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
+            can be issued;
+    )
+    The report file should not be modified while integrity scans take
+place. The new options were added to make sure this requirement is met when
+the report file must be rotated. The bf(ssh) connections to clients remain
+open between pairs of tt(--suppress) and tt(--resume) commands. See section
+ref(ROTATE) for details about these two options.
+
+    Issues related to suppressing bf(stealth) runs are:
+    itemization(
+    it() cleaning up obsolete status files (section ref(STATUS));
+    it() automating report- and status file rotation using external
+programs. In section ref(LOGROTATE) a setup is described that can be used with
+the familiar bf(logrotate)(1) program.
+    it() When upgrading bf(stealth), make sure that all bf(stealth) processes
+using earlier versions are terminated first.
+    )
+END COMMENT)

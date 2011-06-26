@@ -1,0 +1,40 @@
+After downloading the bf(stealth) archive, it should be unpacked. The name of
+the archive is of the form tt(stealth-_CurVers_.tar.gz), where tt(_CurVers_)
+is a version number. Below, tt(_CurVers_) should be altered into the version
+of the archive that is actually used.
+
+    itemization(
+    it() First, determine a directory under which the archive's file should be
+stored. E.g., if the files in the archive should be stored under tt(/tmp), and
+the archive itself is stored in tt(/tmp) as well, do:
+        verb(
+    cd /tmp
+    tar xzf stealth-_CurVers_.tar.gz
+        )
+    This creates a subdirectory tt(stealth) in which the sources are
+found
+    it() Next, tt(chdir) to that directory:
+        verb(
+    chdir stealth
+        )
+    it() Check the contents of the file tt(make/parameters). It should need no
+modifications. Among other entries, it contains the entry tt(GCC=g++),
+indicating the compiler to use. The compiler should be the tt(GNU g++)
+compiler version 4.0.2 or above. Also note tt(-lbobcat) in the entry 
+        verb(
+    LOPTS="-lbobcat -lstealth -L. -s"
+        )
+    When compiling bf(stealth), the
+url(bobcat)(http://bobcat.sourceforge.net/) library must be available. If you
+haven't installed bf(bobcat) yet, download it from 
+lurl(http://sourceforge.net/projects/bobcat/), and follow its installation
+instructions. Make sure to install both the run-time (bf(bobcat_...)) 
+and the development (bf(bobcat-dev_...)) versions. 
+    it() Execute the command
+        verb(
+    make/program
+        )
+    This command (note that it is bf(not) em(make program)!) will create the
+program bf(./tmp/bin/stealth), which may then be installed in, e.g.,
+tt(/usr/bin).
+    )

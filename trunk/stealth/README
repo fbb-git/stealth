@@ -1,0 +1,53 @@
+
+                                   STEALTH
+     SSH-based Trust Enforcement Acquired through a Locally Trusted Host
+
+                               Frank B. Brokken
+                            f.b.brokken@rug.nl
+
+
+    * The manual is in the usr/share/doc/stealth/html  subdirectory. 
+        Point your browser to its index.html or stealth.html file to start 
+        reading the manual.
+        The manual's sources are in the .../stealth/Yodl directory. 
+        These are Yodl sources. Yodl is another Debian package.
+
+    * The man-page stealth.1 is in usr/share/man/man1. 
+        The file .../stealth/manpage/stealth.yo is the (Yodl) source file 
+        which was used to construct the manpage. 
+        
+    * The standard way to compile stealth is using the provided `build'
+      script, which is an `icmake' script (see the next item). 
+
+    * To compile from scratch, run 
+            ./build program 
+      from this directory. The file INSTALL.im in this directory contains the
+      definitions of variables defining the locations of the directories in
+      which the binary, the man-page and the manual will be stored. Changing
+      these definitions will install files in other locations.
+
+    * To install `by hand', you should probably be `root'. Running (as root) 
+            ./buidl install /
+      installs the files ready for system-wide usage.
+
+    * Remark, comments please to my email addres. The software is GPL, the
+        copyright rests with me. This is to make sure that the most recent
+        version is always with me. All suggestions for improvements
+        will be seriously considered, and if possible, incorporated in the 
+        next version of the program.
+
+    * At the same location where you found this archive, you should have found
+      a detached signature file.  Use my public key to verify the authenticity
+      of the key. My public key was signed by the CA of the University of
+      Groningen. Here are a PGP key server, and my PGP public key fingerprint:
+
+      Public PGP key: http://pgp.surfnet.nl:11371/
+      Key Fingerprint: 8E36 9FC4 1DAA FCDF 1A0D  B19F DAC4 BE50 38C6 6170
+
+      Contact me if you have any doubts about the correctness of the provided
+      signature or the given fingerprint.
+            
+    Frank
+
+
+

@@ -1,0 +1,14 @@
+void special()
+{
+    list cut;
+    list line;
+    int refresh;
+    string years;
+    string version;
+
+    if (! exists("release.yo") || "VERSION" newer "release.yo") 
+    {
+        system("touch version.cc");
+        run("gcc -E VERSION.h | grep -v '#' | sed 's/\\\"//g' > release.yo");
+    }
+}

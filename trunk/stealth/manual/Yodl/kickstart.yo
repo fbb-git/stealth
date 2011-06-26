@@ -1,0 +1,55 @@
+
+Here are the steps to take to kick-start bf(stealth)
+    itemization(
+    it() Install the stealth Debian package tt(stealth__CurVers__i386.deb) and
+thus accept the provided binary program (skipping the next three steps) or do
+not accept the provided binary, and compile bf(stealth) yourself, as per the
+following steps:
+    it() Unpack tt(stealth__CurVers_.tar.gz): 
+        tt(tar xzvf tealth__CurVers_.tar.gz)
+    it() tt(cd stealth)
+    it() Inspect the values of the variables in the file tt(INSTALL.cf) Modify
+these values when necessary.
+    it() Make sure the bobcat library has been installed.
+(lurl(http://bobcat.sourceforge.net))
+    it() Run `tt(./make/program)' to compile bf(stealth).  Note: it's em(not)
+`tt(make program)'
+    it() Run (probably as root) `tt(./make/install)' to install.  Note: it's
+em(not) `tt(make install)'
+    )
+    Following the installation nothing in the tt(stealth) directory tree is
+required for bf(stealth)'s proper functioning, so consider removing it.
+    
+    Compiling bf(stealth) assumes that tt(g++) version 3.3 (or higher) is
+available. If not: install it first.
+
+    Next, do:
+    itemization(
+    it() tt(cp stealthmail  /usr/local/bin)
+    it() tt(mkdir           /root/stealth)
+    it() tt(cp local.pol    /root/stealth)
+    )
+
+    tt(ssh) and tt(sh) should be available. tt(root@localhost) should be able
+to login at tt(localhost) using tt(ssh root@localhost), using the
+tt(/bin/bash) or tt(/bin/sh) shell. Check (as `root') at least 
+        verb(
+    ssh root@localhost
+        )
+    as this might ask you for a confirmation that you've got the correct
+host. 
+    Now, run 
+        verb(
+    stealth /root/stealth/localhost.pol
+        )
+    to initialize the stealth-report files for tt(localhost). This will
+initialize the report for:
+    itemization(
+    it() all root setuid/setgid executable files on tt(localhost), 
+    it() and for all files under tt(/etc/) on tt(localhost). 
+    )
+
+    The mail-report is written on tt(/tmp/stealth-_CurVers_.mail)
+
+    Now change or add or remove one of these files, and rerun bf(stealth). The
+file tt(/tmp/stealth-_CurVers_.mail) should reflect these changes.

@@ -1,0 +1,39 @@
+See the KICKSTART chapter in the manual:
+
+doc/manual/index.html, click the kickstart chapter.
+
+
+===========================================================================
+To install stealth by hand instead of using the binary distribution perform
+the following steps:
+
+    0. The previously used scripts below make/ are obsolete and were removed
+        from this and future distributions. Icmake should be used instead, for
+        which a top-level script (build) and support scripts in the ./icmake/
+        directory are available. Icmake is available on a great many
+        architectures. See the file INSTALL (and INSTALL.im, replacing the
+        previously used INSTALL.cf) for further details.
+
+    1. Inspect the values of the variables in the file INSTALL.im Modify these
+       when necessary.
+
+    2. Make sure the bobcat library has been installed.
+
+       (If you compile the bobcat library yourself, note that stealth does
+        not use the classes Milter and Xpointer; they may --as far as stealth
+        is concerned-- be left out of the library)
+
+    3. Run 
+            ./build program
+        to compile stealth
+
+    4. Run (probably as root) 
+            ./build install
+       to install. Optionally add an additional argument as a base directory
+       below which the software should be installed. 
+
+    Following the installation nothing in this directory tree is required
+    for stealth's proper functioning, so consider removing it.
+
+
+

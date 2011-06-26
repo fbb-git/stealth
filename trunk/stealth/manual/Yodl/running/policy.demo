@@ -1,0 +1,36 @@
+    DEFINE  SSHCMD  /usr/bin/ssh root@client -T -q exec /bin/bash --noprofile
+    DEFINE  EXECSHA1 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
+                    -type f -exec /usr/bin/sha1sum {} \;
+
+    USE BASE        /root/stealth/client
+    USE EMAIL       admin@elswhere
+    USE MAILER      /root/bin/stealthmail
+    USE MAILARGS    "Client STEALTH report"
+    USE SSH         ${SSHCMD}
+
+    USE DD          /bin/dd
+    USE DIFF        /usr/bin/diff
+    USE PIDFILE     /var/run/stealth-
+    USE REPORT      report
+    USE SH          /bin/sh
+
+    GET /usr/bin/sha1sum /root/tmp
+
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
+
+    LABEL \nchecking the client's /usr/bin/find program
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find
+ 
+    LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
+    CHECK LOG = remote/setuidgid /usr/bin/find / ${EXECSHA1}
+
+    LABEL \nconfiguration files under /etc
+    CHECK LOG = remote/etcfiles                         \ 
+          /usr/bin/find /etc -type f -not -perm +6111   \ 
+            -not -regex "/etc/\(adjtime\|mtab\)"        \ 
+            -exec /usr/bin/sha1sum {} \;
+
+
+
+

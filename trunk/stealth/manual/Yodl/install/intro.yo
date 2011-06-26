@@ -1,0 +1,4 @@
+This chapter describes bf(stealth)'s compilation and installation. 
+
+sect(Compiling and installing Stealth)
+includefile(compile)
