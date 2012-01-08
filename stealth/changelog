@@ -1,3 +1,11 @@
+stealth (2.02.02)
+
+  * Recompilation and minor modifications to prepare for g++ 4.7
+
+  * YEARS updated
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 08 Jan 2012 14:42:34 +0100
+
 stealth (2.02.01)
 
   * Removed FnWrap* calls from Stealth's sources

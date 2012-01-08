@@ -59,16 +59,10 @@ void ConfigSorter::fetchCommands()
 
     if (arg.option("dc"))
     {
-        for
-        (
-            HashString<string>::iterator
-            begin = d_use.begin(), end = d_use.end();
-                begin != end;
-                    begin++
-        )
+        for(auto begin: d_use)
             imsg << "USE " << begin->first << ": " << begin->second << endl;
 
-        for (int idx = 0; idx < static_cast<int>(d_command.size()); idx++)
+        for (int idx = 0; idx < static_cast<int>(d_command.size()); ++idx)
            imsg << (idx + 1) << ": " << d_command[idx] << endl;
 
         if (Arg::instance().option('c'))
