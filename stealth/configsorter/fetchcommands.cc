@@ -59,8 +59,8 @@ void ConfigSorter::fetchCommands()
 
     if (arg.option("dc"))
     {
-        for(auto begin: d_use)
-            imsg << "USE " << begin->first << ": " << begin->second << endl;
+        for(auto &value: d_use)
+            imsg << "USE " << value.first << ": " << value.second << endl;
 
         for (int idx = 0; idx < static_cast<int>(d_command.size()); ++idx)
            imsg << (idx + 1) << ": " << d_command[idx] << endl;
