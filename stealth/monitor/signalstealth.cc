@@ -15,8 +15,13 @@
 void Monitor::signalStealth(int signum, char const *signame, 
                                      string const &filename)
 {
-    size_t pid = getPid(filename);    // get the pid of the process to
-                                        // signal 
+    size_t pid = getPid(filename);    // get the pid of the process to signal 
+    if (pid == 0)
+    {
+        imsg << "Can't read `" << filename << "', no process "
+                "to send " << signame << " to" << endl;
+        throw 1;
+    }
 
     imsg << "Sending " << signame << " to process " << pid << endl;
 

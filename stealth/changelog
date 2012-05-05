@@ -1,3 +1,11 @@
+stealth (2.03.00)
+  
+  * Spurious [Fatal] message when starting stealth are prevented
+
+  * This version expects Bobcat >= 3.00.00
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 05 May 2012 10:47:41 +0200
+
 stealth (2.02.02)
 
   * Recompilation and minor modifications to prepare for g++ 4.7

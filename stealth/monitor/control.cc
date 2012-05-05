@@ -33,8 +33,14 @@ void Monitor::control()
 
                                     // let the process that issued
                                     // `--suppress' know we're done.
-            sendSignal(SIGUSR1, "SIGUSR1", suppressorPid());
-            imsg << "Wait for --resume..." << endl;
+            if (int pid = suppressorPid())
+            {
+                sendSignal(SIGUSR1, "SIGUSR1", pid);
+                imsg << "Wait for --resume..." << endl;
+            }
+            else
+                imsg << "Cannot end a running `stealth' process: `" <<
+                        Lock::runFilename() << "' not found" << endl;
         }
 
         do

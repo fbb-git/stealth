@@ -1,6 +1,7 @@
 #include "monitor.ih"
 
 int Monitor::suppressorPid()
+try
 {
     ifstream runFile;
     Errno::open(runFile, Lock::runFilename());
@@ -9,4 +10,8 @@ int Monitor::suppressorPid()
     runFile >> pid >> pid;
 
     return pid;
+}
+catch (...)
+{
+    return 0;        
 }
