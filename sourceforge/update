@@ -14,6 +14,8 @@ scp ../stealth/tmp/manual/html/stealth*.html ../stealth/tmp/manhtml/*.html \
     index.html stealth.jpg \
     fbb,stealth@web.sourceforge.net:htdocs/
 
+rm index.html
+
 cd ../stealth
     build distclean
 
