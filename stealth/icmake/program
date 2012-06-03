@@ -184,7 +184,7 @@ void setlibs()
             libpath += " -L" + element(index, cut);
 }
 
-void program()
+void program(int done)
 {
     initialize();
     setlibs();
@@ -201,7 +201,8 @@ void program()
         "stealth"          // static program library base name
     );
 
-    exit(0);
+    if (done)
+        exit(0);
 }
 
 

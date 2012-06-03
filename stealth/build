@@ -44,7 +44,16 @@ void main(int argc, list argv, list envp)
     {
         if (argv[2] == "strip")
             g_strip = "-s";
-        program();
+        program(1);
+    }
+
+    if (option == "xref")
+    {
+        if (argv[2] == "strip")
+            g_strip = "-s";
+        program(0);
+        run("oxref -fxs libstealth.a > stealth.xref");
+        exit(0);
     }
 
     if (option == "sourceforge")
@@ -61,6 +70,8 @@ void main(int argc, list argv, list envp)
         "   manual          - build the manual (requires Yodl)\n"
         "   program [strip] - build stealth (optionally strip the "
                                                             "executable)\n"
+        "   xref [strip]    - same as 'program', also builds xref file using "
+                                                            "oxref\n"
         "   install program <base> - install the program in the locations "
                                                         "defined\n"
         "                        in the INSTALL.cf file, optionally "

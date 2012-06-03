@@ -4,7 +4,9 @@ stealth (2.04.00)
     resulting in an exit value are considered invalid and terminate Stealth.
     (scanner/testexitvalue.cc)
 
- -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 03 Jun 2012 10:12:16 +0200
+  * Added cross reference listing to the standard documentation (stealth.xref)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 03 Jun 2012 15:11:30 +0200
 
 stealth (2.03.00)
   
