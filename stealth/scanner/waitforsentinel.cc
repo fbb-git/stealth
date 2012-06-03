@@ -2,7 +2,7 @@
 
 //  SEE ALSO THE MEMBER copy()
 
-void Scanner::waitForSentinel(istream &extractor)
+void Scanner::waitForSentinel(Process &extractor)
 {
     string  s;
 
@@ -17,5 +17,5 @@ void Scanner::waitForSentinel(istream &extractor)
         }
     }
 
-    testExitValue(s);
+    testExitValue(extractor.str(), s);
 }

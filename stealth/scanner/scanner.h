@@ -41,6 +41,7 @@ class Scanner
 
     static FBB::Pattern  s_split;
     static FBB::Pattern  s_firstWord;
+    static FBB::Pattern  s_exitValue;
 
     public:
         Scanner(ConfigSorter &sorter, Reporter &reporter);
@@ -57,7 +58,7 @@ class Scanner
         
     private:
                         // copy a textfile
-        void        copy(std::istream &src, std::string const &fname);
+        void        copy(FBB::Process &src, std::string const &fname);
 
                         // terminate or return 'false' if the retrieved 
                         // file's size exceeds d_max_size.
@@ -102,7 +103,7 @@ class Scanner
                                 std::string const &destination) const;
 
                                     // copy any file
-        void        read(std::istream &src, std::string const &fname);
+        void        read(FBB::Process &src, std::string const &fname);
 
                                     // execute a remote command
         void        remote(std::string const &command);
@@ -119,17 +120,18 @@ class Scanner
                                     // command and the output from the
                                     // previously run command
         bool        sameOutput(std::string const &logfile,
-                               std::istream &extractor);
+                               FBB::Process &extractor);
 
                                     // define the sentinel. Redefined
                                     // at each new run()
         void        setSentinel();
 
                                     // see if the exit value is 0
-        void        testExitValue(std::string const &s);
+        void        testExitValue(std::string const &cmd,
+                                  std::string const &exitStr);
 
                                     // wait for the sentinel and exitvalue
-        void        waitForSentinel(std::istream &extractor);
+        void        waitForSentinel(FBB::Process &extractor);
 
                                     // write any file to the client
         void        write(std::string const &fname);

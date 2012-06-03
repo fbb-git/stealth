@@ -2,7 +2,7 @@
 
 //  SEE ALSO THE MEMBER waitForSentinel()
 
-void Scanner::copy(std::istream &src, string const &fname)
+void Scanner::copy(Process &src, string const &fname)
 {
     ofstream currentReport(fname.c_str());
 
@@ -29,7 +29,7 @@ void Scanner::copy(std::istream &src, string const &fname)
         if (not (this->*d_skip)(s))
             currentReport << s << '\n';
     }
-    testExitValue(s);
+    testExitValue(src.str(), s);
 }
 
 

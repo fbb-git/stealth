@@ -2,7 +2,7 @@
 
 //  SEE ALSO THE MEMBER waitForSentinel()
 
-void Scanner::read(std::istream &src, string const &fname)
+void Scanner::read(Process &src, string const &fname)
 {
     ofstream target(fname.c_str());
 
@@ -57,7 +57,5 @@ void Scanner::read(std::istream &src, string const &fname)
             target.write(&c, 1);
         }
     }
-    testExitValue(partialSentinel);
+    testExitValue(src.str(), partialSentinel);
 }
-
-

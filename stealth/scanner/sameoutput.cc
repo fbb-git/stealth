@@ -1,6 +1,6 @@
 #include "scanner.ih"
 
-bool Scanner::sameOutput(string const &logfile, istream &extractor)
+bool Scanner::sameOutput(string const &logfile, Process &extractor)
 {
     string current = logfile + ".cur";      // create current logfile
 
