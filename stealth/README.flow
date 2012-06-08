@@ -1,0 +1,46 @@
+Stealth has several modes of operation, defined in monitor/monitor.h, and
+(partially) controlled by command-line options:
+
+option      mode            meaning/action
+
+default     ONCE,           single run in the foreground
+keep-alive  KEEP_ALIVE,     multiple runs: Stealth becomes a daemon process
+
+terminate   TERMINATE,      terminate a running Stealth daemon process 
+                                (through SIGTERM)
+            TERMINATED,     automatically, following TERMINATE
+suppress    SUPPRESS,       suppress a running Stealth daemon process, 
+                                (through SIGUSR1) 
+            SUPPRESSED,     automatically following SUPPRESS
+resume                      resumes a SUPPRESSed Stealth daemon process
+                                (through SIGUSR2)
+reload      RELOAD,         a running Stealth daemon process reloads its
+                            config files (through SIGCHLD)
+
+All actions are controlled by Monitor::control, started by main(). This is the
+only real action main performs.
+
+Monitor:
+    control(): performs one infinite loop, in which the following actions
+        occur: 
+        
+            processMode() is called. It performs the actions associated with a
+                          particular mode.
+            following this the report is mailed by mailReport().
+
+            Actions are s_mode-dependent. 
+            The variable s_mode is global, and may be modified by daemon
+            process signal handlers: 
+
+            s_mode = 
+            ONCE:           the foreground process ends.
+            TERMINATED:     the daemon process ends.
+
+            SUPPRESSED:     the daemon process is now in its suppressed state.
+                            it sends a SUGUSR1 signal to the suppressing
+                            process, and goes into suspend mode, from which it
+                            awakes (at control()'s wait() call) when receiving
+                            a resume (SIGUSR2) signal.
+
+    processMode() performs its own infinite loop, during which s_mode may
+        change. By default it calls Scanner::run() to perform a stealth-run.
