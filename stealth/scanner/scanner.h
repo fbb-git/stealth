@@ -139,7 +139,7 @@ class Scanner
         void        removeLOG();    // remove LOG = from current command
 
                                     // true if filename not in d_skipFiles
-        bool        skip(std::string const &line);
+        bool        skip(std::string line);
 
                                     // always indicates "don't skip"
         bool        dontSkip(std::string const &line);
