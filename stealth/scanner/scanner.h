@@ -10,6 +10,7 @@
 namespace FBB
 {
     class Pattern;
+    class Arg;
 }
 
 class ConfigSorter;
@@ -20,6 +21,7 @@ class Scanner
     typedef std::vector<std::string>     StringVector;
     typedef StringVector::const_iterator const_iterator;
 
+    FBB::Arg       &d_arg;
     ConfigSorter   &d_sorter;
     Reporter       &d_reporter;
     FBB::Pattern   &d_firstWord;
@@ -34,6 +36,7 @@ class Scanner
     std::string     d_maxSizeStr;
     bool            d_quit;
     StringVector    d_skipFiles;
+    std::string     d_skipFilePath;
                                         // the abs path is at the end of 
                                         // the line. Any text may precede
                                         // it
@@ -50,6 +53,8 @@ class Scanner
             return d_nScans;
         }
         void preamble();
+        void loadSkipFiles();
+        void nScansReset();
                                     // run one series of tests
         void        run(volatile bool *done);    
 
@@ -145,8 +150,7 @@ class Scanner
         bool        dontSkip(std::string const &line);
 
                                     // fill the d_skipFiles vector and set
-                                    // d_skip to &skipING
-        void        setSkip(std::string const &fname);
+        void        setSkip();      // d_skip to &skipING
 
         static std::string fileName(std::string const &name);
         static std::string datetime();
@@ -154,6 +158,11 @@ class Scanner
                                          char const *replacement);
         static void add(std::string const &line, StringVector &skipFiles);
 };
+
+inline void Scanner::nScansReset()
+{
+    d_nScans = 0;
+}
 
 inline bool Scanner::dontSkip(std::string const &line)
 {

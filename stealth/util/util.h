@@ -6,7 +6,10 @@
 class Util
 {
     public:
-        static bool mkdir(std::string const &path);  // pathname to a file
+        static bool mkdir(std::string const &path); // pathname to a file
+                                                    // find full path name
+        static std::string fullPath(std::string const &path);   
+
 };
     
 #endif

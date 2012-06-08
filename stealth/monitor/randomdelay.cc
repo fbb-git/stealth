@@ -4,10 +4,10 @@ void Monitor::randomDelay()
 { 
     string delay;
 
-    if (!Arg::instance().option(&delay, 'i'))
+    if (!d_arg.option(&delay, 'i'))
         return;
 
-    if (!Arg::instance().option(0, "repeat"))
+    if (!d_arg.option(0, "repeat"))
     {
         wmsg << "--random-interval ignored unless --repeat is specified" <<
                                                                         endl;

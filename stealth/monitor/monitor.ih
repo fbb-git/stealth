@@ -2,6 +2,7 @@
 
 #include <string>
 #include <signal.h>
+#include <limits>
 
 #include <bobcat/arg>
 #include <bobcat/process>
@@ -9,14 +10,14 @@
 #include <bobcat/errno>
 #include <bobcat/datetime>
 
+#include "../util/util.h"
 #include "../lock/lock.h"
 #include "../configsorter/configsorter.h"
 #include "../scanner/scanner.h"
 #include "../reporter/reporter.h"
 
-
-using namespace FBB;
 using namespace std;
+using namespace FBB;
 
 inline void Monitor::wakeup() 
 {

@@ -4,9 +4,8 @@ void Scanner::loadSkipFiles()
 {
     d_skipFiles.clear();
 
-    string name;
-    if (d_arg.option(&name, 's'))       // skip files
-        setSkip(name);
+    if (d_skipFilePath.length())        // skip files
+        setSkip();
     else                                // or don't skip
         d_skip = &Scanner::dontSkip;
 

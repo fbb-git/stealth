@@ -6,7 +6,7 @@ void Scanner::execute(string const &cmd)
     if (!(s_firstWord << cmd))          // determine first word and the rest
         d_reporter.error() << "Corrupt line in policy file: " << cmd << endl;
     
-    if (Arg::instance().option("de"))// echo the command with -d, -e
+    if (d_arg.option("de"))             // echo the command with -d, -e
         cerr << *d_cmdIterator << '\n';
 
     if (s_firstWord[1] == "LABEL")      // set a label 

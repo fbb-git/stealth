@@ -7,6 +7,7 @@
 // is removed and an error message is issued.
 
 // The following signals are used (and processed by Scanner::processSignal())
+// SIGCHLD: reload configuration files
 // SIGTERM: terminate stealth
 // SIGHUP:  rerun stealth
 // SIGUSR1: suppress stealth from starting a new run

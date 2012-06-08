@@ -2,11 +2,9 @@
 
 void Monitor::handleRepeatOption()
 {
-    Arg &arg = Arg::instance();
-
     string value;
 
-    if (arg.option(&value, "repeat"))
+    if (d_arg.option(&value, "repeat"))
     {
         if (!s_keepAlive)
             fmsg << "--repeat requires --keep-alive" << endl;
@@ -23,8 +21,8 @@ void Monitor::handleRepeatOption()
                                                               '\'' << endl;
             s_repeatInterval = s_shortestRepeatInterval;
         }
-        else if (s_repeatInterval > INT_MAX)
-            s_repeatInterval = INT_MAX;
+        else if (s_repeatInterval > numeric_limits<int>::max())
+            s_repeatInterval = numeric_limits<int>::max();
     }
 }
 

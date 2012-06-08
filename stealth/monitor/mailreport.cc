@@ -12,9 +12,9 @@ void Monitor::mailReport()
         return;
     }
 
-    d_reporter->rewind();                    // resets the `hasmail' variable
+    d_reporter->rewind();                   // resets the `hasmail' variable
 
-    if (Arg::instance().option('o'))     // mail the report to stdout
+    if (d_arg.option('o'))                  // mail the report to stdout
     {
         imsg << "Monitor::mailReport() mails report to stdout" << endl;
         cout << d_reporter->in().rdbuf() << endl;

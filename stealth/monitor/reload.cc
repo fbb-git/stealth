@@ -2,7 +2,7 @@
 
 void Monitor::reload()
 {
-    d_sorter.reset(   new ConfigSorter(d_arg[0]) );
+    d_sorter.reset(   new ConfigSorter(d_sorterPath) );
     d_scanner->nScansReset();
     d_scanner->loadSkipFiles();
 }

@@ -28,6 +28,11 @@ void Monitor::handleProcessSignals(int signum)
             if (s_mode == SUPPRESS || s_mode == SUPPRESSED)
                 s_mode = KEEP_ALIVE;
         break;
+
+        case SIGCHLD:                       // RELOAD: changes KEEP_ALIVE
+            if (s_mode == KEEP_ALIVE)       // temporarily into RELOAD
+                s_mode = RELOAD;            // for processMode() to handle.
+        break;
     }
 
     wakeup();

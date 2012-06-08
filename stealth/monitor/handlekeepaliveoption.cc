@@ -3,9 +3,9 @@
 void Monitor::handleKeepAliveOption()
 {
     string value;
-    if ((s_keepAlive = Arg::instance().option(&value, "keep-alive")) != 0)
+    if ((s_keepAlive = d_arg.option(&value, "keep-alive")) != 0)
     {
-        s_repeatInterval = INT_MAX;
+        s_repeatInterval = numeric_limits<int>::max();
         Lock::setRunFilename(value);
     }
 }

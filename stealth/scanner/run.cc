@@ -12,7 +12,7 @@ void Scanner::run(volatile bool *quit)
                                                 // add values to it, below.
     string cmdNr;
 
-    if (Arg::instance().option(&cmdNr, 'r')) // is there  a command number?
+    if (d_arg.option(&cmdNr, 'r'))          // is there  a command number?
     {
                                                 // if so, add its number to
                                                 // d_cmdIterator    
@@ -38,7 +38,7 @@ void Scanner::run(volatile bool *quit)
         }
     }
 
-    if (Arg::instance().option('d'))
+    if (d_arg.option('d'))
         cerr << "Stealth: policy file processed\n";
 }
 

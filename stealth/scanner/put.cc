@@ -38,7 +38,7 @@ void Scanner::put(string const &cmd)
 
     string command = putCommand(source, destination);
 
-    if (Arg::instance().option('n'))     // no run if -n
+    if (d_arg.option('n'))              // no run if -n
         return;
 
     d_sshFork << command << endl;       // flush

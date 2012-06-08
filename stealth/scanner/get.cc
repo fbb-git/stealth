@@ -39,7 +39,7 @@ void Scanner::get(string const &cmd)
     imsg << "Scanner::get(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
-    if (Arg::instance().option('n'))     // no run if -n
+    if (d_arg.option('n'))                          // no run if -n
         return;
 
     nextCommand(d_sshFork,                  // start the next command

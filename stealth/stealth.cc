@@ -7,7 +7,7 @@
 
 namespace{
 
-Arg::LongOption longOpt_begin[] =
+Arg::LongOption longOption[] =
 {
     {"debug", 'd'},
     {"echo-commands", 'e'},
@@ -28,19 +28,18 @@ Arg::LongOption longOpt_begin[] =
     {"rerun", Arg::None},               // arg[0] is the runfilename
     {"resume", Arg::None},              // also for this and the next options
     {"suppress", Arg::None},
+    {"reload", Arg::None},
     {"terminate", Arg::None},
 };
 
-Arg::LongOption const * const longOpt_end = 
-       longOpt_begin + sizeof(longOpt_begin) / sizeof(Arg::LongOption);
+auto endLongOption = longOption + sizeof(longOption) / sizeof(longOption[0]);
 
 }   // anonymous namespace ends
     
 int main(int argc, char **argv)
 try
-{
-                                        // construct Arg object to process
-    Arg &arg = Arg::initialize("cdehi:noqr:s:v", longOpt_begin, longOpt_end, 
+{                                       // construct Arg object to process
+    Arg &arg = Arg::initialize("cdehi:noqr:s:v", longOption, endLongOption, 
                                 argc, argv); 
 
     arg.versionHelp(usage, version, 1);

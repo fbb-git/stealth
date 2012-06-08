@@ -8,7 +8,7 @@ void Monitor::setAlarm()
         :
             0;
 
-    if (Arg::instance().option('d'))
+    if (d_arg.option('d'))
     {
         cerr << "Would have waited " << random_wait << " seconds\n"
              << "Randomly selected from " << s_delayInterval << 

@@ -1,9 +1,9 @@
 #include "scanner.ih"
 
-void Scanner::setSkip(string const &fname)
+void Scanner::setSkip()
 {
     ifstream in;
-    Errno::open(in, fname);
+    Errno::open(in, d_skipFilePath);
 
     for_each(
         istream_iterator<StringLine>(in), istream_iterator<StringLine>(), 
@@ -12,7 +12,7 @@ void Scanner::setSkip(string const &fname)
             add(line, d_skipFiles);
         }
     );
-    
+
     d_skip = &Scanner::skip;
 }
 

@@ -12,7 +12,7 @@ bool Scanner::doCHECKcommand(Process &child)
 
     imsg << "running checked command: `" << s_firstWord[0] << '\'' << endl;
 
-    if (Arg::instance().option('n')) // -n (no go) option?
+    if (d_arg.option('n'))              // -n (no go) option?
         return true;                    // then indicate by implication that
                                         // the command was processed without
                                         // differing from the previous run

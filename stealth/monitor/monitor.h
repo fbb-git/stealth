@@ -8,6 +8,7 @@
 namespace FBB
 {
     class Selector;
+    class Arg;
 }
 
 class ConfigSorter;
@@ -24,12 +25,16 @@ class Monitor
         TERMINATED,     // 3 automatically following TERMINATE
         SUPPRESS,       // 4 through SIGUSR1 (SIGUSR2: back to normal)
         SUPPRESSED,     // 5 automatically following SUPPRESS
+        RELOAD,         // 6 reload the config files, through SIGCHLD
     };
 
     static Mode             s_mode;
     static bool             s_quit; // passed to Scanner::run() for
                                     // inspection         
 
+    FBB::Arg &d_arg;
+
+    std::string d_sorterPath;
     std::unique_ptr<ConfigSorter> d_sorter;
     std::unique_ptr<Reporter>     d_reporter;
     std::unique_ptr<Scanner>      d_scanner;
@@ -57,7 +62,7 @@ class Monitor
         static void handleProcessSignals(int signum);
 
     private:
-
+        void reload();              // reload the configuration files.
         void processMode();         // process the current mode
         void processControlOptions();  // determine the running mode
         void contactOtherStealth();

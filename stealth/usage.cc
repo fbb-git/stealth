@@ -52,9 +52,11 @@ void usage(std::string const &progname)
         "   policy: path to the policyfile\n"
         "\n"
         "Usage 2:\n"
-        "   " << progname << " [--rerun|--resume|--suppress|--terminate] "
-                                                                "pidfile\n"
+        "   " << progname << 
+            " [--reload|--rerun|--resume|--suppress|--terminate] pidfile\n"
         "Where:\n"
+        "   --reload: reload a " << progname << " process's configuration "
+                                                                    "files\n"
         "   --rerun: restart a " << progname << " integrity scan\n"
         "   --resume: resume " << progname << " following --suppress\n"
         "   --suppress: suppress " << progname << " activities\n"

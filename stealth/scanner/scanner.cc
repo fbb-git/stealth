@@ -11,6 +11,7 @@ is used.
 
 Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 :
+    d_arg(Arg::instance()),
     d_sorter(sorter),
     d_reporter(reporter),                           // ostream
     d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")), // firstword ([1]) and the
@@ -35,15 +36,12 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 {
     setSentinel();
 
-    Arg &arg = Arg::instance();
+        if (d_arg.option(&d_skipFilePath, 's'))
+        d_skipFilePath = Util::fullPath(d_skipFilePath);
 
-    string name;
-    if (arg.option(&name, 's'))         // skip files
-        setSkip(name);
-    else                                // or skip none
-        d_skip = &Scanner::dontSkip;
+    loadSkipFiles();                    
 
-    if (arg.option(&d_maxSizeStr, "max-size"))
+    if (d_arg.option(&d_maxSizeStr, "max-size"))
     {
         d_maxSize = A2x(d_maxSizeStr);
         switch(d_maxSizeStr.find_first_not_of("0123456789"))

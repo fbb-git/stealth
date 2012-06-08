@@ -1,6 +1,6 @@
 #include "configsorter.ih"
 
-ConfigSorter::ConfigSorter(char const *confFile)
+ConfigSorter::ConfigSorter(string const &confFile)
 :
     d_configfile(confFile),
     d_use(&s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords])

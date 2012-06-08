@@ -26,7 +26,7 @@ class ConfigSorter
                                                 // [1]: all ${NAME} text
                                                 // [2]: NAME itself
     public:
-        ConfigSorter(char const *confFname);
+        ConfigSorter(std::string const &confFname);
     
         std::vector<std::string>::const_iterator firstCmd() const;
         std::vector<std::string>::const_iterator beyondCmd() const;
