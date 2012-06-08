@@ -1,3 +1,10 @@
+ISN: stealth (2.10.00)   
+
+  * --reload pidfile reloads the configuration files
+
+  * When specifying a directory with --skipfiles all entries below that
+    directory are skipped.
+
 stealth (2.04.00)
   
   * Added detection of invalid child process command texts: commands not

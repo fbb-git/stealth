@@ -6,7 +6,7 @@ void Scanner::setSkip(string const &fname)
     Errno::open(in, fname);
 
     for_each(
-        istream_iterator<Line>(in), istream_iterator<Line>(), 
+        istream_iterator<StringLine>(in), istream_iterator<StringLine>(), 
         [&](std::string const &line)
         {
             add(line, d_skipFiles);

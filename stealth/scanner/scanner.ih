@@ -15,6 +15,7 @@
 #include <bobcat/stat>
 #include <bobcat/datetime>
 #include <bobcat/string>
+#include <bobcat/stringline>
 
 #include "../util/util.h"
 #include "../configsorter/configsorter.h"
@@ -23,17 +24,4 @@
 
 using namespace FBB;
 using namespace std;
-
-struct Line: public string
-{};
-
-
-inline istream &operator>>(istream &in, Line &line)
-{
-    return getline(in, line);
-}
-
-
-
-
 
