@@ -21,7 +21,8 @@ void Monitor::handleRepeatOption()
                                                               '\'' << endl;
             s_repeatInterval = s_shortestRepeatInterval;
         }
-        else if (s_repeatInterval > numeric_limits<int>::max())
+        else if (s_repeatInterval > 
+                        static_cast<size_t>(numeric_limits<int>::max()))
             s_repeatInterval = numeric_limits<int>::max();
     }
 }

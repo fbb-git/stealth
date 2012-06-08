@@ -40,7 +40,7 @@ class Scanner
                                         // the abs path is at the end of 
                                         // the line. Any text may precede
                                         // it
-    bool (Scanner::*d_skip)(std::string const &absPath);
+    bool (Scanner::*d_skip)(std::string absPath);
 
     static FBB::Pattern  s_split;
     static FBB::Pattern  s_firstWord;
@@ -147,7 +147,7 @@ class Scanner
         bool        skip(std::string line);
 
                                     // always indicates "don't skip"
-        bool        dontSkip(std::string const &line);
+        bool        dontSkip(std::string line);
 
                                     // fill the d_skipFiles vector and set
         void        setSkip();      // d_skip to &skipING
@@ -164,7 +164,7 @@ inline void Scanner::nScansReset()
     d_nScans = 0;
 }
 
-inline bool Scanner::dontSkip(std::string const &line)
+inline bool Scanner::dontSkip(std::string line)
 {
     return false;       // by returning false the question 
                         // 'skip line?' is always answered as 'no'
