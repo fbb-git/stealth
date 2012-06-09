@@ -1,8 +1,10 @@
 #include "configsorter.ih"
 
-ConfigSorter::ConfigSorter(string const &confFile)
+ConfigSorter::ConfigSorter(string const &confPath)
+:
+    d_confPath(confPath)
 {
-    reload(confFile);
+    reload();
 }
 
 

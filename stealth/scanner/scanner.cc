@@ -36,8 +36,7 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 {
     setSentinel();
 
-        if (d_arg.option(&d_skipFilePath, 's'))
-        d_skipFilePath = Util::fullPath(d_skipFilePath);
+    d_arg.option(&d_skipFilePath, 's');
 
     loadSkipFiles();                    
 

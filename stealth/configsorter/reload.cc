@@ -1,8 +1,8 @@
 #include "configsorter.ih"
 
-void ConfigSorter::reload(string const &confFile)
+void ConfigSorter::reload()
 {
-    d_configfile.open(confFile);
+    d_configfile.open(d_confPath);
 
     d_use = HashString<std::string>
                 (&s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords]);

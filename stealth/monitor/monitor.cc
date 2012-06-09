@@ -3,7 +3,7 @@
 Monitor::Monitor()
 :
     d_arg(Arg::instance()),
-    d_sorterPath(Util::fullPath(d_arg[0]))
+    d_sorterPath(Util::makeAbsPath(d_arg[0]))
 {
     processControlOptions();            // handle process control options
     maybeBackground();                  // maybe run Stealth in the background

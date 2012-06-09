@@ -2,14 +2,12 @@
 
 #include <ostream>
 #include <string>
-#include <climits>
-#include <cstdlib>
 
 #include <libgen.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <bobcat/errno>
+#include <bobcat/stat>
 
 using namespace std;
 using namespace FBB;

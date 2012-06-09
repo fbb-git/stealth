@@ -13,6 +13,7 @@ namespace FBB
 
 class ConfigSorter
 {
+        std::string                     d_confPath;
         FBB::ConfigFile                 d_configfile;
         std::vector<std::string>        d_command;
         FBB::HashString<std::string>    d_use;
@@ -26,9 +27,9 @@ class ConfigSorter
                                                 // [1]: all ${NAME} text
                                                 // [2]: NAME itself
     public:
-        ConfigSorter(std::string const &confFileName);
+        ConfigSorter(std::string const &confPath);
 
-        void reload(std::string const &confFileName);
+        void reload();
     
         std::vector<std::string>::const_iterator firstCmd() const;
         std::vector<std::string>::const_iterator beyondCmd() const;
