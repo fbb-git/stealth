@@ -11,25 +11,28 @@ void Scanner::copy(Process &src, string const &fname)
 
     imsg << "Scanner::copy(): about to read child input" << endl;
 
-    string s;
+    string line;
     off_t length = 0;
-    while (getline(src, s))
+    while (getline(src, line))
     {
-        if (!checkSize(fname, length += s.length() + 1))
+        if (!checkSize(fname, length += line.length() + 1))
             return;
 
-        imsg << "copy SAW: `" << s << '\'' << endl;
+        imsg << "copy SAW: `" << line << '\'' << endl;
 
-        if (s.find(d_sentinel) == 0)
+        if (line.find(d_sentinel) == 0)
         {
             imsg << "GOT Sentinel" << endl;
             break;
         }
 
-        if (not (this->*d_skip)(s))
-            currentReport << s << '\n';
+        s_split << line;                    // get the last word on this line
+        string last = s_split[1];
+
+        if (not (this->*d_skip)(last))
+            currentReport << line << '\n';
     }
-    testExitValue(src.str(), s);
+    testExitValue(src.str(), line);
 }
 
 

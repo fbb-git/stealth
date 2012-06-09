@@ -3,7 +3,7 @@
 void Monitor::contactOtherStealth()
 {
     if (d_arg.option(0, "reload"))
-        signalStealth(SIGCHLD, "SIGCHLD", d_arg[0]);// signalStealth calls
+        signalStealth(SIGPIPE, "SIGPIPE", d_arg[0]);// signalStealth calls
                                                     // end the current process
     if (d_arg.option(0, "rerun"))
         signalStealth(SIGHUP, "SIGHUP", d_arg[0]);

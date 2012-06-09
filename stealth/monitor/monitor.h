@@ -17,17 +17,21 @@ class Scanner;
 
 class Monitor
 {
+        // Update s_modeID in data.cc if the following enum changes:
     enum Mode
     {
+                        // These numbers are here for debug output referential
+                        // purpose only. Their values are not otherwise used
         ONCE,           // 0 single run 
         KEEP_ALIVE,     // 1 multiple runs
         TERMINATE,      // 2 through SIGTERM
         TERMINATED,     // 3 automatically following TERMINATE
         SUPPRESS,       // 4 through SIGUSR1 (SIGUSR2: back to normal)
         SUPPRESSED,     // 5 automatically following SUPPRESS
-        RELOAD,         // 6 reload the config files, through SIGCHLD
+        RELOAD,         // 6 reload the config files, through SIGPIPE
     };
 
+    static char const *const s_modeID[];
     static Mode             s_mode;
     static bool             s_quit; // passed to Scanner::run() for
                                     // inspection         

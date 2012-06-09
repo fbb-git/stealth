@@ -7,7 +7,7 @@
 // is removed and an error message is issued.
 
 // The following signals are used (and processed by Scanner::processSignal())
-// SIGCHLD: reload configuration files
+// SIGPIPE: reload configuration files
 // SIGTERM: terminate stealth
 // SIGHUP:  rerun stealth
 // SIGUSR1: suppress stealth from starting a new run
@@ -24,6 +24,7 @@ void Monitor::signalStealth(int signum, char const *signame,
         throw 1;
     }
 
+    cerr << "Sending " << signame << " to process " << pid << endl;
     imsg << "Sending " << signame << " to process " << pid << endl;
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile

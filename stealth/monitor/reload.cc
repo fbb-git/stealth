@@ -2,9 +2,11 @@
 
 void Monitor::reload()
 {
-    d_sorter.reset(   new ConfigSorter(d_sorterPath) );
+    d_sorter->reload(d_sorterPath);
     d_scanner->nScansReset();
     d_scanner->loadSkipFiles();
+
+    cerr << "RELOAD COMPLETED (" << d_sorterPath << ")\n";
 }
 
 

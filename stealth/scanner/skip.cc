@@ -1,7 +1,9 @@
 #include "scanner.ih"
 
-// line: a line like 
+// line: the last entry of lines like
 //  9fd210eed1190870f69c9bc7544cfacb82099efd  /root/aantekeningen
+// so:
+//  /root/aantekeningen
 //
 // toSkip: a line from the `skipfiles' file
 //  Files are skipped if:
@@ -10,23 +12,28 @@
 //         toSkip ends in /: toSkip is a directory, and line is an 
 //                               entry in that directory
 
-bool Scanner::skip(string line)
+bool Scanner::skip(string &lastWord)
 {
-    line.erase(0, line.find('/'));    // keep the filename
-
     auto end = d_skipFiles.end();
     return find_if(
                 d_skipFiles.begin(), end, 
-                [&](string const &toSkip)   // toSkip: line to skip
+                [&](string const &toSkip)   // toSkip: entry to skip
                 {
-                    if (line == toSkip)     // line contains toSkip
+                    if (lastWord == toSkip)     // lastWord contains toSkip
                         return true;        // skip this file
 
                     if (toSkip.back() != '/')   // toSkip isn't a dir.:
                         return false;           // don't skip this entry
 
-                      // skip this entry if line contains toSkip at idx
-                    return line.find(toSkip) == 0;
+                      // skip this entry and remove the filename from
+                      // 'lastWord' if lastWord contains toSkip at 0
+                    if (lastWord.find(toSkip) == 0)
+                    {
+                        lastWord = toSkip;
+                        return true;
+                    }
+
+                    return false;           // don't skip this entry
                 }
             )
             != end;

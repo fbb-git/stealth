@@ -25,18 +25,20 @@ bool Scanner::noDifferences(std::string const &current,
     imsg << "Scanner::noDifferences():         /bin/echo " << d_sentinel << 
                                                                         endl;
 
-    //  key is string, case sensitive.
+    //  status's key is a case sensitive string.
     //
     //  The last element of the lines produced by diff is used as the
     //  key. For the current function to operate sensibly, this should be
-    //  a filename or path/file.
+    //  a filename or a path/file.
     //
     //  If the first character of the line is a < or >, then a modification is
     //  detected: for these lines the following happens:
-    //      1. If the key already existed its .first element is set to
-    //          "modified". If the key didn't exist yet, it is set to
-    //          "added" at at '<'. It is set to "skipping" at a '>' if the
-    //          pathname is found in the array of files to skip. Otherwise
+    //      1. If the key already exists then its .first element is set to
+    //          "modified". When a '<' was seen and if the key doesn't yet 
+    //          exist, it is set to "added". 
+    //          If the pathname is found in the array of files to skip
+    //          or if the pathname truncated at the last '/' is found in the
+    //          d_skipFiles array it is set to "skipping". Otherwise
     //          it's set to "removed".
     //      2. The line itself is pushed back to the .second (vector) element
     //          of the pair.
@@ -45,37 +47,50 @@ bool Scanner::noDifferences(std::string const &current,
     //  into the d_reporter and `false' is returned. If the hashtable contains
     //  no elements, 'true' is returned.
 
-    string  s;
+    string  line;
 
     imsg << "Scanner::noDifferences(): starting to read lines" << endl;
 
-    while (getline(d_shFork, s))
+    // get lines from diff, lines like:
+	//    
+	//    33c33
+	//    < 90d8b506d249634c4ff80b9018644567  out
+	//    ---
+	//    > b88d0b77db74cc4a742d7bc26cdd2a1e  out
+
+    while (getline(d_shFork, line))
     {
-        imsg << "Scanner::noDifferences():      got: `" << s << "'\n" 
+        imsg << "Scanner::noDifferences():      got: `" << line << "'\n" 
             "Scanner::noDifferences(): sentinel: `" << d_sentinel << '\'' <<
                                                                         endl;
-        if (s == d_sentinel)
+        if (line == d_sentinel)            // done at the sentinel
             break;
 
-        if (!(s_split << s))
-            continue;                       // no match at empty lines ?
+        if (not (s_split << line))         // at empty lines proceed to the
+            continue;                      // next line
 
-        string key = s_split[1];            // get the key
-        bool exists = status.count(key);
+        string lastWord = s_split[1];       // get the last word on lines
+            // the last word may be an element of a directory to skip or
+            // not. If it is an element of a directory to skip, then the
+            // filename part of lastWord kan be removed.
 
-        if (s[0] == '<')
-                status[key].first = exists ? "MODIFIED" : "ADDED";
-        else if (s[0] == '>')   // removal or skip, e.g.,   > b88d0b....  out
-        {
-            if ((this->*d_skip)(key))
-                status[key].first = "SKIPPING";
-            else
-                status[key].first = exists ? "MODIFIED" : "REMOVED";
-        }
+            // find out whether we have to skip this entry or not. If so
+            // remove the filename from lastWord:
+        bool skipEntry = (this->*d_skip)(lastWord);
+            
+            // now we'll process skipped elements by their path-name
+            // and other elements remain as-is
+        bool exists = status.count(lastWord);    
+
+        if (line[0] == '<')
+                status[lastWord].first = exists ? "MODIFIED" : "ADDED";
+        else if (line[0] == '>')   // removal or skip, e.g.,   > b88d0b....  out
+            status[lastWord].first = skipEntry ? "SKIPPING" :
+                                        exists ? "MODIFIED" : "REMOVED";
         else
             continue;
 
-        status[key].second.push_back(s);
+        status[lastWord].second.push_back(line);
     }
 
     if (!status.size())                 // no elements ?

@@ -3,11 +3,15 @@
 // Called by main() once all preliminary actions have been completed. This
 // function controls the processing of the configuration file.
 
+// Signals are sent by sendSignal. Signals are caught by handleProcessSignals
+// contactOtherStealth sends the signals depending on command-line options
+
 void Monitor::control()
 {
     while (true)
     {
-        imsg << "CONTROL: s_mode == " << s_mode << endl;
+        cerr << "CONTROL: s_mode == " << s_modeID[s_mode] << endl;
+        imsg << "CONTROL: s_mode == " << s_modeID[s_mode] << endl;
     
         d_reporter->standby();      // locks the runfile, opens the report
                                     // file
@@ -21,6 +25,12 @@ void Monitor::control()
                                     // command returns a non-zero exit value.
         if (s_mode == TERMINATED || s_mode == ONCE)
             break;
+
+        if (s_mode == RELOAD)
+        {
+            s_mode = KEEP_ALIVE;
+            continue;
+        }
 
         if (s_mode == SUPPRESSED)
         {
@@ -51,3 +61,4 @@ void Monitor::control()
         while (s_mode == SUPPRESSED);
     }        
 }
+

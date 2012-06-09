@@ -17,7 +17,7 @@ Monitor::Monitor()
     signal(SIGTERM, Monitor::handleProcessSignals);
     signal(SIGUSR1, Monitor::handleProcessSignals);
     signal(SIGUSR2, Monitor::handleProcessSignals);
-    signal(SIGCHLD, Monitor::handleProcessSignals);
+    signal(SIGPIPE, Monitor::handleProcessSignals);
 }
 
 

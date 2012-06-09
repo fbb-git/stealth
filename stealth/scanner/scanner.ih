@@ -21,7 +21,12 @@
 #include "../configsorter/configsorter.h"
 #include "../reporter/reporter.h"
 
-
-using namespace FBB;
 using namespace std;
+using namespace FBB;
+
+inline bool Scanner::dontSkip(std::string &line)
+{
+    return false;       // by returning false the question 
+                        // 'skip line?' is always answered as 'no'
+}
 
