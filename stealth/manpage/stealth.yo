@@ -588,14 +588,16 @@ equivalents, if available. Either can be used.
     it() tt(-q --quiet): Suppress progress messages written to stderr;
     it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
             Command numbers are shown by s() tt(-c);
-    it() tt(-s --skip-files <skippath>): All files mentioned in tt(skippath)
-(using an absolute path) are skipped. Their integrity is not monitored. If a
-file is already present in a log file then s() will once generate an
-tt(IGNORING) message in the mail sent to the address specified at tt(EMAIL) in
-the policy file. Each file mentioned in tt(filepath) must be on a line of
-its own and must be specified using absolute file paths. Initial and trailing
-blanks, empty lines and lines having a tt(#) as their 1st non blank character
-are ignored.
+    it() tt(-s --skip-files <skippath>): All entries in tt(skippath)
+(specified using an absolute path) are skipped. Their integrity is not
+monitored. If an entry is already present in a log file then s() will once
+generate an tt(IGNORING) message in the mail sent to the address specified at
+tt(EMAIL) in the policy file. Each entry mentioned in tt(filepath) must be on a
+line of its own and must be specified using absolute paths. Entries ending in
+a slash are assumed to be directories whose contents must be skipped. Other
+entries are interpreted as the path names of files to skip. Initial and
+trailing blanks, empty lines and lines having a tt(#) as their 1st non blank
+character are ignored. If the
     it() tt(-v --version): Display version information and exit;
     it() tt(--keep-alive pidfile): Keep running as a daemon, 
             wake up at interrupts. 
@@ -607,6 +609,8 @@ are ignored.
             interrupts or after <seconds> seconds. The interval will be at 
             least 60 seconds. To this interval a random delay may be added
             (see tt(--random-interval)).
+    it() tt(--reload pidfile): reloads the configuration and skip-files and
+            restarts the scan of a currently active s() process.
     it() tt(--rerun pidfile): restart the scan of a currently active s()
             process;
     it() tt(--resume pidfile): resume a suppressed s()

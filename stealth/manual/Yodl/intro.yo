@@ -68,20 +68,21 @@ client. bf(stealth) follows the `dark cockpit' approach in that no mail is
 sent when no changes were detected.
     )
 
-    Alternatively, the command-line options tt(--rerun) and tt(--terminate)
-may be provided to communicate with a bf(stealth) process started earlier
-using either the tt(--keep-alive) or tt(--repeat) option. In this case,
+    Alternatively, the command-line options tt(--reload, --rerun, --suppress,
+--resume) and tt(--terminate) may be provided to communicate with a running
+bf(stealth) process started earlier using either the tt(--keep-alive) or
+tt(--repeat) option. For these options one argument must be provided: the
+pathname to a pid-file of a running s(). 
     itemization(
     it() When started using the tt(--terminate <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) is terminated. Note that no
-check is performed as to whether the process associated with tt(<pid>) is
-truly a bf(stealth) process. It is the responsibility of the user to make sure
-that the process-ID of the intended process is specified.
+stealth process running at process-ID tt(<pid>) is terminated. 
+    it() When started using the tt(--reload <pid>) command-line option, the
+stealth process running at process-ID tt(<pid>) will reload its configuration
+and skip-files, which is then immediately followed by  another stealth 
+scan.
     it() When started using the tt(--rerun <pid>) command-line option, the
 stealth process running at process-ID tt(<pid>) will perform another
-scan. Again, no check is performed as to whether the process associated with
-tt(<pid>) is truly a bf(stealth) process. It is the responsibility of the user
-to make sure that the process-ID of the intended process is specified.
+scan. 
     )
 
     The options tt(--suppress) and tt(--rerun) (see section ref(ROTATE)) were
@@ -109,7 +110,7 @@ follows:
             )
         it() Make sure you have the right key. Its fingerprint is
             verb(
-    8E36 9FC4 1DAA FCDF 1A0D  B19F DAC4 BE50 38C6 6170
+    DF32 13DE B156 7732 E65E  3B4D 7DB2 A8BE EAE4 D8AA
             )
         and it has been electronically signed by, e.g., the University of
 Groningen's PGP-certificate authority. If in doubt, contact me to verify you
@@ -124,9 +125,10 @@ tt(stealth-_CurVers_.dsc). With bf(gpg)(1) this can be done by the command
     )
     This should produce output comparable to:
         verb(
-gpg: Signature made Mon Aug  1 10:57:41 2005 CEST using DSA key ID 38C66170
+gpg: Signature made Fri Jun  1 10:57:41 2012 CEST using DSA key ID EAE4D8AA
 gpg: Good signature from "Frank B. Brokken <f.b.brokken@rug.nl>"
-gpg:                 aka "Frank B. Brokken <f.b.brokken@rc.rug.nl>"
         )
+
+
 
 
