@@ -10,7 +10,6 @@ void Monitor::control()
 {
     while (true)
     {
-        cerr << "CONTROL: s_mode == " << s_modeID[s_mode] << endl;
         imsg << "CONTROL: s_mode == " << s_modeID[s_mode] << endl;
     
         d_reporter->standby();      // locks the runfile, opens the report

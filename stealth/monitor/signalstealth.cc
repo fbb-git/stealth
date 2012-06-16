@@ -24,7 +24,6 @@ void Monitor::signalStealth(int signum, char const *signame,
         throw 1;
     }
 
-    cerr << "Sending " << signame << " to process " << pid << endl;
     imsg << "Sending " << signame << " to process " << pid << endl;
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile

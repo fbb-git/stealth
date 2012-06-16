@@ -10,7 +10,7 @@ void Monitor::reload()
 
     d_scanner->preamble();
 
-    cerr << "RELOAD COMPLETED (" << d_sorterPath << ")\n";
+    // cerr << "RELOAD COMPLETED (" << d_sorterPath << ")\n";
 }
 
 
