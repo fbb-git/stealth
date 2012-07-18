@@ -1,85 +1,106 @@
-void rungzip9(string src, string dest)
+string setWhere(string where, string defaultWhere)
 {
-    int idx;
-    string file;
-    list man;
+    if (where == "")
+        where = defaultWhere;
 
-    chdir(src);
-    man = makelist("*");
-    chdir(g_cwd);
-    for (idx = sizeof(man); idx--; )
-    {
-        file = element(idx, man);
-        run("gzip -9 < " + src + file + " > " + dest + file + ".gz");
-    }
-}
-
-void reqzip(string dest, string srcPath, string src)
-{
-    list files;
-    int idx;
-    string file;
-
-    files = strtok(src, " ");
-    for (idx = sizeof(files); idx--; )
-    {
-        file = element(idx, files);
-        run("gzip -9 < " + srcPath + file + " > " + dest + file + ".gz");
-    }
+    md(where);
+    return where;
 }
 
 void install(string what, string where)
 {
-    string docdoc;
-    docdoc = DOC + "-doc";
+    string path;
 
     if (what == "program")
     {
-        printf("  installing the executable\n");
-        md(where + BIN);
-        run("cp tmp/bin/* " + where + BIN);
+        if (where == "")
+            where = BINARY;
 
-        printf("  installing the information directly in and under $DOC\n");
-        md(where + DOC);
-        reqzip(where + DOC + "/", "./", "changelog");
-        run("cp README ACKNOWLEDGEMENTS " + where + DOC);
+        path = get_path(where);
+        if (path != "")
+            md(path);
+
+        printf("  INSTALLING the executable `", where, "'\n");
+        run("icmbuild install program " + where);
+        exit(0);
     }
 
     if (what == "man")
     {
-        printf("  installing the manual page stealth.1\n");
-        md(where + MAN);
-        reqzip(where + MAN + "/", "tmp/man/", "stealth.1");
-    
-        printf("  installing the manual page stealthman.html\n");
-        md(where + DOC + "/man");
-        reqzip(where + DOC + "/man/", "tmp/manhtml/", "stealthman.html");
+        where = setWhere(where, MAN);
 
-        printf("  installing scripts\n");
-        md(where + DOC + "/scripts/etc/logrotate.d");
-        reqzip(where + DOC + "/scripts/etc/logrotate.d/", 
-                                        "share/etc/logrotate.d/", "target");
-
-        md(where + DOC + "/scripts/etc/stealth");
-        reqzip(where + DOC + "/scripts/etc/stealth/", "share/etc/stealth/", 
-                                                                "cleanup.rc");
-        md(where + DOC + "/scripts/usr/bin");
-        rungzip9("share/usr/bin/", where + DOC + "/scripts/usr/bin/");
+        printf("  INSTALLING the manual page at `", where, "'\n");
+        run("gzip -9 < tmp/man/" PROJECT ".1 > " + where + "/" PROJECT ".1.gz");
+        exit(0);
     }
 
     if (what == "manual")
     {
-        printf("  installing examples\n");
-        md(where + docdoc + "/examples");
-        rungzip9("example-policies/", where + docdoc + "/examples/");
+        where = setWhere(where, MANUAL);
 
-        printf("  installing manual\n");
-        run("cp -r tmp/manual " + where + docdoc);
+        printf("  INSTALLING the manual at `", where, "'\n");
+        run("cp -r tmp/manual " + where);
+        exit(0);
     }
 
-    printf("  " + what + " installation completed\n");
+    if (what == "std")
+    {
+        where = setWhere(where, STD);
+
+        printf("  INSTALLING the changelog at `", where, "\n");
+        run("gzip -9 < changelog > " + where + "/changelog.gz");
+    
+        printf("  INSTALLING the html-manual page at `", where, "'\n");
+        run("cp tmp/manhtml/" PROJECT "man.html " + where);
+
+        printf("  INSTALLING logrotate mold  as `", 
+                    where, "/scripts/etc/logrotate.d/target.gz'\n");
+        md(where + "/scripts/etc/logrotate.d");
+        run("gzip -9 < share/etc/logrotate.d/target > " + 
+                    where + "/scripts/etc/logrotate.d/target.gz");
+
+        printf("  INSTALLING cleanup script as `", 
+                    where, "/scripts/etc/stealth/cleanup.rc.gz'\n");
+        md(where + "/scripts/etc/stealth");
+        run("gzip -9 < share/etc/stealth/cleanup.rc > " + 
+                where + "/scripts/etc/stealth/cleanup.rc.gz");
+
+        printf("  INSTALLING additional scripts at `", 
+                        where, "/scripts/usr/bin'\n");
+        chdir("share/usr/bin");
+        md(where + "/scripts/usr/bin");
+        run("gzip -9 < stealthcleanup > " + 
+                where + "/scripts/usr/bin/stealthcleanup.gz");
+        run("gzip -9 < stealthcron > " + 
+                where + "/scripts/usr/bin/stealthcron.gz");
+        run("gzip -9 < stealthmail > " + 
+                where + "/scripts/usr/bin/stealthmail.gz");
+
+        exit(0);
+    }
+
+    if (what == "extra")
+    {
+        where = setWhere(where, EXTRA);
+
+        printf("  INSTALLING the changelog at `", where, "'\n");
+        run("gzip -9 < changelog > " + where + "/changelog.gz");
+
+        printf("  INSTALLING README and ACKNOWLEDGEMENTS at `", where, "\n");
+        run("cp README ACKNOWLEDGEMENTS " + where);
+ 
+        printf("  INSTALLING examples at `", where, "'\n");
+        md(where + "/examples");
+        chdir("example-policies");
+        run("gzip -9 < demo.pol > " + where + "/examples/demo.pol.gz");
+        run("gzip -9 < localhost.pol > " + 
+                where + "/../examples/localhost.pol.gz");
+        run("gzip -9 < simple.pol > " + where + "/examples/simple.pol.gz");
+    }
 
     exit(0);
 }
+
+
 
 

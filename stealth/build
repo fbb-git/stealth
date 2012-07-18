@@ -1,27 +1,23 @@
-#!/usr/bin/icmake -qt/tmp/stealth.ib
+#!/usr/bin/icmake -qt/tmp/bisonc++
 
-#include "INSTALL.im"
+#include "icmconf"
 
+#include "icmake/setopt"
 #include "icmake/run"
 #include "icmake/md"
-#include "icmake/getenv"
-#include "icmake/clean"
 #include "icmake/special"
+
+#include "icmake/clean"
 #include "icmake/manpage"
 #include "icmake/manual"
-#include "icmake/program"
 #include "icmake/install"
 
-void main(int argc, list argv, list envp)
+string  g_cwd = chdir("");  // initial working directory
+
+void main(int argc, list argv)
 {
     string option;
-
-    g_env = envp;
-
-    setLocations();     // from INSTALL.im
-
-    my_getenv("DRYRUN");
-    g_dryrun = g_envvar;
+    string strip;
 
     option = argv[1];
 
@@ -34,60 +30,66 @@ void main(int argc, list argv, list envp)
     if (option == "install")
         install(argv[2], argv[3]);
 
+    if (option != "")
+        special();
+
+    if (option == "sourceforge")
+        exit(0);
+
     if (option == "man")
         manpage();
 
     if (option == "manual")
         manual();
 
+    if (option == "library")
+    {
+        system("icmbuild library");
+        exit(0);
+    }
+
+    if (argv[2] == "strip")
+        strip = "strip";
+    
     if (option == "program")
     {
-        if (argv[2] == "strip")
-            g_strip = "-s";
-        program(1);
-    }
-
-    if (option == "xref")
-    {
-        if (argv[2] == "strip")
-            g_strip = "-s";
-        program(0);
-        run("oxref -fxs libstealth.a > stealth.xref");
+        system("icmbuild program " + strip);
         exit(0);
     }
 
-    if (option == "sourceforge")
+    if (option == "oxref")
     {
-        special();
+        system("icmbuild program " + strip);
+        run("oxref -fxs tmp/lib" LIBRARY ".a > " PROJECT ".xref");
         exit(0);
     }
 
-    printf("Usage: build what\n"
+    printf("Usage: build [-p] what\n"
         "Where `what' is one of:\n"
-        "   clean           - clean up remnants of previous compilations\n"
-        "   distclean       - clean + fully remove tmp/\n"
-        "   man             - build the man-page (requires Yodl)\n"
-        "   manual          - build the manual (requires Yodl)\n"
-        "   program [strip] - build stealth (optionally strip the "
-                                                            "executable)\n"
-        "   xref [strip]    - same as 'program', also builds xref file using "
-                                                            "oxref\n"
-        "   install program <base> - install the program in the locations "
-                                                        "defined\n"
-        "                        in the INSTALL.cf file, optionally "
-                                                            "below <base>\n"
-        "   install man <base> - install the man pages in the location "
-                                                        "defined\n"
-        "                        in the INSTALL.cf file, optionally "
-                                                            "below <base>\n"
-        "   install manual <base> - install the manual in the location "
-                                                        "defined\n"
-        "                        in the INSTALL.cf file, optionally "
-                                                            "below <base>\n"
-        "   sourceforge     - Prepare .yo files for a sourceforge index "
-                                                                "update\n"
+        "   clean                - clean up remnants of previous "
+                                                            "compilations\n"
+        "   distclean            - clean + fully remove tmp/\n"
+        "   library              - build " PROJECT "'s library\n"
+        "   man                  - build the man-page (requires Yodl)\n"
+        "   manual               - build the manual (requires Yodl)\n"
+        "   program [strip]      - build " PROJECT " (optionally strip the\n"
+        "                          executable)\n"
+        "   oxref [strip]        - same a `program', also builds xref file\n"
+        "                          using oxref\n"
+        "   install program [path] - install the program at `path'\n"
+        "                          (by default below `" PROJECT "')\n"
+        "   install man [base]   - install the man pages below `base'\n"
+        "                          (by default below `" MAN "')\n"
+        "   install manual [base]- install the manual below `base'\n"
+        "                          (by default below `" MANUAL "')\n"
+        "   install std [base]   - install standard docs below `base'\n"
+        "                          (by default below `" STD "')\n"
+        "   install extra [base] - install extra docs below `base'\n"
+        "   sourceforge          - prepare sourceforge's index update\n"
+        "\n"
         "If the environment variable DRYRUN is defined, no commands are\n"
         "actually executed\n"
+        "\n"
     );
     exit(1);
 }

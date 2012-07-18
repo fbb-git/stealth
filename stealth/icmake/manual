@@ -1,44 +1,45 @@
-#define YOSTAMP     "../../manual-yo-stamp"
-#define LATEXSTAMP  "manual-latex-stamp"
-#define HTMLDEST    "../../tmp/manual/html"
-#define LATEXDEST   "../../tmp/manual/LaTeX/stealth.latex"
-#define TXTMANUAL   "../../tmp/manual/text/stealth.txt"
-
 void manual()
 {
     list files;
     string file;
-    string cwd;
     int idx;
+    string compiler;
+
+    compiler = setOpt(CXX, "CXX");
 
     md("tmp/manual/LaTeX tmp/manual/html tmp/manual/pdf tmp/manual/ps "
        "tmp/manual/text");
 
-    special();
-
-    cwd = chdir(".");
-
-    chdir("manual/Yodl");
-
-    if (!exists("usagetxt") || "../../util/usage2.cc" younger "usagetxt")
+    if (!exists("tmp/usage.txt"))
     {
-        run("g++ --std=c++0x -o genusage usage.cc");
-        run("./genusage > usagetxt");
+        run(compiler + 
+            " --std=c++0x -o tmp/usage documentation/manual/usage.cc");
+        run("tmp/usage > tmp/usage.txt");
     }
 
-    files = makelist("*.yo") + makelist("*/*.yo");
+    chdir("documentation/manual");
+
+        // create the html version of the manual
+
+    files = makelist("*.yo") + makelist("*/*.yo");  
+
+    #define MANUALSTAMP   "../../tmp/manual-stamp"
     for (idx = sizeof(files); idx--; )
     {
         file = element(idx, files);
-        if (file younger YOSTAMP)
+        if (file younger MANUALSTAMP)
         {
-            run("yodl2html stealth.yo");
-            run("touch " YOSTAMP);
-            run("mv *.html " HTMLDEST);
+            run("yodl2html -l3 " PROJECT ".yo");
+            run("touch " MANUALSTAMP);
+            run("mv *.html ../../tmp/manual/html");
+
             break;
         }
     }
 
+        // create the txt version of the manual
+
+    #define TXTMANUAL   "../../tmp/manual/text/stealth.txt"
     for (idx = sizeof(files); idx--; )
     {
         file = element(idx, files);
@@ -49,30 +50,26 @@ void manual()
         }
     }
 
-    chdir(cwd);
+
+        // create the LaTex and derived versions of the manual
+
+    #define LATEXSTAMP  "../../tmp/manual-latex-stamp"
+    #define LATEXDEST   "../../tmp/manual/LaTeX/stealth.latex"
 
     if (! exists(LATEXSTAMP))
     {
-        chdir("manual/Yodl");
         run("yodl2latex -o " LATEXDEST " stealth.yo");
 
-        chdir(cwd + "/tmp/manual/LaTeX");
+        chdir("../../tmp/manual/LaTeX");
         runP(P_NOCHECK, "latex stealth.latex");
         runP(P_NOCHECK, "latex stealth.latex");
         run("latex stealth.latex");
-        chdir(cwd);
-        run("touch " LATEXSTAMP);
+        run("touch ../" LATEXSTAMP);
     }
-
-    chdir(cwd + "/tmp/manual/LaTeX");
-    if ("stealth.dvi" newer "../ps/stealth.ps")
-        run("dvips -o ../ps/stealth.ps stealth.dvi");
-
-    chdir(cwd + "/tmp/manual/ps");
-    if ("stealth.ps" newer "../pdf/stealth.pdf")
-        run("ps2pdf stealth.ps ../pdf/stealth.pdf");
 
     exit(0);
 }
+
+
 
 

@@ -1,9 +1,25 @@
-ISN: stealth (2.10.00)   
+stealth (2.10.01)   
+
+  * The following #defines in INSTALL.im can be overruled by defining
+    identically named environment variables: 
+        CXX      defines the name of the compiler to use. By default `g++'
+        CXXFLAGS the options passed to the compiler. 
+                 By default `-Wall --std=c++0x -O2 -g'
+        LDFLAGS  the options passed to the linker. By default no options are
+                 passed to the linker.
+
+  * Documentation files are now under ./documentation
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 17 Jul 2012 16:22:02 +0200
+
+stealth (2.10.00)   
 
   * --reload pidfile reloads the configuration files
 
   * When specifying a directory with --skipfiles all entries below that
     directory are skipped.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 16 Jun 2012 15:03:36 +0200
 
 stealth (2.04.00)
   

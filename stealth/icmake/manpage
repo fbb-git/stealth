@@ -1,18 +1,15 @@
-#define MANPAGE "../tmp/man/stealth.1"
-#define MANHTML "../tmp/manhtml/stealthman.html"
+#define MANPAGE "../../tmp/man/" ${PROJECT} ".1"
 
 void manpage()
 {
     md("tmp/man tmp/manhtml");
 
-    special();
+    chdir("documentation/man");
 
-    chdir("manpage");
-
-    if ("stealth.yo" younger MANPAGE || "release.yo" younger MANPAGE)
+    if (PROJECT ".yo" younger MANPAGE || "release.yo" younger MANPAGE)
     {
-        run("yodl2man  -o " MANPAGE " stealth");
-        run("yodl2html  -o " MANHTML " stealth");
+        run("yodl2man  -o " MANPAGE " "  PROJECT);
+        run("yodl2html  -o ../../tmp/manhtml/" PROJECT "man.html " PROJECT);
     }
     exit(0);
 }
