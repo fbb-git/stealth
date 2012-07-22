@@ -67,13 +67,12 @@ void install(string what, string where)
 
         printf("  INSTALLING additional scripts at `", 
                         where, "/scripts/usr/bin'\n");
-        chdir("share/usr/bin");
         md(where + "/scripts/usr/bin");
-        run("gzip -9 < stealthcleanup > " + 
+        run("gzip -9 < share/usr/bin/stealthcleanup > " + 
                 where + "/scripts/usr/bin/stealthcleanup.gz");
-        run("gzip -9 < stealthcron > " + 
+        run("gzip -9 < share/usr/bin/stealthcron > " + 
                 where + "/scripts/usr/bin/stealthcron.gz");
-        run("gzip -9 < stealthmail > " + 
+        run("gzip -9 < share/usr/bin/stealthmail > " + 
                 where + "/scripts/usr/bin/stealthmail.gz");
 
         exit(0);
@@ -91,11 +90,12 @@ void install(string what, string where)
  
         printf("  INSTALLING examples at `", where, "'\n");
         md(where + "/examples");
-        chdir("example-policies");
-        run("gzip -9 < demo.pol > " + where + "/examples/demo.pol.gz");
-        run("gzip -9 < localhost.pol > " + 
-                where + "/../examples/localhost.pol.gz");
-        run("gzip -9 < simple.pol > " + where + "/examples/simple.pol.gz");
+        run("gzip -9 < documentation/example-policies/demo.pol > " + 
+                                        where + "/examples/demo.pol.gz");
+        run("gzip -9 < documentation/example-policies/localhost.pol > " + 
+                                        where + "/examples/localhost.pol.gz");
+        run("gzip -9 < documentation/example-policies/simple.pol > " + 
+                                        where + "/examples/simple.pol.gz");
     }
 
     exit(0);
