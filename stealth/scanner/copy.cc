@@ -13,6 +13,8 @@ void Scanner::copy(Process &src, string const &fname)
 
     string line;
     off_t length = 0;
+
+        // `line' is the line as produced by the executed command
     while (getline(src, line))
     {
         if (!checkSize(fname, length += line.length() + 1))
@@ -26,12 +28,12 @@ void Scanner::copy(Process &src, string const &fname)
             break;
         }
 
-        s_split << line;                    // get the last word on this line
-        string last = s_split[1];
+        string path = getPath(line);    // extract the path from the line
 
-        if (not (this->*d_skip)(last))
-            currentReport << line << '\n';
+        if (not (this->*d_skip)(path))      // write `line' to the report, 
+            currentReport << line << '\n';  // unless it can be skipped
     }
+
     testExitValue(src.str(), line);
 }
 

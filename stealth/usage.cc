@@ -53,7 +53,7 @@ void usage(std::string const &progname)
         "\n"
         "Usage 2:\n"
         "   " << progname << 
-            " [--reload|--rerun|--resume|--suppress|--terminate] pidfile\n"
+            " {--reload,--rerun,--resume,--suppress,--terminate} pidfile\n"
         "Where:\n"
         "   --reload: reload a " << progname << " process's configuration "
                                                                     "files\n"

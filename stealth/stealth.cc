@@ -69,7 +69,7 @@ catch (exception const &ex)
 }
 catch (int ret)
 {
-    return ret;
+    return Arg::instance().option("hv") ? 0 : ret;
 }
 catch (...)
 {
@@ -81,9 +81,3 @@ catch (...)
 
     return 1;
 }
-
-
-
-
-
-

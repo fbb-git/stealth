@@ -44,6 +44,14 @@ integrity check to a newly created logfile.
     USE DIFF /usr/bin/diff
         )
     
+    it() bf(USE DIFFPREFIX) tt(<prefix>)nl()
+        The bf(DIFFPREFIX) specification defines the size of the prefix added
+by the tt(DIFF) command to lines produced by commands executed through s().
+The default tt(/usr/bin/diff) program prefixes lines by either `tt(> )' or
+`tt(< )'. The default value for tt(<prefix>) is therefore equal to 2.nl()
+    Example showing the default:nl()
+    tt(USE DIFFPREFIX 2)
+
     it() bf(USE EMAIL) tt(address)
 
         The bf(EMAIL) specification defines the email-address to e-mail the

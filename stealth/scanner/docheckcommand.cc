@@ -10,15 +10,27 @@ bool Scanner::doCHECKcommand(Process &child)
     s_firstWord.match(s_firstWord[3]);  // redefine s_firstWord: 1st word
                                         // removed 
 
-    imsg << "running checked command: `" << s_firstWord[0] << '\'' << endl;
+    if (not isdigit(s_firstWord[1][0]))
+        d_pathOffset = numeric_limits<size_t>::max();
+    else
+    {
+        d_pathOffset = A2x(s_firstWord[1]);
+        s_firstWord.match(s_firstWord[3]);
+    }
+
+    imsg << "running checked command: ";
+
+    if (d_pathOffset != numeric_limits<size_t>::max())
+        imsg << "(pathOffset = " << d_pathOffset << ") ";
+
+    imsg << '`' << s_firstWord[0] << '\'' << endl;
 
     if (d_arg.option('n'))              // -n (no go) option?
         return true;                    // then indicate by implication that
                                         // the command was processed without
                                         // differing from the previous run
 
-    nextCommand(child,                  // otherwise run the command
-                    s_firstWord[0]);
+    nextCommand(child, s_firstWord[0]); // otherwise run the command
 
     child << flush;
                                         // and return whether there are any

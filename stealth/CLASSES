@@ -1,6 +1,7 @@
 util 
-configsorter 
-reporter
-scanner
-monitor
 lock
+configsorter    util 
+reporter        lock
+scanner         configsorter reporter
+monitor         scanner
+

@@ -17,7 +17,7 @@ manpagesynopsis()
         s()  -dcnoq -i <interval> -r <nr> -s skip-files nl()
             [--max-size <size>[BKMG] ] nl()
             [--keep-alive pidfile [--repeat <seconds> ] ]  policy nl()
-        s()  [--rerun | --resume | --suppress | --terminate] pidfile
+        s()  {--reload,--rerun,--resume,--suppress,--terminate} pidfile
 
 manpagedescription()
 
@@ -25,14 +25,15 @@ manpagedescription()
     quote(
     bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
     )
-    s() is based on an idea by em(Hans Gankema) and em(Kees Visser), both
-at the Center for Information Technology of the University of Groningen. em(Hopko Meijering)
-provided valuable suggestions for improvement.
+    s() is based on an idea by em(Hans Gankema) and em(Kees Visser), both at
+the Center for Information Technology of the University of Groningen. em(Hopko
+Meijering) provided valuable suggestions for improvement.
 
     s()'s main task is to perform file integrity tests. However, the
 testing itself will leave no sediments on the tested computer. Therefore,
 s() has em(stealthy) characteristics. This is considered an
-important security improving feature.
+important feature, improving the security (integrity) of the software of
+computers monitored by s().
 
     On the other hand, one should realize that s() intends to be just
 another security tool: other security measures like firewalls, portscanners,
@@ -108,7 +109,7 @@ that no mail is sent when no changes were detected.
     it() When the tt(--repeat) or tt(--rerun) options are issued, the report
 file should not be rotated by, e.g., a log-rotating process, but the report
 file may safely be rotated between a pair of tt(--suppress) and tt(--resume)
-commands.
+commands. 
     )
 
 manpagesection(REPORT FILE ROTATION)
@@ -138,11 +139,31 @@ further scans:
             integrity scanning mode (so, resuming repeated scans if
             originally requested so).
     )
+    Here is an example of bf(logrotate)(1) specification rotating s()
+log-files:
+        verb(
+/root/stealth/host/report {
+    weekly
+    rotate 12
+    compress
+    missingok
+    prerotate
+        /usr/bin/stealth --suppress /run/stealth.host
+    endscript
+    postrotate
+        /usr/bin/stealth --resume /run/stealth.host
+    endscript 
+}
+        )
 
-manpagesection(RERUN AND TERMINATE)
+manpagesection(RELOAD, RERUN AND TERMINATE)
 
     Here is what happens when s() is run using other synopses:
     itemization(
+    it() When started using the tt(--reload pidfile) command-line option,
+the s() process reloads its configuration files (policy file and
+tt(--skip-files) specification file, if specified, immediately followed by a
+s() run, using the information in the reloaded files.
     it() When started using the tt(--rerun pidfile) command-line option, the
 s() process associated with process id file tt(pidfile) will perform
 another scan. This command has no effect following a tt(--suppress) command.
@@ -210,6 +231,14 @@ bf(diff)(1) program is used to compare a formerly created logfile of an
 integrity check with a newly created logfile.nl()
     Example showing the default:nl()
     tt(USE DIFF /usr/bin/diff)
+
+    it() bf(USE DIFFPREFIX) tt(<prefix>)nl()
+        The bf(DIFFPREFIX) specification defines the size of the prefix added
+by the tt(DIFF) command to lines produced by commands executed through s().
+The default tt(/usr/bin/diff) program prefixes lines by either `tt(> )' or
+`tt(< )'. The default value for tt(<prefix>) is therefore equal to 2.nl()
+    Example showing the default:nl()
+    tt(USE DIFFPREFIX 2)
 
     it() bf(USE EMAIL) tt(<address>)nl()
         The bf(EMAIL) specification defines the email-address to receive the
@@ -350,14 +379,37 @@ shell. The command may or may not succeed.nl()
 will fail if the directory cannot be created, but this will not terminate
 s().
 
-    it() bf(LOCAL CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
+    it() bf(LOCAL CHECK) [bf(LOG =)] tt(<logfile> [pathOffset] <command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
 shell. The command must succeed. The output of this command is compared to the
-output of this command generated during the previous run of s(). The
-phrase bf(LOG =) is optional. Any differences are written to bf(REPORT). If
-differences were found, the existing tt(logfile) name is renamed to
-tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the datetime-stamp at the
-time s() was run.
+output of this command generated during the previous run of s(). The phrase
+bf(LOG =) is optional. The tt([pathOffset]) is also optional. If specified it
+defines the (0-based) offset where path-names of inspected files start in
+lines produced by tt(<command>). By default s() assumes that the
+first occurrence of a forward slash defines the first character of the
+path-names of inspected files. 
+
+    For example, if diff-output looks like this:
+        verb(
+    01234567890123456789012345678901234567890 (column offsets)
+    33c33
+    < 90d8b506d249634c4ff80b9018644567  filename-specification
+    ---
+    > b88d0b77db74cc4a742d7bc26cdd2a1e  filename-specification
+        )
+    then the specification
+        verb(
+    LOCAL CHECK logfile 36 command-to-be-executed
+        )
+    informs s() where to find the filename specifications in the
+diff-output. Using the standard tt(/usr/bin/diff) command, this offset equals
+2 + the offset of the tt(filename-specification) found in
+tt(command-to-be-executed). 
+
+Any differences between the previous and current output are written to
+bf(REPORT). If differences were found, the existing tt(logfile) name is
+renamed to tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the
+datetime-stamp at the time s() was run.
 
     Note that eventually many tt(logfile.YYMMDD-HHMMSS) files could be
 created: It is up to the controller's systems manager to decide what to do
@@ -374,10 +426,10 @@ are created first.
 resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
 succeed (i.e., tt(sha1sum) must return a zero exit-value).
 
-    it() bf(LOCAL NOTEST CHECK) tt(<logfile> <command>)nl()
+    it() bf(LOCAL NOTEST CHECK) tt(<logfile>  [pathOffset] <command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
-shell. The command may or may not succeed. Otherwise, the program acts
-identically as the bf(LOCAL CHECK ...) command, discussed previously.
+shell. The command may or may not succeed. Otherwise, the command performs
+exactly like the bf(LOCAL CHECK ...) command, discussed above.
 
     Example:nl()
     tt(LOCAL NOTEST CHECK LOG=local/sha1sum sha1sum /tmp/sha1sum)nl()
@@ -504,14 +556,15 @@ shell. The command may or may not succeed.nl()
     Same as the previous command, but this time the exit value of
 tt(/usr/bin/find) is not interpreted.
 
-    it() bf(CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
+    it() bf(CHECK) [bf(LOG =)] tt(<logfile>  [pathOffset] <command>)nl()
         Execute tt(command) on the client, using the bf(SSH) command
-shell. The phrase bf(LOG = ) is optional. The command must succeed. The output
-of this command is compared to the output of this command generated during the
-previous run of s(). Any differences are written to bf(REPORT). If
-differences were found, the existing tt(logfile) name is renamed to
-tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the datetime-stamp at the
-time s() was run.
+shell. The phrase bf(LOG = ) is optional. The tt([pathOffset]) specification
+is also optional, and has the same meaning as for the tt(LOCAL CHECK) command,
+described above. The command must succeed. The output of this command is
+compared to the output of this command generated during the previous run of
+s(). Any differences are written to bf(REPORT). If differences were found, the
+existing tt(logfile) name is renamed to tt(logfile.YYMMDD-HHMMSS), with
+tt(YYMMDD-HHMMSS) the datetime-stamp at the time s() was run.
 
     Note that the command is executed on the client, but the logfile is kept
 on the controller. This command represents the core of the method implemented
@@ -539,11 +592,12 @@ tt(    -xdev -perm +6111 -type f -exec /usr/bin/sha1sum {} \;)
 the root-directory (/) on the client computer are determined.  The resulting
 listing is written on the file bf(BASE)tt(/remote/sha1.root).
 
-    it() bf(NOTEST CHECK) [bf(LOG =)] tt(<logfile> <command>)nl()
+    it() bf(NOTEST CHECK) [bf(LOG =)] tt(<logfile> [pathOffset] <command>)nl()
         Execute tt(command) on the client, using the bf(SSH) command
-shell. The phrase bf(LOG =) is optional. The command may or may not
-succeed. Otherwise, the program acts identically as the bf(CHECK ...) command,
-discussed previously.
+shell. The phrase bf(LOG =) is optional. The tt([pathOffset]) is also
+optional, and has the same meaning as for the tt(LOCAL CHECK) command,
+described above. The command may or may not succeed. Otherwise, the program
+acts identically as the bf(CHECK ...) command, described above.
 
     Example:nl()
 tt(NOTEST CHECK LOG = remote/sha1.root \)nl()
@@ -589,7 +643,7 @@ equivalents, if available. Either can be used.
     it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
             Command numbers are shown by s() tt(-c);
     it() tt(-s --skip-files <skippath>): All entries in tt(skippath)
-(specified using an absolute path) are skipped. Their integrity is not
+(specified using an em(absolute path)) are skipped. Their integrity is not
 monitored. If an entry is already present in a log file then s() will once
 generate an tt(IGNORING) message in the mail sent to the address specified at
 tt(EMAIL) in the policy file. Each entry mentioned in tt(filepath) must be on a
@@ -597,7 +651,7 @@ line of its own and must be specified using absolute paths. Entries ending in
 a slash are assumed to be directories whose contents must be skipped. Other
 entries are interpreted as the path names of files to skip. Initial and
 trailing blanks, empty lines and lines having a tt(#) as their 1st non blank
-character are ignored. If the
+character are ignored.
     it() tt(-v --version): Display version information and exit;
     it() tt(--keep-alive pidfile): Keep running as a daemon, 
             wake up at interrupts. 
@@ -654,7 +708,7 @@ manpageseealso()
     bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
 
 manpagesection(DIAGNOSTICS)
-       By default, the executed commands are echoed to stderr. Use bf(-q) to
+       By default, executed commands are echoed to stderr. Use bf(-q) to
 suppress this echoing.
 
 manpagebugs()

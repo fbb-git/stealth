@@ -37,12 +37,16 @@ class Scanner
     bool            d_quit;
     StringVector    d_skipFiles;
     std::string     d_skipFilePath;
+    size_t          d_diffPrefix;
+    size_t          d_pathOffset;       // begin of the abs path if not
+                                        // at the first / on a line
+                                        // This may be used with CHECK
+
                                         // the abs path is at the end of 
                                         // the line. Any text may precede
                                         // it
     bool (Scanner::*d_skip)(std::string &absPath);
 
-    static FBB::Pattern  s_split;
     static FBB::Pattern  s_firstWord;
     static FBB::Pattern  s_exitValue;
 
@@ -85,6 +89,11 @@ class Scanner
 
                                     // get a remote file
         void        get(std::string const &command);
+
+                                    // get the trimmed path name from the 
+                                    // output of a CHECK or comparable command
+                                    // (empty if no path on orgLine)
+        std::string getPath(std::string const &orgLine) const;
 
                                     // execute a local command
         void        local(std::string const &command);
@@ -145,6 +154,8 @@ class Scanner
 
                                     // true if filename not in d_skipFiles
         bool        skip(std::string &line);
+        bool        skipDecision(std::string &line, 
+                                 std::string const &skipLine) const;
 
                                     // always indicates "don't skip"
         bool        dontSkip(std::string &line);

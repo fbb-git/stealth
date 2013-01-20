@@ -1,3 +1,25 @@
+stealth (2.11.00)   
+
+  * The policy file may contain a USE DIFFPREFIX specification specifying the
+    number of characters the diff command adds to lines produced by, e.g.,
+    CHECK commands.
+
+  * Path locations in the output of program are by default recognized by the
+    first forward-slash found in output lines. CHECK commands now also support
+    a column offset specifying the offset where path locations start. This
+    allows commands to write slashes before path specifications.
+
+  * Filenames may contain blanks. A path specification in output of programs
+    begins at the first forward slash or at the line offset defines with a
+    CHECK command, and continues until the last non-blank character on lines.
+
+  * Stealth now returns 0 when options --version and/or --help are specified.
+
+  * Some icmake specific changes: CLASSES defines the class dependencies; and
+    icmconf specifies #define USE_ALL "a"
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 20 Jan 2013 16:40:53 +0100
+
 stealth (2.10.01)   
 
   * The following #defines in INSTALL.im can be overruled by defining

@@ -74,8 +74,6 @@ bf(stealth) process started earlier using either the tt(--keep-alive) or
 tt(--repeat) option. For these options one argument must be provided: the
 pathname to a pid-file of a running s(). 
     itemization(
-    it() When started using the tt(--terminate <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) is terminated. 
     it() When started using the tt(--reload <pid>) command-line option, the
 stealth process running at process-ID tt(<pid>) will reload its configuration
 and skip-files, which is then immediately followed by  another stealth 
@@ -83,6 +81,8 @@ scan.
     it() When started using the tt(--rerun <pid>) command-line option, the
 stealth process running at process-ID tt(<pid>) will perform another
 scan. 
+    it() When started using the tt(--terminate <pid>) command-line option, the
+stealth process running at process-ID tt(<pid>) is terminated. 
     )
 
     The options tt(--suppress) and tt(--rerun) (see section ref(ROTATE)) were

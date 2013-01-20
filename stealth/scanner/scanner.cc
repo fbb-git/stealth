@@ -32,9 +32,13 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
     d_nScans(0),
     d_maxSize(10 * 1024 * 1024),
     d_maxSizeStr("10M"),
-    d_quit(false)
+    d_quit(false),
+    d_diffPrefix(A2x(d_sorter["DIFFPREFIX"])),
+    d_pathOffset(numeric_limits<size_t>::max())
 {
     setSentinel();
+
+    imsg << "DIFFPREFIX set to " << d_diffPrefix << endl;
 
     d_arg.option(&d_skipFilePath, 's');
 

@@ -52,11 +52,11 @@ bool Scanner::noDifferences(std::string const &current,
     imsg << "Scanner::noDifferences(): starting to read lines" << endl;
 
     // get lines from diff, lines like:
-	//    
-	//    33c33
-	//    < 90d8b506d249634c4ff80b9018644567  out
-	//    ---
-	//    > b88d0b77db74cc4a742d7bc26cdd2a1e  out
+    //    
+    //    33c33
+    //    < 90d8b506d249634c4ff80b9018644567  out
+    //    ---
+    //    > b88d0b77db74cc4a742d7bc26cdd2a1e  out
 
     while (getline(d_shFork, line))
     {
@@ -66,31 +66,28 @@ bool Scanner::noDifferences(std::string const &current,
         if (line == d_sentinel)            // done at the sentinel
             break;
 
-        if (not (s_split << line))         // at empty lines proceed to the
-            continue;                      // next line
+                                        // get the target (path) from the line
+                                        // (ignoring the diff-prefix)
+        string path = getPath(line.substr(d_diffPrefix));
 
-        string lastWord = s_split[1];       // get the last word on lines
-            // the last word may be an element of a directory to skip or
-            // not. If it is an element of a directory to skip, then the
-            // filename part of lastWord kan be removed.
 
             // find out whether we have to skip this entry or not. If so
-            // remove the filename from lastWord:
-        bool skipEntry = (this->*d_skip)(lastWord);
+            // remove the filename from orgLine:
+        bool skipEntry = (this->*d_skip)(path);
             
             // now we'll process skipped elements by their path-name
             // and other elements remain as-is
-        bool exists = status.count(lastWord);    
+        bool exists = status.count(path);    
 
         if (line[0] == '<')
-                status[lastWord].first = exists ? "MODIFIED" : "ADDED";
+                status[path].first = exists ? "MODIFIED" : "ADDED";
         else if (line[0] == '>')   // removal or skip, e.g.,   > b88d0b....  out
-            status[lastWord].first = skipEntry ? "SKIPPING" :
+            status[path].first = skipEntry ? "SKIPPING" :
                                         exists ? "MODIFIED" : "REMOVED";
         else
             continue;
 
-        status[lastWord].second.push_back(line);
+        status[path].second.push_back(line);
     }
 
     if (!status.size())                 // no elements ?

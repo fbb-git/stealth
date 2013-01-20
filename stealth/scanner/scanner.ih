@@ -6,6 +6,7 @@
 #include <signal.h>
 #include <iterator>
 #include <algorithm>
+#include <limits>
 
 #include <bobcat/a2x>
 #include <bobcat/arg>
