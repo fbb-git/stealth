@@ -162,7 +162,7 @@ manpagesection(RELOAD, RERUN AND TERMINATE)
     itemization(
     it() When started using the tt(--reload pidfile) command-line option,
 the s() process reloads its configuration files (policy file and
-tt(--skip-files) specification file, if specified, immediately followed by a
+tt(--skip-files) specification file, if specified), immediately followed by a
 s() run, using the information in the reloaded files.
     it() When started using the tt(--rerun pidfile) command-line option, the
 s() process associated with process id file tt(pidfile) will perform
