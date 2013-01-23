@@ -65,6 +65,13 @@ void manual()
         runP(P_NOCHECK, "latex stealth.latex");
         run("latex stealth.latex");
         run("touch ../" LATEXSTAMP);
+
+        if ("stealth.dvi" newer "../ps/stealth.ps")
+            run("dvips -o ../ps/stealth.ps stealth.dvi");
+
+        chdir("../ps");
+        if ("stealth.ps" newer "../pdf/stealth.pdf")
+            run("ps2pdf stealth.ps ../pdf/stealth.pdf");
     }
 
     exit(0);

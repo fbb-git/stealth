@@ -1,3 +1,11 @@
+stealth (2.11.01)
+
+  * Construction of ps and pdf versions of the stealth manual was accidenally
+    dropped in releases after 2.10.00. The ps and pdf versions are now
+    available again.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 23 Jan 2013 10:20:20 +0100
+
 stealth (2.11.00)   
 
   * The policy file may contain a USE DIFFPREFIX specification specifying the
