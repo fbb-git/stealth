@@ -1,3 +1,12 @@
+stealth (2.11.02)
+
+  * Stealth returns 0 for options --help and --version
+
+  * Catching Errno exceptions is replaced by catching std::exception
+    exceptions 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 25 Jan 2013 11:15:36 +0100
+
 stealth (2.11.01)
 
   * Construction of ps and pdf versions of the stealth manual was accidenally

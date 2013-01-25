@@ -51,20 +51,9 @@ try
     monitor.control();              // control the scanning process,
                                     // run all the Scanner's tests
 }
-catch (Errno const &err)
+catch (exception const &err)
 {
-    if (err.which())
-        cerr << err.why() << '\n';
-    return err.which();
-}
-catch (exception const &ex)
-{
-    cerr << "\n"
-            "Stealth terminated with an exception `" << ex.what() << "'\n" <<
-            "This should not have happened, please report this error and the "
-                                                            "circumstances\n" 
-            "causing it to Stealth's author\n";
-
+    cerr << err.what() << '\n';
     return 1;
 }
 catch (int ret)

@@ -42,9 +42,9 @@ int main(int argc, char **argv, char **envp)
 
         return 0;
     }
-    catch(Errno &e)
+    catch(exception const &e)
     {
-        cerr << "Exception " << e.why() << "\n";
+        cerr << "Exception " << e.what() << "\n";
         return 1;
     }
 }
