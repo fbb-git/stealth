@@ -576,7 +576,7 @@ characters):
 
 tt(CHECK LOG = remote/ls.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm +6111 -type f -exec /bin/ls -l {} \;)
+tt(    -xdev -perm /6111 -type f -exec /bin/ls -l {} \;)
 
     All suid/gid/executable files on the same device as the root-directory (/)
 on the client computer are listed with their permissions, owner and size
@@ -586,7 +586,7 @@ bf(BASE)tt(/remote/ls.root).
 
 tt(CHECK remote/sha1.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm +6111 -type f -exec /usr/bin/sha1sum {} \;)
+tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha1sum {} \;)
 
     The SHA1 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
@@ -602,7 +602,7 @@ acts identically as the bf(CHECK ...) command, described above.
     Example:nl()
 tt(NOTEST CHECK LOG = remote/sha1.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm +6111 -type f -exec /usr/bin/sha1sum {} \;)
+tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha1sum {} \;)
 
 
     The SHA1 checksums of all suid/gid/executable files on the same device as

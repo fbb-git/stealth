@@ -291,7 +291,7 @@ characters):
     COMMENT(CAREFUL: EXTRA BLANK REQUIRD IN THE YODL FILE BEHIND \ )
         verb(
     CHECK LOG = remote/ls.root  /usr/bin/find / \ 
-            -xdev -perm +6111 -type f -exec /bin/ls -l {} \;
+            -xdev -perm /6111 -type f -exec /bin/ls -l {} \;
         )
     All suid/gid/executable files on the same device as the root-directory (/)
 on the client computer are listed with their permissions, owner and size
@@ -300,13 +300,13 @@ bf(BASE)tt(/remote/ls.root).
 
     This long command could be formulated shorter using a tt(DEFINE):
         verb(
-    DEFINE LSFIND   -xdev -perm +6111 -type f -exec /bin/ls -l {} \;
+    DEFINE LSFIND   -xdev -perm /6111 -type f -exec /bin/ls -l {} \;
     CHECK remote/ls.root  /usr/bin/find / ${LSFIND}
         )
 
     Another example:
         verb(
-    DEFINE SHA1SUM -xdev -perm +6111 -type f -exec /usr/bin/sha1sum {} \;
+    DEFINE SHA1SUM -xdev -perm /6111 -type f -exec /usr/bin/sha1sum {} \;
     CHECK remote/sha1.root /usr/bin/find / ${SHA1SUM}
         )
     The SHA1 checksums of all suid/gid/executable files on the same device as

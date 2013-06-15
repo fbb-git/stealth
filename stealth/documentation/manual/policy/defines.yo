@@ -29,7 +29,7 @@ the tt(USE) directive or tt(command).
     Example:
         verb(
     DEFINE  SSH         /usr/bin/ssh frankbash@localhost -q
-    DEFINE  EXECSHA1     -xdev -perm +111  -type f -exec /usr/bin/sha1sum {} \;
+    DEFINE  EXECSHA1     -xdev -perm /111  -type f -exec /usr/bin/sha1sum {} \;
         )
     The symbols  defined by tt(DEFINE) directives may consist of
 letters, digits and the underscore character (tt(_)). 

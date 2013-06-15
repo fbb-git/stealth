@@ -22,7 +22,7 @@ readability):
             -exec /usr/bin/sha1sum {} \;
     LABEL \nconfiguration files under /etc
     CHECK LOG = remote/etcfiles                         /usr/bin/find /etc 
-            -type f -not -perm +6111   -not -regex "/etc/\(adjtime\|mtab\)"
+            -type f -not -perm /6111   -not -regex "/etc/\(adjtime\|mtab\)"
             -exec /usr/bin/sha1sum {} \;
     LOCAL /usr/bin/scp -q root@client:/usr/bin/sha1sum /root/tmp
     LABEL \nCheck the client's sha1sum program
@@ -35,7 +35,7 @@ readability):
             -exec /usr/bin/sha1sum {} \;
     LABEL \nconfiguration files under /etc
     CHECK LOG = remote/etcfiles                        /usr/bin/find /etc 
-            -type f -not -perm +6111   -not -regex "/etc/\(adjtime\|mtab\)"
+            -type f -not -perm /6111   -not -regex "/etc/\(adjtime\|mtab\)"
             -exec /usr/bin/sha1sum {} \;
     )
 

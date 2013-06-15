@@ -1,3 +1,10 @@
+stealth (2.11.03)
+
+  * In Stealth's man-page and manual -perm -xxxx was replaced by -perm /xxxx,
+    as per the POSIX standard.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 15 Jun 2013 14:34:42 +0200
+
 stealth (2.11.02)
 
   * Stealth returns 0 for options --help and --version
