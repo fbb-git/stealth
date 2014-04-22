@@ -12,11 +12,10 @@ void Scanner::run(volatile bool *quit)
                                                 // add values to it, below.
     string cmdNr;
 
-    if (d_arg.option(&cmdNr, 'r'))          // is there  a command number?
+    if (d_arg.option(&cmdNr, 'r'))              // is there  a command number?
     {
                                                 // if so, add its number to
-                                                // d_cmdIterator    
-        d_cmdIterator += A2x(cmdNr).to<int>() - 1;
+        d_cmdIterator += stol(cmdNr) - 1;       // d_cmdIterator    
 
         execute(*d_cmdIterator);                // and execute that command
     }
@@ -26,7 +25,7 @@ void Scanner::run(volatile bool *quit)
         (
             vector<string>::const_iterator beyond = d_sorter.beyondCmd();
                 d_cmdIterator != beyond;
-                    d_cmdIterator++
+                    ++d_cmdIterator
         )
         {
             if (d_quit)

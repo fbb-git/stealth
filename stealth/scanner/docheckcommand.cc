@@ -14,7 +14,7 @@ bool Scanner::doCHECKcommand(Process &child)
         d_pathOffset = numeric_limits<size_t>::max();
     else
     {
-        d_pathOffset = A2x(s_firstWord[1]);
+        d_pathOffset = stoul(s_firstWord[1]);
         s_firstWord.match(s_firstWord[3]);
     }
 

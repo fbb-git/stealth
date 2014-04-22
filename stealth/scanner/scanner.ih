@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <limits>
 
-#include <bobcat/a2x>
 #include <bobcat/arg>
 #include <bobcat/pattern>
 #include <bobcat/hash>

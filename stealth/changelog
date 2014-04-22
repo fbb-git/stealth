@@ -1,3 +1,10 @@
+stealth (2.11.04)
+
+  * Fixed a compilation error with clang, reported by Nicolas
+    Sevelin-Radiguet. 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 22 Apr 2014 22:55:27 +0200
+
 stealth (2.11.03)
 
   * In Stealth's man-page and manual -perm -xxxx was replaced by -perm /xxxx,
