@@ -19,7 +19,7 @@ class Reporter;
 class Scanner
 {
     typedef std::vector<std::string>     StringVector;
-    typedef StringVector::const_-iterator const_iterator;
+    typedef StringVector::const_iterator const_iterator;
 
     FBB::Arg       &d_arg;
     ConfigSorter   &d_sorter;

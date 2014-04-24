@@ -16,6 +16,7 @@
 #include <bobcat/datetime>
 #include <bobcat/string>
 #include <bobcat/stringline>
+#include <bobcat/exception>
 
 #include "../util/util.h"
 #include "../configsorter/configsorter.h"

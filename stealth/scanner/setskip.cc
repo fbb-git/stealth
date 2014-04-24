@@ -3,7 +3,7 @@
 void Scanner::setSkip()
 {
     ifstream in;
-    Errno::open(in, d_skipFilePath);
+    Exception::open(in, d_skipFilePath);
 
     for_each(
         istream_iterator<StringLine>(in), istream_iterator<StringLine>(), 

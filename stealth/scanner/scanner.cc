@@ -46,7 +46,7 @@ Scanner::Scanner(ConfigSorter &sorter, Reporter &reporter)
 
     if (d_arg.option(&d_maxSizeStr, "max-size"))
     {
-        d_maxSize = A2x(d_maxSizeStr);
+        d_maxSize = stoull(d_maxSizeStr);
         switch(d_maxSizeStr.find_first_not_of("0123456789"))
         {
             case 'G':
