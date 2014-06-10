@@ -1,3 +1,13 @@
+stealth (2.12.00)
+
+  * Fixed a bug preventing stealth runs to end when a command returns a
+    non-zero exit value
+
+  * Replaced obsolete Errno calls by Exception calls
+
+
+
+
 stealth (2.11.04)
 
   * Fixed a compilation error with clang, reported by Nicolas

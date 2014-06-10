@@ -49,11 +49,3 @@ void Scanner::get(string const &cmd)
 
     imsg << "Scanner::get(): " << cmd << " DONE" << endl;
 }
-
-
-
-
-
-
-
-

@@ -7,7 +7,7 @@
 #include <bobcat/arg>
 #include <bobcat/process>
 #include <bobcat/mstream>
-#include <bobcat/errno>
+#include <bobcat/exception>
 #include <bobcat/datetime>
 
 #include "../util/util.h"

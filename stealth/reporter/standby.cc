@@ -14,7 +14,7 @@ void Reporter::standby()
     if (!d_out)
     {
         d_out.clear();
-        Errno::open(d_out, d_name, ios::out | ios::in | ios::trunc);    
+        Exception::open(d_out, d_name, ios::out | ios::in | ios::trunc);    
     }
 
     reinit();

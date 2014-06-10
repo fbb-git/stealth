@@ -34,7 +34,7 @@ void Monitor::signalStealth(int signum, char const *signame,
     if (signum == SIGUSR1)          // --suppress
     {
         ofstream runFile;
-        Errno::open(runFile, Lock::runFilename());    // rewrite the runfile
+        Exception::open(runFile, Lock::runFilename());  // rewrite the runfile
     
         runFile << pid << '\n' <<
                    getpid() << '\n';// add this process's id to the runfile

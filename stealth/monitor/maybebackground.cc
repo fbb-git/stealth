@@ -5,7 +5,7 @@ void Monitor::maybeBackground()
     if (keepAlive())
     {
         ofstream out;
-        Errno::open(out, Lock::runFilename());
+        Exception::open(out, Lock::runFilename());
 
         int pid = fork();
         if (pid < 0)

@@ -18,10 +18,11 @@ void Monitor::control()
         mailReport();
 
         if (!d_reporter->relax())   // close the report file, unlock the run
-            throw Errno(1);         // file. If the reporter has set
+            throw Exception();         // file. If the reporter has set
                                     // d_continue to false, then terminate.
                                     // This happens when a (remote) 
                                     // command returns a non-zero exit value.
+
         if (s_mode == TERMINATED || s_mode == ONCE)
             break;
 

@@ -22,6 +22,8 @@ void Scanner::execute(string const &cmd)
     else if (s_firstWord[1] == "PUT")   // put a file to the client
         put(cmd);
     else                                // or run a remote command
-        remote(cmd);            
-}
+        remote(cmd);
 
+    if (d_reporter.leave())
+        d_quit = true;
+}

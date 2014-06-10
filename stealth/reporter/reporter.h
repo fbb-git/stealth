@@ -25,6 +25,8 @@ class Reporter: private FBB::MultiStreambuf, public std::ostream
         std::istream &in();
         bool hasMail() const;
 
+        bool leave() const;     // leave == not continue
+
         bool relax();           // close the report file, release a 
                                 // runfile lock, returns d_continue
 
@@ -44,6 +46,12 @@ class Reporter: private FBB::MultiStreambuf, public std::ostream
         Reporter(Reporter const &other);            // NI
         Reporter &operator=(Reporter const &other); // NI
 };
+
+
+inline bool Reporter::leave() const
+{
+    return not d_continue;
+}
 
 inline std::istream &Reporter::in()
 {

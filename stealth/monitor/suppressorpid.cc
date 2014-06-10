@@ -4,7 +4,7 @@ int Monitor::suppressorPid()
 try
 {
     ifstream runFile;
-    Errno::open(runFile, Lock::runFilename());
+    Exception::open(runFile, Lock::runFilename());
 
     int pid;
     runFile >> pid >> pid;
