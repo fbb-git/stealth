@@ -1,25 +1,25 @@
-#include "configsorter.h"
+#include "policyfile.h"
 
-#include <bobcat/arg>
 #include <bobcat/pattern>
 #include <bobcat/mstream>
 
 #include "../util/util.h"
+#include "../options/options.h"
 
 #include <iostream>
 #include <unistd.h>
-#include <algorithm>
+//#include <algorithm>
 
 using namespace std;
 using namespace FBB;
 
-inline std::string const &ConfigSorter::getDEFINE(
+inline std::string const &PolicyFile::getDEFINE(
                                             std::string const &key) const
 {
     return d_define.find(key)->second;
 }
 
-inline bool ConfigSorter::hasDEFINE(std::string const &key) const
+inline bool PolicyFile::hasDEFINE(std::string const &key) const
 {
     return d_define.count(key);
 }

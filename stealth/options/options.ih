@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <string>
+#include <climits>
+#include <cstdlib>
+
 #include <bobcat/mstream>
 
 #include "../lock/lock.h"

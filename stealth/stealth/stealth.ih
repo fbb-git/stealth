@@ -15,7 +15,7 @@
 //#include "../util/util.h"
 
 #include "../lock/lock.h"
-#include "../configsorter/configsorter.h"
+#include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"
 #include "../reporter/reporter.h"
 #include "../options/options.h"

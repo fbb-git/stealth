@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <bobcat/arg>
+#include <bobcat/mstream>
 
 #include "options/options.h"
 #include "stealth/stealth.h"

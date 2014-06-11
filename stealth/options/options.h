@@ -19,7 +19,7 @@ class Options: public RunMode
 {
     FBB::Arg &d_arg;
 
-    std::string d_configSorterPath;
+    std::string d_policyFilePath;
     std::string d_runFile;
 
     bool d_reload;
@@ -38,13 +38,14 @@ class Options: public RunMode
     static size_t const s_shortestRepeatInterval = 60;
     static Options *s_options;
 
-//    static char const       s_defaultConfigFile[];
-
     public:
         static Options &instance();
 
         Options(Options const &other) = delete;
 
+        bool parseConfigFile() const;
+        bool debugOrJustParse() const;
+        bool debug() const;
         bool ipc() const;
         bool reload() const;        
         bool rerun() const;
@@ -57,7 +58,7 @@ class Options: public RunMode
         size_t repeatInterval() const;
         size_t randomDelay() const;
 
-        std::string const &configSorterPath() const;
+        std::string const &policyFilePath() const;
         std::string const &basename() const;
         std::string const &runFile() const;
 
@@ -74,6 +75,21 @@ class Options: public RunMode
 inline bool Options::reload() const
 {   
     return d_reload;
+}
+
+inline bool Options::debug() const
+{   
+    return d_arg.option('d');
+}
+
+inline bool Options::parseConfigFile() const
+{   
+    return d_arg.option('c');
+}
+
+inline bool Options::debugOrJustParse() const
+{   
+    return d_arg.option("cd");
 }
 
 inline bool Options::rerun() const
@@ -111,19 +127,9 @@ inline bool Options::ipc() const
     return d_reload || d_rerun || d_terminate || d_suppress || d_resume;
 }
 
-//inline bool Options::cronfile() const
-//{   
-//    return d_arg.nArgs();
-//}
-//
-//inline IPCFunction::Function Options::ipcFunction() const
-//{   
-//    return d_ipcFunction;
-//}
-
-inline std::string const &Options::configSorterPath() const
+inline std::string const &Options::policyFilePath() const
 {   
-    return d_configSorterPath;
+    return d_policyFilePath;
 }
 
 inline std::string const &Options::runFile() const

@@ -1,18 +1,18 @@
-#include "configsorter.ih"
+#include "policyfile.ih"
 
-void ConfigSorter::insert(HashString<string> &hash, string const &line)
+void PolicyFile::insert(LinearMap &linMap, string const &line)
 {
     if (s_firstWord << s_firstWord[2])      // fetch 'KEY definition'
     {
         string type = s_firstWord[1];
 
         imsg << type << " line: " << line << endl;
-        hash[s_firstWord[1]] = s_firstWord[2];      // store key and value
+        linMap[s_firstWord[1]] = s_firstWord[2];      // store key and value
         imsg << type << " key: " << s_firstWord[1] <<
-                  ", value: " << hash[s_firstWord[1]] << endl;
+                  ", value: " << linMap[s_firstWord[1]] << endl;
         return;
     }
                                                 // error on failure
-    cerr << "Config line `" << line << "' invalid\n";
+    imsg << "Ignored wrongly formatted line `" << line << "'\n";
 }
 

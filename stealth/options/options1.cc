@@ -17,6 +17,8 @@ Options::Options()
 
     if (imsg.setActive(d_arg.option('d')))
         imsg.reset(cerr);
+    else if (imsg.setActive(d_arg.option('c')))
+        imsg.reset(cout);
 
     if ((d_reload = d_arg.option(0, "reload")))
         setMode(RELOAD);
@@ -33,7 +35,7 @@ Options::Options()
     if ((d_resume = d_arg.option(0, "resume")))
         setMode(RESUME);
 
-    if ((d_arg.option(&d_runFile, "keep-alive")) != 0)
+    if ((d_keepAlive = d_arg.option(&d_runFile, "keep-alive")))
     {
         d_repeatInterval = numeric_limits<int>::max();
         Lock::setRunFilename(d_runFile);
@@ -45,6 +47,10 @@ Options::Options()
     setRandomDelay();
 
     d_reportToStdout = d_arg.option('o');
+
+    char *cp = realpath(d_arg[0], 0);
+    d_policyFilePath = cp;
+    free(cp);
 }       
 
 

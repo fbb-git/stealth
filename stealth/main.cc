@@ -50,7 +50,8 @@ try
 }
 catch (exception const &err)
 {
-    cerr << err.what() << '\n';
+    if (err.what() != to_string(fmsg.id()))
+        cerr << err.what() << '\n';
     return 1;
 }
 catch (int ret)

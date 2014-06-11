@@ -10,10 +10,14 @@ void Stealth::run()
 {
     startup();
 
-        if (not d_options.keepAlive())
+
+    if (not d_options.keepAlive())
         integrityScan();
     else
+    {
+        cerr << "FORKING\n";
         fork();
+    }
 
 }
 

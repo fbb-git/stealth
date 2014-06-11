@@ -1,11 +1,12 @@
-#include "configsorter.ih"
+#include "policyfile.ih"
 
-void ConfigSorter::reload()
+void PolicyFile::reload()
 {
     d_configfile.open(d_confPath);
 
-    d_use = HashString<std::string>
-                (&s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords]);
+    d_use = LinearMap(
+                &s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords]
+            );
 
     d_define.clear();
     d_command.clear();

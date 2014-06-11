@@ -13,7 +13,7 @@ namespace FBB
     class Arg;
 }
 
-class ConfigSorter;
+class PolicyFile;
 class Reporter;
 
 class IntegrityScanner
@@ -22,7 +22,7 @@ class IntegrityScanner
     typedef StringVector::const_iterator const_iterator;
 
     FBB::Arg       &d_arg;
-    ConfigSorter   &d_sorter;
+    PolicyFile   &d_sorter;
     Reporter       &d_reporter;
     FBB::Pattern   &d_firstWord;
     FBB::Process    d_sshFork;
@@ -51,7 +51,7 @@ class IntegrityScanner
     static FBB::Pattern  s_exitValue;
 
     public:
-        IntegrityScanner(ConfigSorter &sorter, Reporter &reporter);
+        IntegrityScanner(PolicyFile &sorter, Reporter &reporter);
         size_t nScans() const
         {
             return d_nScans;

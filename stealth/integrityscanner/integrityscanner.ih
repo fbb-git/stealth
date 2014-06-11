@@ -19,7 +19,7 @@
 #include <bobcat/exception>
 
 #include "../util/util.h"
-#include "../configsorter/configsorter.h"
+#include "../policyfile/policyfile.h"
 #include "../reporter/reporter.h"
 
 using namespace std;

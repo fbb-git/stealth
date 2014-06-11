@@ -2,11 +2,11 @@
 
 void Stealth::startup()
 {
-    d_configSorter.reset(   new ConfigSorter(d_options.configSorterPath()) );
-    d_reporter.reset(       new Reporter((*d_configSorter)["REPORT"])  );
+    d_policyFile.reset(   new PolicyFile(d_options.policyFilePath()) );
+    d_reporter.reset(       new Reporter((*d_policyFile)["REPORT"])  );
     d_integrityScanner.reset(
                                 new IntegrityScanner(
-                                        *d_configSorter, *d_reporter
+                                        *d_policyFile, *d_reporter
                                     )  
                             );
 

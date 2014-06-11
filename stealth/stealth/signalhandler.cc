@@ -9,6 +9,7 @@ void Stealth::signalHandler(size_t signal)
             {
                 d_quit = true;
                 setMode(TERMINATE);
+                Lock::unlinkRunFile();  // remove the run file
             }
         break;
 

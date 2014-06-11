@@ -2,7 +2,7 @@
 
 void Stealth::childProcess()
 {
-    prepareDaemon();
+    prepareDaemon("/tmp/out", "/tmp/err");
 
     Signal &signal = Signal::instance();
 

@@ -9,7 +9,7 @@ is used.
 
 */
 
-IntegrityScanner::IntegrityScanner(ConfigSorter &sorter, Reporter &reporter)
+IntegrityScanner::IntegrityScanner(PolicyFile &sorter, Reporter &reporter)
 :
     d_arg(Arg::instance()),
     d_sorter(sorter),

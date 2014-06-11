@@ -2,14 +2,14 @@
 
 void Stealth::reload()
 {
-    d_configSorter->reload();
+    d_policyFile->reload();
     d_integrityScanner.reset( 
-                new IntegrityScanner(*d_configSorter, *d_reporter) 
+                new IntegrityScanner(*d_policyFile, *d_reporter) 
     );
 
     d_integrityScanner->preamble();
 
-    // cerr << "RELOAD COMPLETED (" << d_configSorterPath << ")\n";
+    // cerr << "RELOAD COMPLETED (" << d_policyFilePath << ")\n";
 }
 
 

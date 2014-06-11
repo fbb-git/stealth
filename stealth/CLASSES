@@ -2,9 +2,9 @@ util
 lock
 ipc
 runmode
-configsorter        util 
+policyfile          util 
 reporter            lock
-integrityscanner    configsorter reporter
+integrityscanner    policyfile reporter
 stealth             runmode ipc integrityscanner 
 options
 

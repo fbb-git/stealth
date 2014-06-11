@@ -1,7 +1,7 @@
-#include "configsorter.ih"
+#include "policyfile.ih"
 
 pair<string, string> const
-    ConfigSorter::s_defaultKeyword[] =
+    PolicyFile::s_defaultKeyword[] =
     {
         pair<string,string>("BASE",         "."),
         pair<string,string>("DD",           "/bin/dd"),
@@ -14,12 +14,12 @@ pair<string, string> const
         pair<string,string>("MAILARGS",     "-s \"STEALTH scan report\""),
     };
 
-size_t ConfigSorter::s_nDefaultKeywords =
+size_t PolicyFile::s_nDefaultKeywords =
                 sizeof(s_defaultKeyword) / sizeof(pair<string, string>);
 
-Pattern ConfigSorter::s_firstWord("^\\s*([-_[:alnum:]]+)\\s+(.*)");
-Pattern ConfigSorter::s_comment("^\\s*[#]?");
-Pattern ConfigSorter::s_define("(\\$\\{([-_[:alnum:]]+)\\})");   
+Pattern PolicyFile::s_firstWord("^\\s*([-_[:alnum:]]+)\\s+(.*)");
+Pattern PolicyFile::s_comment("^\\s*[#]?");
+Pattern PolicyFile::s_define("(\\$\\{([-_[:alnum:]]+)\\})");   
                                                     // [0]: all text,
                                                     // [1]: all ${NAME} text
                                                     // [2]: NAME itself

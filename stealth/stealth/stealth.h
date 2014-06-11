@@ -11,7 +11,7 @@
 #include "../runmode/runmode.h"
 #include "../ipc/ipc.h"
 
-class ConfigSorter;
+class PolicyFile;
 class Reporter;
 class IntegrityScanner;
 class Options;
@@ -24,7 +24,7 @@ class Stealth: public RunMode, public FBB::Fork, public FBB::SignalHandler
     Options &d_options;
     IPC d_ipc;
 
-    std::unique_ptr<ConfigSorter>       d_configSorter;
+    std::unique_ptr<PolicyFile>       d_policyFile;
     std::unique_ptr<Reporter>           d_reporter;
     std::unique_ptr<IntegrityScanner>   d_integrityScanner;
 
@@ -37,7 +37,7 @@ class Stealth: public RunMode, public FBB::Fork, public FBB::SignalHandler
 
     public:
         Stealth();
-        ~Stealth();
+        ~Stealth() override;
 
         bool contactPeer();         // contact another stealth process
         void run();                 // run the scanning process

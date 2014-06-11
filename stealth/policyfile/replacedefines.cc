@@ -1,12 +1,12 @@
-#include "configsorter.ih"
+#include "policyfile.ih"
 
-void ConfigSorter::replaceDefines(string &text)
+void PolicyFile::replaceDefines(string &text)
 {
 //    Pattern define("(\\$\\{([a-zA-Z0-9_]+)\\})");   // [0]: all text,
 //                                                    // [1]: all ${NAME} text
 //                                                    // [2]: NAME itself
 
-    imsg << "ConfigSorter::replaceDefines in " << text << endl;
+    imsg << "PolicyFile::replaceDefines in " << text << endl;
 
     string out;
 
@@ -25,7 +25,7 @@ void ConfigSorter::replaceDefines(string &text)
         text = s_define.beyond();                   // remove all matched 
     }                                               // text from `text'
 
-    imsg << "ConfigSorter::replaceDefines -> " << text << endl;
+    imsg << "PolicyFile::replaceDefines -> " << text << endl;
 
     text = out + text;                              // redefine `text'
 }

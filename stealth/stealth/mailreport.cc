@@ -21,19 +21,19 @@ void Stealth::mailReport()
         return;
     }
 
-    imsg << "mailing report using: " << (*d_configSorter)["MAILER"] << ' ' <<
-            (*d_configSorter)["MAILARGS"] << " " << 
-            (*d_configSorter)["EMAIL"] << endl;
+    imsg << "mailing report using: " << (*d_policyFile)["MAILER"] << ' ' <<
+            (*d_policyFile)["MAILARGS"] << " " << 
+            (*d_policyFile)["EMAIL"] << endl;
 
     // mailcommand subject and email are called as separate arguments
     // If subject contains blanks, they will be interpreted as separate
-    // arguments by the `mail' IOFork. Ususally d_configSorter["MAILER"] will
+    // arguments by the `mail' IOFork. Ususally d_policyFile["MAILER"] will
     // call a script.
 
     Process mail(Process::CIN | Process::IGNORE_COUT | Process::IGNORE_CERR,
-                 (*d_configSorter)["MAILER"] + ' ' + 
-                (*d_configSorter)["MAILARGS"] + ' ' + 
-                 (*d_configSorter)["EMAIL"]);
+                 (*d_policyFile)["MAILER"] + ' ' + 
+                (*d_policyFile)["MAILARGS"] + ' ' + 
+                 (*d_policyFile)["EMAIL"]);
 
     mail.start();
 

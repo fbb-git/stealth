@@ -14,6 +14,7 @@ class IPC: public FBB::SignalHandler
     static FBB::LinearMap<int, char const *> const s_signame;
 
     public:
+        ~IPC() override;
                                             // always returns true, or
                                             // throws exception on failure
         bool signalPeer(int signum);
@@ -39,11 +40,6 @@ class IPC: public FBB::SignalHandler
         static void sendSignal(int sig, pid_t pid);
 
 };
-
-inline void IPC::sleep(size_t seconds)
-{
-    d_selector.setAlarm(seconds);
-}
 
 inline void IPC::wakeup() 
 {

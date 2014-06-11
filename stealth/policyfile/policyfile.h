@@ -1,9 +1,9 @@
-#ifndef _ConfigSorter_H_
-#define _ConfigSorter_H_
+#ifndef _INCLUDED_POLICYFILE_H_
+#define _INCLUDED_POLICYFILE_H_
 
 #include <string>
 #include <vector>
-#include <bobcat/hash>
+#include <bobcat/linearmap>
 #include <bobcat/configfile>
 
 namespace FBB
@@ -11,13 +11,16 @@ namespace FBB
     class Pattern;
 }
 
-class ConfigSorter
+class PolicyFile
 {
+        typedef FBB::LinearMap<std::string, std::string> LinearMap;
+
         std::string                     d_confPath;
         FBB::ConfigFile                 d_configfile;
         std::vector<std::string>        d_command;
-        FBB::HashString<std::string>    d_use;
-        FBB::HashString<std::string>    d_define;
+
+        LinearMap   d_use;
+        LinearMap   d_define;
     
         static std::pair<std::string, std::string> const s_defaultKeyword[];
         static size_t s_nDefaultKeywords;
@@ -27,7 +30,7 @@ class ConfigSorter
                                                 // [1]: all ${NAME} text
                                                 // [2]: NAME itself
     public:
-        ConfigSorter(std::string const &confPath);
+        PolicyFile(std::string const &confPath);
 
         void reload();
     
@@ -39,26 +42,27 @@ class ConfigSorter
         std::string const &getDEFINE(std::string const &key) const;
         bool  hasDEFINE(std::string const &key) const;
 
+        void directivesAndCommands();
+
         void fetchCwd();            // determine current working directory
         void fetchCommands();
                                     // replaces the DEFINE's in text
         void replaceDefines(std::string &text); 
-        void insert(FBB::HashString<std::string> &hash, 
-                                                    std::string const &line);
+        void insert(LinearMap &linMap, std::string const &line);
 };
 
-inline std::vector<std::string>::const_iterator ConfigSorter::firstCmd() const
+inline std::vector<std::string>::const_iterator PolicyFile::firstCmd() const
 {
     return d_command.begin();
 }
 
 inline std::vector<std::string>::const_iterator 
-                                            ConfigSorter::beyondCmd() const
+                                            PolicyFile::beyondCmd() const
 {
     return d_command.end();
 }
 
-inline std::string const &ConfigSorter::operator[](
+inline std::string const &PolicyFile::operator[](
                                                 std::string const &key) const
 {
     return d_use.find(key)->second;
