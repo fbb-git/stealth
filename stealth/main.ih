@@ -1,0 +1,16 @@
+#include <iostream>
+
+#include <bobcat/arg>
+
+#include "options/options.h"
+#include "stealth/stealth.h"
+
+namespace Icmbuild
+{
+    extern char author[];
+    extern char version[];
+    extern char years[];
+}
+
+using namespace std;
+using namespace FBB;

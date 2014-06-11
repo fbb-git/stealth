@@ -7,7 +7,4 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <bobcat/stat>
-
 using namespace std;
-using namespace FBB;

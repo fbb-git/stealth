@@ -1,7 +1,10 @@
 util 
 lock
-configsorter    util 
-reporter        lock
-scanner         configsorter reporter
-monitor         scanner
+ipc
+runmode
+configsorter        util 
+reporter            lock
+integrityscanner    configsorter reporter
+stealth             runmode ipc integrityscanner 
+options
 

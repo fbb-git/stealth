@@ -21,7 +21,7 @@ void Reporter::reinit()
     imsg << "Reinit next report starts at " << d_sizeAtConstruction << endl;
 
     *this << "\n"
-            "STEALTH (" << version << ") started at " << 
+            "STEALTH (" << Icmbuild::version << ") started at " << 
             DateTime().rfc2822() << "\n"
                           "\n";
 

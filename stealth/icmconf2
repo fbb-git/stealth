@@ -1,0 +1,38 @@
+#define USE_ECHO            ON
+#define CLS
+
+#ifndef THREAD
+#define THREAD              ""
+#endif
+
+#define CXX                 "g++"
+#define CXXFLAGS            "--std=c++11 " ${THREAD} " -Wall -O2"
+#define SOURCES             "*.cc"
+#define TMP_DIR             "tmp"
+#define OBJ_EXT             ".o"
+#define DEFCOM              "library"
+
+////////////////////////////////////////////////////////////////////////////
+#define ADD_LIBRARIES       ""
+#define ADD_LIBRARY_PATHS   ""
+#define LDFLAGS             ""
+#define MAIN                ""
+#define PARSER_DIR          ""
+#define PARSFLAGS           ""
+#define PARSGEN             ""
+#define PARSOUT             ""
+#define PARSSPEC            ""
+#define SCANFLAGS           ""
+#define SCANGEN             ""
+#define SCANNER_DIR         ""  
+#define SCANOUT             ""
+#define SCANSPEC            ""
+
+
+
+
+
+
+
+
+

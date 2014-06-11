@@ -1,0 +1,5 @@
+#include "ipc.ih"
+
+IPC::
+{
+}

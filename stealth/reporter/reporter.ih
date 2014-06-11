@@ -1,5 +1,7 @@
 #include "reporter.h"
 
+#include <iostream>
+
 #include <bobcat/exception>
 #include <bobcat/mstream>
 #include <bobcat/stat>
@@ -7,7 +9,10 @@
 
 #include "../lock/lock.h"
 
-extern char const version[];
+namespace Icmbuild
+{
+    extern char const version[];
+}
 
 using namespace FBB;
 using namespace std;

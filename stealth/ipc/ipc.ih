@@ -1,0 +1,22 @@
+#include "ipc.h"
+
+#include <fstream>
+#include <string>
+
+#include <limits>
+#include <csignal>
+
+#include <bobcat/mstream>
+#include <bobcat/exception>
+
+#include "../lock/lock.h"
+#include "../options/options.ih"
+
+using namespace std;
+using namespace FBB;
+
+
+//inline void IPC::handleReplySignal(int signum)
+//{
+//    wakeup();
+//}

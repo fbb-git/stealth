@@ -9,7 +9,7 @@
     // ===============================================
 
     // define the name of the source containing main():
-#define MAIN                "stealth.cc"
+#define MAIN                "main.cc"
 
     // define any additional libraries the program may need:
 #define ADD_LIBRARIES       "bobcat"

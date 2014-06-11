@@ -1,4 +1,8 @@
 #include "VERSION"
 
-char version[] = VERSION;
-char year[]    = YEARS;
+namespace Icmbuild
+{
+    char author[]  = AUTHOR;
+    char version[] = VERSION;
+    char years[]   = YEARS;
+}

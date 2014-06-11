@@ -1,0 +1,5 @@
+#include "integrityscanner.ih"
+
+IntegrityScanner::
+{
+}

@@ -1,3 +1,11 @@
+stealth (3.00.00)
+
+  * Version 3.00.00 completely reorganizes and refactors Stealth's
+    components. Long functions were split into shorter ones and several new
+    classes were defined, resulting in better compartmentalization of
+    tasks. On the logical flow level continuation and related flow control was
+    re-implemented, using, e.g., Bobcat's FBB::Signal class to handle signals.
+
 stealth (2.12.00)
 
   * Fixed a bug preventing stealth runs to end when a command returns a

@@ -1,0 +1,3 @@
+#define LIBRARY             "ipc"
+
+#include "../icmconf2"
