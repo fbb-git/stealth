@@ -6,10 +6,10 @@
 
 class Reporter: private FBB::MultiStreambuf, public std::ostream
 {
-    unsigned long   d_sizeAtConstruction;
+    unsigned long   d_reinitSize;
+    unsigned long   d_beginMail;
     std::string     d_name;
     bool            d_continue;
-    bool            d_hasMail;
 
     std::fstream d_out;
 
@@ -23,7 +23,7 @@ class Reporter: private FBB::MultiStreambuf, public std::ostream
                                 // extracted
 
         std::istream &in();
-        bool hasMail() const;
+        bool hasMail();
 
         bool leave() const;     // leave == not continue
 
@@ -58,17 +58,4 @@ inline std::istream &Reporter::in()
     return d_out;
 }
 
-inline bool Reporter::hasMail() const
-{
-    return d_hasMail;
-}
-
 #endif
-
-
-
-
-
-
-
-

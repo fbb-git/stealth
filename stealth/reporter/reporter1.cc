@@ -5,8 +5,7 @@ Reporter::Reporter(string const &name)
     MultiStreambuf(cerr, RESET),
     ostream(this),      // initialize the ostream with the MultiStreambuf
     d_name(name),
-    d_continue(true),
-    d_hasMail(false)
+    d_continue(true)
 {
     insert(d_out);                              // insertions go to the report
 

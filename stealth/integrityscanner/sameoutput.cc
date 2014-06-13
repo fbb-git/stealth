@@ -21,14 +21,15 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
 
         if (d_label.length())
         {
-            imsg << "IntegrityScanner::sameOutput(): writing label: " << d_label << 
-                                                                        '\n';
+            imsg << "IntegrityScanner::sameOutput(): writing label: " << 
+                    d_label << '\n';
             d_reporter << d_label << endl;
         }
 
         d_reporter << "Initialized report on " << logfile << endl;
-        imsg << "IntegrityScanner::sameOutput(): Initialized  report on " << logfile <<
-                                                                        endl;
+
+        imsg << "IntegrityScanner::sameOutput(): Initialized  report on " << 
+                logfile << endl;
         return true;
     }
 
@@ -38,6 +39,7 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
     return noDifferences(current, logfile); // return true if there aren't any
                                             // differences.
 }
+
 
 
 

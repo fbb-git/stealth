@@ -16,14 +16,23 @@ void Reporter::reinit()
     if (!stat)
         fmsg << "Can't stat " << d_name << endl;
 
-    d_sizeAtConstruction = stat.size();
+    d_reinitSize = stat.size();
 
-    imsg << "Reinit next report starts at " << d_sizeAtConstruction << endl;
+    imsg << "Reinit next report starts at " << d_reinitSize << endl;
 
     *this << "\n"
             "STEALTH (" << Icmbuild::version << ") started at " << 
             DateTime().rfc2822() << "\n"
                           "\n";
 
-    d_hasMail = false;
+    d_beginMail = d_out.tellp();
+
+
 }
+
+
+
+
+
+
+
