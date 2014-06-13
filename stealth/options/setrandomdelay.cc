@@ -4,7 +4,7 @@ void Options::setRandomDelay()
 { 
     string delay;
 
-    if (not (d_randomDelay == d_arg.option(&delay, 'i')))
+    if (not (d_randomDelay = d_arg.option(&delay, 'i')))
         return;
 
     if (not d_repeat)

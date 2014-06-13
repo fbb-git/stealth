@@ -10,7 +10,7 @@ void Stealth::processPolicy()
     if (d_options.keepAlive())
         fork();
     else
-        performTasks();
+        doChores();
 }
 
 

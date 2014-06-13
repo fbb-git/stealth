@@ -1,3 +1,9 @@
+Initially the running mode is set to INTEGRITY_SCAN. Options may change the
+initial mode.
+
+If no --keep-alive option is requested, there is just one integrity scan and
+Stealth::performtasks terminates
+
 Flow control is handled through IPC signals.
 
     SIGINT (ctrl C) and SIGTERM

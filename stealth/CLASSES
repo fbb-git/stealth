@@ -3,7 +3,7 @@ modeenum
 lock
 ipc
 runmode             modeenum
-options             runmode
+options             modeenum
 policyfile          
 reporter            
 integrityscanner    

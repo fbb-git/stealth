@@ -25,5 +25,5 @@ void IntegrityScanner::execute(string const &cmd)
         remote(cmd);
 
     if (d_reporter.leave())
-        d_quit = true;
+        d_run.setMode(RunMode::TERMINATE);
 }

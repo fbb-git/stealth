@@ -4,6 +4,8 @@
 
 void Stealth::mailReport()
 {
+    d_reporter->ready();
+
     imsg << "Stealth::mailReport() starts" << endl;
 
     if (!d_reporter->hasMail())

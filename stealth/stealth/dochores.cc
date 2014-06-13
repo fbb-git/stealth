@@ -2,7 +2,7 @@
 
 // called by processPolicy and childProcess
 
-void Stealth::performTasks()
+void Stealth::doChores()
 {
     allocateUniquePtrs();
 
@@ -21,10 +21,11 @@ void Stealth::performTasks()
 
         d_reporter->newReport();
                                             // perform the requested task
-        (this->*(s_task.find(request)->second))();    
+        (this->*(s_task.find(request)->second))();
+
         mailReport();
 
-        if (not d_run.stop())
+        if (d_run.mode(WAIT))
             d_ipc.wait();                   // wait for the next request
     }
 }

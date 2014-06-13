@@ -23,7 +23,8 @@ class IntegrityScanner
     typedef StringVector::const_iterator const_iterator;
 
     FBB::Arg       &d_arg;
-    PolicyFile   &d_sorter;
+    RunMode        &d_run;
+    PolicyFile     &d_policyFile;
     Reporter       &d_reporter;
     FBB::Pattern   &d_firstWord;
     FBB::Process    d_sshFork;
@@ -35,7 +36,6 @@ class IntegrityScanner
     size_t          d_nScans;
     off_t           d_maxSize;
     std::string     d_maxSizeStr;
-    bool            d_quit;
     StringVector    d_skipFiles;
     std::string     d_skipFilePath;
     size_t          d_diffPrefix;
@@ -52,7 +52,8 @@ class IntegrityScanner
     static FBB::Pattern  s_exitValue;
 
     public:
-        IntegrityScanner(PolicyFile &sorter, Reporter &reporter);
+        IntegrityScanner(RunMode &run, 
+                         PolicyFile &sorter, Reporter &reporter);
         size_t nScans() const
         {
             return d_nScans;
@@ -61,7 +62,7 @@ class IntegrityScanner
         void loadSkipFiles();
         void nScansReset();
                                     // run one series of tests
-        void        run(RunMode &runMode);    
+        void        run();    
 
         void killChildren();
         
@@ -84,7 +85,7 @@ class IntegrityScanner
                                     // generated output
         void        doPlainCommand(FBB::Process &child);
 
-                                    // execute the command from d_sorter
+                                    // execute the command from d_policyFile
         void        execute(std::string const &command);    
 
                                     // get a remote file

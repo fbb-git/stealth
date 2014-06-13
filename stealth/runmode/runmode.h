@@ -8,10 +8,10 @@
 struct RunMode: public ModeEnum
 {
     private:
-        static FBB::LinearMap<Mode, char const *> const s_modeName;
-        static FBB::LinearMap<Mode, int> const s_mode2signal;
+        static FBB::LinearMap<volatile Mode, char const *> const s_modeName;
+        static FBB::LinearMap<volatile Mode, int> const s_mode2signal;
 
-        Mode  d_mode = INTEGRITY_SCAN;
+        volatile Mode  d_mode = INTEGRITY_SCAN;
 
     public:
         bool mode(Mode query) const;
@@ -20,7 +20,7 @@ struct RunMode: public ModeEnum
         int signum() const;     // exception if called without associated 
                                 // signal
         void setMode(Mode mode);
-        bool stop() const;
+        bool interrupted() const; // a running integrity scan was interrupted
 };
 
 inline char const *RunMode::modeName() const
@@ -38,9 +38,9 @@ inline bool RunMode::mode(Mode mode) const
     return d_mode & mode;
 }
         
-inline bool RunMode::stop() const
+inline bool RunMode::interrupted() const
 {
-    return mode(SUSPEND | TERMINATE);
+    return mode(SUSPEND | TERMINATE | RELOAD);
 }
         
 inline int RunMode::signum() const

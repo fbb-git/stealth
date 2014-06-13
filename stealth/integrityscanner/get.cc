@@ -43,7 +43,7 @@ void IntegrityScanner::get(string const &cmd)
         return;
 
     nextCommand(d_sshFork,                  // start the next command
-        d_sorter["DD"] + " if=" + source);
+        d_policyFile["DD"] + " if=" + source);
 
     read(d_sshFork, destination);       // read its output, tests exit value
 

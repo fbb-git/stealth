@@ -14,6 +14,10 @@ void PolicyFile::fetchCommands()
     for(auto &entry: d_use)
         replaceDefines(entry.second);
 
+//    char *cp = realpath((d_use["BASE"] + "/" + d_use["REPORT"]).c_str(), 0);
+//    d_use["REPORT"] = cp;
+//    free(cp);
+
     for(auto &entry: d_command)
         replaceDefines(entry);
 

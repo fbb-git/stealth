@@ -6,9 +6,9 @@
 
 void Reporter::newReport()
 {
-    if (!Lock::lockRunFile(Lock::NONBLOCKING))  // wait for the lock on an 
-        return;                                 // existing run file. 
-                                                // No run file: no lock
+//    if (!Lock::lockRunFile(Lock::NONBLOCKING))  // wait for the lock on an 
+//        return;                                 // existing run file. 
+//                                                // No run file: no lock
 
     d_out.open(d_name.c_str(), ios::out | ios::ate | ios::in);
     if (!d_out)

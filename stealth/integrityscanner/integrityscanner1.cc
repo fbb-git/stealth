@@ -9,22 +9,24 @@ is used.
 
 */
 
-IntegrityScanner::IntegrityScanner(PolicyFile &sorter, Reporter &reporter)
+IntegrityScanner::IntegrityScanner(RunMode &run,
+                                   PolicyFile &sorter, Reporter &reporter)
 :
     d_arg(Arg::instance()),
-    d_sorter(sorter),
+    d_run(run),
+    d_policyFile(sorter),
     d_reporter(reporter),                           // ostream
     d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")), // firstword ([1]) and the
                                                     // rest ([3]) of a text
     d_sshFork
     (
         Process::CIN | Process::COUT | Process::IGNORE_CERR,
-        d_sorter["SSH"]
+        d_policyFile["SSH"]
     ),                 // child: ignores stderr, reads
     d_shFork
     (
         Process::CIN | Process::COUT | Process::IGNORE_CERR,
-        d_sorter["SH"]
+        d_policyFile["SH"]
     ),                   // from stdin/stdout
                                                 // parent process communicates
                                                 // via the Fork object's 
@@ -32,8 +34,7 @@ IntegrityScanner::IntegrityScanner(PolicyFile &sorter, Reporter &reporter)
     d_nScans(0),
     d_maxSize(10 * 1024 * 1024),
     d_maxSizeStr("10M"),
-    d_quit(false),
-    d_diffPrefix(stoul(d_sorter["DIFFPREFIX"])),
+    d_diffPrefix(stoul(d_policyFile["DIFFPREFIX"])),
     d_pathOffset(numeric_limits<size_t>::max())
 {
     setSentinel();

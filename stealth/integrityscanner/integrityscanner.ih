@@ -17,6 +17,7 @@
 #include <bobcat/string>
 #include <bobcat/stringline>
 #include <bobcat/exception>
+#include <bobcat/ranger>
 
 #include "../util/util.h"
 #include "../policyfile/policyfile.h"

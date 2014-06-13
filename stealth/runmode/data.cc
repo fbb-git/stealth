@@ -1,10 +1,10 @@
 #include "runmode.ih"
 
-LinearMap<RunMode::Mode, char const *> const RunMode::s_modeName = 
+LinearMap<volatile RunMode::Mode, char const *> const RunMode::s_modeName = 
     {
         {LEAVE,          "LEAVE"},
         {INTEGRITY_SCAN, "INTEGRITY_SCAN"},
-        {WAITING,        "WAITING"},
+        {WAIT,           "WAIT"},
         {RERUN,          "RERUN"},
         {SUSPEND,        "SUSPEND"},
         {RESUME,         "RESUME"},
@@ -12,11 +12,12 @@ LinearMap<RunMode::Mode, char const *> const RunMode::s_modeName =
         {TERMINATE,      "TERMINATE"},
     };
 
-LinearMap<RunMode::Mode, int> const RunMode::s_mode2signal =
+LinearMap<volatile RunMode::Mode, int> const RunMode::s_mode2signal =
 {
+    {RERUN,      SIGHUP},
     {RELOAD,     SIGPIPE},
     {RESUME,     SIGUSR2},
-    {SUSPEND,   SIGUSR1},
+    {SUSPEND,    SIGUSR1},
     {TERMINATE,  SIGTERM},
 };
 

@@ -27,8 +27,8 @@ class Reporter: private FBB::MultiStreambuf, public std::ostream
 
         bool leave() const;     // leave == not continue
 
-        bool relax();           // close the report file, release a 
-                                // runfile lock, returns d_continue
+        void ready();           // flush the report file, release a 
+                                // runfile lock
 
         void newReport();       // obtain a runfile lock, open the report
                                 // file

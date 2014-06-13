@@ -10,7 +10,7 @@ string IntegrityScanner::putCommand(string const &source,
 
     ostringstream command;
 
-    command << d_sorter["DD"] << " of=" << destination << 
+    command << d_policyFile["DD"] << " of=" << destination << 
                                 " bs=1 count=" << statbuf.st_size;
 
     return command.str();

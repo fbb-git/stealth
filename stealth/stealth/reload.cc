@@ -6,7 +6,7 @@ void Stealth::reload()
 
     d_policyFile->reload();
     d_integrityScanner.reset( 
-                new IntegrityScanner(*d_policyFile, *d_reporter) 
+                new IntegrityScanner(d_run, *d_policyFile, *d_reporter) 
     );
 
     d_integrityScanner->startCommandShells();

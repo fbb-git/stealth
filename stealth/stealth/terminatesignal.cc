@@ -2,5 +2,5 @@
 
 void Stealth::terminateSignal()
 {
-    d_run.setMode(LEAVE);
+    d_run.setMode(TERMINATE);
 }

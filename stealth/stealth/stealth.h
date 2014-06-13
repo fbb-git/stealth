@@ -53,7 +53,7 @@ class Stealth: public ModeEnum, public FBB::Fork, public FBB::SignalHandler
 
         void report(char const *label);
 
-        void performTasks();        // perform all scanning (related) tasks 
+        void doChores();            // run all scanning (related) tasks 
             void allocateUniquePtrs();
             void setupSignals();
             void integrityScan();

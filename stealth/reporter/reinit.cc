@@ -7,7 +7,7 @@
 
 void Reporter::reinit()
 {
-    imsg << "Reinit the reporter" << endl;
+    imsg << "Reinit the reporter using " << d_name << endl;
 
     d_out.clear();
 
@@ -27,6 +27,3 @@ void Reporter::reinit()
 
     d_hasMail = false;
 }
-
-
-

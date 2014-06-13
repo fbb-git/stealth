@@ -14,9 +14,9 @@ bool IntegrityScanner::noDifferences(std::string const &current,
                                   std::string const &logfile)
 {
     imsg << "IntegrityScanner::noDifferences(): started " << 
-            d_sorter["DIFF"] << " " << current << " " << logfile << endl;
+            d_policyFile["DIFF"] << " " << current << " " << logfile << endl;
 
-    d_shFork << d_sorter["DIFF"] << " " << current << " " << logfile <<
+    d_shFork << d_policyFile["DIFF"] << " " << current << " " << logfile <<
                                                                      '\n' <<
                         "/bin/echo \"" << d_sentinel << "\"" << endl;
 
@@ -128,7 +128,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
     rename(current.c_str(), logfile.c_str());   // install `logfile'
 
     imsg << "differences were observed: see `" << 
-                 d_sorter["REPORT"] << "'  and `" << logfile << '\'' << endl;
+                 d_policyFile["REPORT"] << "'  and `" << logfile << '\'' << endl;
 
     return false;
 }

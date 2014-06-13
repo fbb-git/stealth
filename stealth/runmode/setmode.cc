@@ -8,6 +8,7 @@ void RunMode::setMode(Mode mode)
         break;
 
         case LEAVE:
+            Lock::unlockRunFile();  // unlock the run file
             Lock::unlinkRunFile();  // remove the run file
         break;
     }

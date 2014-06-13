@@ -10,7 +10,7 @@ struct ModeEnum
 
         INTEGRITY_SCAN  = 1 << 1,   // perform an integrity scan
 
-        WAITING         = 1 << 3,   // waiting for another signal/tine
+        WAIT            = 1 << 3,   // waiting for another signal/tine
 
         RERUN           = 1 << 4,   // rerun at WAITING on request (-> SIGHUP)
 

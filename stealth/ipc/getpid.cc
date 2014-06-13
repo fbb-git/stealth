@@ -15,6 +15,9 @@ size_t IPC::getPid() const
 
     string const &runFile = Options::instance().runFile();
 
+cerr << "RUNFILE = " << runFile << '\n';
+
+
     Exception::open(in, runFile);
 
     pid_t pid;
@@ -22,8 +25,13 @@ size_t IPC::getPid() const
     if (not (in >> pid))
         fmsg << "getPid: Can't read `" << runFile << '\'' << endl;
 
+cerr << "PID = " << pid << '\n';
+
     return pid;
 }
 
 
     
+
+
+

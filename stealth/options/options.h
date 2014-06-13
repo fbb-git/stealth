@@ -8,16 +8,13 @@
 //#include <bobcat/multistreambuf>
 //#include <bobcat/syslogstream>
 
-#include "../runmode/runmode.h"
+#include "../modeenum/modeenum.h"
 
-//namespace FBB
-//{
-//    class SyslogStream;
-//}
-
-class Options: public RunMode
+class Options: public ModeEnum
 {
     FBB::Arg &d_arg;
+
+    Mode d_mode = INTEGRITY_SCAN;
 
     std::string d_policyFilePath;
     std::string d_runFile;
@@ -55,6 +52,8 @@ class Options: public RunMode
         bool keepAlive() const;
         bool reportToStdout() const;
 
+        Mode mode() const;
+
         size_t repeatInterval() const;
         size_t randomDelay() const;
 
@@ -71,6 +70,11 @@ class Options: public RunMode
         void setRandomDelay();
         void checkAction() const;
 };
+
+inline Options::Mode Options::mode() const
+{
+    return d_mode;
+}
 
 inline bool Options::reload() const
 {   

@@ -6,7 +6,7 @@ void Stealth::allocateUniquePtrs()
     d_reporter.reset(       new Reporter((*d_policyFile)["REPORT"])  );
     d_integrityScanner.reset(
                                 new IntegrityScanner(
-                                        *d_policyFile, *d_reporter
+                                        d_run, *d_policyFile, *d_reporter
                                     )  
                             );
 

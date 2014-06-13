@@ -21,7 +21,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     {
         if (!src.read(&c, 1))               // read char by char
         {
-            d_quit = true;
+            d_run.setMode(RunMode::TERMINATE);
             d_reporter.error() << "Incomplete read from `" << fname << "'" <<
                                                                         endl;
             return;

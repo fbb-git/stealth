@@ -21,19 +21,19 @@ Options::Options()
         imsg.reset(cout);
 
     if ((d_reload = d_arg.option(0, "reload")))
-        setMode(RELOAD);
+        d_mode = RELOAD;
 
     if ((d_rerun = d_arg.option(0, "rerun")))
-        setMode(RERUN);
+        d_mode = RERUN;
 
     if ((d_terminate = d_arg.option(0, "terminate")))
-        setMode(TERMINATE);
+        d_mode = TERMINATE;
 
     if ((d_suppress = d_arg.option(0, "suppress")))
-        setMode(SUSPEND);
+        d_mode = SUSPEND;
 
     if ((d_resume = d_arg.option(0, "resume")))
-        setMode(RESUME);
+        d_mode = RESUME;
 
     if ((d_keepAlive = d_arg.option(&d_runFile, "keep-alive")))
     {
@@ -41,13 +41,15 @@ Options::Options()
         Lock::setRunFilename(d_runFile);
     }
 
+    d_runFile = d_arg[0];
+
     checkAction();
 
     repeatOption();
     setRandomDelay();
 
     d_reportToStdout = d_arg.option('o');
-
+    
     char *cp = realpath(d_arg[0], 0);
     d_policyFilePath = cp;
     free(cp);

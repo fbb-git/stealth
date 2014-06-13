@@ -4,7 +4,7 @@ void Stealth::childProcess()
 {
     prepareDaemon("/tmp/out", "/tmp/err");
 
-    performTasks();    
+    doChores();    
 
     throw 0;
 }

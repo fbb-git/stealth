@@ -6,14 +6,14 @@
 bool Lock::lockRunFile(LockType type)
 try
 {
-    if (s_runFILE)
-        fmsg << "Internal error: runfile already locked" << endl;
-
-    if (s_runFilename.empty())          // no runfilename, no lock.
-    {
-        imsg << "No need to lock a run file" << endl;
-        return true;
-    }
+//    if (s_runFILE)
+//        fmsg << "Internal error: runfile already locked" << endl;
+//
+//    if (s_runFilename.empty())          // no runfilename, no lock.
+//    {
+//        imsg << "No need to lock a run file" << endl;
+//        return true;
+//    }
 
     imsg << "opening `" << s_runFilename << "' for reading" << endl;
 
@@ -25,23 +25,23 @@ try
 
     if (type == BLOCKING)
     {
-        imsg << "attempting blocking mode lock" << endl;
-        if (flock(fileno(s_runFILE), LOCK_EX) == 0)
+//        imsg << "attempting blocking mode lock" << endl;
+//        if (flock(fileno(s_runFILE), LOCK_EX) == 0)
             throw true;
-        imsg << "blocking mode lock FAILED" << endl;
+//        imsg << "blocking mode lock FAILED" << endl;
     }
     else
     {
         imsg << "attempting non-blocking mode lock on FD " << 
                                                     fileno(s_runFILE) << endl;
-        for (size_t idx = 0; idx < s_maxBlockAttempts; ++idx)
-        {
-            if (flock(fileno(s_runFILE), LOCK_EX  | LOCK_NB) == 0)
+//        for (size_t idx = 0; idx < s_maxBlockAttempts; ++idx)
+//        {
+//            if (flock(fileno(s_runFILE), LOCK_EX  | LOCK_NB) == 0)
                 throw true;
-            imsg << '.';
-            ::sleep(1);
-            imsg << "\nNon-blocking mode lock FAILED" << endl;
-        }
+//            imsg << '.';
+//            ::sleep(1);
+//            imsg << "\nNon-blocking mode lock FAILED" << endl;
+//        }
     }
     throw false;
 }
@@ -49,8 +49,11 @@ catch (bool ret)
 {
     imsg << "locked (and return): " << ret << endl;
 
-    if (!ret)
-        fmsg << "Failed to lock run-file `" << s_runFilename << '\'' << endl;
+//    if (!ret)
+//        fmsg << "Failed to lock run-file `" << s_runFilename << '\'' << endl;
 
     return true;
 }
+
+
+
