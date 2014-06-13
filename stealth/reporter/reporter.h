@@ -30,7 +30,7 @@ class Reporter: private FBB::MultiStreambuf, public std::ostream
         bool relax();           // close the report file, release a 
                                 // runfile lock, returns d_continue
 
-        void standby();         // obtain a runfile lock, open the report
+        void newReport();       // obtain a runfile lock, open the report
                                 // file
 
         std::ostream &error();  // inserts a message and prepares for 

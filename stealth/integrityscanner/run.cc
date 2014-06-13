@@ -1,6 +1,6 @@
 #include "integrityscanner.ih"
 
-void IntegrityScanner::run(volatile bool *quit)
+void IntegrityScanner::run(RunMode &runMode)
 {
     ++d_nScans;
 
@@ -28,9 +28,7 @@ void IntegrityScanner::run(volatile bool *quit)
                     ++d_cmdIterator
         )
         {
-            if (d_quit)
-                *quit = true;
-            if (*quit)
+            if (runMode.stop())
                 break;
 
             execute(*d_cmdIterator);

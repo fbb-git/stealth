@@ -15,6 +15,7 @@ namespace FBB
 
 class PolicyFile;
 class Reporter;
+class RunMode;
 
 class IntegrityScanner
 {
@@ -56,12 +57,11 @@ class IntegrityScanner
         {
             return d_nScans;
         }
-        void preamble();
+        void startCommandShells();
         void loadSkipFiles();
         void nScansReset();
                                     // run one series of tests
-        void        run(volatile bool *done);    
-
+        void        run(RunMode &runMode);    
 
         void killChildren();
         

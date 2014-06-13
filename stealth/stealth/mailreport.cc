@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-// Called from integrityScan()
+// Called from performTask()
 
 void Stealth::mailReport()
 {

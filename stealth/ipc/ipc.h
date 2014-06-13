@@ -27,6 +27,8 @@ class IPC: public FBB::SignalHandler
         bool signalSuppressor();            // stealth daemon signals the 
                                             // stealth process that issued
                                             // --suppress
+
+        void writeRunFile(pid_t pid);
         void lockRunFile() const;
 
     private:

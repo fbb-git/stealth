@@ -1,6 +1,6 @@
 #include "integrityscanner.ih"
 
-void IntegrityScanner::preamble()
+void IntegrityScanner::startCommandShells() // preamble()
 {
     d_sshFork.start();          // start the ssh connection
     d_shFork.start();           // start the sh-connection to the localhost

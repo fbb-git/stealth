@@ -1,10 +1,10 @@
 #include "reporter.ih"
 
-// This function is called from Monitor::control() at the beginning of the
-// configuration processing loop. It (re)opens the report file and prepares it
-// for the next run.
+// This function is called from Stealth::performTasks() at the beginning of
+// the policy file processing loop. It (re)opens the report file and prepares
+// it for the next run.
 
-void Reporter::standby()
+void Reporter::newReport()
 {
     if (!Lock::lockRunFile(Lock::NONBLOCKING))  // wait for the lock on an 
         return;                                 // existing run file. 

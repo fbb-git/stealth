@@ -30,7 +30,7 @@ Options::Options()
         setMode(TERMINATE);
 
     if ((d_suppress = d_arg.option(0, "suppress")))
-        setMode(SUPPRESS);
+        setMode(SUSPEND);
 
     if ((d_resume = d_arg.option(0, "resume")))
         setMode(RESUME);

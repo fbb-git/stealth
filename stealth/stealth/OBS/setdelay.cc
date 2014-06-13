@@ -2,7 +2,7 @@
 
 void Stealth::setDelay()
 {
-    switch (mode())
+    switch (d_run.mode())
     {
         case KEEP_ALIVE:
             d_ipc.setAlarm();
@@ -12,8 +12,8 @@ void Stealth::setDelay()
             d_ipc.wakeup();
         break;
 
-        case SUPPRESS:
-        case SUPPRESSED:
+        case SUSPEND:
+        case SUSPENDED:
             d_ipc.sleep();
         break;
 

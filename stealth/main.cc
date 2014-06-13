@@ -46,7 +46,7 @@ try
     Stealth stealth;
 
     if (not stealth.contactPeer())
-        stealth.run();                  // run all the Scanner's tests
+        stealth.processPolicy(); // do all policy-file related tasks
 }
 catch (exception const &err)
 {

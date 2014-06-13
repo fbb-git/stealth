@@ -2,26 +2,21 @@
 
 LinearMap<RunMode::Mode, char const *> const RunMode::s_modeName = 
     {
-        {ONCE,           "ONCE"},
-        {KEEP_ALIVE,     "KEEP_ALIVE"},
+        {LEAVE,          "LEAVE"},
+        {INTEGRITY_SCAN, "INTEGRITY_SCAN"},
+        {WAITING,        "WAITING"},
         {RERUN,          "RERUN"},
-
-        {RELOAD,         "RELOAD"},
-
-        {SUPPRESS,       "SUPPRESS"},
-        {SUPPRESSED,     "SUPPRESSED"},
-
+        {SUSPEND,        "SUSPEND"},
         {RESUME,         "RESUME"},
-
+        {RELOAD,         "RELOAD"},
         {TERMINATE,      "TERMINATE"},
-        {TERMINATED,     "TERMINATED"},
     };
 
 LinearMap<RunMode::Mode, int> const RunMode::s_mode2signal =
 {
     {RELOAD,     SIGPIPE},
     {RESUME,     SIGUSR2},
-    {SUPPRESS,   SIGUSR1},
+    {SUSPEND,   SIGUSR1},
     {TERMINATE,  SIGTERM},
 };
 

@@ -11,10 +11,12 @@
 #include <bobcat/mstream>
 #include <bobcat/exception>
 #include <bobcat/datetime>
+#include <bobcat/linearmap>
 
 //#include "../util/util.h"
 
-#include "../lock/lock.h"
+// #include "../lock/lock.h"
+
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"
 #include "../reporter/reporter.h"

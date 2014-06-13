@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::startup()
+void Stealth::allocateUniquePtrs()
 {
     d_policyFile.reset(   new PolicyFile(d_options.policyFilePath()) );
     d_reporter.reset(       new Reporter((*d_policyFile)["REPORT"])  );

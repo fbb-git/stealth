@@ -1,10 +1,11 @@
 util 
+modeenum
 lock
 ipc
-runmode
-policyfile          util 
-reporter            lock
-integrityscanner    policyfile reporter
-stealth             runmode ipc integrityscanner 
-options
+runmode             modeenum
+options             runmode
+policyfile          
+reporter            
+integrityscanner    
+stealth             runmode ipc
 

@@ -1,0 +1,4 @@
+#include "modeenum.h"
+
+using namespace std;
+

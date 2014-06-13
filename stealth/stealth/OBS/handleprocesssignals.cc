@@ -18,14 +18,14 @@
 //                return;
 //        break;
 //
-//        case SIGUSR1:                       // SUPPRESS
+//        case SIGUSR1:                       // SUSPEND
 //            if (s_mode == KEEP_ALIVE)
-//                s_mode = SUPPRESS;          // changed to SUPPRESSED in
+//                s_mode = SUSPEND;          // changed to SUSPENDED in
 //                                            // processMode() 
 //        break;
 //
 //        case SIGUSR2:                       // RESUME
-//            if (s_mode == SUPPRESS || s_mode == SUPPRESSED)
+//            if (s_mode == SUSPEND || s_mode == SUSPENDED)
 //                s_mode = KEEP_ALIVE;
 //        break;
 //

@@ -3,30 +3,15 @@
 
 #include <bobcat/linearmap>
 
-struct RunMode
+#include "../modeenum/modeenum.h"
+
+struct RunMode: public ModeEnum
 {
-    enum Mode
-    {
-        ONCE,           // single run 
-        KEEP_ALIVE,     // multiple runs
-        RERUN,          // rerun every now and then
-
-        RELOAD,         // reload the config files (-> SIGPIPE)
-
-        SUPPRESS,       // suppress a stealth run (-> SIGUSR1)
-        SUPPRESSED,     // automatically set after processing  SUPPRESS
-
-        RESUME,         // resume a suppressed Stealth run (-> SIGUSR2)
-
-        TERMINATE,      // terminate a STEALTH run through SIGTERM
-        TERMINATED,     // automatically following TERMINATE
-    };
-
     private:
-        static FBB::LinearMap<RunMode::Mode, char const *> const s_modeName;
-        static FBB::LinearMap<RunMode::Mode, int> const s_mode2signal;
+        static FBB::LinearMap<Mode, char const *> const s_modeName;
+        static FBB::LinearMap<Mode, int> const s_mode2signal;
 
-        Mode             d_mode = ONCE;
+        Mode  d_mode = INTEGRITY_SCAN;
 
     public:
         bool mode(Mode query) const;
@@ -35,7 +20,7 @@ struct RunMode
         int signum() const;     // exception if called without associated 
                                 // signal
         void setMode(Mode mode);
-                                            // always returns true, or
+        bool stop() const;
 };
 
 inline char const *RunMode::modeName() const
@@ -50,12 +35,12 @@ inline RunMode::Mode RunMode::mode() const
         
 inline bool RunMode::mode(Mode mode) const
 {
-    return d_mode == mode;
+    return d_mode & mode;
 }
         
-inline void RunMode::setMode(Mode mode)
+inline bool RunMode::stop() const
 {
-    d_mode = mode;
+    return mode(SUSPEND | TERMINATE);
 }
         
 inline int RunMode::signum() const
