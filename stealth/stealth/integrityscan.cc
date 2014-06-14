@@ -2,6 +2,8 @@
 
 void Stealth::integrityScan()
 {
+    d_log.scanHeader();
+
     d_integrityScanner->run();
 
     if (d_run.interrupted())

@@ -15,7 +15,7 @@ Options::Options()
         throw 0;
     }
 
-    if (imsg.setActive(d_arg.option('d')))
+    if (imsg.setActive(d_arg.option('V')))
         imsg.reset(cerr);
     else if (imsg.setActive(d_arg.option('c')))
         imsg.reset(cout);

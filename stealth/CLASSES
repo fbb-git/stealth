@@ -5,7 +5,7 @@ ipc
 runmode             modeenum
 options             modeenum
 policyfile          
-reporter            
+log
 integrityscanner    
-stealth             runmode ipc
+stealth             runmode ipc log
 

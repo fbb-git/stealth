@@ -8,7 +8,7 @@ void IPC::setAlarm()
 //        :
 //            0;
 //
-//    if (Arg::instance().option('d'))
+//    if (Arg::instance().option('V'))
 //    {
 //        cerr << "Would have waited " << random_wait << " seconds\n"
 //             << "Randomly selected from " << s_delayInterval << 

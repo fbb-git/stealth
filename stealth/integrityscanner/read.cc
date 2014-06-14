@@ -7,7 +7,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        d_reporter.error() << "Can't open `" << fname << "' to write" << endl;
+        d_log << "Can't open `" << fname << "' to write" << ModeEnum::leave;
 
     imsg << "IntegrityScanner::read(): about to read child input" << endl;
 
@@ -22,15 +22,14 @@ void IntegrityScanner::read(Process &src, string const &fname)
         if (!src.read(&c, 1))               // read char by char
         {
             d_run.setMode(RunMode::TERMINATE);
-            d_reporter.error() << "Incomplete read from `" << fname << "'" <<
-                                                                        endl;
+            d_log << "Incomplete read from `" << fname << "'" <<
+                                                            ModeEnum::leave; 
             return;
         }
 
-        if (!checkSize(fname, ++size))
-            return;
+        checkSize(fname, ++size);           // throws if not OK
 
-        if (c == d_sentinel[length])       // got next sentinel char
+        if (c == d_sentinel[length])        // got next sentinel char
         {
             length++;
                                             // matched the sentinel

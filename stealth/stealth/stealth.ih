@@ -19,7 +19,6 @@
 
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"
-#include "../reporter/reporter.h"
 #include "../options/options.h"
 
 using namespace std;

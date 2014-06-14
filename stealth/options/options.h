@@ -41,8 +41,8 @@ class Options: public ModeEnum
         Options(Options const &other) = delete;
 
         bool parseConfigFile() const;
-        bool debugOrJustParse() const;
-        bool debug() const;
+        bool verboseOrJustParse() const;
+        bool verbose() const;
         bool ipc() const;
         bool reload() const;        
         bool rerun() const;
@@ -81,9 +81,9 @@ inline bool Options::reload() const
     return d_reload;
 }
 
-inline bool Options::debug() const
+inline bool Options::verbose() const
 {   
-    return d_arg.option('d');
+    return d_arg.option('V');
 }
 
 inline bool Options::parseConfigFile() const
@@ -91,7 +91,7 @@ inline bool Options::parseConfigFile() const
     return d_arg.option('c');
 }
 
-inline bool Options::debugOrJustParse() const
+inline bool Options::verboseOrJustParse() const
 {   
     return d_arg.option("cd");
 }

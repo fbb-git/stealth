@@ -4,7 +4,7 @@
 
 void Stealth::doChores()
 {
-    allocateUniquePtrs();
+    policyDepDataMembers();
 
     setupSignals();
 
@@ -14,16 +14,23 @@ void Stealth::doChores()
     {
         Mode request = d_run.mode();
 
-        imsg << "NEXT TASK: " << d_run.modeName() << endl;
+        imsg << "NEXT CHORE: " << d_run.modeName() << endl;
     
         if (request == LEAVE)
             break;
 
-        d_reporter->newReport();
-                                            // perform the requested task
-        (this->*(s_task.find(request)->second))();
+        d_log.header();
 
-        mailReport();
+        try
+        {                                   // perform the requested task
+            (this->*(s_task.find(request)->second))();
+        }
+        catch (Mode mode)
+        {
+            terminate();
+        }
+
+        mailLogs();
 
         if (d_run.mode(WAIT))
             d_ipc.wait();                   // wait for the next request

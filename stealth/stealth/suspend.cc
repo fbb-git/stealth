@@ -2,5 +2,5 @@
 
 void Stealth::suspend()
 {
-    report("was suspended");
+    logMsg("was suspended");
 }

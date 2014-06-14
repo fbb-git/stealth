@@ -7,10 +7,11 @@ void IntegrityScanner::write(string const &fname)
     ifstream source(fname.c_str());
 
     if (!source)
-        d_reporter.error() << "Can't open `" << fname << "' to read\n";
+        d_log << "Can't open `" << fname << "' to read." << ModeEnum::leave;
 
-    imsg << "IntegrityScanner::write(): about to read local `" << fname << '\'' << 
-                                                                        endl;
+    imsg << "IntegrityScanner::write(): about to read local `" << 
+                fname << '\'' << endl;
+
     while (true)
     {
         size_t const SIZEOF_BUF = 1000;
@@ -22,7 +23,7 @@ void IntegrityScanner::write(string const &fname)
             break;
 
         if (!d_sshFork.write(buffer, nRead))
-            d_reporter.error() << "PUT failed.\n";
+            d_log << "PUT failed." << ModeEnum::leave;
     }
 
     d_sshFork.flush();

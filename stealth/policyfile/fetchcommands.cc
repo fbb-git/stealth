@@ -21,7 +21,7 @@ void PolicyFile::fetchCommands()
     for(auto &entry: d_command)
         replaceDefines(entry);
 
-    if (Options::instance().debugOrJustParse())
+    if (Options::instance().verboseOrJustParse())
     {
         for(auto &value: d_use)
             imsg << "USE " << value.first << ": " << value.second << endl;

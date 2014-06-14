@@ -1,13 +1,13 @@
-#include "reporter.h"
+#include "log.h"
 
 #include <iostream>
+#include <sstream>
 
 #include <bobcat/exception>
 #include <bobcat/mstream>
-#include <bobcat/stat>
 #include <bobcat/datetime>
 
-#include "../lock/lock.h"
+#include "../options/options.h"
 
 namespace Icmbuild
 {

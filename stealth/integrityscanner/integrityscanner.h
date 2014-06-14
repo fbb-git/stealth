@@ -14,8 +14,8 @@ namespace FBB
 }
 
 class PolicyFile;
-class Reporter;
 class RunMode;
+class Log;
 
 class IntegrityScanner
 {
@@ -25,7 +25,7 @@ class IntegrityScanner
     FBB::Arg       &d_arg;
     RunMode        &d_run;
     PolicyFile     &d_policyFile;
-    Reporter       &d_reporter;
+    Log            &d_log;
     FBB::Pattern   &d_firstWord;
     FBB::Process    d_sshFork;
     FBB::Process    d_shFork;
@@ -52,8 +52,7 @@ class IntegrityScanner
     static FBB::Pattern  s_exitValue;
 
     public:
-        IntegrityScanner(RunMode &run, 
-                         PolicyFile &sorter, Reporter &reporter);
+        IntegrityScanner(RunMode &run, PolicyFile &sorter, Log &log);
         size_t nScans() const
         {
             return d_nScans;
@@ -70,9 +69,9 @@ class IntegrityScanner
                         // copy a textfile
         void        copy(FBB::Process &src, std::string const &fname);
 
-                        // terminate or return 'false' if the retrieved 
+                        // terminates if the retrieved 
                         // file's size exceeds d_max_size.
-        bool        checkSize(std::string const &fname, off_t length);
+        void        checkSize(std::string const &fname, off_t length);
 
                                     // executes a command, and compares
                                     // its output to previously

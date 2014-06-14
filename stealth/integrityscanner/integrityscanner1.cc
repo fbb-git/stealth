@@ -9,13 +9,13 @@ is used.
 
 */
 
-IntegrityScanner::IntegrityScanner(RunMode &run,
-                                   PolicyFile &sorter, Reporter &reporter)
+IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile, 
+                                   Log &log)
 :
     d_arg(Arg::instance()),
     d_run(run),
-    d_policyFile(sorter),
-    d_reporter(reporter),                           // ostream
+    d_policyFile(policyFile),
+    d_log(log),                           // ostream
     d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")), // firstword ([1]) and the
                                                     // rest ([3]) of a text
     d_sshFork
@@ -68,16 +68,17 @@ IntegrityScanner::IntegrityScanner(RunMode &run,
             case string::npos:                  // size as-is
             case 'b':
             case 'B':
-                reporter << "    MaxSize = " << d_maxSizeStr << endl;
+                log << "    MaxSize = " << d_maxSizeStr << endl;
                 break;
 
             default:
-                d_reporter.error() << 
-                    "Error in --max-size option specification: " << 
-                     d_maxSizeStr << endl;
+                fmsg << "Error in --max-size option specification: " << 
+                         d_maxSizeStr << endl;
         }
     }
 }
+
+
 
 
 

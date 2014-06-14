@@ -6,7 +6,7 @@ string IntegrityScanner::putCommand(string const &source,
     struct stat statbuf;
 
     if (stat(source.c_str(), &statbuf))
-        d_reporter.error() << "PUT " << source << ": can't stat it" << endl;
+        d_log << "PUT " << source << ": can't stat it" << ModeEnum::leave;
 
     ostringstream command;
 

@@ -1,19 +1,23 @@
 #include "stealth.ih"
 
-void Stealth::allocateUniquePtrs()
+void Stealth::policyDepDataMembers()
 {
     d_policyFile.reset(   new PolicyFile(d_options.policyFilePath()) );
-    d_reporter.reset(       new Reporter((*d_policyFile)["REPORT"])  );
+
+    d_log.open((*d_policyFile)["REPORT"]);
+
     d_integrityScanner.reset(
                                 new IntegrityScanner(
-                                        d_run, *d_policyFile, *d_reporter
+                                        d_run, *d_policyFile, d_log
                                     )  
                             );
+}
+
 
 //    handleKeepAliveOption();                        // maybe not needed ??  
 //    d_repeatInterval = d_options.repeatInterval();      
 //    if (d_options.randomDelay()))
 //        s_delayInterval = d_options.delayInterval();
-}
+
 
 

@@ -7,7 +7,7 @@ void IntegrityScanner::copy(Process &src, string const &fname)
     ofstream currentReport(fname.c_str());
 
     if (!currentReport)
-        d_reporter.error() << "Can't open `" << fname << "' to write" << endl;
+        d_log << "Can't open `" << fname << "' to write" << ModeEnum::leave;
 
     imsg << "IntegrityScanner::copy(): about to read child input" << endl;
 
@@ -17,8 +17,7 @@ void IntegrityScanner::copy(Process &src, string const &fname)
         // `line' is the line as produced by the executed command
     while (getline(src, line))
     {
-        if (!checkSize(fname, length += line.length() + 1))
-            return;
+        checkSize(fname, length += line.length() + 1);  // throws if not OK
 
         imsg << "copy SAW: `" << line << '\'' << endl;
 

@@ -19,15 +19,15 @@ void IntegrityScanner::put(string const &cmd)
 
     string source = s_firstWord[1];                 // get the (remote) source
     if (!source.length())
-        d_reporter.error() << "PUT command requires source and destination" <<
-                                                                        endl;
+        d_log << "PUT command requires source and destination" <<
+                                                            ModeEnum::leave; 
             
     s_firstWord.match(s_firstWord[3]);              // strip off source
 
     string destination = s_firstWord[1];            // get the local dest.
     if (!destination.length())
-        d_reporter.error() << "At `PUT " << source << 
-                            " <destination>': destination missing" << endl;
+        d_log << "At `PUT " << source << 
+                    " <destination>': destination missing" << ModeEnum::leave;
             
     if (Stat(destination).isType(Stat::DIRECTORY))  // is the dest. a dir. ?
         destination += "/" + fileName(source);      // then append sourcename

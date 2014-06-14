@@ -1,6 +1,7 @@
 #ifndef INCLUDED_MODEENUM_
 #define INCLUDED_MODEENUM_
 
+#include <iosfwd>
 
 struct ModeEnum
 {
@@ -23,6 +24,8 @@ struct ModeEnum
         TERMINATE       = 1 << 7,   // terminate a Stealth run (-> SIGTERM,
                                     //                             SIGINT)
     };
+
+    static std::ostream &leave(std::ostream &out);
 };
 
 inline constexpr ModeEnum::Mode operator|(

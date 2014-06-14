@@ -621,7 +621,7 @@ manpagesection(OPTIONS)
 equivalents, if available. Either can be used.
 
     itemization(
-    it() tt(-d --debug): Write debug messages to std error;
+    it() tt(-d --verbose): Write verbose messages to std error;
     it() tt(-c --parse-config-file): 
             Process the config file, no further action,nl()
             report the results to std output;

@@ -10,6 +10,6 @@ void IPC::wait()
     catch(...)
     {}
 
-    ::sleep(1);                         // to allow d_keepAlive to change its
+//    ::sleep(1);                         // to allow d_keepAlive to change its
                                         // value
 }

@@ -36,7 +36,7 @@ void IntegrityScanner::run()
         }
     }
 
-    if (d_arg.option('d'))
+    if (d_arg.option('V'))
         cerr << "Stealth: policy file processed\n";
 }
 

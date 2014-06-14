@@ -8,7 +8,6 @@ namespace{
 
 Arg::LongOption longOption[] =
 {
-    {"debug", 'd'},
     {"echo-commands", 'e'},
     {"max-size", Arg::Required},         // 10m by default
     {"no-child-processes", 'n'},
@@ -18,6 +17,7 @@ Arg::LongOption longOption[] =
     {"random-interval", 'i'},
     {"run-command", 'r'},
     {"skip-files", 's'},
+    {"verbose", 'V'},
     {"version", 'v'},
     {"help", 'h'},
 
@@ -38,7 +38,7 @@ auto endLongOption = longOption + sizeof(longOption) / sizeof(longOption[0]);
 int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
-    Arg &arg = Arg::initialize("cdehi:noqr:s:v", longOption, endLongOption, 
+    Arg &arg = Arg::initialize("cehi:noqr:s:vV", longOption, endLongOption, 
                                 argc, argv); 
 
     arg.versionHelp(Options::usage, Icmbuild::version, 1);
