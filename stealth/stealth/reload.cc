@@ -17,6 +17,8 @@ void Stealth::reload()
     );
 
     d_integrityScanner->startCommandShells();
+
+    d_run.setMode(INTEGRITY_SCAN);
 }
 
 

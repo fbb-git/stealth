@@ -9,5 +9,4 @@ void Stealth::reloadSignal()
     }
 
     d_run.setMode(RELOAD);
-
 }
