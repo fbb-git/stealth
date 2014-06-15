@@ -112,7 +112,7 @@ inline Options::Mode Options::mode() const
     return d_mode;
 }
 
-Options::MailType Options::mailType() const
+inline Options::MailType Options::mailType() const
 {
     return d_mailType;
 }

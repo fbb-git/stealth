@@ -2,7 +2,7 @@
 
 void Stealth::childProcess()
 {
-    prepareDaemon("/tmp/out", "/tmp/err");
+    prepareDaemon();
 
     doChores();    
 
