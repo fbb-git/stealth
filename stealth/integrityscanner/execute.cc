@@ -4,7 +4,7 @@
 void IntegrityScanner::execute(string const &cmd)
 {
     if (!(s_firstWord << cmd))          // determine first word and the rest
-        d_log << "Corrupt line in policy file: " << cmd << ModeEnum::leave;
+        d_stealthLog << "Corrupt line in policy file: " << cmd << StealthEnums::leave;
     
     if (d_arg.option("de"))             // echo the command with -d, -e
         cerr << *d_cmdIterator << '\n';

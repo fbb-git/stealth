@@ -20,17 +20,17 @@ void IntegrityScanner::get(string const &cmd)
     string source = s_firstWord[1];                 // get the (remote) source
 
     if (!source.length())
-        d_log << "GET command requires source and destination" <<
-                                                        ModeEnum::leave;
+        d_stealthLog << "GET command requires source and destination" <<
+                                                        StealthEnums::leave;
             
 
     s_firstWord.match(s_firstWord[3]);              // strip off source
     string destination = s_firstWord[1];            // get the local dest.
 
     if (!destination.length())
-        d_log << 
+        d_stealthLog << 
             "At `GET " << source << " <destination>': destination missing" <<
-                                                            ModeEnum::leave;
+                                                            StealthEnums::leave;
             
     if (Stat(destination).isType(Stat::DIRECTORY))  // is the dest. a dir. ?
         destination += "/" + fileName(source); 

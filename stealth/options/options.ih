@@ -2,12 +2,16 @@
 
 #include <iostream>
 #include <string>
-#include <climits>
-#include <cstdlib>
+//#include <climits>
+//#include <cstdlib>
+#include <unistd.h>
 
+#include <bobcat/user>
 #include <bobcat/mstream>
 
 #include "../lock/lock.h"
+#include "../msg/msg.h"
+#include "../util/util.h"
 
 void usage(std::string const &progname);
 

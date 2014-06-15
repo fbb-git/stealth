@@ -4,11 +4,11 @@ void Stealth::policyDepDataMembers()
 {
     d_policyFile.reset(   new PolicyFile(d_options.policyFilePath()) );
 
-    d_log.open((*d_policyFile)["REPORT"]);
+    d_stealthlog.open((*d_policyFile)["REPORT"]);
 
     d_integrityScanner.reset(
                                 new IntegrityScanner(
-                                        d_run, *d_policyFile, d_log
+                                        d_run, *d_policyFile, d_stealthlog
                                     )  
                             );
 }

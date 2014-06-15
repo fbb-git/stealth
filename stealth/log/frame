@@ -1,5 +1,0 @@
-#include "log.ih"
-
-void Log::
-{
-}

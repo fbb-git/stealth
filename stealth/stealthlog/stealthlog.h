@@ -1,24 +1,24 @@
-#ifndef LOG_H_
-#define LOG_H_
+#ifndef STEALTHLOG_H_
+#define STEALTHLOG_H_
 
 #include <string>
 #include <fstream>
 #include <bobcat/multistreambuf>
 
-class Log: private FBB::MultiStreambuf, public std::ostream
+class StealthLog: private FBB::MultiStreambuf, public std::ostream
 {
     std::ios::pos_type   d_startSize = 0;
     std::ios::pos_type   d_beginMail = 0;
 
-    std::fstream d_log;
+    std::fstream d_stealthlog;
     std::string  d_name;
     std::string d_headerLine;
 
     public:
-        Log(); 
+        StealthLog(); 
 
-        Log(Log const &other) = delete;
-        Log &operator=(Log const &other) = delete;
+        StealthLog(StealthLog const &other) = delete;
+        StealthLog &operator=(StealthLog const &other) = delete;
 
         void header();
         void scanHeader();
@@ -36,14 +36,14 @@ class Log: private FBB::MultiStreambuf, public std::ostream
         virtual int sync();
 };
 
-inline std::istream &Log::in()
+inline std::istream &StealthLog::in()
 {
-    return d_log;
+    return d_stealthlog;
 }
 
-inline void Log::close()
+inline void StealthLog::close()
 {
-    d_log.close();
+    d_stealthlog.close();
 }
 
 #endif

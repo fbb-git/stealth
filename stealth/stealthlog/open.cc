@@ -1,14 +1,14 @@
-#include "log.ih"
+#include "stealthlog.ih"
 
-void Log::open(string const &name)
+void StealthLog::open(string const &name)
 {
     d_name = name;
-    d_log.open(name, ios::out | ios::ate | ios::in);
+    d_stealthlog.open(name, ios::out | ios::ate | ios::in);
 
-    if (not d_log)
+    if (not d_stealthlog)
     {
-        d_log.clear();
-        Exception::open(d_log, name, ios::out | ios::in | ios::trunc);    
+        d_stealthlog.clear();
+        Exception::open(d_stealthlog, name, ios::out | ios::in | ios::trunc);    
     }
 
     ostringstream headerTxt;

@@ -5,8 +5,8 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
     string current = logfile + ".cur";      // create current logfile
 
     if (!Util::mkdir(current))              // make sure directory exists
-        d_log << "Unable to create the logfile `" << current << "'" << 
-                                                            ModeEnum::leave;
+        d_stealthLog << "Unable to create the logfile `" << current << "'" << 
+                                                            StealthEnums::leave;
  
     imsg << "IntegrityScanner::sameOutput(): logs to " << current << endl;
    
@@ -23,10 +23,10 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
         {
             imsg << "IntegrityScanner::sameOutput(): writing label: " << 
                     d_label << '\n';
-            d_log << d_label << endl;
+            d_stealthLog << d_label << endl;
         }
 
-        d_log << "Initialized report on " << logfile << endl;
+        d_stealthLog << "Initialized report on " << logfile << endl;
 
         imsg << "IntegrityScanner::sameOutput(): Initialized  report on " << 
                 logfile << endl;

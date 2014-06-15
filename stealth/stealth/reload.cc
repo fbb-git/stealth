@@ -6,14 +6,14 @@ void Stealth::reload()
 
     mailLogs();
     
-    d_log.close();
+    d_stealthlog.close();
 
     d_policyFile->reload();
     
-    d_log.open((*d_policyFile)["REPORT"]);
+    d_stealthlog.open((*d_policyFile)["REPORT"]);
 
     d_integrityScanner.reset( 
-                new IntegrityScanner(d_run, *d_policyFile, d_log) 
+                new IntegrityScanner(d_run, *d_policyFile, d_stealthlog) 
     );
 
     d_integrityScanner->startCommandShells();

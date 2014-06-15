@@ -1,11 +1,12 @@
 util 
-modeenum
+stealthenums
 lock
 ipc
-runmode             modeenum
-options             modeenum
+runmode             stealthenums
+msg
+options             stealthenums
 policyfile          
-log
+stealthlog
 integrityscanner    
-stealth             runmode ipc log
+stealth             runmode ipc stealthlog
 

@@ -3,9 +3,9 @@
 
 #include <bobcat/linearmap>
 
-#include "../modeenum/modeenum.h"
+#include "../stealthenums/stealthenums.h"
 
-struct RunMode: public ModeEnum
+struct RunMode: public StealthEnums
 {
     private:
         static FBB::LinearMap<volatile Mode, char const *> const s_modeName;

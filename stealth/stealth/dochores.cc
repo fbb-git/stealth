@@ -19,7 +19,7 @@ void Stealth::doChores()
         if (request == LEAVE)
             break;
 
-        d_log.header();
+        d_stealthlog.header();
 
         try
         {                                   // perform the requested task

@@ -6,18 +6,38 @@
 
 namespace{
 
-Arg::LongOption longOption[] =
+ArgConfig::LongOption longOption[] =
 {
-    {"echo-commands", 'e'},
+//    {"echo-commands", 'e'},   // cancelled, 
+
     {"max-size", Arg::Required},         // 10m by default
-    {"no-child-processes", 'n'},
-    {"only-stdout", 'o'},
-    {"parse-config-file", 'c'},
-    {"quiet", 'q'},
-    {"random-interval", 'i'},
-    {"run-command", 'r'},
-    {"skip-files", 's'},
-    {"verbose", 'V'},
+
+//    {"no-child-processes", 'n'},      // cancelled: use --no-daemon
+
+//    {"only-stdout", 'o'},             // cancelled: use --stdout
+    {"config", 'c'},            // : new
+
+    {"log",  'l'},              // : new
+
+    {"mail", 'm'},              // : new
+
+    {"parse-policy-file", 'p'}, // was: 'c'
+
+//    {"quiet", 'q'},           // cancelled: use --verbosity 0
+
+    {"random-interval", 'i'},   // :
+    {"run-command", 'r'},       // :
+
+    {"skip-files", 's'},        // :
+    {"stdout", 'S'},            // new
+
+    {"syslog", Arg::None},              // new (block)
+    {"syslog-facility", Arg::Required},
+    {"syslog-priority", Arg::Required},
+    {"syslog-tag", Arg::Required},
+
+    {"verbosity", 'V'},         // : new
+
     {"version", 'v'},
     {"help", 'h'},
 
@@ -38,7 +58,8 @@ auto endLongOption = longOption + sizeof(longOption) / sizeof(longOption[0]);
 int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
-    Arg &arg = Arg::initialize("cehi:noqr:s:vV", longOption, endLongOption, 
+    ArgConfig &arg = ArgConfig::initialize("c:ehi:l:pr:s:SvV:",
+                                longOption, endLongOption, 
                                 argc, argv); 
 
     arg.versionHelp(Options::usage, Icmbuild::version, 1);

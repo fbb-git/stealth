@@ -1,0 +1,3 @@
+#define LIBRARY             "msg"
+
+#include "../icmconf2"

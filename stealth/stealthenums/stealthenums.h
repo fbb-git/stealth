@@ -1,9 +1,9 @@
-#ifndef INCLUDED_MODEENUM_
-#define INCLUDED_MODEENUM_
+#ifndef INCLUDED_STEALTHENUMS_
+#define INCLUDED_STEALTHENUMS_
 
 #include <iosfwd>
 
-struct ModeEnum
+struct StealthEnums
 {
     enum Mode       // uses bit-flags values
     {
@@ -25,13 +25,20 @@ struct ModeEnum
                                     //                             SIGINT)
     };
 
+    enum class MailType
+    {
+        OFF,
+        ON,
+        LOG
+    };
+
     static std::ostream &leave(std::ostream &out);
 };
 
-inline constexpr ModeEnum::Mode operator|(
-                                    ModeEnum::Mode lhs, ModeEnum::Mode rhs)
+inline constexpr StealthEnums::Mode operator|(
+                                    StealthEnums::Mode lhs, StealthEnums::Mode rhs)
 {
-    return static_cast<ModeEnum::Mode>(
+    return static_cast<StealthEnums::Mode>(
                 static_cast<size_t>(lhs) | static_cast<size_t>(rhs) 
             );
 }

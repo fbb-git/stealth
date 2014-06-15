@@ -7,7 +7,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        d_log << "Can't open `" << fname << "' to write" << ModeEnum::leave;
+        d_stealthLog << "Can't open `" << fname << "' to write" << StealthEnums::leave;
 
     imsg << "IntegrityScanner::read(): about to read child input" << endl;
 
@@ -22,8 +22,8 @@ void IntegrityScanner::read(Process &src, string const &fname)
         if (!src.read(&c, 1))               // read char by char
         {
             d_run.setMode(RunMode::TERMINATE);
-            d_log << "Incomplete read from `" << fname << "'" <<
-                                                            ModeEnum::leave; 
+            d_stealthLog << "Incomplete read from `" << fname << "'" <<
+                                                            StealthEnums::leave; 
             return;
         }
 

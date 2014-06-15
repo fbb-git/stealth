@@ -11,6 +11,6 @@ void IntegrityScanner::nextCommand(ostream &out, string const &command)
            "/bin/echo \"" << d_sentinel << " $?\""  << endl;
 
     if (!out)
-        d_log << "Inserting command `" << s_firstWord[0] << "' failed." << 
-                                                            ModeEnum::leave;
+        d_stealthLog << "Inserting command `" << s_firstWord[0] << "' failed." << 
+                                                            StealthEnums::leave;
 }

@@ -7,7 +7,7 @@ void IntegrityScanner::copy(Process &src, string const &fname)
     ofstream currentReport(fname.c_str());
 
     if (!currentReport)
-        d_log << "Can't open `" << fname << "' to write" << ModeEnum::leave;
+        d_log << "Can't open `" << fname << "' to write" << StealthEnums::leave;
 
     imsg << "IntegrityScanner::copy(): about to read child input" << endl;
 

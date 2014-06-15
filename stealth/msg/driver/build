@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ --std=c++11 driver.cc -L../tmp/ -lmsg -lbobcat

@@ -10,12 +10,12 @@ is used.
 */
 
 IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile, 
-                                   Log &log)
+                                   StealthLog &stealthlog)
 :
     d_arg(Arg::instance()),
     d_run(run),
     d_policyFile(policyFile),
-    d_log(log),                           // ostream
+    d_stealthLog(stealthlog),                           // ostream
     d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")), // firstword ([1]) and the
                                                     // rest ([3]) of a text
     d_sshFork
@@ -68,7 +68,7 @@ IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile,
             case string::npos:                  // size as-is
             case 'b':
             case 'B':
-                log << "    MaxSize = " << d_maxSizeStr << endl;
+                stealthlog << "    MaxSize = " << d_maxSizeStr << endl;
                 break;
 
             default:

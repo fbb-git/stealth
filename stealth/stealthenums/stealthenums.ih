@@ -1,4 +1,4 @@
-#include "modeenum.h"
+#include "stealthenums.h"
 
 #include <ostream>
 

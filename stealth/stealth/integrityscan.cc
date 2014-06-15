@@ -2,7 +2,7 @@
 
 void Stealth::integrityScan()
 {
-    d_log.scanHeader();
+    d_stealthlog.scanHeader();
 
     d_integrityScanner->run();
 

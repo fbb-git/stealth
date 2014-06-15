@@ -24,7 +24,7 @@ void IntegrityScanner::local(string const &s_firstWord2)
     if  (removeFirstWord("CHECK"))                  // ...      CHECK ...
     {
         if (!doCHECKcommand(d_shFork))              // so, do the command
-            d_log  << "\n"                     // and check the result
+            d_stealthLog  << "\n"                     // and check the result
                "*** BE CAREFUL *** REMAINING RESULTS MAY BE FORGED\n" <<
                endl;
     }

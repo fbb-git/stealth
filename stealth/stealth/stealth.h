@@ -10,20 +10,20 @@
 
 #include "../runmode/runmode.h"     // declares LinearMap
 #include "../ipc/ipc.h"
-#include "../log/log.h"
+#include "../stealthlog/stealthlog.h"
 
 class PolicyFile;
 class IntegrityScanner;
 class Options;
 
-class Stealth: public ModeEnum, public FBB::Fork, public FBB::SignalHandler
+class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
 {
     Options &d_options;
     IPC d_ipc;
 
     RunMode d_run;
 
-    Log     d_log;
+    StealthLog     d_stealthlog;
     std::unique_ptr<PolicyFile>         d_policyFile;
     std::unique_ptr<IntegrityScanner>   d_integrityScanner;
 
@@ -53,6 +53,7 @@ class Stealth: public ModeEnum, public FBB::Fork, public FBB::SignalHandler
 
         void mailLogs();        // mail the logs or write them to cout
             void processMail();
+                void sendMail();
 
         void doChores();            // run all scanning (related) tasks 
             void policyDepDataMembers();

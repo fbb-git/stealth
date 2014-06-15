@@ -7,7 +7,7 @@ void IntegrityScanner::write(string const &fname)
     ifstream source(fname.c_str());
 
     if (!source)
-        d_log << "Can't open `" << fname << "' to read." << ModeEnum::leave;
+        d_stealthLog << "Can't open `" << fname << "' to read." << StealthEnums::leave;
 
     imsg << "IntegrityScanner::write(): about to read local `" << 
                 fname << '\'' << endl;
@@ -23,7 +23,7 @@ void IntegrityScanner::write(string const &fname)
             break;
 
         if (!d_sshFork.write(buffer, nRead))
-            d_log << "PUT failed." << ModeEnum::leave;
+            d_stealthLog << "PUT failed." << StealthEnums::leave;
     }
 
     d_sshFork.flush();
