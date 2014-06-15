@@ -12,7 +12,7 @@ is used.
 IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile, 
                                    StealthLog &stealthlog)
 :
-    d_arg(Arg::instance()),
+    d_arg(ArgConfig::instance()),
     d_run(run),
     d_policyFile(policyFile),
     d_stealthLog(stealthlog),                           // ostream
@@ -39,7 +39,7 @@ IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile,
 {
     setSentinel();
 
-    imsg << "DIFFPREFIX set to " << d_diffPrefix << endl;
+    m4 << "DIFFPREFIX: " << d_diffPrefix << endl;
 
     d_arg.option(&d_skipFilePath, 's');
 

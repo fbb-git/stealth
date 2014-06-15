@@ -27,7 +27,7 @@ void IntegrityScanner::run()
         {
             if (d_run.interrupted())    // terminate, suspend, reload
             {
-                imsg << "Running integrity scan interrupted by " << 
+                m1 << "Running integrity scan interrupted by " << 
                             d_run.modeName() << " request" << endl;
                 return;
             }

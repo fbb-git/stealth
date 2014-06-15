@@ -2,7 +2,7 @@
 
 void Stealth::sendMail()
 {
-    imsg << "Mailing new logs using: " << 
+    m4 << "Mailing new logs using: " << 
             (*d_policyFile)["MAILER"] << ' ' <<
             (*d_policyFile)["MAILARGS"] << " " << 
             (*d_policyFile)["EMAIL"] << endl;
@@ -29,6 +29,4 @@ void Stealth::sendMail()
 
     mail.close();
     mail.waitForChild();
-
-    imsg << "Logs were mailed" << endl;
 }

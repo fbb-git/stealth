@@ -39,7 +39,6 @@ class Options: public StealthEnums
     bool d_repeat;
     size_t d_repeatInterval;
     size_t d_delayInterval;
-    size_t d_verbosity;
 
     FBB::LinearMap<std::string, FBB::Facility>::const_iterator 
                                                         d_syslogFacility;

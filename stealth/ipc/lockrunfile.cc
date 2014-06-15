@@ -6,7 +6,7 @@ void IPC::lockRunFile() const
 
     string const &runFile = Options::instance().runFile();
 
-    imsg << "Trying to lock " << runFile << " of process " << pid << endl;
+    m2 << "Trying to lock " << runFile << " of process " << pid << endl;
 
     Lock::setRunFilename(runFile);
     Lock::lockRunFile(Lock::BLOCKING);      // Obtain the lock on the runfile

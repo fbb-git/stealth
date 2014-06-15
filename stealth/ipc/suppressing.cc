@@ -2,7 +2,7 @@
 
 void IPC::suppressing(size_t pid)
 {
-    imsg << "Suppressing process " << pid << endl;
+    m2 << "Suppressing process " << pid << endl;
 
     sleep();                        // Prepare to go to sleep, by setting
                                     // s_selector
@@ -12,7 +12,7 @@ void IPC::suppressing(size_t pid)
                                 // The suppressed process will wait 
                                 // for a second allowing this process
                                 // to start its waiting cycle.
-    imsg << "Waiting for the suppressed process to finish its task" << 
+    m2 << "Waiting for the suppressed process to finish its task" << 
                                                                     endl;
 
     try                             // see wait() for the try {...
@@ -22,5 +22,5 @@ void IPC::suppressing(size_t pid)
     catch(...)                      // is irrelevant here.
     {}
 
-    imsg << "It has. Now terminate this process" << endl;
+    m2 << "It has. Now terminate this process" << endl;
 }

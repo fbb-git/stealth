@@ -18,12 +18,12 @@ bool IntegrityScanner::doCHECKcommand(Process &child)
         s_firstWord.match(s_firstWord[3]);
     }
 
-    imsg << "running checked command: ";
+    m1 << "running checked command: ";
 
     if (d_pathOffset != numeric_limits<size_t>::max())
-        imsg << "(pathOffset = " << d_pathOffset << ") ";
+        m1 << "(pathOffset = " << d_pathOffset << ") ";
 
-    imsg << '`' << s_firstWord[0] << '\'' << endl;
+    m1 << '`' << s_firstWord[0] << '\'' << endl;
 
     if (d_arg.option('n'))              // -n (no go) option?
         return true;                    // then indicate by implication that

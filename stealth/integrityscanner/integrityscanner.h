@@ -1,16 +1,18 @@
-#ifndef _INCLUDED_INTEGRITYSCANNER_H_
-#define _INCLUDED_INTEGRITYSCANNER_H_
+#ifndef INCLUDED_INTEGRITYSCANNER_H_
+#define INCLUDED_INTEGRITYSCANNER_H_
 
 #include <string>
 #include <vector>
 #include <iosfwd>
+
 #include <sys/types.h>
+
 #include <bobcat/process>
 
 namespace FBB
 {
     class Pattern;
-    class Arg;
+    class ArgConfig;
 }
 
 class PolicyFile;
@@ -22,7 +24,7 @@ class IntegrityScanner
     typedef std::vector<std::string>     StringVector;
     typedef StringVector::const_iterator const_iterator;
 
-    FBB::Arg       &d_arg;
+    FBB::ArgConfig &d_arg;
     RunMode        &d_run;
     PolicyFile     &d_policyFile;
     StealthLog     &d_stealthLog;

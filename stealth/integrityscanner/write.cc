@@ -7,10 +7,10 @@ void IntegrityScanner::write(string const &fname)
     ifstream source(fname.c_str());
 
     if (!source)
-        d_stealthLog << "Can't open `" << fname << "' to read." << StealthEnums::leave;
+        d_stealthLog << "Can't open `" << fname << "' to read." <<
+                                                        StealthEnums::leave; 
 
-    imsg << "IntegrityScanner::write(): about to read local `" << 
-                fname << '\'' << endl;
+    m3 << "about to read local `" << fname << '\'' << endl;
 
     while (true)
     {

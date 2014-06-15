@@ -7,15 +7,16 @@ void IntegrityScanner::startCommandShells() // preamble()
 
                                 // try to echo a sentinel by having
                                 // the ssh connection echo it    
-    imsg << "Inserting " << d_sentinel << " into " << d_policyFile["SSH"] << endl;
+    m3 << "Inserting " << d_sentinel << " into " << d_policyFile["SSH"] << 
+                                                                        endl;
 
     d_sshFork << "/bin/echo \"" << d_sentinel << "\"" << endl;   // must flush
 
-    imsg << "Waiting for " << d_sentinel << " from " << d_policyFile["SSH"] << 
+    m3 << "Waiting for " << d_sentinel << " from " << d_policyFile["SSH"] << 
                                                                         endl;
 
     d_testExitValue = false;
     waitForSentinel(d_sshFork);  // continue after reading 
 
-    imsg << d_policyFile["SSH"] << " appears to be functioning well" << endl;
+    m3 << d_policyFile["SSH"] << " appears to be functioning well" << endl;
 }

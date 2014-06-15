@@ -6,5 +6,5 @@ void Stealth::rerunSignal()
         d_run.setMode(INTEGRITY_SCAN);
     else
         imsg << "--rerun request ignored in mode " << d_run.modeName() << 
-                                                                    endl;
+                                                                        endl;
 }

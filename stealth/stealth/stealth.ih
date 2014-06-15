@@ -2,40 +2,16 @@
 
 #include <iostream>
 
-//#include <string>
-//#include <signal.h>
-//#include <limits>
-//
-//#include <bobcat/arg>
-//#include <bobcat/process>
 #include <bobcat/mstream>
 #include <bobcat/exception>
 #include <bobcat/datetime>
 #include <bobcat/linearmap>
-
-//#include "../util/util.h"
-
-// #include "../lock/lock.h"
+#include <bobcat/process>
 
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"
 #include "../options/options.h"
+#include "../msg/msg.h"
 
 using namespace std;
 using namespace FBB;
-
-//inline void Stealth::wakeup() 
-//{
-//    s_selector.setAlarm(0);
-//}
-
-//inline bool Stealth::keepAlive()
-//{
-//    return s_keepAlive;
-//}
-
-//inline void Stealth::handleReplySignal(int signum)
-//{
-//    wakeup();
-//}
-//

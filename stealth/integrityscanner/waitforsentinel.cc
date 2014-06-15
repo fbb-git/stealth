@@ -8,11 +8,11 @@ void IntegrityScanner::waitForSentinel(Process &extractor)
 
     while (getline(extractor, s))
     {
-        imsg << "Read line `" << s << '\'' << endl;
+        m4 << "read line `" << s << '\'' << endl;
 
         if (s.find(d_sentinel) == 0)
         {
-            imsg << "GOT Sentinel" << endl;
+            m3 << "GOT Sentinel" << endl;
             break;
         }
     }

@@ -1,20 +1,11 @@
 #include "integrityscanner.h"
 
-#include <sys/stat.h>
-#include <sstream>
-#include <unistd.h>
-#include <signal.h>
-#include <iterator>
-#include <algorithm>
-#include <limits>
-
-#include <bobcat/arg>
+#include <bobcat/argconfig>
 #include <bobcat/pattern>
-#include <bobcat/hash>
+
 #include <bobcat/mstream>
 #include <bobcat/stat>
 #include <bobcat/datetime>
-#include <bobcat/string>
 #include <bobcat/stringline>
 #include <bobcat/exception>
 #include <bobcat/ranger>
@@ -23,6 +14,9 @@
 #include "../policyfile/policyfile.h"
 #include "../stealthlog/stealthlog.h"
 #include "../runmode/runmode.h"
+
+#include "../msg/msg.h"
+
 
 using namespace std;
 using namespace FBB;

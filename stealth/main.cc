@@ -72,12 +72,12 @@ try
 catch (exception const &err)
 {
     if (err.what() != to_string(fmsg.id()))
-        cerr << err.what() << '\n';
+        cout << err.what() << '\n';
     return 1;
 }
 catch (int ret)
 {
-    return Arg::instance().option("hv") ? 0 : ret;
+    return ArgConfig::instance().option("hv") ? 0 : ret;
 }
 catch (...)
 {

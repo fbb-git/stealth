@@ -4,7 +4,7 @@ bool IPC::signalPeer(int signum)
 {
     size_t pid = getPid();    // get the pid of the process to signal 
 
-    imsg << "Sending " << s_signame.find(signum)->second << " to process " << 
+    m2 << "Sending " << s_signame.find(signum)->second << " to process " << 
             pid << endl;
 
     // When suppressing (SIGUSR1) we must add this process' ID to the runfile

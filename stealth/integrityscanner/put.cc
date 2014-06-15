@@ -6,7 +6,7 @@
 
 void IntegrityScanner::put(string const &cmd)
 {
-    imsg << "IntegrityScanner::put(): " << cmd << endl;
+    m1 << "put: " << cmd << endl;
 
     removeFirstWord("PUT");                         // strip off `PUT'
 
@@ -33,7 +33,7 @@ void IntegrityScanner::put(string const &cmd)
         destination += "/" + fileName(source);      // then append sourcename
 
 
-    imsg << "IntegrityScanner::put(): scp <client>:" << source << " " << 
+    m3 << "IntegrityScanner::put(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
     string command = putCommand(source, destination);
@@ -48,8 +48,6 @@ void IntegrityScanner::put(string const &cmd)
     d_sshFork << "/bin/echo \"" << d_sentinel << " $?\""  << endl;
     
     waitForSentinel(d_sshFork);
-
-    imsg << "IntegrityScanner::put(): " << cmd << " DONE" << endl;
 }
 
 

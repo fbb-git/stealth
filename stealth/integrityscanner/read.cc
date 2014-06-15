@@ -7,9 +7,8 @@ void IntegrityScanner::read(Process &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        d_stealthLog << "Can't open `" << fname << "' to write" << StealthEnums::leave;
-
-    imsg << "IntegrityScanner::read(): about to read child input" << endl;
+        d_stealthLog << "Can't open `" << fname << "' to write" <<
+                                                        StealthEnums::leave; 
 
     char c;
     string partialSentinel;
@@ -35,7 +34,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
                                             // matched the sentinel
             if (length == d_sentinel.length())
             {
-                imsg << "GOT Sentinel" << endl;
+                m3 << "GOT Sentinel" << endl;
 
                 string tail;                    // get the end-chars as well
                 getline(src, tail);

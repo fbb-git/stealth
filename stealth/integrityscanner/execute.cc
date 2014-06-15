@@ -4,11 +4,9 @@
 void IntegrityScanner::execute(string const &cmd)
 {
     if (!(s_firstWord << cmd))          // determine first word and the rest
-        d_stealthLog << "Corrupt line in policy file: " << cmd << StealthEnums::leave;
+        d_stealthLog << "Corrupt line in policy file: " << cmd <<
+                                                        StealthEnums::leave; 
     
-    if (d_arg.option("de"))             // echo the command with -d, -e
-        cerr << *d_cmdIterator << '\n';
-
     if (s_firstWord[1] == "LABEL")      // set a label 
     {
         d_label = s_firstWord[3];       // the text beyond the LABEL keyword

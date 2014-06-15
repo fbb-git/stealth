@@ -6,7 +6,7 @@
 
 void IntegrityScanner::get(string const &cmd)
 {
-    imsg << "IntegrityScanner::get(): " << cmd << endl;
+    m1 << "IntegrityScanner::get(): " << cmd << endl;
 
     removeFirstWord("GET");                         // strip off `GET'
 
@@ -36,7 +36,7 @@ void IntegrityScanner::get(string const &cmd)
         destination += "/" + fileName(source); 
 
 
-    imsg << "IntegrityScanner::get(): scp <client>:" << source << " " << 
+    m3 << "IntegrityScanner::get(): scp <client>:" << source << " " << 
                                                      destination << endl;
 
     if (d_arg.option('n'))                          // no run if -n
@@ -46,6 +46,4 @@ void IntegrityScanner::get(string const &cmd)
         d_policyFile["DD"] + " if=" + source);
 
     read(d_sshFork, destination);       // read its output, tests exit value
-
-    imsg << "IntegrityScanner::get(): " << cmd << " DONE" << endl;
 }

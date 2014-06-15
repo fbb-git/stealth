@@ -6,7 +6,7 @@ void IPC::writeRunFile(pid_t pid)
 
     ofstream runFile(runFileName);
 
-    cerr << "Run file = " << runFileName << '\n';
+    m4 << "run file: " << runFileName << '\n';
 
     if (not (runFile << pid << endl))
     {
@@ -14,6 +14,4 @@ void IPC::writeRunFile(pid_t pid)
         kill(SIGTERM, pid);
         fmsg << "could not write " << runFileName << endl;
     }
-
-    cerr << "wrote " << pid << " on " << runFileName  << endl;
 }

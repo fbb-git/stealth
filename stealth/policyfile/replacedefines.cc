@@ -6,7 +6,7 @@ void PolicyFile::replaceDefines(string &text)
 //                                                    // [1]: all ${NAME} text
 //                                                    // [2]: NAME itself
 
-    imsg << "PolicyFile::replaceDefines in " << text << endl;
+    m5 << "PolicyFile::replaceDefines in " << text << endl;
 
     string out;
 
@@ -20,13 +20,12 @@ void PolicyFile::replaceDefines(string &text)
             :                                       // otherwise
                 s_define.matched();                 // ${NAME} (unmodified)
 
-        imsg << "    step: " << out << endl;
+        m5 << "    step: " << out << endl;
 
         text = s_define.beyond();                   // remove all matched 
     }                                               // text from `text'
 
-    imsg << "PolicyFile::replaceDefines -> " << text << endl;
+    m5 << "PolicyFile::replaceDefines -> " << text << endl;
 
     text = out + text;                              // redefine `text'
 }
-

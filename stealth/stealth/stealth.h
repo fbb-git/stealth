@@ -1,7 +1,6 @@
 #ifndef _INCLUDED_STEALTH_H_
 #define _INCLUDED_STEALTH_H_
 
-// #include <iosfwd>
 #include <string>
 #include <memory>
 

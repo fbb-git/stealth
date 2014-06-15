@@ -37,9 +37,11 @@ Options::Options()
         Lock::setRunFilename(d_runFile);
     }
 
-//    d_runFile = d_arg[0]; ??
-
     checkAction();
+
+    if (d_mode & (RELOAD | RERUN | TERMINATE | SUSPEND | RESUME))
+        d_runFile = d_arg[0];
+    
 
     loadConfigFile();
 
@@ -53,7 +55,7 @@ Options::Options()
     }
 
     string logName;
-    if (d_arg.option(&logName, 'L'))
+    if (d_arg.option(&logName, 'l'))
     {
         d_log.open(logName);
         if (not d_log)
@@ -78,21 +80,25 @@ Options::Options()
 
     bool useSyslog = setSyslog();
 
-    string verbosity;
-    d_verbosity = d_arg.option(&verbosity, 'V') ?
-                        stoul(verbosity)
-                    :
-                        s_defaultVerbosity;
 
-    if (d_verbosity == 0)
-        imsg.off();
-    else if (useSyslog || not logName.empty())
+    string verbosity;
+    bool verb;
+    size_t verbosityValue = (verb = d_arg.option(&verbosity, 'V')) ?
+                                stoul(verbosity)
+                            :
+                                s_defaultVerbosity;
+
+    if (useSyslog || logName.length() != 0)
         imsg.reset(d_msg);
     else
-        wmsg << "--verbosity ignored: --syslog or --log not specified" << 
+    {
+        if (verb && verbosityValue != 0)
+            wmsg << "--verbosity ignored: --syslog or --log not specified" << 
                                                                         endl;
+        verbosityValue = 0;
+    }
 
-    Msg::setVerbosity(d_verbosity);
+    Msg::setVerbosity(verbosityValue);
 
     repeatOption();
     setRandomDelay();

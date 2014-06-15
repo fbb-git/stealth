@@ -10,7 +10,11 @@ void Msg::setVerbosity(size_t verbosity)
         case 1:
             m2.rdbuf(0);
         case 2:
-            ;
+            m3.rdbuf(0);
+        case 3:
+            m4.rdbuf(0);
+        case 4:
+            m5.rdbuf(0);
     }
 
     streambuf *buf = imsg.rdbuf();
@@ -18,9 +22,21 @@ void Msg::setVerbosity(size_t verbosity)
         // switch on all mx streams up to verbosity
     switch (verbosity)
     {
+        case 5:
+            m5.rdbuf(buf);        
+        case 4:
+            m4.rdbuf(buf);        
+        case 3:
+            m3.rdbuf(buf);        
         case 2:
             m2.rdbuf(buf);        
         case 1:
             m1.rdbuf(buf);
     }
 }
+
+
+
+
+
+

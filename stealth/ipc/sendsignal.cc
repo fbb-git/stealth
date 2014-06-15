@@ -2,8 +2,6 @@
 
 void IPC::sendSignal(int signum, pid_t pid)
 {
-cerr << "SIGNAL nr = " << signum << '\n';
-
     char const *signame = s_signame.find(signum)->second;
 
     if (kill(pid, signum))          
@@ -16,6 +14,6 @@ cerr << "SIGNAL nr = " << signum << '\n';
                                                                         endl;
     }
 
-    imsg << signame << " sent" << endl;
+    m2 << signame << " sent" << endl;
 }
 

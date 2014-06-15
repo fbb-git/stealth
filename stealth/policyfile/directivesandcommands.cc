@@ -19,7 +19,7 @@ void PolicyFile::directivesAndCommands()
             insert(d_define, line);
         else
         {
-            imsg << "Regular command: `" << line << '\'' << endl;
+            m5 << "Regular command: `" << line << '\'' << endl;
             d_command.push_back(line);
         }
     }

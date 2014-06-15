@@ -13,17 +13,19 @@
 bool IntegrityScanner::noDifferences(std::string const &current,
                                   std::string const &logfile)
 {
-    imsg << "IntegrityScanner::noDifferences(): started " << 
+    m3 << "noDifferences() started: " << 
             d_policyFile["DIFF"] << " " << current << " " << logfile << endl;
 
     d_shFork << d_policyFile["DIFF"] << " " << current << " " << logfile <<
                                                                      '\n' <<
                         "/bin/echo \"" << d_sentinel << "\"" << endl;
 
-    HashString<pair<string, vector<string>>> status;
+    typedef  LinearMap<string, pair<string, vector<string>>> LinMap;
 
-    imsg << "IntegrityScanner::noDifferences():         /bin/echo " << d_sentinel << 
-                                                                        endl;
+//    HashString<pair<string, vector<string>>> status;
+    LinMap status;
+
+    m3 << "noDifferences():         /bin/echo " << d_sentinel << endl;
 
     //  status's key is a case sensitive string.
     //
@@ -49,8 +51,6 @@ bool IntegrityScanner::noDifferences(std::string const &current,
 
     string  line;
 
-    imsg << "IntegrityScanner::noDifferences(): starting to read lines" << endl;
-
     // get lines from diff, lines like:
     //    
     //    33c33
@@ -60,9 +60,9 @@ bool IntegrityScanner::noDifferences(std::string const &current,
 
     while (getline(d_shFork, line))
     {
-        imsg << "IntegrityScanner::noDifferences():      got: `" << 
+        m4 << "noDifferences():      got: `" << 
                 line << "'\n" 
-                "IntegrityScanner::noDifferences(): sentinel: `" << 
+                "noDifferences(): sentinel: `" << 
                 d_sentinel << '\'' << endl;
 
         if (line == d_sentinel)            // done at the sentinel
@@ -94,7 +94,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
 
     if (!status.size())                 // no elements ?
     {
-        imsg << "no differences were observed" << endl;
+        m3 << "no differences observed" << endl;
 
         rename(current.c_str(), logfile.c_str());   // install `logfile'
         return true;                   // nothing to report
@@ -105,8 +105,8 @@ bool IntegrityScanner::noDifferences(std::string const &current,
 
     for
     (
-        HashString< pair<string, vector<string> > >::iterator
-        begin = status.begin(), end = status.end();
+//        HashString< pair<string, vector<string> > >::iterator
+        LinMap::iterator begin = status.begin(), end = status.end();
             begin != end;
                 begin++
     )
@@ -129,7 +129,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
     rename(logfile.c_str(), logFilename.c_str());
     rename(current.c_str(), logfile.c_str());   // install `logfile'
 
-    imsg << "differences were observed: see `" << 
+    m1 << "differences observed: see `" << 
                  d_policyFile["REPORT"] << "'  and `" << logfile << '\'' << endl;
 
     return false;

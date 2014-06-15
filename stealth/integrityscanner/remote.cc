@@ -2,7 +2,7 @@
 
 void IntegrityScanner::remote(string const &cmd)
 {
-    imsg << "REMOTE: Command Run At The Client" << endl;
+    m1 << "REMOTE: Command Run At The Client" << endl;
 
     d_testExitValue = !removeFirstWord("NOTEST");   // [NOTEST] ...
 
@@ -10,6 +10,4 @@ void IntegrityScanner::remote(string const &cmd)
         doCHECKcommand(d_sshFork);
     else
         doPlainCommand(d_sshFork);
-
-    imsg << "IntegrityScanner::remote(): " << cmd << " DONE" << endl;
 }

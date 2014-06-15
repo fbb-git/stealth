@@ -11,12 +11,8 @@
 
 #include "../lock/lock.h"
 #include "../options/options.ih"
+#include "../msg/msg.h"
 
 using namespace std;
 using namespace FBB;
 
-
-//inline void IPC::handleReplySignal(int signum)
-//{
-//    wakeup();
-//}

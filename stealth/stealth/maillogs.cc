@@ -6,7 +6,7 @@ void Stealth::mailLogs()
 {
     if (not d_stealthlog.hasMail())
     {
-        imsg << "No new logs available" << endl;
+        m4 << "No new logs available" << endl;
         return;
     }
 

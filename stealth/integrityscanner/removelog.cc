@@ -12,15 +12,16 @@ void IntegrityScanner::removeLOG()
         // remove 'LOG =' and proceed.
         if (pos != string::npos && matched[pos] == '=')
         {
-            imsg << "removed `LOG =', kept `" << 
+            m3 << "removed `LOG =', kept `" << 
                             matched.substr(pos + 1) << '\'' << endl;
             s_firstWord.match(matched.substr(pos + 1));
         }
         else
-            imsg << "LOG is (partial) logname in `" << matched << '\'' << 
+            m3 << "LOG is (partial) logname in `" << matched << '\'' << 
                                                                         endl;
     }
     else
-        imsg << "No `LOG =' in CHECK command `" << matched << "'" << endl;
+        m3 << "No `LOG =' specified in CHECK command `" << matched << "'" << 
+                                                                        endl;
 }
 

@@ -2,7 +2,7 @@
 
 void IntegrityScanner::nextCommand(ostream &out, string const &command)
 {
-    imsg << "IntegrityScanner::nextCommand(): inserting\n" << command << "\n"
+    m3 << "nextCommand: inserting\n" << command << "\n"
                 "and: echo " << d_sentinel << " $?" << endl;
 
                         // run the command, then 
@@ -11,6 +11,6 @@ void IntegrityScanner::nextCommand(ostream &out, string const &command)
            "/bin/echo \"" << d_sentinel << " $?\""  << endl;
 
     if (!out)
-        d_stealthLog << "Inserting command `" << s_firstWord[0] << "' failed." << 
-                                                            StealthEnums::leave;
+        d_stealthLog << "Inserting command `" << s_firstWord[0] << 
+                                        "' failed." << StealthEnums::leave;
 }
