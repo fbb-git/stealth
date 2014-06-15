@@ -1,6 +1,6 @@
-#include "stealthlog.ih"
-
-int StealthLog::sync()
-{
-    return MultiStreambuf::pSync();
-}
+//#include "stealthlog.ih"
+//
+//int StealthLog::sync()
+//{
+//    return MultiStreambuf::pSync();
+//}

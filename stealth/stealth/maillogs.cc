@@ -4,13 +4,13 @@
 
 void Stealth::mailLogs()
 {
-    if (not d_stealthlog.hasMail())
+    if (not d_stealthLog.hasMail())
     {
         m4 << "No new logs available" << endl;
         return;
     }
 
-    d_stealthlog.rewind();
+    d_stealthLog.rewind();
 
     processMail();
 }

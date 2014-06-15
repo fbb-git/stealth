@@ -17,7 +17,6 @@ namespace FBB
 
 class PolicyFile;
 class RunMode;
-class StealthLog;
 
 class IntegrityScanner
 {
@@ -27,7 +26,7 @@ class IntegrityScanner
     FBB::ArgConfig &d_arg;
     RunMode        &d_run;
     PolicyFile     &d_policyFile;
-    StealthLog     &d_stealthLog;
+    std::ostream   &d_stealthLog;
     FBB::Pattern   &d_firstWord;
     FBB::Process    d_sshFork;
     FBB::Process    d_shFork;
@@ -54,7 +53,9 @@ class IntegrityScanner
     static FBB::Pattern  s_exitValue;
 
     public:
-        IntegrityScanner(RunMode &run, PolicyFile &sorter, StealthLog &stealthlog);
+        IntegrityScanner(RunMode &run, PolicyFile &sorter, 
+                         std::ostream &stealthlog);
+
         size_t nScans() const
         {
             return d_nScans;

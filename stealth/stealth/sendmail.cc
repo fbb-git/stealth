@@ -21,10 +21,10 @@ void Stealth::sendMail()
 
     mail.start();
 
-    mail << d_stealthlog.headerLine() << '\n';
+    mail << d_stealthLog.headerLine() << '\n';
 
     string line;
-    while (getline(d_stealthlog.in(), line))
+    while (getline(d_stealthLog.in(), line))
         mail << line << '\n';
 
     mail.close();

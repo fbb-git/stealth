@@ -10,7 +10,7 @@ void Stealth::processMail()
         case MailType::LOG:
         {
             string line;
-            while (getline(d_stealthlog.in(), line))
+            while (getline(d_stealthLog.in(), line))
                 imsg << "Mail line: " << line << endl;
         }
         break;

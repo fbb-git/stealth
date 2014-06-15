@@ -3,9 +3,8 @@
 
 #include <string>
 #include <fstream>
-#include <bobcat/multistreambuf>
 
-class StealthLog: private FBB::MultiStreambuf, public std::ostream
+class StealthLog: public std::ostream
 {
     std::ios::pos_type   d_startSize = 0;
     std::ios::pos_type   d_beginMail = 0;
@@ -15,8 +14,8 @@ class StealthLog: private FBB::MultiStreambuf, public std::ostream
     std::string d_headerLine;
 
     public:
-        StealthLog(); 
-
+        StealthLog() = default;
+        
         StealthLog(StealthLog const &other) = delete;
         StealthLog &operator=(StealthLog const &other) = delete;
 
@@ -31,9 +30,6 @@ class StealthLog: private FBB::MultiStreambuf, public std::ostream
         void close();
 
         void rewind();              // prepare for reading
-
-    private:
-        virtual int sync();
 };
 
 inline std::istream &StealthLog::in()

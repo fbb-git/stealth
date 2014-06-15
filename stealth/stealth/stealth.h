@@ -22,7 +22,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
 
     RunMode d_run;
 
-    StealthLog     d_stealthlog;
+    StealthLog     d_stealthLog;
     std::unique_ptr<PolicyFile>         d_policyFile;
     std::unique_ptr<IntegrityScanner>   d_integrityScanner;
 

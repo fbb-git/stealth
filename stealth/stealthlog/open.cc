@@ -18,5 +18,7 @@ void StealthLog::open(string const &name)
 
     d_headerLine = headerTxt.str();
 
-    *this << d_headerLine << endl;
+    d_stealthlog << d_headerLine << endl;
+
+    rdbuf(d_stealthlog.rdbuf());
 }
