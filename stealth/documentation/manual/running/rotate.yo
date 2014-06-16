@@ -11,7 +11,7 @@ process-ID file of currently active bf(stealth) process as their argument.
 For example, if a bf(stealth) process was once started using the command
     COMMENT(KEEP A BLANK FOLLOWING THE BACKSLASH)
         verb(
-    stealth -q --keep-alive /var/run/stealth.small --repeat 900 \ 
+    stealth -q --daemon /var/run/stealth.small --repeat 900 \ 
                     /var/stealth/policies/small.pol
         )
     then the tt(--suppress) and tt(--resume) commands for this process should

@@ -18,13 +18,17 @@ class IPC: public FBB::SignalHandler
                                             // always returns true, or
                                             // throws exception on failure
         bool signalPeer(int signum);
-        void wakeup();
-        void setAlarm();
-        void wait();                        // wait until signalled
-        void sleep();                       // sleep until wakeup
-        void sleep(size_t seconds);         // sleep until wakeup
 
-        bool signalSuppressor();            // stealth daemon signals the 
+//        void wakeup();
+//        void setAlarm();
+
+        void wait();                        // wait until signaled
+        void timedWait();                   // wait until signaled or wait
+                                            // time has passed
+
+//        void sleep(size_t seconds);         // sleep until wakeup
+
+//        bool signalSuppressor();            // stealth daemon signals the 
                                             // stealth process that issued
                                             // --suppress
 
@@ -32,6 +36,8 @@ class IPC: public FBB::SignalHandler
         void lockRunFile() const;
 
     private:
+        void sleep();                       // sleep until wakeup
+
         void signalHandler(size_t signum) override;
 
         void suppress(size_t pid);
@@ -43,9 +49,9 @@ class IPC: public FBB::SignalHandler
 
 };
 
-inline void IPC::wakeup() 
-{
-    d_selector.setAlarm(0);
-}
+//inline void IPC::wakeup() 
+//{
+//    d_selector.setAlarm(0);
+//}
 
 #endif

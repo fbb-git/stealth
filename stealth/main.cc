@@ -8,14 +8,22 @@ namespace{
 
 ArgConfig::LongOption longOption[] =
 {
-//    {"echo-commands", 'e'},   // cancelled, 
+    // Kept for backward compatibility, but a warning is genereated when
+    // used
+    {"echo-commands", 'e'},             // discont., use --log
+    {"no-child-processes", 'n'},        // discont.: use --no-daemon
+    {"only-stdout", Arg::None},         // discont.: use --stdout
+    {"quiet", 'q'},                     // discont.: use --verbosity 0
+    {"keep-alive", Arg::None},          // discont.: use --daemon
+    {"suspend", Arg::None},             // discont.: use --suppress
+    {"parse-config-file", 'c'},         // discont.: use --parse-policy-file
+
+
 
     {"max-size", Arg::Required},         // 10m by default
 
-//    {"no-child-processes", 'n'},      // cancelled: use --no-daemon
 
-//    {"only-stdout", 'o'},             // cancelled: use --stdout
-    {"config", 'c'},            // : new
+    {"config", 'C'},            // : new
 
     {"log",  'l'},              // : new
 
@@ -23,13 +31,11 @@ ArgConfig::LongOption longOption[] =
 
     {"parse-policy-file", 'p'}, // was: 'c'
 
-//    {"quiet", 'q'},           // cancelled: use --verbosity 0
-
     {"random-interval", 'i'},   // :
     {"run-command", 'r'},       // :
 
     {"skip-files", 's'},        // :
-    {"stdout", 'S'},            // new
+    {"stdout", 'o'},            // new
 
     {"syslog", Arg::None},              // new (block)
     {"syslog-facility", Arg::Required},
@@ -42,7 +48,8 @@ ArgConfig::LongOption longOption[] =
     {"help", 'h'},
 
     {"repeat", Arg::Required},
-    {"keep-alive", Arg::Required},
+
+    {"daemon", 'd'},
 
     {"rerun", Arg::None},               // arg[0] is the runfilename
     {"resume", Arg::None},              // also for this and the next options
@@ -58,7 +65,7 @@ auto endLongOption = longOption + sizeof(longOption) / sizeof(longOption[0]);
 int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
-    ArgConfig &arg = ArgConfig::initialize("c:ehi:l:m:pr:s:SvV:",
+    ArgConfig &arg = ArgConfig::initialize("cC:d:ehi:l:m:nopqr:s:vV:",
                                 longOption, endLongOption, 
                                 argc, argv); 
 

@@ -35,7 +35,7 @@ LinearMap<string, Priority> const Options::s_syslogPriorities =
     };
 
 size_t Options::s_defaultVerbosity = 1;
-size_t Options::s_shortestRepeatInterval = 60;
+size_t Options::s_shortestRepeatInterval = 10;  // 60;
 
 
 

@@ -16,7 +16,7 @@ manpagename(stealth)(Stealthy File Integrity Scanner)
 manpagesynopsis()
         s()  -dcnoq -i <interval> -r <nr> -s skip-files nl()
             [--max-size <size>[BKMG] ] nl()
-            [--keep-alive pidfile [--repeat <seconds> ] ]  policy nl()
+            [--daemon pidfile [--repeat <seconds> ] ]  policy nl()
         s()  {--reload,--rerun,--resume,--suppress,--terminate} pidfile
 
 manpagedescription()
@@ -72,17 +72,17 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     itemization(
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by s().
-    it() If the command-line option tt(--keep-alive pidfile) is specified,
+    it() If the command-line option tt(--daemon pidfile) is specified,
 s() will run as a backgrond process, writing its process id in the file
 tt(pifile).  With tt(--repeat <seconds>) the scan will be rerun every
 tt(<seconds>) seconds. The number of seconds until the next rerun will be at
 least 60. However, using the tt(--rerun pidfile) option a background s()
-process may always be forced into its next scan. When tt(--keep-alive) is
+process may always be forced into its next scan. When tt(--daemon) is
 specified the scan will be performed just once, whereafter bf(PROGRAM) will
 wait until it is reactivated by another run of s(), called using the
 tt(--rerun pidfile) command-line option (note that integrity scans are
 suppressed between a tt(--suppress) and a tt(--resume) command, see below).
-Consider specifying  tt(--quiet) (see below) when tt(--keep-alive) is used.
+Consider specifying  tt(--quiet) (see below) when tt(--daemon) is used.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
@@ -173,7 +173,7 @@ the s() process associated with process id file tt(pidfile) is terminated.
 
     manpagesection(OPEN SSH LINK TO CLIENTS)
 
-    The tt(--keep-alive, --repeat, --rerun, --resume) and tt(--suppress)
+    The tt(--daemon, --repeat, --rerun, --resume) and tt(--suppress)
 options were implemented in such a way that the bf(ssh) link to the client
 remains open, thus minimizing the number of bf(sshd) entries caused by
 bf(PROGRAM) in the client's log files.
@@ -653,7 +653,7 @@ entries are interpreted as the path names of files to skip. Initial and
 trailing blanks, empty lines and lines having a tt(#) as their 1st non blank
 character are ignored.
     it() tt(-v --version): Display version information and exit;
-    it() tt(--keep-alive pidfile): Keep running as a daemon, 
+    it() tt(--daemon pidfile): Keep running as a daemon, 
             wake up at interrupts. 
     it() tt(--max-size <size>[BKMG]): the maximum file size that can be
             downloaded from the client in bytes (B), Kbytes (K), Mbytes (M),

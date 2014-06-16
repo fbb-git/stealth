@@ -19,17 +19,17 @@ void Options::usage(std::string const &progname)
                                                                     "the\n"
     "               configuration file (see also option --config)\n"
 
-    "      --config (-c) path: (C) config file containing long option "
+    "      --config (-C) path: (C) config file containing long option "
                                                             "specifications\n"
     "                         (default `$HOME/" <<
                                     s_defaultConfigFile << ")`\n"
 
-    "      --help (-h)      - (C) provide this help\n"
+    "      --help (-h):       (C) provide this help\n"
 
-    "      --keep-alive pidfile: (C) keep running as a daemon, wake up at\n"
+    "      --daemon (-d) pidfile: (C) keep running as a daemon, wake up at\n"
     "                         interrupts.\n"
 
-    "      --log (-L) path  - log messages are appended to `path'. If "
+    "      --log (-L) path:   log messages are appended to `path'. If "
                                                                     "path\n"
     "                         does not exist, it is created first\n"
 
@@ -48,22 +48,22 @@ void Options::usage(std::string const &progname)
     "                         Results to std output.\n"
 
     "      --random-interval (-i) value: start integrity scans within\n"
-    "                         a random interval of `value' seconds (or "
+    "                         a random interval of `value' seconds ("
                                                                 "minutes\n" 
-    "                         if an `m' is appended)\n"
-    "                         Requires --repeat and --keep-alive.\n"
+    "                         if an `m' is appended) after the --repeat "
+                                                                "interval.\n"
+    "                         Requires --repeat and --daemon.\n"
 
-    "      --repeat value: start an integrity scan after after every "
-                                                                "`value'\n"
-    "                         seconds. Requires --keep-alive.\n"
+    "      --repeat value: start an integrity scan every `value' seconds\n"
+    "                         Requires --daemon.\n"
 
     "      --run-command (-r) value: (C) only execute command #`value'\n"
 
     "      --skip-files (-s) file: skip the integrity checks of the\n"
     "            files having their absolute path names listed in `file'\n"
 
-    "      --stdout (-S)    - messages are (also) written to stdout\n"
-    "                         (not available for --keep-alive)\n"
+    "      --stdout (-o)    - messages are (also) written to stdout\n"
+    "                         (not available for --daemon)\n"
 
     "      --syslog         - write syslog messages\n"
     "      --syslog-facility fac  - fac: syslog facility to use\n"
@@ -78,11 +78,13 @@ void Options::usage(std::string const &progname)
                                                             "information.\n"
     "                         Requires --log, --stdout, or --syslog:\n"
     "                           0: nothing is logged\n"
-    "                           1:\n"
+    "                           1: active modes are logged\n"
+    "                           2: policy-commands are logged\n"
+    "                           3: \n"
 
     "      --version (-v)   - (C) show version information and terminate\n"
 
-    "   policy: path to the policyfile\n"
+    "   policy: path to the policy file\n"
     "\n"
 
     "Usage 2:\n"

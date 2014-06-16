@@ -9,5 +9,5 @@ void Stealth::integrityScan()
     if (d_run.interrupted())
         return;
 
-    d_run.setMode(d_options.keepAlive() ? WAIT : LEAVE);
+    d_run.setMode(d_options.daemon() ? WAIT : LEAVE);
 }

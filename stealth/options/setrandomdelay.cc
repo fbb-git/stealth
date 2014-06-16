@@ -4,13 +4,13 @@ void Options::setRandomDelay()
 { 
     string delay;
 
+                                    // no option initializes to 0
     if (not (d_randomDelay = d_arg.option(&delay, 'i')))
         return;
 
     if (not d_repeat)
     {
-        wmsg << "--random-interval ignored unless --repeat is specified" <<
-                                                                        endl;
+        wmsg << "--random-interval requires --repeat" << endl;
         return;
     }
 
@@ -34,8 +34,3 @@ void Options::setRandomDelay()
 
     srandom(time(0));               // seed the random time generator
 }
-
-
-
-
-

@@ -38,13 +38,13 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     itemization(
     it() First, a em(policy) file is read. This determines actions to be
 performed, and  values of several variables used by bf(stealth).
-    it() If the command-line option tt(--keep-alive) or tt(--repeat <seconds>)
+    it() If the command-line option tt(--daemon) or tt(--repeat <seconds>)
 is given, bf(stealth) will run as a backgrond process, displaying the process
 ID of the background process. With tt(--repeat <seconds>) the scan will be
 rerun every tt(<seconds>) seconds. The number of seconds until the next rerun
 will be at least 60. However, using the tt(--rerun) option a background
 bf(stealth) process may always be goated into its next scan. When
-tt(--keep-alive) is specified the scan will be performed just once, whereafter
+tt(--daemon) is specified the scan will be performed just once, whereafter
 bf(stealth) will wait until it is reactivated by another run of bf(stealth),
 called using the tt(--rerun <pid>) command-line option.
     it() Then, the controller opens a command shell on the client using
@@ -70,7 +70,7 @@ sent when no changes were detected.
 
     Alternatively, the command-line options tt(--reload, --rerun, --suppress,
 --resume) and tt(--terminate) may be provided to communicate with a running
-bf(stealth) process started earlier using either the tt(--keep-alive) or
+bf(stealth) process started earlier using either the tt(--daemon) or
 tt(--repeat) option. For these options one argument must be provided: the
 pathname to a pid-file of a running s(). 
     itemization(

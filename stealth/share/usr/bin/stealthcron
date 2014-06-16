@@ -23,7 +23,7 @@ case $# in
 
         if [ -x ${STEALTH} ] ; then
             ${STEALTH} --rerun $1
-            [ $? -eq 0 ] || ${STEALTH} --keep-alive $1 ${SKIP} -q $2
+            [ $? -eq 0 ] || ${STEALTH} --daemon $1 ${SKIP} -q $2
         fi
     ;;
             
@@ -38,9 +38,9 @@ where:
 
     calls $STEALTH} --rerun pidfile. 
     If that fails, 
-        ${STEALTH} --keep-alive pidfile -q configfile
+        ${STEALTH} --daemon pidfile -q configfile
     or (if skipfile was specified)
-        ${STEALTH} --keep-alive pidfile -s skipfile -q configfile
+        ${STEALTH} --daemon pidfile -s skipfile -q configfile
     is started.
 "
     exit 1

@@ -1,7 +1,7 @@
 Initially the running mode is set to INTEGRITY_SCAN. Options may change the
 initial mode.
 
-If no --keep-alive option is requested, there is just one integrity scan and
+If no --daemon option is requested, there is just one integrity scan and
 Stealth::performtasks terminates
 
 Flow control is handled through IPC signals.
@@ -79,7 +79,7 @@ Stealth has several modes of operation, defined in monitor/monitor.h, and
 option      mode            meaning/action
 
 default     ONCE,           single run in the foreground
-keep-alive  KEEP_ALIVE,     multiple runs: Stealth becomes a daemon process
+daemon  KEEP_ALIVE,     multiple runs: Stealth becomes a daemon process
 
 terminate   TERMINATE,      terminate a running Stealth daemon process 
                                 (through SIGTERM)

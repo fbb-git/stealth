@@ -2,11 +2,8 @@
 
 void Stealth::resumeSignal()
 {
-    if (not d_run.mode(SUSPEND))
-    {
-        imsg << "--resume only valid after --suspend" << endl;
-        return;
-    }
-
-    d_run.setMode(RESUME);
+    if (d_run.mode(SUSPEND))
+        d_run.setMode(RESUME);
+    else
+        m2 << "ignored --resume in mode " << d_run.modeName() << endl;
 }

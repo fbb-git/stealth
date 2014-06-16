@@ -33,12 +33,12 @@ class Options: public StealthEnums
     bool d_resume;
     bool d_suppress;
     bool d_terminate;
-    bool d_keepAlive;
+    bool d_daemon;
     bool d_randomDelay;
 
     bool d_repeat;
     size_t d_repeatInterval;
-    size_t d_delayInterval;
+    size_t d_delayInterval = 0;
 
     FBB::LinearMap<std::string, FBB::Facility>::const_iterator 
                                                         d_syslogFacility;
@@ -66,6 +66,8 @@ class Options: public StealthEnums
 
         Options(Options const &other) = delete;
 
+        void oldOptions() const;
+
         bool parseConfigFile() const;
         bool verboseOrJustParse() const;
         bool verbose() const;
@@ -75,13 +77,14 @@ class Options: public StealthEnums
         bool terminate() const;
         bool suppress() const;
         bool resume() const;
-        bool keepAlive() const;
+        bool daemon() const;
+        bool repeat() const;
 
         Mode mode() const;
         MailType mailType() const;
 
         size_t repeatInterval() const;
-        size_t randomDelay() const;
+        size_t randomAddition() const;
 
         std::string const &policyFilePath() const;
         std::string const &basename() const;
@@ -99,7 +102,7 @@ class Options: public StealthEnums
         FBB::Facility syslogFacility() const;
 
 
-        void repeatOption();
+        void setRepeat();
         void setRandomDelay();
         void checkAction() const;
 
@@ -141,6 +144,11 @@ inline bool Options::rerun() const
     return d_rerun;
 }
 
+inline bool Options::repeat() const
+{   
+    return d_repeat;
+}
+
 inline bool Options::terminate() const
 {   
     return d_terminate;
@@ -156,9 +164,9 @@ inline bool Options::resume() const
     return d_resume;
 }
 
-inline bool Options::keepAlive() const
+inline bool Options::daemon() const
 {   
-    return d_keepAlive;
+    return d_daemon;
 }
 
 inline bool Options::ipc() const
@@ -184,11 +192,6 @@ inline std::string const &Options::basename() const
 inline size_t Options::repeatInterval() const
 {
     return d_repeatInterval;
-}
-
-inline size_t Options::randomDelay() const
-{
-    return d_randomDelay;
 }
 
 #endif

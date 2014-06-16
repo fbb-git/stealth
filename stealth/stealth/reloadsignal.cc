@@ -2,11 +2,8 @@
 
 void Stealth::reloadSignal()
 {
-    if (not d_run.mode(INTEGRITY_SCAN | WAIT))
-    {
-        imsg << "--reload ignored in mode " << d_run.modeName() << endl;
-        return;
-    }
-
-    d_run.setMode(RELOAD);
+    if (d_run.mode(INTEGRITY_SCAN | WAIT))
+        d_run.setMode(RELOAD);
+    else
+        m2 << "ignored --reload in mode " << d_run.modeName() << endl;
 }

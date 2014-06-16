@@ -1,14 +1,14 @@
 #include "options.ih"
 
-void Options::repeatOption()
+void Options::setRepeat()
 {
     string value;
 
     if (not (d_repeat = d_arg.option(&value, "repeat")))
         return;
 
-    if (!d_keepAlive)
-        fmsg << "--repeat requires --keep-alive" << endl;
+    if (!d_daemon)
+        fmsg << "--repeat requires --daemon" << endl;
 
     try
     {

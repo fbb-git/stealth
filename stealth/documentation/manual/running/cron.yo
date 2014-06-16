@@ -23,11 +23,11 @@ moment bf(stealth) was started and 5 minutes:
     When the tt(-d) flag is given, the tt(-i) flag has no effect.
 
     As another alternative, bf(stealth) my be started specifying the
-tt(--keep-alive pidfile) option. Here, tt(pidfile) is the name of a file that
+tt(--daemon pidfile) option. Here, tt(pidfile) is the name of a file that
 will contain the process id of the stealth process running in the background.
 For example:
         verb(    
-    stealth --keep-alive /var/run/stealth -i 300  -q /root/stealth/client.pol
+    stealth --daemon /var/run/stealth -i 300  -q /root/stealth/client.pol
         )
     Now, bf(cron)(1) may be used to restart this process at indicated times:
         verb(

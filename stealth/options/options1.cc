@@ -16,6 +16,8 @@ Options::Options()
         throw 0;
     }
 
+    oldOptions();
+
     if ((d_reload = d_arg.option(0, "reload")))
         d_mode = RELOAD;
 
@@ -25,13 +27,13 @@ Options::Options()
     if ((d_terminate = d_arg.option(0, "terminate")))
         d_mode = TERMINATE;
 
-    if ((d_suppress = d_arg.option(0, "suppress")))
+    if ((d_suppress = d_arg.option(0, "suspend")))
         d_mode = SUSPEND;
 
     if ((d_resume = d_arg.option(0, "resume")))
         d_mode = RESUME;
 
-    if ((d_keepAlive = d_arg.option(&d_runFile, "keep-alive")))
+    if ((d_daemon = d_arg.option(&d_runFile, 'd')))
     {
         d_repeatInterval = numeric_limits<int>::max();
         Lock::setRunFilename(d_runFile);
@@ -46,10 +48,10 @@ Options::Options()
     loadConfigFile();
 
 
-    if (d_arg.option('S'))
+    if (d_arg.option('o'))
     {
-        if (d_keepAlive)
-            wmsg << "--stdout ignored: conflicts with --keep-alive" << endl;
+        if (d_daemon)
+            wmsg << "--stdout ignored: conflicts with --daemon" << endl;
         else
             d_multiStreambuf.insert(cout);
     }
@@ -100,7 +102,7 @@ Options::Options()
 
     Msg::setVerbosity(verbosityValue);
 
-    repeatOption();
+    setRepeat();
     setRandomDelay();
 
     d_policyFilePath = Util::realPath(d_arg[0]);
