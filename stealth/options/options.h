@@ -31,7 +31,7 @@ class Options: public StealthEnums
     bool d_reload;
     bool d_rerun;
     bool d_resume;
-    bool d_suppress;
+    bool d_suspend;
     bool d_terminate;
     bool d_daemon;
     bool d_randomDelay;
@@ -75,7 +75,7 @@ class Options: public StealthEnums
         bool reload() const;        
         bool rerun() const;
         bool terminate() const;
-        bool suppress() const;
+        bool suspend() const;
         bool resume() const;
         bool daemon() const;
         bool repeat() const;
@@ -154,9 +154,9 @@ inline bool Options::terminate() const
     return d_terminate;
 }
 
-inline bool Options::suppress() const
+inline bool Options::suspend() const
 {   
-    return d_suppress;
+    return d_suspend;
 }
 
 inline bool Options::resume() const
@@ -171,7 +171,7 @@ inline bool Options::daemon() const
 
 inline bool Options::ipc() const
 {   
-    return d_reload || d_rerun || d_terminate || d_suppress || d_resume;
+    return d_reload || d_rerun || d_terminate || d_suspend || d_resume;
 }
 
 inline std::string const &Options::policyFilePath() const

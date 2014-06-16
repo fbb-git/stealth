@@ -27,7 +27,7 @@ Options::Options()
     if ((d_terminate = d_arg.option(0, "terminate")))
         d_mode = TERMINATE;
 
-    if ((d_suppress = d_arg.option(0, "suspend")))
+    if ((d_suspend = d_arg.option(0, "suspend")))
         d_mode = SUSPEND;
 
     if ((d_resume = d_arg.option(0, "resume")))
@@ -44,9 +44,7 @@ Options::Options()
     if (d_mode & (RELOAD | RERUN | TERMINATE | SUSPEND | RESUME))
         d_runFile = d_arg[0];
     
-
     loadConfigFile();
-
 
     if (d_arg.option('o'))
     {

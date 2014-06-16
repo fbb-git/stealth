@@ -89,13 +89,13 @@ void Options::usage(std::string const &progname)
 
     "Usage 2:\n"
     "   " << progname << 
-            " {--reload,--rerun,--resume,--suppress,--terminate} pidfile\n"
+            " {--reload,--rerun,--resume,--suspend,--terminate} pidfile\n"
     "Where:\n"
     "      --reload: reload a " << progname << " process's configuration "
                                                                 "files\n"
     "      --rerun: start an integrity scan\n"
-    "      --resume: resume " << progname << " after --suppress\n"
-    "      --suppress: suppress " << progname << " activities\n"
+    "      --resume: resume " << progname << " after --suspend\n"
+    "      --suspend: suspend " << progname << "'s activities\n"
     "                  to continue: --resume; to end: --terminate\n"
     "      --terminate: terminate the " << progname << " daemon\n"
     "   pidfile: file containing the pid of the stealth daemon process to "

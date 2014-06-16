@@ -6,6 +6,7 @@ FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_task =
         {TERMINATE,        &Stealth::terminate},
         {INTEGRITY_SCAN,   &Stealth::integrityScan},
         {SUSPEND,          &Stealth::suspend},
+        {RESUME,           &Stealth::resume},
     };
 
 FBB::LinearMap<size_t, Stealth::Action> Stealth::s_signalHandler =

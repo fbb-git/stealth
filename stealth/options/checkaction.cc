@@ -4,7 +4,7 @@ void Options::checkAction() const
 {
             // only one of these options may be specified
 
-    if (d_reload + d_rerun + d_resume + d_suppress + d_terminate > 1)
+    if (d_reload + d_rerun + d_resume + d_suspend + d_terminate > 1)
     {
         fmsg << "incompatible options:";
 
@@ -17,8 +17,8 @@ void Options::checkAction() const
         if (d_resume)
             fmsg << " --resume";
 
-        if (d_suppress)
-            fmsg << " --suppress";
+        if (d_suspend)
+            fmsg << " --suspend";
 
         if (d_terminate)
             fmsg << " --terminate";

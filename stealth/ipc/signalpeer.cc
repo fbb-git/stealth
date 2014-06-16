@@ -13,8 +13,8 @@ bool IPC::signalPeer(int signum)
     // must be removed first before the suppressed stealth process may
     // continue. 
 
-    if (signum == SIGUSR1)          // --suppress
-        suppress(pid);
+//    if (signum == SIGUSR1)          // --suppress
+//        suppress(pid);
 
 
     sendSignal(signum, pid);    // signal the running stealth, but we
@@ -24,9 +24,8 @@ bool IPC::signalPeer(int signum)
                                 // we're suppressing, and are waiting for
                                 // the reply signal
 
-
-    if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
-        suppressing(pid);
+//    if (signum == SIGUSR1)              // when suppressing (SIGUSR1)
+//        suppressing(pid);
 
     return true;
 }

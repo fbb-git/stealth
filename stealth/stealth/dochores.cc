@@ -14,7 +14,7 @@ void Stealth::doChores()
     {
         Mode request = d_run.mode();
 
-        m1 << "Mode: " << d_run.modeName() << endl;
+        m1 << d_run.modeName() << endl;
     
         if (request == LEAVE)
             break;

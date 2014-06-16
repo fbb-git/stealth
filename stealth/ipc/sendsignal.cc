@@ -6,7 +6,7 @@ void IPC::sendSignal(int signum, pid_t pid)
 
     if (kill(pid, signum))          
     {                               
-        Lock::unlinkRunFile();
+//        Lock::unlinkRunFile();
 
         fmsg << "Can't send signal " << signame << " to process `" << 
                                                                 pid << "',\n"  

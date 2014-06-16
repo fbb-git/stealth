@@ -61,6 +61,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
             void reload();          // reload the configuration files.
             void terminate();
             void suspend();
+            void resume();
 
 };
 
