@@ -6,8 +6,6 @@
 
 void IntegrityScanner::put(string const &cmd)
 {
-    m1 << "put: " << cmd << endl;
-
     removeFirstWord("PUT");                         // strip off `PUT'
 
     d_testExitValue = !removeFirstWord("NOTEST");   // [NOTEST] ...

@@ -6,8 +6,6 @@
 
 void IntegrityScanner::get(string const &cmd)
 {
-    m1 << cmd << endl;
-
     removeFirstWord("GET");                         // strip off `GET'
 
     d_testExitValue = !removeFirstWord("NOTEST");   // [NOTEST] ...

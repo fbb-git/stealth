@@ -21,7 +21,7 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
 
         if (d_label.length())
         {
-            m1 << "writing label: " << d_label << '\n';
+//            m1 << "writing label: " << d_label << '\n';
             d_stealthLog << d_label << endl;
         }
 

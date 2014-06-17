@@ -2,9 +2,7 @@
 
 LinearMap<volatile RunMode::Mode, char const *> const RunMode::s_modeName = 
     {
-        {LEAVE,          "LEAVE"},
         {INTEGRITY_SCAN, "INTEGRITY_SCAN"},
-        {WAIT,           "WAIT"},
         {RERUN,          "RERUN"},
         {SUSPEND,        "SUSPEND"},
         {RESUME,         "RESUME"},

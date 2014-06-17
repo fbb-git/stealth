@@ -130,7 +130,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
     rename(current.c_str(), logfile.c_str());   // install `logfile'
 
     m1 << "differences observed: see `" << 
-                 d_policyFile["REPORT"] << "'  and `" << logfile << '\'' << endl;
+             d_policyFile["REPORT"] << "'  and `" << logfile << '\'' << endl;
 
     return false;
 }

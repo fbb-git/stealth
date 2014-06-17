@@ -17,7 +17,8 @@ void Stealth::doChores()
         if (request == LEAVE)
             break;
 
-        m1 << d_run.modeName() << endl;
+        m1 << "\n"
+              "SIGNAL: " << d_run.modeName() << endl;
     
         d_stealthLog.header();
 
