@@ -38,4 +38,13 @@ size_t Options::s_defaultVerbosity = 1;
 size_t Options::s_shortestRepeatInterval = 10;  // 60;
 
 
+LinearMap<Options::Mode, char const *> const Options::s_ipc = 
+    {
+        {RERUN,          "rerun"},
+        {SUSPEND,        "suspend"},
+        {RESUME,         "resume"},
+        {RELOAD,         "reload"},
+        {TERMINATE,      "terminate"},
+    };
+
 

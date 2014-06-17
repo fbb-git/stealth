@@ -10,8 +10,9 @@ void IPC::sendSignal(int signum, pid_t pid)
 
         fmsg << "Can't send signal " << signame << " to process `" << 
                                                                 pid << "',\n"  
-                 "removed stale run-file `" << Lock::runFilename << '.' << 
-                                                                        endl;
+//                 "removed stale run-file `" << Lock::runFilename << '.' << 
+                 "removed stale run-file `" << 
+                                Options::instance().runFile() << '.' << endl;
     }
 
     m2 << signame << " sent" << endl;

@@ -1,6 +1,6 @@
 util 
 stealthenums
-lock
+// lock
 ipc
 runmode             stealthenums
 msg

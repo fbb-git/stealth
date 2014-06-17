@@ -3,7 +3,8 @@
 Options::Options()
 :
     d_arg(ArgConfig::instance()),
-    d_msg(&d_multiStreambuf)
+    d_msg(&d_multiStreambuf),
+    d_maxSizeStr("10M")
 {
     // --help and --version already handled by versionHelp, but if nothing
     // is requested on the command line help is also provided.
@@ -36,7 +37,7 @@ Options::Options()
     if ((d_daemon = d_arg.option(&d_runFile, 'd')))
     {
         d_repeatInterval = numeric_limits<int>::max();
-        Lock::setRunFilename(d_runFile);
+//        Lock::setRunFilename(d_runFile);
     }
 
     checkAction();
@@ -64,22 +65,11 @@ Options::Options()
         d_multiStreambuf.insert(d_log);
     }
 
-    string mailType;
-    if (d_arg.option(&mailType, 'm'))
-    {
-        if (mailType == "log")
-            d_mailType = MailType::LOG;
-        else 
-        {
-            d_mailType = MailType::OFF;
-            if (mailType != "off")
-                wmsg << "--mail " << mailType << " not supported: no mail is "
-                                                            "sent" << endl;
-        }
-    }
+    setMail();
+    setCommandNr();
+    setSkipFilePath();
 
     bool useSyslog = setSyslog();
-
 
     string verbosity;
     bool verb;
@@ -88,7 +78,12 @@ Options::Options()
                             :
                                 s_defaultVerbosity;
 
-    if (useSyslog || logName.length() != 0)
+    if (verb and ipc())
+    {
+        warnOption("--verbosity not used");
+        verbosityValue = 0;
+    }
+    else if (useSyslog || logName.length() != 0)
         imsg.reset(d_msg);
     else
     {

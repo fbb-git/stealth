@@ -12,18 +12,18 @@
 namespace FBB
 {
     class Pattern;
-    class ArgConfig;
 }
 
 class PolicyFile;
 class RunMode;
+class Options;
 
 class IntegrityScanner
 {
     typedef std::vector<std::string>     StringVector;
     typedef StringVector::const_iterator const_iterator;
 
-    FBB::ArgConfig &d_arg;
+    Options        &d_options;
     RunMode        &d_run;
     PolicyFile     &d_policyFile;
     std::ostream   &d_stealthLog;
@@ -36,7 +36,7 @@ class IntegrityScanner
     bool            d_testExitValue;
     size_t          d_nScans;
     off_t           d_maxSize;
-    std::string     d_maxSizeStr;
+//    std::string     d_maxSizeStr;
     StringVector    d_skipFiles;
     std::string     d_skipFilePath;
     size_t          d_diffPrefix;

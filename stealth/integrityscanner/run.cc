@@ -10,13 +10,10 @@ void IntegrityScanner::run()
                                                 // the first command. It's a
                                                 // true iterator, so we can 
                                                 // add values to it, below.
-    string cmdNr;
 
-    if (d_arg.option(&cmdNr, 'r'))              // is there  a command number?
+    if (size_t cmdNr = d_options.commandNr())   // is there  a command number?
     {
-                                                // if so, add its number to
-        d_cmdIterator += stol(cmdNr) - 1;       // d_cmdIterator    
-
+        d_cmdIterator += cmdNr - 1;             // if so, set the cmdIterator
         execute(*d_cmdIterator);                // and execute that command
     }
     else                                        // no number: process all
@@ -32,12 +29,11 @@ void IntegrityScanner::run()
                 return;
             }
 
-            execute(cmd);   // *d_cmdIterator);
+            execute(cmd);
         }
     }
 
-    if (d_arg.option('V'))
-        cerr << "Stealth: policy file processed\n";
+    m3 << "policy file processed" << endl;
 }
 
 

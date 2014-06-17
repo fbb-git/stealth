@@ -21,68 +21,71 @@ void Options::usage(std::string const &progname)
 
     "      --config (-C) path: (C) config file containing long option "
                                                             "specifications\n"
-    "                         (default `$HOME/" <<
-                                    s_defaultConfigFile << ")`\n"
+    "                   (default `$HOME/" << s_defaultConfigFile << ")`\n"
 
     "      --help (-h):       (C) provide this help\n"
 
-    "      --daemon (-d) pidfile: (C) keep running as a daemon, wake up at\n"
-    "                         interrupts.\n"
+    "      --daemon (-d) pidfile: (C) run as a background (daemon) process\n"
 
-    "      --log (-L) path:   log messages are appended to `path'. If "
-                                                                    "path\n"
-    "                         does not exist, it is created first\n"
+    "      --log (-L) path:   log messages are appended to `path'. If path\n"
+    "                   does not exist, it is created first\n"
 
-    "      --mail (-m) action - specify 'action' to determine mail "
-                                                            "handling:\n"
-    "                         off: mail is not sent, log: mail is logged,\n"
-    "                         by default the policy-file configuration is "
-                                                            "used\n"
+    "      --logmail: mail is loggeed (requires --log or --syslog\n"
+
     "      --max-size value[BKMG]: files retrieved by GET may at most\n"
-    "           have `value' bytes (B), Kbytes (K), Mbytes (M), "
-                                                            "Gbytes (G)\n"
-    "           default: 10M; default unit: B\n"
+    "                   have `value' bytes (B), Kbytes (K), Mbytes (M), "
+                                                            "Gbytes (G).\n"
+    "                   By default: 10M; The default unit is `B'\n"
+
+    "      --no-mail: mail is not sent. By default mail is sent as "
+                                                                "configured\n"
+    "                   in the policy-file (--logmail can be specified "
+                                                             "independently\n"
+    "                   from --no-mail)\n"
 
     "      --parse-policy-file (-p): (C) parse the policy file, no further "
                                                                 "action.\n"
-    "                         Results to std output.\n"
+    "                   Results to std output.\n"
 
     "      --random-interval (-i) value: start integrity scans within\n"
-    "                         a random interval of `value' seconds ("
+    "                   a random interval of `value' seconds ("
                                                                 "minutes\n" 
-    "                         if an `m' is appended) after the --repeat "
+    "                   if an `m' is appended) after the --repeat "
                                                                 "interval.\n"
-    "                         Requires --repeat and --daemon.\n"
+    "                   Requires --repeat and --daemon.\n"
 
     "      --repeat value: start an integrity scan every `value' seconds\n"
-    "                         Requires --daemon.\n"
+    "                   Requires --daemon.\n"
 
     "      --run-command (-r) value: (C) only execute command #`value'\n"
 
     "      --skip-files (-s) file: skip the integrity checks of the\n"
-    "            files having their absolute path names listed in `file'\n"
+    "                   files having their absolute path names listed in "
+                                                                "`file'\n"
 
-    "      --stdout (-o)    - messages are (also) written to stdout\n"
-    "                         (not available for --daemon)\n"
+    "      --stdout (-o): messages are (also) written to stdout (not "
+                                                                "available\n"
+    "                   for --daemon)\n"
 
-    "      --syslog         - write syslog messages\n"
-    "      --syslog-facility fac  - fac: syslog facility to use\n"
-    "                         (default `" << s_defaultSyslogFacility << "')\n"
-    "      --syslog-priority pri  - pri: syslog priority to use\n"
-    "                         (default `" << s_defaultSyslogPriority << "')\n"
-    "      --syslog-tag id  - id: identifier prefixed to syslog "
-                                                                "messages\n"
-    "                         (default `" << s_defaultSyslogIdent << "')\n"
+    "      --syslog: write syslog messages\n"
 
-    "      --verbosity value - determines the amount of logged "
-                                                            "information.\n"
-    "                         Requires --log, --stdout, or --syslog:\n"
-    "                           0: nothing is logged\n"
-    "                           1: active modes are logged\n"
-    "                           2: policy-commands are logged\n"
-    "                           3: \n"
+    "      --syslog-facility fac:  syslog facility to use. By default:\n" <<
+    "                   " << s_defaultSyslogFacility << "')\n"
 
-    "      --version (-v)   - (C) show version information and terminate\n"
+    "      --syslog-priority pri:  syslog priority to use. By default:\n" <<
+    "                   " << s_defaultSyslogPriority << "')\n"
+
+    "      --syslog-tag tag: identifier prefixed to syslog messages. By\n"
+    "                   default `" << s_defaultSyslogIdent << "')\n"
+
+    "      --verbosity value: determines the amount of logged information.\n"
+    "                   Requires --log or --syslog:\n"
+    "                       0: nothing is logged\n"
+    "                       1: active modes are logged\n"
+    "                       2: policy-commands are logged\n"
+    "                       3: \n"
+
+    "      --version (-v): (C) show version information and terminate\n"
 
     "   policy: path to the policy file\n"
     "\n"

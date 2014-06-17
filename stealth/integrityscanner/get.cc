@@ -6,7 +6,7 @@
 
 void IntegrityScanner::get(string const &cmd)
 {
-    m1 << "IntegrityScanner::get(): " << cmd << endl;
+    m1 << cmd << endl;
 
     removeFirstWord("GET");                         // strip off `GET'
 
@@ -29,18 +29,15 @@ void IntegrityScanner::get(string const &cmd)
 
     if (!destination.length())
         d_stealthLog << 
-            "At `GET " << source << " <destination>': destination missing" <<
-                                                            StealthEnums::leave;
+            "GET " << source << " <destination>': destination missing" <<
+                                                        StealthEnums::leave;
             
     if (Stat(destination).isType(Stat::DIRECTORY))  // is the dest. a dir. ?
         destination += "/" + fileName(source); 
 
 
-    m3 << "IntegrityScanner::get(): scp <client>:" << source << " " << 
+    m3 << " GET: scp <client>:" << source << " " << 
                                                      destination << endl;
-
-    if (d_arg.option('n'))                          // no run if -n
-        return;
 
     nextCommand(d_sshFork,                  // start the next command
         d_policyFile["DD"] + " if=" + source);

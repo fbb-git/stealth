@@ -2,7 +2,8 @@
 
 void IPC::writeRunFile(pid_t pid)
 {
-    string const &runFileName = Lock::runFilename();
+    string const &runFileName = Options::instance().runFile();
+                                    //Lock::runFilename();
 
     ofstream runFile(runFileName);
 
@@ -10,7 +11,7 @@ void IPC::writeRunFile(pid_t pid)
 
     if (not (runFile << pid << endl))
     {
-        Lock::unlinkRunFile();
+//        Lock::unlinkRunFile();
         kill(SIGTERM, pid);
         fmsg << "could not write " << runFileName << endl;
     }

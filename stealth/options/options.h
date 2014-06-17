@@ -23,10 +23,11 @@ class Options: public StealthEnums
                                             // syslog and/or d_log
 
     Mode d_mode = INTEGRITY_SCAN;
-    MailType d_mailType = MailType::ON;
 
     std::string d_policyFilePath;
+    std::string d_skipFilePath;
     std::string d_runFile;
+    std::string d_maxSizeStr;
 
     bool d_reload;
     bool d_rerun;
@@ -35,10 +36,14 @@ class Options: public StealthEnums
     bool d_terminate;
     bool d_daemon;
     bool d_randomDelay;
+    bool d_sendMail = true;
+    bool d_logMail = false;
 
     bool d_repeat;
     size_t d_repeatInterval;
     size_t d_delayInterval = 0;
+    size_t d_commandNr = 0;
+    std::streamsize d_maxDownloadSize = 10 * 1024 * 1024;   // 10 MB
 
     FBB::LinearMap<std::string, FBB::Facility>::const_iterator 
                                                         d_syslogFacility;
@@ -57,9 +62,11 @@ class Options: public StealthEnums
     static size_t   s_shortestRepeatInterval;
 
     static FBB::LinearMap<std::string, FBB::Facility> const 
-                                                       s_syslogFacilities;
+                                                        s_syslogFacilities;
     static FBB::LinearMap<std::string, FBB::Priority> const 
-                                                       s_syslogPriorities;
+                                                        s_syslogPriorities;
+
+    static FBB::LinearMap<Mode, char const *> const     s_ipc;
 
     public:
         static Options &instance();
@@ -79,14 +86,19 @@ class Options: public StealthEnums
         bool resume() const;
         bool daemon() const;
         bool repeat() const;
+        bool sendMail() const;
+        bool logMail() const;
 
         Mode mode() const;
-        MailType mailType() const;
 
         size_t repeatInterval() const;
         size_t randomAddition() const;
+        size_t commandNr() const;
+        std::streamsize maxDownloadSize() const;
 
+        std::string const &maxSizeStr() const;
         std::string const &policyFilePath() const;
+        std::string const &skipFilePath() const;
         std::string const &basename() const;
         std::string const &runFile() const;
 
@@ -95,6 +107,13 @@ class Options: public StealthEnums
     private:
         Options();
 
+        void setCommandNr();
+        void setRepeat();
+        void setRandomDelay();
+        void setMail();
+        void setSkipFilePath();
+        void setDownloadSize();
+
         bool setSyslog();
 
         std::string syslogTag() const;
@@ -102,11 +121,11 @@ class Options: public StealthEnums
         FBB::Facility syslogFacility() const;
 
 
-        void setRepeat();
-        void setRandomDelay();
         void checkAction() const;
 
         void loadConfigFile();
+
+        void warnOption(char const *label) const;
 };
 
 inline Options::Mode Options::mode() const
@@ -114,9 +133,14 @@ inline Options::Mode Options::mode() const
     return d_mode;
 }
 
-inline Options::MailType Options::mailType() const
+inline bool Options::sendMail() const
 {
-    return d_mailType;
+    return d_sendMail;
+}
+
+inline bool Options::logMail() const
+{
+    return d_logMail;
 }
 
 inline bool Options::reload() const
@@ -179,6 +203,11 @@ inline std::string const &Options::policyFilePath() const
     return d_policyFilePath;
 }
 
+inline std::string const &Options::skipFilePath() const
+{   
+    return d_skipFilePath;
+}
+
 inline std::string const &Options::runFile() const
 {   
     return d_runFile;
@@ -192,6 +221,21 @@ inline std::string const &Options::basename() const
 inline size_t Options::repeatInterval() const
 {
     return d_repeatInterval;
+}
+
+inline size_t Options::commandNr() const
+{
+    return d_commandNr;
+}
+
+inline std::streamsize Options::maxDownloadSize() const
+{
+    return d_maxDownloadSize;
+}
+
+inline std::string const &Options::maxSizeStr() const
+{
+    return d_maxSizeStr;
 }
 
 #endif

@@ -1,4 +1,4 @@
-#include "ipc.ih"
-
-IPC::~IPC()
-{}
+//#include "ipc.ih"
+//
+//IPC::~IPC()
+//{}

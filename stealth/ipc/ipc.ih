@@ -9,7 +9,7 @@
 #include <bobcat/mstream>
 #include <bobcat/exception>
 
-#include "../lock/lock.h"
+// #include "../lock/lock.h"
 #include "../options/options.ih"
 #include "../msg/msg.h"
 

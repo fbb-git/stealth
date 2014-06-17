@@ -2,23 +2,17 @@
 
 void Stealth::processMail()
 {
-    switch (d_options.mailType())
+    if (d_options.logMail())
     {
-        case MailType::OFF:
-        return;
+        d_stealthLog.rewind();
 
-        case MailType::LOG:
-        {
-            string line;
-            while (getline(d_stealthLog.in(), line))
-                imsg << "Mail line: " << line << endl;
-        }
-        break;
-    
-        case MailType::ON:
-            sendMail();
-        break;
+        string line;
+        while (getline(d_stealthLog.in(), line))
+            imsg << "Mail line: " << line << endl;
     }
+    
+    if (d_options.sendMail())
+        sendMail();
 }
 
 

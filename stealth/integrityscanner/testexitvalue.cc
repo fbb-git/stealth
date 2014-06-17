@@ -11,9 +11,9 @@ void IntegrityScanner::testExitValue(std::string const &cmd,
 
     if (d_testExitValue && stoul(s_exitValue[1]) != 0)
         d_stealthLog << 
-            "Program terminated due to non-zero exit value for\n" <<
+            d_options.basename() << 
+                                " terminated: non-zero exit value for\n" <<
             *d_cmdIterator << " (" << exitStr << ")" << RunMode::leave;
-
 }
 
 

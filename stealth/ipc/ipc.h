@@ -5,16 +5,16 @@
 
 #include <bobcat/selector>
 #include <bobcat/linearmap>
-#include <bobcat/signal>
+//#include <bobcat/signal>
 
-class IPC: public FBB::SignalHandler
+class IPC   // : public FBB::SignalHandler
 {
     FBB::Selector    d_selector;
 
     static FBB::LinearMap<int, char const *> const s_signame;
 
     public:
-        ~IPC() override;
+//        ~IPC() override;
                                             // always returns true, or
                                             // throws exception on failure
         bool signalPeer(int signum);
@@ -38,10 +38,10 @@ class IPC: public FBB::SignalHandler
     private:
         void sleep();                       // sleep until wakeup
 
-        void signalHandler(size_t signum) override;
+//        void signalHandler(size_t signum) override;
 
-        void suppress(size_t pid);
-        void suppressing(size_t pid);
+//        void suppress(size_t pid);
+//        void suppressing(size_t pid);
 
         size_t getPid() const;
 

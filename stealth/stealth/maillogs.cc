@@ -10,8 +10,6 @@ void Stealth::mailLogs()
         return;
     }
 
-    d_stealthLog.rewind();
-
     processMail();
 }
 

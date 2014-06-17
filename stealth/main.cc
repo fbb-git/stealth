@@ -27,7 +27,8 @@ ArgConfig::LongOption longOption[] =
 
     {"log",  'l'},              // : new
 
-    {"mail", 'm'},              // : new
+    {"log-mail", Arg::None},    // new
+    {"no-mail", Arg::None},     // new
 
     {"parse-policy-file", 'p'}, // was: 'c'
 
@@ -65,7 +66,7 @@ auto endLongOption = longOption + sizeof(longOption) / sizeof(longOption[0]);
 int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
-    ArgConfig &arg = ArgConfig::initialize("cC:d:ehi:l:m:nopqr:s:vV:",
+    ArgConfig &arg = ArgConfig::initialize("cC:d:ehi:l:nopqr:s:vV:",
                                 longOption, endLongOption, 
                                 argc, argv); 
 

@@ -25,18 +25,11 @@ struct StealthEnums
                                     //                             SIGINT)
     };
 
-    enum class MailType
-    {
-        OFF,
-        ON,
-        LOG
-    };
-
     static std::ostream &leave(std::ostream &out);
 };
 
 inline constexpr StealthEnums::Mode operator|(
-                                    StealthEnums::Mode lhs, StealthEnums::Mode rhs)
+                            StealthEnums::Mode lhs, StealthEnums::Mode rhs)
 {
     return static_cast<StealthEnums::Mode>(
                 static_cast<size_t>(lhs) | static_cast<size_t>(rhs) 
