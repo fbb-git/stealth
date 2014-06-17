@@ -12,10 +12,7 @@ void IntegrityScanner::run()
                                                 // add values to it, below.
 
     if (size_t cmdNr = d_options.commandNr())   // is there  a command number?
-    {
-        d_cmdIterator += cmdNr - 1;             // if so, set the cmdIterator
-        execute(*d_cmdIterator);                // and execute that command
-    }
+        foreground(cmdNr);                      // run it in the foreground
     else                                        // no number: process all
     {                                           // commands    
         auto beyond = d_policyFile.beyondCmd();

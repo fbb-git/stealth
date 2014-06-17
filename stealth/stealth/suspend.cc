@@ -4,6 +4,9 @@ void Stealth::suspend()
 {
     logMsg("was suspended");
 
+    mailLogs();
+    d_stealthLog.header();
+
     while (true)
     {
         d_ipc.wait();

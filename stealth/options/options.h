@@ -38,7 +38,7 @@ class Options: public StealthEnums
     bool d_randomDelay;
     bool d_sendMail = true;
     bool d_logMail = false;
-
+    bool d_stdout = false;
     bool d_repeat;
     size_t d_repeatInterval;
     size_t d_delayInterval = 0;
@@ -88,6 +88,7 @@ class Options: public StealthEnums
         bool repeat() const;
         bool sendMail() const;
         bool logMail() const;
+        bool stdout() const;
 
         Mode mode() const;
 
@@ -196,6 +197,11 @@ inline bool Options::daemon() const
 inline bool Options::ipc() const
 {   
     return d_reload || d_rerun || d_terminate || d_suspend || d_resume;
+}
+
+inline bool Options::stdout() const
+{   
+    return d_stdout;
 }
 
 inline std::string const &Options::policyFilePath() const

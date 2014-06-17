@@ -20,6 +20,15 @@ void Options::setCommandNr()
         if (d_commandNr == 0)
             wmsg << "--run-command 0: not a valid (natural) command number" << 
                                                                         endl;
+        else
+        { 
+            if (not d_stdout)
+            {
+                d_stdout = true;
+                d_multiStreambuf.insert(cout);
+            }
+            cout.setstate(ios::failbit);
+        }        
     }
     catch (...)
     {
@@ -28,3 +37,4 @@ void Options::setCommandNr()
                                                                         endl;
     }
 }
+

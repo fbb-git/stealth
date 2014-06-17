@@ -8,7 +8,7 @@ void Stealth::processMail()
 
         string line;
         while (getline(d_stealthLog.in(), line))
-            imsg << "Mail line: " << line << endl;
+            imsg << "Mail: " << line << endl;
     }
     
     if (d_options.sendMail())

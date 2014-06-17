@@ -69,6 +69,9 @@ class IntegrityScanner
         void killChildren();
         
     private:
+
+        void foreground(size_t cmdNr);  // run 1 command 
+
                         // copy a textfile
         void        copy(FBB::Process &src, std::string const &fname);
 

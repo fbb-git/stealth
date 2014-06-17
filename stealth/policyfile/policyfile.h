@@ -33,7 +33,8 @@ class PolicyFile
         PolicyFile(std::string const &confPath);
 
         void reload();
-    
+
+        size_t size() const;    
         std::vector<std::string>::const_iterator firstCmd() const;
         std::vector<std::string>::const_iterator beyondCmd() const;
         std::string const &operator[](std::string const &key) const;
@@ -50,6 +51,11 @@ class PolicyFile
         void replaceDefines(std::string &text); 
         void insert(LinearMap &linMap, std::string const &line);
 };
+
+inline size_t PolicyFile::size() const
+{
+    return d_command.size();
+}
 
 inline std::vector<std::string>::const_iterator PolicyFile::firstCmd() const
 {

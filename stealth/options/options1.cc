@@ -47,12 +47,15 @@ Options::Options()
     
     loadConfigFile();
 
-    if (d_arg.option('o'))
+    if (ipc() || d_arg.option('o'))
     {
         if (d_daemon)
             wmsg << "--stdout ignored: conflicts with --daemon" << endl;
         else
+        {
+            d_stdout = true;
             d_multiStreambuf.insert(cout);
+        }
     }
 
     string logName;

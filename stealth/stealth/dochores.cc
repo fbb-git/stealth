@@ -14,11 +14,11 @@ void Stealth::doChores()
     {
         Mode request = d_run.mode();
 
-        m1 << d_run.modeName() << endl;
-    
         if (request == LEAVE)
             break;
 
+        m1 << d_run.modeName() << endl;
+    
         d_stealthLog.header();
 
         try
