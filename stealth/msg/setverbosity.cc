@@ -6,32 +6,30 @@ void Msg::setVerbosity(size_t verbosity)
     switch (verbosity)
     {
         case 0:        
-            m1.rdbuf(0);
+            m1.setstate(ios::failbit);
         case 1:
-            m2.rdbuf(0);
+            m2.setstate(ios::failbit);
         case 2:
-            m3.rdbuf(0);
+            m3.setstate(ios::failbit);
         case 3:
-            m4.rdbuf(0);
+            m4.setstate(ios::failbit);
         case 4:
-            m5.rdbuf(0);
+            m5.setstate(ios::failbit);
     }
-
-    streambuf *buf = imsg.rdbuf();
 
         // switch on all mx streams up to verbosity
     switch (verbosity)
     {
         case 5:
-            m5.rdbuf(buf);        
+            m5.clear();        
         case 4:
-            m4.rdbuf(buf);        
+            m4.clear();        
         case 3:
-            m3.rdbuf(buf);        
+            m3.clear();        
         case 2:
-            m2.rdbuf(buf);        
+            m2.clear();        
         case 1:
-            m1.rdbuf(buf);
+            m1.clear();
     }
 }
 

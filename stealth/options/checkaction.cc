@@ -4,9 +4,12 @@ void Options::checkAction() const
 {
             // only one of these options may be specified
 
-    if (d_reload + d_rerun + d_resume + d_suspend + d_terminate > 1)
+    if (d_daemon + d_reload + d_rerun + d_resume + d_suspend + d_terminate > 1)
     {
         fmsg << "incompatible options:";
+
+        if (d_daemon)
+            fmsg << " --daemon";
 
         if (d_reload)
             fmsg << " --reload";

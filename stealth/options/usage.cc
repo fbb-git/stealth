@@ -45,6 +45,8 @@ void Options::usage(std::string const &progname)
 
     "      --parse-policy-file (-p): (C) parse the policy file, no further "
                                                                 "action.\n"
+    "                   Specify once to see the numbered commands, twice to\n"
+    "                   see the policy file parsing steps as well.\n"
     "                   Results to std output.\n"
 
     "      --random-interval (-i) value: start integrity scans within\n"

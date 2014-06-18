@@ -12,5 +12,3 @@ void Stealth::processPolicy()
     else
         doChores();
 }
-
-

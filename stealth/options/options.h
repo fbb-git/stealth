@@ -43,6 +43,8 @@ class Options: public StealthEnums
     size_t d_repeatInterval;
     size_t d_delayInterval = 0;
     size_t d_commandNr = 0;
+    size_t d_parsePolicy = 0;
+
     std::streamsize d_maxDownloadSize = 10 * 1024 * 1024;   // 10 MB
 
     FBB::LinearMap<std::string, FBB::Facility>::const_iterator 
@@ -75,8 +77,7 @@ class Options: public StealthEnums
 
         void oldOptions() const;
 
-        bool parseConfigFile() const;
-        bool verboseOrJustParse() const;
+        size_t parsePolicyFile() const;
         bool verbose() const;
         bool ipc() const;
         bool reload() const;        
@@ -154,14 +155,9 @@ inline bool Options::verbose() const
     return d_arg.option('V');
 }
 
-inline bool Options::parseConfigFile() const
+inline size_t Options::parsePolicyFile() const
 {   
-    return d_arg.option('c');
-}
-
-inline bool Options::verboseOrJustParse() const
-{   
-    return d_arg.option("cd");
+    return d_parsePolicy;
 }
 
 inline bool Options::rerun() const

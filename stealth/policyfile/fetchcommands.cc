@@ -17,23 +17,20 @@ void PolicyFile::fetchCommands()
     for(auto &entry: d_command)
         replaceDefines(entry);
 
-    if (Options::instance().verboseOrJustParse())
+    if (size_t parse = Options::instance().parsePolicyFile())
     {
-        for(auto &value: d_use)
-            m5 << "USE " << value.first << ": " << value.second << endl;
+        if (parse > 1)
+            for(auto &value: d_use)
+                mp << "USE " << value.first << ": " << value.second << endl;
 
+        mp.clear();
         for (size_t idx = 0; idx != d_command.size(); ++idx)
-           m5 << (idx + 1) << ": " << d_command[idx] << endl;
+           mp << (idx + 1) << ": " << d_command[idx] << endl;
 
-        if (Options::instance().parseConfigFile())
-        {
-            m5 << "Configuration file processed" << endl;
-            throw 0;
-        }
+        throw 0;
     }
 
     if (!ok)
         fmsg << "USE SSH ... entry missing in the configuration file" << endl;
 }
-
 

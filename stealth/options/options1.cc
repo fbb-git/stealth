@@ -35,16 +35,18 @@ Options::Options()
         d_mode = RESUME;
 
     if ((d_daemon = d_arg.option(&d_runFile, 'd')))
-    {
         d_repeatInterval = numeric_limits<int>::max();
-//        Lock::setRunFilename(d_runFile);
-    }
+
 
     checkAction();
 
+    if (d_daemon and d_runFile[0] != '/')
+        fmsg << "--daemon: " << d_runFile << 
+                    " should be absolute file name" << endl;
+                                                        
     if (d_mode & (RELOAD | RERUN | TERMINATE | SUSPEND | RESUME))
         d_runFile = d_arg[0];
-    
+
     loadConfigFile();
 
     if (ipc() || d_arg.option('o'))
@@ -101,8 +103,18 @@ Options::Options()
     setRepeat();
     setRandomDelay();
 
+    mp.setstate(ios::failbit);
+    if ((d_parsePolicy = d_arg.option('p')))
+    {
+        if (ipc() or d_daemon)
+            fmsg << "--parse-policy-file only as foreground process" << endl;
+        if (d_parsePolicy > 1)
+            mp.clear();
+    }
+            
     d_policyFilePath = Util::realPath(d_arg[0]);
 }       
+
 
 
 

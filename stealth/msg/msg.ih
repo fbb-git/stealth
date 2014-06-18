@@ -1,5 +1,6 @@
 #include "msg.h"
 
+#include <iostream>
 #include <bobcat/mstream>
 
 using namespace std;

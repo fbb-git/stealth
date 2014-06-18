@@ -6,9 +6,9 @@ void PolicyFile::insert(LinearMap &linMap, string const &line)
     {
         string type = s_firstWord[1];
 
-        m5 << type << " line: " << line << endl;
+        mp << type << " line: " << line << endl;
         linMap[s_firstWord[1]] = s_firstWord[2];      // store key and value
-        m5 << type << " key: " << s_firstWord[1] <<
+        mp << type << " key: " << s_firstWord[1] <<
                   ", value: " << linMap[s_firstWord[1]] << endl;
         return;
     }
