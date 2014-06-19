@@ -19,11 +19,10 @@ Options::Options()
                                                         
     loadConfigFile();
 
-    setStdout();
-    setLog();
     setMail();
     setSkipFilePath();
-    setVerbosity( setSyslog() );
+    setVerbosity( setSyslog(), setLog() );
+    setStdout();
     setRepeat();
     setRandomDelay();
             

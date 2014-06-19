@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::setVerbosity(bool useSyslog)
+void Options::setVerbosity(bool useSyslog, string const &logName)
 {
     string verbosity;
     bool verb;

@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::setLog()
+string Options::setLog()
 {
     string logName;
     if (d_arg.option(&logName, 'l'))
@@ -11,4 +11,5 @@ void Options::setLog()
 
         d_multiStreambuf.insert(d_log);
     }
+    return logName;
 }

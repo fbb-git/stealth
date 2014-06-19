@@ -113,17 +113,19 @@ class Options: public StealthEnums
         void requireSomeArgument();
 
         void setMode();
+        void checkMode() const;
+
         void setCommandNr();
         void setParsePolicy();
         void setStdout();
-        void setLog();
+        std::string setLog();
 
-        void setConfigAwareOptions();
         void setRepeat();
         void setRandomDelay();
         void setMail();
         void setSkipFilePath();
         void setDownloadSize();
+        void setVerbosity(bool useSyslog, std::string const &logName);
 
         bool setSyslog();
 
@@ -131,8 +133,6 @@ class Options: public StealthEnums
         FBB::Priority syslogPriority() const;
         FBB::Facility syslogFacility() const;
 
-
-        void checkAction() const;
 
         void loadConfigFile();
 

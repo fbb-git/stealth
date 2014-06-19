@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::setAction()
+void Options::setMode()
 {
     if ((d_reload = d_arg.option(0, "reload")))
         d_mode = RELOAD;
