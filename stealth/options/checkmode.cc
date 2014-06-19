@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::checkAction() const
+void Options::checkMode() const
 {
             // only one of these options may be specified
 

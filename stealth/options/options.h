@@ -40,6 +40,7 @@ class Options: public StealthEnums
     bool d_logMail = false;
     bool d_stdout = false;
     bool d_repeat;
+
     size_t d_repeatInterval;
     size_t d_delayInterval = 0;
     size_t d_commandNr = 0;
@@ -109,7 +110,15 @@ class Options: public StealthEnums
     private:
         Options();
 
+        void requireSomeArgument();
+
+        void setMode();
         void setCommandNr();
+        void setParsePolicy();
+        void setStdout();
+        void setLog();
+
+        void setConfigAwareOptions();
         void setRepeat();
         void setRandomDelay();
         void setMail();
