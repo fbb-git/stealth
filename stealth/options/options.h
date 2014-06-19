@@ -40,6 +40,8 @@ class Options: public StealthEnums
     bool d_logMail = false;
     bool d_stdout = false;
     bool d_repeat;
+    bool d_foreground;
+    bool d_ipc;
 
     size_t d_repeatInterval;
     size_t d_delayInterval = 0;
@@ -137,6 +139,7 @@ class Options: public StealthEnums
         void loadConfigFile();
 
         void warnOption(char const *label) const;
+        void foregroundOnly(char const *optionName) const;
 };
 
 inline Options::Mode Options::mode() const
@@ -201,7 +204,7 @@ inline bool Options::daemon() const
 
 inline bool Options::ipc() const
 {   
-    return d_reload || d_rerun || d_terminate || d_suspend || d_resume;
+    return d_ipc;
 }
 
 inline bool Options::stdout() const

@@ -5,7 +5,7 @@ bool Options::setSyslog()
     if (not d_arg.option(0, "syslog"))
         return false;
 
-    if (ipc())
+    if (d_ipc)
     {
         warnOption("--syslog* options not used");
         return false;

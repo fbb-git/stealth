@@ -5,7 +5,7 @@ void Options::setDownloadSize()
     if (not d_arg.option(&d_maxSizeStr, "max-size"))
         return;
 
-    if (ipc())
+    if (d_ipc)
     {
         warnOption("--max-size ignored");
         return;

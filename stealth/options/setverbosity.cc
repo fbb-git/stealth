@@ -9,7 +9,7 @@ void Options::setVerbosity(bool useSyslog, string const &logName)
                             :
                                 s_defaultVerbosity;
 
-    if (verb and ipc())
+    if (verb and d_ipc)
     {
         warnOption("--verbosity not used");
         verbosityValue = 0;

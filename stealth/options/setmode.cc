@@ -28,4 +28,8 @@ void Options::setMode()
 
     if (d_mode & (RELOAD | RERUN | TERMINATE | SUSPEND | RESUME))
         d_runFile = d_arg[0];
+
+    d_ipc = d_reload || d_rerun || d_terminate || d_suspend || d_resume;
+
+    d_foreground = not d_ipc and not d_daemon;
 }
