@@ -14,23 +14,12 @@ class IPC   // : public FBB::SignalHandler
     static FBB::LinearMap<int, char const *> const s_signame;
 
     public:
-//        ~IPC() override;
                                             // always returns true, or
-                                            // throws exception on failure
-        bool signalPeer(int signum);
-
-//        void wakeup();
-//        void setAlarm();
+        bool signalPeer(int signum);        // throws exception on failure
 
         void wait();                        // wait until signaled
         void timedWait();                   // wait until signaled or wait
-                                            // time has passed
-
-//        void sleep(size_t seconds);         // sleep until wakeup
-
-//        bool signalSuppressor();            // stealth daemon signals the 
-                                            // stealth process that issued
-                                            // --suppress
+                                            // until time has passed
 
         void writeRunFile(pid_t pid);
         void lockRunFile() const;
@@ -38,20 +27,8 @@ class IPC   // : public FBB::SignalHandler
     private:
         void sleep();                       // sleep until wakeup
 
-//        void signalHandler(size_t signum) override;
-
-//        void suppress(size_t pid);
-//        void suppressing(size_t pid);
-
         size_t getPid() const;
-
         static void sendSignal(int sig, pid_t pid);
-
 };
-
-//inline void IPC::wakeup() 
-//{
-//    d_selector.setAlarm(0);
-//}
 
 #endif
