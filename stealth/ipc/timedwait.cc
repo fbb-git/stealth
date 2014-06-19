@@ -2,16 +2,14 @@
 
 void IPC::timedWait()
 {
-    Options &options = Options::instance();
-
-    if (options.repeat())
+    if (d_options.repeat())
     {
-        size_t waitSeconds = options.repeatInterval() + 
-                             options.randomAddition();
-        m2 << "Waiting for " << waitSeconds << " seconds" << endl;
+        size_t waitSeconds = d_options.repeatInterval() + 
+                             d_options.randomAddition();
 
-        d_selector.setAlarm(options.repeatInterval() + 
-                            options.randomAddition());
+        m2 << "waiting for " << waitSeconds << " seconds or for a signal" << 
+                                                                        endl;
+        d_selector.setAlarm(waitSeconds);
     }
 
     wait();
