@@ -4,18 +4,18 @@
 
 void IntegrityScanner::waitForSentinel(Process &extractor)
 {
-    string  s;
+    string line;
 
-    while (getline(extractor, s))
+    while (getline(extractor, line))
     {
-        m4 << "read line `" << s << '\'' << endl;
+        m3 << "read line `" << line << '\'' << endl;
 
-        if (s.find(d_sentinel) == 0)
+        if (line.find(d_sentinel) == 0)
         {
             m3 << "GOT Sentinel" << endl;
             break;
         }
     }
 
-    testExitValue(extractor.str(), s);
+    testExitValue(extractor.str(), line);
 }

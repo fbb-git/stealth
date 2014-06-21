@@ -4,7 +4,7 @@ void Stealth::sendMail()
 {
     d_stealthLog.rewind();
 
-    m4 << "Mailing new logs using: " << 
+    m3 << "Mailing new logs using: " << 
             (*d_policyFile)["MAILER"] << ' ' <<
             (*d_policyFile)["MAILARGS"] << " " << 
             (*d_policyFile)["EMAIL"] << endl;

@@ -10,7 +10,7 @@ void IntegrityScanner::copy(Process &src, string const &fname)
         d_stealthLog << "Can't open `" << fname << "' to write" << 
                         StealthEnums::leave;
 
-    m4 << "copy: about to read child input" << endl;
+    m3 << "copy: about to read child input" << endl;
 
     string line;
     off_t length = 0;
@@ -20,7 +20,7 @@ void IntegrityScanner::copy(Process &src, string const &fname)
     {
         checkSize(fname, length += line.length() + 1);  // throws if not OK
 
-        m4 << "copy SAW: `" << line << '\'' << endl;
+        m3 << "copy SAW: `" << line << '\'' << endl;
 
         if (line.find(d_sentinel) == 0)
         {

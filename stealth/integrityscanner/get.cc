@@ -14,14 +14,12 @@ void IntegrityScanner::get(string const &cmd)
     // command. d_firstword[1] contains the remote filename,
     //          d_firstword[3] contains the rest    
 
-
     string source = s_firstWord[1];                 // get the (remote) source
 
     if (!source.length())
         d_stealthLog << "GET command requires source and destination" <<
                                                         StealthEnums::leave;
             
-
     s_firstWord.match(s_firstWord[3]);              // strip off source
     string destination = s_firstWord[1];            // get the local dest.
 
@@ -32,10 +30,6 @@ void IntegrityScanner::get(string const &cmd)
             
     if (Stat(destination).isType(Stat::DIRECTORY))  // is the dest. a dir. ?
         destination += "/" + fileName(source); 
-
-
-    m3 << " GET: scp <client>:" << source << " " << 
-                                                     destination << endl;
 
     nextCommand(d_sshFork,                  // start the next command
         d_policyFile["DD"] + " if=" + source);

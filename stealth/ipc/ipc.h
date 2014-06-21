@@ -1,8 +1,6 @@
 #ifndef INCLUDED_IPC_
 #define INCLUDED_IPC_
 
-//#include <iosfwd>
-
 #include <bobcat/selector>
 #include <bobcat/linearmap>
 

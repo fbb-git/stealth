@@ -17,8 +17,7 @@ class Msg: public std::ostream
 extern Msg m1;
 extern Msg m2;
 extern Msg m3;
-extern Msg m4;
-extern Msg m5;
+
 extern Msg mp;
 
 #endif

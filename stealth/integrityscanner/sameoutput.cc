@@ -8,7 +8,7 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
         d_stealthLog << "Unable to create the logfile `" << current << "'" << 
                                                             StealthEnums::leave;
  
-    m4 << "sameOutput(): logs to " << current << endl;
+    m3 << "logs to " << current << endl;
    
     copy(extractor, current);               // copy the info in extractor
                                             // to the current logfile
@@ -20,10 +20,7 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
         rename(current.c_str(), logfile.c_str());   // install `logfile'
 
         if (d_label.length())
-        {
-//            m1 << "writing label: " << d_label << '\n';
             d_stealthLog << d_label << endl;
-        }
 
         d_stealthLog << "Initialized report on " << logfile << endl;
 

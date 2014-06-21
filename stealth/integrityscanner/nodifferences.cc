@@ -58,12 +58,12 @@ bool IntegrityScanner::noDifferences(std::string const &current,
     //    ---
     //    > b88d0b77db74cc4a742d7bc26cdd2a1e  out
 
+    m3 << "check differences: sentinel = `" << d_sentinel << '\'' << endl;
+
     while (getline(d_shFork, line))
     {
-        m4 << "noDifferences():      got: `" << 
-                line << "'\n" 
-                "noDifferences(): sentinel: `" << 
-                d_sentinel << '\'' << endl;
+        m3 << "check differences. line = `" << line << '\'' << endl;
+                                           
 
         if (line == d_sentinel)            // done at the sentinel
             break;

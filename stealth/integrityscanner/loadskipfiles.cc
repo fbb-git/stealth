@@ -9,7 +9,7 @@ void IntegrityScanner::loadSkipFiles()
     else                                // or don't skip
         d_skip = &IntegrityScanner::dontSkip;
 
-    m4 << "loadSkipFiles: " << d_skipFiles.size() << " lines" << endl;
+    m3 << "loadSkipFiles: " << d_skipFiles.size() << " lines" << endl;
 }
 
 
