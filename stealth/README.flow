@@ -73,25 +73,77 @@ signals.
 
 
 
-Stealth has several modes of operation, defined in monitor/monitor.h, and
-(partially) controlled by command-line options:
+Stealth has several modes of operation, defined in stealthenums/stealthenums.h
+and (partially) controlled by command-line options:
 
+===========================================================================
 option      mode            meaning/action
+===========================================================================
+default     INTEGRITY_SCAN, single run in the foreground
 
-default     ONCE,           single run in the foreground
-daemon  KEEP_ALIVE,     multiple runs: Stealth becomes a daemon process
+daemon      INTEGRITY_SCAN, 
+            then WAIT       multiple runs: Stealth becomes a daemon process
 
-terminate   TERMINATE,      terminate a running Stealth daemon process 
-                                (through SIGTERM)
-            TERMINATED,     automatically, following TERMINATE
-suppress    SUPPRESS,       suppress a running Stealth daemon process, 
-                                (through SIGUSR1) 
-            SUPPRESSED,     automatically following SUPPRESS
-resume                      resumes a SUPPRESSed Stealth daemon process
-                                (through SIGUSR2)
+rerun       RERUN           reruns at mode WAIT
+
+suspend     SUSPEND,        suspends a running Stealth daemon process, ended
+                            by options --resume or --terminate
+
+resume                      resumes a SUSPENDed Stealth daemon process
+
 reload      RELOAD,         a running Stealth daemon process reloads its
                             config files (through SIGCHLD)
 
+terminate   TERMINATE,      terminate a running Stealth daemon process 
+                            a daemon can also be ended through a SIGTERM
+                            signal 
+
+-----------------------------------------------------------------------------
+
+debug                       OK
+
+parse-policy-file           OK, but takes priority over all other options.
+
+stdout                      only with 'default', otherwise warning and ignored
+
+verbosity                   OK
+
+max-size                    OK
+
+config                      only 'default' and 'daemon'
+
+log                         OK
+
+log-mail                    OK
+
+no-mail                     OK
+
+random-interval             'daemon' only (implies 'daemon')
+
+run-command                 only 'default'
+
+skip-files                  only 'default' and 'daemon'
+
+syslog*                     OK
+
+repeat                      'daemon' only (implies 'daemon')
+
+
+===========================================================================
+
+Communications with the daemon use the run-file and signals SIGUSR1 (and
+SIGTERM). The run-file by default contains the pid of the daemon process. The
+signalling stealth process adds a request (Mode number) and its own pid to the
+file. The daemon reads the request and answers the requestor by sending back a
+SIGUSR1 (request handled OK) or a SIGUSR2 (improper request in the current
+mode). An improper request is, e.g., a SUSPEND request when a SUSPEND request
+has just been issued.
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+OLD:
+====
 All actions are controlled by Monitor::control, started by main(). This is the
 only real action main performs.
 

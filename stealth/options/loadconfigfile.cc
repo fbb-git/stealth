@@ -3,7 +3,7 @@
 void Options::loadConfigFile()
 {
     string configFile;
-    if (not d_arg.option(&configFile, 'c'))
+    if (not d_arg.option(&configFile, 'C'))
     {
         configFile = User().homedir() + s_defaultConfigFile;
         if (access(configFile.c_str(), R_OK) != 0)

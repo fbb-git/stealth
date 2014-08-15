@@ -7,24 +7,30 @@ Options::Options()
     d_maxSizeStr("10M"),
     d_repeatInterval(numeric_limits<int>::max())
 {
-    requireSomeArgument();
+    requireSomeArgument();      // no args/options, then usage and ends.
 
-    oldOptions();
+    oldOptions();               // ends if --keep-alive or --suppress was 
+                                // specified
 
-    setMode();
-    checkMode();
+    setMode();                  // sets d_mode and all bool mode indicators
+    checkMode();                // ends if multiple/incompatible modes were
+                                // set
     
-    setCommandNr();
-    setParsePolicy();
+    setCommandNr();             // sets run-command, (requires foreground).
+    setParsePolicy();           // sets the policy file (requires foreground)
                                                         
-    loadConfigFile();
+    loadConfigFile();           // load the config file into ArgConfig if 
+                                // available
 
-    setMail();
+    setMail();                  // sets log-mail and no-mail
     setSkipFilePath();
+
     setVerbosity( setSyslog(), setLog() );
+
     setStdout();
     setRepeat();
     setRandomDelay();
+    setDownloadSize();
             
     d_policyFilePath = Util::realPath(d_arg[0]);
 }       

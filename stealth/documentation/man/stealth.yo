@@ -617,6 +617,8 @@ tt(--max-size) option, see below. By default it is set at 10M.
 
 manpagesection(OPTIONS)
 
+    See also section bf(BUGS) near the end of this man-page.
+
     Long options are given immediately following the short-option
 equivalents, if available. Either can be used.
 
@@ -712,6 +714,7 @@ manpagesection(DIAGNOSTICS)
 suppress this echoing.
 
 manpagebugs()
+
     None reported
 
 manpagesection(COPYRIGHT)

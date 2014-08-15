@@ -11,12 +11,12 @@ ArgConfig::LongOption longOption[] =
     // Kept for backward compatibility, but a warning is genereated when
     // used
     {"echo-commands", 'e'},             // discont., use --log
+    {"keep-alive", Arg::None},          // discont.: use --daemon
     {"no-child-processes", 'n'},        // discont.: use --no-daemon
     {"only-stdout", Arg::None},         // discont.: use --stdout
-    {"quiet", 'q'},                     // discont.: use --verbosity 0
-    {"keep-alive", Arg::None},          // discont.: use --daemon
-    {"suspend", Arg::None},             // discont.: use --suppress
     {"parse-config-file", 'c'},         // discont.: use --parse-policy-file
+    {"quiet", 'q'},                     // discont.: use --verbosity 0
+    {"suppress", Arg::None},            // discont.: use --suspend
 
 
 
@@ -54,7 +54,7 @@ ArgConfig::LongOption longOption[] =
 
     {"rerun", Arg::None},               // arg[0] is the runfilename
     {"resume", Arg::None},              // also for this and the next options
-    {"suppress", Arg::None},
+    {"suspend", Arg::None},
     {"reload", Arg::None},
     {"terminate", Arg::None},
 };
