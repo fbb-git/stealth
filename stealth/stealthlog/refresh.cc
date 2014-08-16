@@ -1,6 +1,6 @@
 #include "stealthlog.ih"
 
-void StealthLog::header()
+void StealthLog::refresh()
 {
     d_stealthlog.clear();
 

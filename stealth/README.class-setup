@@ -1,3 +1,27 @@
+Stealth:    handles the integrity scan or handles the communication with a
+            running stealth daemon.
+
+Options:    singleton, prepares all options received either on the command
+            line or found in the policy file. Ends the program if incompatible
+            options were specified. Initialized by Stealth::Stealth()
+
+PolicyFile: processes (through its member 'reload') the first section of the
+            policy file.
+
+IPC:        handles the runfile (pid file): requests are written to the
+            runfile followed by signaling the daemon through its member
+            'signalDaemon'
+
+RunMode:    keeps track of the currently active Stealth mode. A mode may also
+            be queried, and the name of a mode can be requested. When a mode
+            is changed, setMode is used to update RunMode's mode.
+
+StealthLog: Handles all logs. d_stealthLog in the Stealth object is a stream
+            into which log messages can be inserted. 
+
+
+===============================================================
+
     stealth:        uses:   bobcat
                             IOFork
                             ConfigSorter

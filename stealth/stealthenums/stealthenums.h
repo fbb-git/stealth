@@ -13,16 +13,19 @@ struct StealthEnums
 
         WAIT            = 1 << 3,   // waiting for another signal/tine
 
-        RERUN           = 1 << 4,   // rerun at WAITING on request (-> SIGHUP)
+        RERUN           = 1 << 4,   // rerun on request at WAITING 
 
-        SUSPEND         = 1 << 2,   // suppress a stealth run (-> SIGUSR1)
+        SUSPEND         = 1 << 2,   // suspend a stealth run 
 
-        RESUME          = 1 << 5,   // resume at WAITING (-> SIGUSR2)
+        RESUME          = 1 << 5,   // resume at WAITING 
 
-        RELOAD          = 1 << 6,   // reload the config files (-> SIGPIPE)
+        RELOAD          = 1 << 6,   // reload the config files 
 
         TERMINATE       = 1 << 7,   // terminate a Stealth run (-> SIGTERM,
                                     //                             SIGINT)
+
+        INVALID         = 1 << 8,   // the runfile does not contain a valid
+                                    // request
     };
 
     static std::ostream &leave(std::ostream &out);

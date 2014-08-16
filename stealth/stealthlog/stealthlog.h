@@ -19,12 +19,15 @@ class StealthLog: public std::ostream
         StealthLog(StealthLog const &other) = delete;
         StealthLog &operator=(StealthLog const &other) = delete;
 
-        void header();
-        void scanHeader();
-        std::string const &headerLine() const;
+        void refresh();             // set d_beginMail to the log's EOF pos.
+        void scanHeader();          // writes the integrity scan header,
+                                    // initializes d_beginMail
+
+        std::string const &headerLine() const;  // returns info about the
+                                    // starting date/time of this stealth run
 
         std::istream &in();
-        bool hasMail();
+        bool hasMail();             // true if there is info beyond d_beginMail
 
         void open(std::string const &name);
         void close();

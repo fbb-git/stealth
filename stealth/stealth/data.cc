@@ -7,14 +7,18 @@ FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_task =
         {INTEGRITY_SCAN,   &Stealth::integrityScan},
         {SUSPEND,          &Stealth::suspend},
         {RESUME,           &Stealth::resume},
+        {INVALID,          &Stealth::invalid},
     };
 
 FBB::LinearMap<size_t, Stealth::Action> Stealth::s_signalHandler =
     {
-        {SIGHUP,    &Stealth::rerunSignal},
-        {SIGUSR1,   &Stealth::suspendSignal},
-        {SIGUSR2,   &Stealth::resumeSignal},
-        {SIGPIPE,   &Stealth::reloadSignal},
+//        {SIGHUP,    &Stealth::rerunSignal},
+//        {SIGUSR1,   &Stealth::suspendSignal},
+//        {SIGUSR2,   &Stealth::resumeSignal},
+//        {SIGPIPE,   &Stealth::reloadSignal},
+
+        {SIGUSR1,   &Stealth::pidFileSignal},
+
         {SIGTERM,   &Stealth::terminateSignal},
         {SIGINT,    &Stealth::terminateSignal},
     };

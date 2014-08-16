@@ -8,7 +8,7 @@ void StealthLog::open(string const &name)
     if (not d_stealthlog)
     {
         d_stealthlog.clear();
-        Exception::open(d_stealthlog, name, ios::out | ios::in | ios::trunc);    
+        Exception::open(d_stealthlog, name, ios::out | ios::in | ios::trunc);
     }
 
     ostringstream headerTxt;

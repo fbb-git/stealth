@@ -42,10 +42,10 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
         void childProcess() override;
         void parentProcess() override;
         void signalHandler(size_t signum) override;
-            void rerunSignal();
-            void suspendSignal();
-            void resumeSignal();
-            void reloadSignal();
+//            void rerunSignal();
+//            void suspendSignal();
+//            void resumeSignal();
+//            void reloadSignal();
             void terminateSignal();
 
         void logMsg(char const *label);
@@ -57,7 +57,14 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
         void doChores();            // run all scanning (related) tasks 
             void policyDepDataMembers();
             void setupSignals();
+
+            void processRequests();
+                void process(Mode request);     // process one single request
+                void expectRequest();
+
             void integrityScan();
+
+
             void reload();          // reload the configuration files.
             void terminate();
             void suspend();

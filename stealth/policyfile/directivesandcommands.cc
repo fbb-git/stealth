@@ -6,7 +6,14 @@ void PolicyFile::directivesAndCommands()
     {
         string line = d_configfile[idx];
 
-        if (!(s_firstWord << line))           // can't match a first word
+        if (line == "%%")                   // stop at section 2
+        {
+            imsg << "Policy file processing ends at section 2, line " <<
+                (idx + 1) << endl;
+            return;
+        }
+
+        if (!(s_firstWord << line))         // can't match a first word
         {
             if (!(s_comment << line))
                 imsg << "Ignored unrecognized line `" << line << '\'' << endl;

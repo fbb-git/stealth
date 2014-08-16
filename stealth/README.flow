@@ -1,71 +1,90 @@
 Initially the running mode is set to INTEGRITY_SCAN. Options may change the
 initial mode.
 
-If no --daemon option is requested, there is just one integrity scan and
+If the --daemon option was not requested, there is just one integrity scan and
 Stealth::performtasks terminates
 
-Flow control is handled through IPC signals.
+Flow control is handled through IPC signals, in combination with information
+written to the pid-file.
 
-    SIGINT (ctrl C) and SIGTERM
-    ===========================
+The first line of the PID file contains the pid of the daemon process.
+A second line may be written by a stealth process requesting an action of the
+daemon, followed by the pid of the process issuing the request. Requests are:
 
-When the process running the integrity scan receives a SIGINT (ctrl C) or
-SIGTERM signal the file integrity scan terminates normally. If
-a daemon file integrity scan process receives these signals the run-file is
-removed by the terminating program. 
+    Suspend     - suspend
+    Resume      - resume
+    Run         - run an itegrity scan once
+    Reload      - after the current scan has completed (it may already have
+                    completed) load a new policy file / skip file
+                    specification and perform another integrity scan.
 
-Stealth --terminate sends a SIGTERM signal to a stealth process running as a
-daemon. 
+A request is written to the PID file, followed by sending the daemon a SIGUSR1
+signal. When the daemon has completed the request it sends the requesting
+process a SIGUSR1 signal; 
 
-    SIGUSR1
-    =======
-
-When the process running the integrity scan receives a SIGUSR1 signal the file
-integrity scan is suspended.
-
-Stealth --suspend sends a SIGUSR1 signal to a stealth process running as a
-daemon. 
-
-    (The previously supported --suppress option has been discontinued in favor
-     of --suspend)
-
-
-    SIGUSR2
-    =======
-
-When the process running the integrity scan receives a SIGUSR2 signal a
-suppressed file integrity scan is resumed.
-
-Stealth --resume sends a SIGUSR2 signal to a stealth process running as a
-daemon. 
-
-    SIGHUP
-    ======
-
-When the process running the integrity scan receives a SIGHUP signal a waiting
-(temporarily suspended) stealth file integrity scan process is run once.
-
-Stealth --rerun sends a SIGHUP signal to a stealth process running as a
-daemon.
-
-    SIGPIPE
-    =======
-
-When the process running the integrity scan receives a SIGPIPE signal a
-possibly running file integrity scan process is first finished, after which
-the current policy file is replaced by another one, followed by a file
-integrity scan. 
-
-Stealth --reload sends a SIGPIPE signal to a stealth process running as a
-daemon.
-
-
-===============================================================================
+OBS 
+OBS     SIGINT (ctrl C) and SIGTERM
+OBS     ===========================
+OBS 
+OBS When the process running the integrity scan receives a SIGINT (ctrl C) or
+OBS SIGTERM signal the file integrity scan terminates normally. If
+OBS a daemon file integrity scan process receives these signals the run-file is
+OBS removed by the terminating program. 
+OBS 
+OBS Stealth --terminate sends a SIGTERM signal to a stealth process running as a
+OBS daemon. 
+OBS 
+OBS     SIGUSR1
+OBS     =======
+OBS 
+OBS When the process running the integrity scan receives a SIGUSR1 signal the file
+OBS integrity scan is suspended.
+OBS 
+OBS Stealth --suspend sends a SIGUSR1 signal to a stealth process running as a
+OBS daemon. 
+OBS 
+OBS     (The previously supported --suppress option has been discontinued in favor
+OBS      of --suspend)
+OBS 
+OBS 
+OBS     SIGUSR2
+OBS     =======
+OBS 
+OBS When the process running the integrity scan receives a SIGUSR2 signal a
+OBS suppressed file integrity scan is resumed.
+OBS 
+OBS Stealth --resume sends a SIGUSR2 signal to a stealth process running as a
+OBS daemon. 
+OBS 
+OBS     SIGHUP
+OBS     ======
+OBS 
+OBS When the process running the integrity scan receives a SIGHUP signal a waiting
+OBS (temporarily suspended) stealth file integrity scan process is run once.
+OBS 
+OBS Stealth --rerun sends a SIGHUP signal to a stealth process running as a
+OBS daemon.
+OBS 
+OBS     SIGPIPE
+OBS     =======
+OBS 
+OBS When the process running the integrity scan receives a SIGPIPE signal a
+OBS possibly running file integrity scan process is first finished, after which
+OBS the current policy file is replaced by another one, followed by a file
+OBS integrity scan. 
+OBS 
+OBS Stealth --reload sends a SIGPIPE signal to a stealth process running as a
+OBS daemon.
+OBS 
+OBS 
+OBS ===============================================================================
 
 Stealth uses a RunMode object to keep track of its current mode of operation
 and an IPC object to handle the inter process communication.
+
 The file integrity scan itself is handled by an IntegrityScanner object.
 
+------------------------------------------------------------------------------
 
 Stealth::monitor monitors and handles the integrity scans and incoming
 signals. 

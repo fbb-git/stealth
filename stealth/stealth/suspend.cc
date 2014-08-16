@@ -5,7 +5,7 @@ void Stealth::suspend()
     logMsg("was suspended");
 
     mailLogs();
-    d_stealthLog.header();
+    d_stealthLog.refresh();
 
     while (true)
     {
