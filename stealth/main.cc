@@ -12,12 +12,10 @@ ArgConfig::LongOption longOption[] =
     // used
     {"echo-commands", 'e'},             // discont., use --log
     {"keep-alive", Arg::None},          // discont.: use --daemon
-    {"no-child-processes", 'n'},        // discont.: use --no-daemon
     {"only-stdout", Arg::None},         // discont.: use --stdout
     {"parse-config-file", 'c'},         // discont.: use --parse-policy-file
     {"quiet", 'q'},                     // discont.: use --verbosity 0
     {"suppress", Arg::None},            // discont.: use --suspend
-
 
 
     {"max-size", Arg::Required},         // 10m by default

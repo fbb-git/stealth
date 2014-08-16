@@ -17,18 +17,14 @@ void Options::usage(std::string const &progname)
     "               option descriptions starting with (C) can only be used\n"
     "               on the command-line and are ignored when specified in "
                                                                     "the\n"
-    "               configuration file (see also option --config)\n"
-
-    "      --config (-C) path: (C) config file containing long option "
-                                                            "specifications\n"
-    "                   (default `$HOME/" << s_defaultConfigFile << ")`\n"
-
-    "      --help (-h):       (C) provide this help\n"
+    "               policy file.n"
 
     "      --daemon (-d) pidfile: (C) run as a background (daemon) process\n"
 
+    "      --help (-h):       (C) provide this help\n"
+
     "      --log (-L) path:   log messages are appended to `path'. If path\n"
-    "                   does not exist, it is created first\n"
+    "                   does not exist, it is first created \n"
 
     "      --logmail: mail is loggeed (requires --log or --syslog\n"
 
@@ -46,7 +42,7 @@ void Options::usage(std::string const &progname)
     "      --parse-policy-file (-p): (C) parse the policy file, no further "
                                                                 "action.\n"
     "                   Specify once to see the numbered commands, twice to\n"
-    "                   see the policy file parsing steps as well.\n"
+    "                   add the policy file parsing steps.\n"
     "                   Results to std output.\n"
 
     "      --random-interval (-i) value: start integrity scans within\n"
@@ -103,7 +99,13 @@ void Options::usage(std::string const &progname)
     "      --suspend: suspend " << progname << "'s activities\n"
     "                  to continue: --resume; to end: --terminate\n"
     "      --terminate: terminate the " << progname << " daemon\n"
-    "   pidfile: file containing the pid of the stealth daemon process to "
-                                                            "signal.\n"
+    "   pidfile: file containing the pid of the stealth daemon process.\n"
     "\n";
 }
+
+
+
+
+
+
+

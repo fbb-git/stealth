@@ -8,8 +8,8 @@
 
 #include <bobcat/user>
 #include <bobcat/mstream>
+#include <bobcat/tempstream>
 
-// #include "../lock/lock.h"
 #include "../msg/msg.h"
 #include "../util/util.h"
 

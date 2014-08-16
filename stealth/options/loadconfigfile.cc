@@ -2,13 +2,27 @@
 
 void Options::loadConfigFile()
 {
-    string configFile;
-    if (not d_arg.option(&configFile, 'C'))
-    {
-        configFile = User().homedir() + s_defaultConfigFile;
-        if (access(configFile.c_str(), R_OK) != 0)
-            configFile.clear();
-    }
-    if (not configFile.empty())
-        d_arg.open(configFile);     // read the arg config file
+    if (d_ipc)
+        return;
+
+    d_policyFilePath = Util::realPath(d_arg[0]);
+
+    ifstream policy;
+    Errno::open(policy, d_policyFilePath);
+
+    while (getline(policy, line) && line != "%%")   // find the %% separator
+        ;
+
+    if (line != "%%")                               // no separator?
+        return;                                     // then done here
+
+    TempStream tmpStream(User().homedir() + s_configFileBase);
+
+    tmpStream << policy.rdbuf();                    // copy the long options
+                                                    // into the temp. stream 
+
+    tmpStream.close();                              
+
+    d_arg.open(tmpStream.fileName());               // read the config file
 }
+

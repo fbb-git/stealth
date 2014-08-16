@@ -19,8 +19,8 @@ Options::Options()
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)
                                                         
-    loadConfigFile();           // load the config file into ArgConfig if 
-                                // available
+    loadConfigFile();           // load any configuration options from the
+                                // policy file into ArgConfig
 
     setMail();                  // sets log-mail and no-mail
     setSkipFilePath();
@@ -31,8 +31,6 @@ Options::Options()
     setRepeat();
     setRandomDelay();
     setDownloadSize();
-            
-    d_policyFilePath = Util::realPath(d_arg[0]);
 }       
 
 

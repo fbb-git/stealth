@@ -180,11 +180,17 @@ bf(PROGRAM) in the client's log files.
 
     nsect(THE POLICY FILE)
 
-    The policy file consists of two sets of data: em(use directives) (starting
-with the keyword bf(USE)) and em(commands). Blank lines and information beyond
-hash-marks (#) are ignored, while lines following lines terminating in
-backslashes (\) will be concatenated (em(en passant) removing the
-backslashes). Initial white space on lines of the policy file is ignored.
+    The policy file consists of two sections, the second section is optional,
+and starts at a line merely containing tt(%%).
+
+    The policy file's first section consists of two sets of data: em(use
+directives) (starting with the keyword bf(USE)) and em(commands). Blank lines
+and information beyond hash-marks (#) are ignored, while lines following lines
+terminating in backslashes (\) will be concatenated (em(en passant) removing
+the backslashes). Initial white space on lines of the policy file is ignored.
+
+    The (optional) second section starts at a line merely containing tt(%%),
+which may then contain long option specifications 
 
 nsect(DEFINE DIRECTIVES)
 
@@ -617,71 +623,117 @@ tt(--max-size) option, see below. By default it is set at 10M.
 
 manpagesection(OPTIONS)
 
-    See also section bf(BUGS) near the end of this man-page.
-
-    Long options are given immediately following the short-option
-equivalents, if available. Either can be used.
+    Short options are mentioned between parentheses immediately following
+their long option equivalents. Option descriptions starting with (C) can only
+be used on the command-line, and are ignored when specified in the second
+section of the policy file.
 
     itemization(
-    it() tt(-d --verbose): Write verbose messages to std error;
-    it() tt(-c --parse-config-file): 
-            Process the config file, no further action,nl()
-            report the results to std output;
-    it() tt(-e --echo-commands):
-            echo commands to std error when they are processed (implied by 
-            tt(-d));
-    it() tt(-i --random-interval <interval>[m]>): 
-            start the scan a random interval of <interval> seconds (or 
-            minutes if an `m' is appended to <interval>) following the delay
-            specified at tt(--repeat) (see below). This option is ignored
-            unless tt(--repeat) is provided as well.
-    it() tt(-n --no-child-processes): No child processes are executed: 
-                child actions+nl()
-                 are faked to be OK.
-    it() tt(-o --only-stdout): Scan report is written to stdout. 
-            No mail is sent.nl()
-           (implied by -d);
-    it() tt(-q --quiet): Suppress progress messages written to stderr;
-    it() tt(-r --run-command <nr>): Only run command <nr> (natural number). 
-            Command numbers are shown by s() tt(-c);
-    it() tt(-s --skip-files <skippath>): All entries in tt(skippath)
-(specified using an em(absolute path)) are skipped. Their integrity is not
-monitored. If an entry is already present in a log file then s() will once
-generate an tt(IGNORING) message in the mail sent to the address specified at
-tt(EMAIL) in the policy file. Each entry mentioned in tt(filepath) must be on a
-line of its own and must be specified using absolute paths. Entries ending in
-a slash are assumed to be directories whose contents must be skipped. Other
-entries are interpreted as the path names of files to skip. Initial and
-trailing blanks, empty lines and lines having a tt(#) as their 1st non blank
-character are ignored.
-    it() tt(-v --version): Display version information and exit;
-    it() tt(--daemon pidfile): Keep running as a daemon, 
-            wake up at interrupts. 
-    it() tt(--max-size <size>[BKMG]): the maximum file size that can be
-            downloaded from the client in bytes (B), Kbytes (K), Mbytes (M),
-            Gbytes (G). By default download size is 10M. When specified, the
-            default unit is B.
-    it() tt(--repeat <seconds>): keep running as a daemon, wake up at
-            interrupts or after <seconds> seconds. The interval will be at 
-            least 60 seconds. To this interval a random delay may be added
-            (see tt(--random-interval)).
+    it() tt(--daemon (-d) <pidfile>): (C) run as background (daemon)
+        process. tt<pidfile> specifies the path to the pid file used for
+        communication with the daemon process.
+    it() tt(--help): (C) Display help information and exit;
+    it() tt(--log (-L) <path>): log messages are appended to `path'. If path
+            does not exist, it is first created;
+    it() tt(--logmail): mail sent by s() is logged (requires tt(--log) or
+        tt(--syslog)); 
+    it() tt(--max-size <size>[BKMG]): files retrieved by tt(GET) commands may
+        at most have tt(<size>) bytes (B), KBytes (K), MBytes (M), GBytes
+        (G). The default size is 10M, the default unit is B.
+    it() tt(--no-mail): mail is not sent. By default mail is sent as
+        configured in the policy-file (tt(--logmail) can be specified
+        independently from tt(--no-mail));
+    it() tt(--parse-policy-file (-p)): (C) parse the policy file, after which
+        s() ends.  Specify once to see the numbered commands; twice to add the
+        policy file parsing steps.  Results are written to the std. output.
+    it() tt(--random-interval (-i) <interval>[m]>): start the scan a random
+        interval of <interval> seconds (or minutes if an `m' is appended to
+        <interval>) following the delay specified at tt(--repeat) (see
+        below). This option requires options tt(--daemon) and tt(--repeat);
     it() tt(--reload pidfile): reloads the configuration and skip-files and
-            restarts the scan of a currently active s() process.
-    it() tt(--rerun pidfile): restart the scan of a currently active s()
-            process;
-    it() tt(--resume pidfile): resume a suppressed s()
-            process, implying tt(--rerun);
-    it() tt(--suppress pidfile): suppress a currently active s()
-            process. All scheduled scans following tt(--suppress) are skipped,
-            tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
-            (see below) may be issued;
+            restarts the scan of the s() daemon process.
+    it() tt(--repeat <seconds>): wake up and perform an integrity scan at
+        interrupts or after tt(<seconds>) seconds. The interval will be at
+        least 60 seconds. To this interval a random delay may be added (see
+        tt(--random-interval)). This option requires option tt(--daemon);
+    it() tt(--rerun pidfile): start executing the integrity scan commands
+        that are specifed in the s() daemon process's policy file;
+    it() tt(--resume pidfile): resume a suspended s()
+            process, implies tt(--rerun);
+    it() tt(--run-command (r) <nr>): (C) Only execute command number <nr>
+        (natural number).  Command numbers are shown by s()
+        tt(---parse-policy-file); 
+    it() tt(--skip-files (-s) <skippath>): all entries in tt(skippath)
+        (specified using an em(absolute path)) are skipped. Their integrity is
+        not monitored. If an entry is already present in a log file then s()
+        once generates an tt(IGNORING) message in the mail sent to the address
+        specified at tt(EMAIL) in the policy file. Each entry mentioned in
+        tt(filepath) must be on a line of its own and must be specified using
+        absolute paths. Entries ending in a slash are assumed to be
+        directories whose full contents must be skipped. Other entries are
+        interpreted as the path names of files to skip. Initial and trailing
+        blanks, empty lines and lines having a tt(#) as their 1st non blank
+        character are ignored.
+    it() tt(--stdout (-o)): Messages are (also) written to the std. output
+        stream (not available when for option tt(--daemon));
+    it() tt(--suspend pidfile): suspends a currently active s() process. Use
+        tt(--resume) to re-activate an s() daemon or tt(--terminate) to end an
+        s() daemon;
+    it() tt(--syslog): write syslog messages;
+    it() tt(--syslog-facility <facility>):  syslog facility to use. By
+        default facility DAEMON is used;
+    it() tt(--syslog-priority <priority>): syslog priority to use. By
+        default priority NOTICE is used;
+   it() tt(--syslog-tag <tag>): tt(<tag>) specifies the identifier that is
+        prefixed to syslog messages. By default the tag `STEALTH' is used;
     it() tt(--terminate pidfile): terminate a currently active s()
             process;
     it() tt(--usage): Display help information and exit;
-    it() tt(--help): Display help information and exit;
-    it() tt(pidfile): file containing the process id of a s() process;
-    it() tt(policy): path to the policyfile;
+    it() tt(--verbosity <value>): determines the amount of logged
+        information. Requires options tt(--log) or tt(--syslog). Possible
+        values are:nl()
+                         0: nothing is logged+nl()
+                         1: mode reports and policy commands+nl()
+                         2: ipc commands and actions+nl()
+                         3: integrity scan informative messages
+    it() tt(--version (-v)): (C) Display s()'s version information and
+        terminate;
     )
+
+    itemization(
+    it() tt(pidfile): path to a file that is used for communication with a s()
+        daemon process;
+    it() tt(policy): path to the policy file;
+    )
+
+    Only one of the options tt(--daemon, --reload, --rerun, --resume,
+--suspend,) and tt(--terminate) can be specified. The options tt(--reload,
+--rerun, --resume, --suspend,) and tt(--terminate) ignore any other options.
+
+The following options were kept for backward compatibility with s()
+pre-version 3.00 versions and will be removed in a future version:
+
+    itemization(
+    it() tt(--echo-commands (-e)):
+            echo commands to std error when they are processed; use tt(--log)
+            instead.
+    it() tt(--parse-config-file (-c)): 
+            processes the config file; use tt(--parse-policy-file) instead. 
+    it() tt(--keep-alive): run as a daemon; use tt(--daemon) instead.
+    it() tt(--only-stdout): scan report is written to stdout; use
+        tt(--stdout) instead.
+    it() tt(--quiet (-q)): suppresses progress messages written to stderr; use
+        tt(--verbosity 0) instead.
+    it() tt(--suppress pidfile): suppresses a currently active s()
+            process; use tt(--suspend) instead.
+    )
+
+The following options were discontinued after s() version 2.11.04:
+    itemization(
+    it() tt(--debug): use option tt(--verbosity) instead;
+    it() tt(--no-child-processes).
+    )
+
 
 manpagesection(DEPLOYMENT SUMMARY)
     The following summarizes the advised steps to perform when installing
