@@ -8,7 +8,7 @@ void PolicyFile::directivesAndCommands()
 
         if (line == "%%")                   // stop at section 2
         {
-            imsg << "Policy file processing ends at section 2, line " <<
+            mp << "Policy file processing ends at section 2, line " <<
                 (idx + 1) << endl;
             return;
         }
@@ -16,7 +16,7 @@ void PolicyFile::directivesAndCommands()
         if (!(s_firstWord << line))         // can't match a first word
         {
             if (!(s_comment << line))
-                imsg << "Ignored unrecognized line `" << line << '\'' << endl;
+                wmsg << "Ignored unrecognized line `" << line << '\'' << endl;
             continue;                             
         }
 

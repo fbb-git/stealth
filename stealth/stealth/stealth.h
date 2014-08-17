@@ -21,6 +21,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
     IPC d_ipc;
 
     RunMode d_run;
+    volatile bool d_request;
 
     StealthLog     d_stealthLog;
     std::unique_ptr<PolicyFile>         d_policyFile;
@@ -29,7 +30,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
     typedef void (Stealth::*Action)();
 
     static FBB::LinearMap<Mode, Action> s_task;
-    static FBB::LinearMap<size_t,  Action> s_signalHandler;
+    static FBB::LinearMap<Mode, Action> s_request;
 
     public:
         Stealth();
@@ -42,11 +43,11 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
         void childProcess() override;
         void parentProcess() override;
         void signalHandler(size_t signum) override;
-//            void rerunSignal();
-//            void suspendSignal();
-//            void resumeSignal();
-//            void reloadSignal();
-            void terminateSignal();
+            void rerunRequest();
+            void suspendRequest();
+            void resumeRequest();
+            void reloadRequest();
+            void terminateRequest();
 
         void logMsg(char const *label);
 
@@ -60,7 +61,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
 
             void processRequests();
                 void process(Mode request);     // process one single request
-                void expectRequest();
+                void waitForRequest();
 
             void integrityScan();
 

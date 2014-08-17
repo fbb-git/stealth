@@ -22,6 +22,6 @@ void Stealth::processRequests()
 
         mailLogs();
 
-        expectRequest();                    // expect another request
+        waitForRequest();
     }
 }

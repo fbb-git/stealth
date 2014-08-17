@@ -19,6 +19,13 @@ RunMode:    keeps track of the currently active Stealth mode. A mode may also
 StealthLog: Handles all logs. d_stealthLog in the Stealth object is a stream
             into which log messages can be inserted. 
 
+Msg:        m1..m3 insert messages depending on verbosity level. mp is used
+            for messages related to parsing the policy file. These are global
+            objects. Other than the m-objects imsg, wmsg and fmsg can also be
+            used.
+
+StealthEnums: struct StealthEnums is empty, defining the enum Mode and the
+            Mode | Mode operator.
 
 ===============================================================
 

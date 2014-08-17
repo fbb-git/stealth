@@ -24,8 +24,7 @@ struct StealthEnums
         TERMINATE       = 1 << 7,   // terminate a Stealth run (-> SIGTERM,
                                     //                             SIGINT)
 
-        INVALID         = 1 << 8,   // the runfile does not contain a valid
-                                    // request
+        UNKNOWN         = 1 << 8,   
     };
 
     static std::ostream &leave(std::ostream &out);

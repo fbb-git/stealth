@@ -2,25 +2,21 @@
 
 FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_task =
     {
-        {RELOAD,           &Stealth::reload},
-        {TERMINATE,        &Stealth::terminate},
-        {INTEGRITY_SCAN,   &Stealth::integrityScan},
-        {SUSPEND,          &Stealth::suspend},
-        {RESUME,           &Stealth::resume},
-        {INVALID,          &Stealth::invalid},
+        {RELOAD,            &Stealth::reload},
+        {TERMINATE,         &Stealth::terminate},
+        {INTEGRITY_SCAN,    &Stealth::integrityScan},
+        {SUSPEND,           &Stealth::suspend},
+        {RESUME,            &Stealth::resume},
     };
 
-FBB::LinearMap<size_t, Stealth::Action> Stealth::s_signalHandler =
+FBB::LinearMap<Mode, Stealth::Action> Stealth::s_request =
     {
-//        {SIGHUP,    &Stealth::rerunSignal},
-//        {SIGUSR1,   &Stealth::suspendSignal},
-//        {SIGUSR2,   &Stealth::resumeSignal},
-//        {SIGPIPE,   &Stealth::reloadSignal},
-
-        {SIGUSR1,   &Stealth::pidFileSignal},
-
-        {SIGTERM,   &Stealth::terminateSignal},
-        {SIGINT,    &Stealth::terminateSignal},
+        {RELOAD,            &Stealth::reloadRequest},
+        {RERUN,             &Stealth::rerunRequest},
+        {RESUME,            &Stealth::resumeRequest},
+        {SUSPEND,           &Stealth::suspendRequest},
+        {TERMINATE,         &Stealth::terminateRequest},
+        {UNKOWN,            &Stealth::unkownRequest},
     };
 
 
@@ -31,3 +27,8 @@ FBB::LinearMap<size_t, Stealth::Action> Stealth::s_signalHandler =
 //size_t          Stealth::s_delayInterval = 0;
 //size_t          Stealth::s_repeatInterval = 0;
 //
+
+
+
+
+

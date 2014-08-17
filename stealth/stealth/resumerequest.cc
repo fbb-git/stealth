@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::resumeSignal()
+void Stealth::resumeRequest()
 {
     if (d_run.mode(SUSPEND))
         d_run.setMode(RESUME);

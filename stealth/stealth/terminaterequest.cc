@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::terminateSignal()
+void Stealth::terminateRequest()
 {
     d_run.setMode(TERMINATE);
 }

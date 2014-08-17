@@ -12,5 +12,13 @@ void IPC::timedWait()
         d_selector.setAlarm(waitSeconds);
     }
 
-    wait();
+    try
+    {
+        wait();
+        d_timeout = true;
+    }
+    catch (...)
+    {
+        d_timeout = false;
+    }
 }

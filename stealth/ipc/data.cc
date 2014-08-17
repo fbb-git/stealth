@@ -1,8 +1,10 @@
 #include "ipc.ih"
 
-//LinearMap<int, char const *> const IPC::s_signame = 
-//    {
-//        {SIGHUP,    "SIGHUP"},
-//        {SIGTERM,   "SIGTERM"},
-//        {SIGUSR1,   "SIGUSR1"},
-//    };
+LinearMap<char const *, StealthEnums::Mode> const IPC::s_request = 
+    {
+        {"Suspend",     SUSPEND},
+        {"Resume",      RESUME},
+        {"ReRun",       RERUN},
+        {"Reload",      RELOAD},
+        {"Terminate",   TERMINATE},
+    };

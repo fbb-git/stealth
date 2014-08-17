@@ -1,8 +1,5 @@
 #include "ipc.ih"
 
-WIP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
 StealthEnums::Mode IPC::request()
 {
     ifstream runFile;
@@ -10,9 +7,9 @@ StealthEnums::Mode IPC::request()
 
     runFile.ignore(numeric_limits<int>::max(), '\n');
 
-    string key;
-    runFile >> key;
+    runFile >> d_requestText;
 
-    if (not runFile)
-        
+    auto iter = s_request.find(d_requestText);
+
+    return iter == s_request.end() ? Mode::UNKNOWN : iter->second;
 }

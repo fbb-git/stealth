@@ -82,6 +82,10 @@ OBS ============================================================================
 Stealth uses a RunMode object to keep track of its current mode of operation
 and an IPC object to handle the inter process communication.
 
+The flow of control handling requests is defined in processRequests,
+called from doChores. ProcessRequests defines a loop basically processing a
+request and waiting for the next request ((waitForRequest)
+
 The file integrity scan itself is handled by an IntegrityScanner object.
 
 ------------------------------------------------------------------------------
