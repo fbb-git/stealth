@@ -42,7 +42,7 @@ class Options: public StealthEnums
     bool d_repeat;
     bool d_foreground;
     bool d_ipc;
-
+    bool d_dryrun;
     size_t d_repeatInterval;
     size_t d_delayInterval = 0;
     size_t d_commandNr = 0;
@@ -93,6 +93,7 @@ class Options: public StealthEnums
         bool sendMail() const;
         bool logMail() const;
         bool stdout() const;
+        bool dryrun() const;
 
         Mode mode() const;
 
@@ -210,6 +211,11 @@ inline bool Options::ipc() const
 inline bool Options::stdout() const
 {   
     return d_stdout;
+}
+
+inline bool Options::dryrun() const
+{   
+    return d_dryrun;
 }
 
 inline std::string const &Options::policyFilePath() const

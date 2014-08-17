@@ -631,7 +631,9 @@ section of the policy file.
     itemization(
     it() tt(--daemon (-d) <pidfile>): (C) run as background (daemon)
         process. tt<pidfile> specifies the path to the pid file used for
-        communication with the daemon process.
+        communication with the daemon process;
+    it() tt(--dry-run): (C) no integrity scans or reloads are performed, but
+        are assumed OK. Remaining tasks are normally performed;
     it() tt(--help): (C) Display help information and exit;
     it() tt(--log (-L) <path>): log messages are appended to `path'. If path
             does not exist, it is first created;

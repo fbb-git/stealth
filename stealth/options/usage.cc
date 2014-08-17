@@ -21,6 +21,9 @@ void Options::usage(std::string const &progname)
 
     "      --daemon (-d) pidfile: (C) run as a background (daemon) process\n"
 
+    "      --dry-run: (C) no integrity scans or reloads are performed, but\n"
+    "               are assumed OK. Remaining tasks are normally performed\n"
+
     "      --help (-h):       (C) provide this help\n"
 
     "      --log (-L) path:   log messages are appended to `path'. If path\n"

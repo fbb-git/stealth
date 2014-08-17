@@ -8,15 +8,18 @@ void Stealth::reload()
     
     d_stealthLog.close();
 
-    d_policyFile->reload();
+    if (not d_options.dryrun())
+    {
+        d_policyFile->reload();
+        
+        d_stealthLog.open((*d_policyFile)["REPORT"]);
     
-    d_stealthLog.open((*d_policyFile)["REPORT"]);
-
-    d_integrityScanner.reset( 
-        new IntegrityScanner(d_run, *d_policyFile, d_stealthLog) 
-    );
-
-    d_integrityScanner->startCommandShells();
+        d_integrityScanner.reset( 
+            new IntegrityScanner(d_run, *d_policyFile, d_stealthLog) 
+        );
+    
+        d_integrityScanner->startCommandShells();
+    }
 
     d_run.setMode(INTEGRITY_SCAN);
 }

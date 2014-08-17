@@ -15,6 +15,8 @@ Options::Options()
     setMode();                  // sets d_mode and all bool mode indicators
     checkMode();                // ends if multiple/incompatible modes were
                                 // set
+
+    d_dryrun = d_arg.option(0, "dry-run");
     
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)

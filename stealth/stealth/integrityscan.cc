@@ -4,7 +4,8 @@ void Stealth::integrityScan()
 {
     d_stealthLog.scanHeader();
 
-    d_integrityScanner->run();
+    if (not d_options.dryrun())
+        d_integrityScanner->run();
 
     if (d_run.interrupted())
         return;

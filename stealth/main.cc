@@ -50,6 +50,8 @@ ArgConfig::LongOption longOption[] =
 
     {"daemon", 'd'},
 
+    {"dry-run", Arg::None},             // new
+
     {"rerun", Arg::None},               // arg[0] is the runfilename
     {"resume", Arg::None},              // also for this and the next options
     {"suspend", Arg::None},
