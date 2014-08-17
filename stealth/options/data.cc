@@ -2,7 +2,7 @@
 
 Options *Options::s_options = 0;
 
-char const Options::s_onfigFileBase[]   = ".stealth";   // in $HOME
+char const Options::s_configFileBase[]   = ".stealth";  // in $HOME
 
 char const Options::s_defaultSyslogIdent[]      = "STEALTH";
 Facility Options::s_defaultSyslogFacility   = Facility::DAEMON;

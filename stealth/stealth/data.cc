@@ -9,14 +9,14 @@ FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_task =
         {RESUME,            &Stealth::resume},
     };
 
-FBB::LinearMap<Mode, Stealth::Action> Stealth::s_request =
+FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_request =
     {
         {RELOAD,            &Stealth::reloadRequest},
         {RERUN,             &Stealth::rerunRequest},
         {RESUME,            &Stealth::resumeRequest},
         {SUSPEND,           &Stealth::suspendRequest},
         {TERMINATE,         &Stealth::terminateRequest},
-        {UNKOWN,            &Stealth::unkownRequest},
+        {UNKNOWN,           &Stealth::unknownRequest},
     };
 
 

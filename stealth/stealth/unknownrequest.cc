@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::unkownRequest()
+void Stealth::unknownRequest()
 {
     ostringstream msg;
     msg << "ignored unknown request `" << d_ipc.requestText() << '\'';

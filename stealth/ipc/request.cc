@@ -3,7 +3,7 @@
 StealthEnums::Mode IPC::request()
 {
     ifstream runFile;
-    Errno::open(runFile, d_options::runFile();
+    Exception::open(runFile, d_options.runFile());
 
     runFile.ignore(numeric_limits<int>::max(), '\n');
 

@@ -1,8 +1,6 @@
 #include "ipc.h"
 
 #include <fstream>
-#include <string>
-
 #include <limits>
 #include <csignal>
 

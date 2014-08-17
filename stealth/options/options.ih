@@ -9,6 +9,7 @@
 #include <bobcat/user>
 #include <bobcat/mstream>
 #include <bobcat/tempstream>
+#include <bobcat/exception>
 
 #include "../msg/msg.h"
 #include "../util/util.h"

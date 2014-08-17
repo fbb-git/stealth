@@ -8,8 +8,9 @@ void Options::loadConfigFile()
     d_policyFilePath = Util::realPath(d_arg[0]);
 
     ifstream policy;
-    Errno::open(policy, d_policyFilePath);
+    Exception::open(policy, d_policyFilePath);
 
+    string line;
     while (getline(policy, line) && line != "%%")   // find the %% separator
         ;
 

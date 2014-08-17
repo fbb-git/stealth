@@ -1,13 +1,13 @@
 #include "stealth.ih"
 
-void Stealth::expectRequest()
+void Stealth::waitForRequest()
 {
     if (d_run.mode(WAIT))
     {
         while (true)
         {
             d_ipc.timedWait();
-            if (d_ipc.timeOut() || d_request)   // wait for the next request
+            if (d_ipc.timeout() || d_request)   // wait for the next request
                 break;                          // or timeout
         }
 

@@ -1,6 +1,8 @@
 #ifndef INCLUDED_IPC_
 #define INCLUDED_IPC_
 
+#include <string>
+
 #include <bobcat/selector>
 #include <bobcat/linearmap>
 
@@ -15,13 +17,13 @@ class IPC: public StealthEnums
     std::string     d_requestText;
     bool            d_timeout = false;
 
-    static FBB::LinearMap<char const *, Mode> const s_request;
+    static FBB::LinearMap<std::string, Mode> const s_request;
 
     public:
         IPC();
                                             // always returns true, or
         bool signalDaemon(char const *request); // throws exception on failure
-        StealthEnums::Mode request() const;  
+        StealthEnums::Mode request();  
         std::string const &requestText() const;
 
         void wait();                        // wait until signaled

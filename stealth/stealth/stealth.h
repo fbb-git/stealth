@@ -48,6 +48,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
             void resumeRequest();
             void reloadRequest();
             void terminateRequest();
+            void unknownRequest();
 
         void logMsg(char const *label);
 
