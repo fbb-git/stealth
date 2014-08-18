@@ -66,7 +66,9 @@ auto endLongOption = longOption + sizeof(longOption) / sizeof(longOption[0]);
 int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
-    ArgConfig &arg = ArgConfig::initialize("cC:d:ehi:l:nopqr:s:vV:",
+    ArgConfig &arg = ArgConfig::initialize(
+                                "d:hL:pi:r:s:ov"
+                                "ecq",
                                 longOption, endLongOption, 
                                 argc, argv); 
 

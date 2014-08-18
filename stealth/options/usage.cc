@@ -60,9 +60,9 @@ void Options::usage(std::string const &progname)
 
     "      --run-command (-r) value: (C) only execute command #`value'\n"
 
-    "      --skip-files (-s) file: skip the integrity checks of the\n"
+    "      --skip-files (-s) path: skip the integrity checks of the\n"
     "                   files having their absolute path names listed in "
-                                                                "`file'\n"
+                                                                "`path'\n"
 
     "      --stdout (-o): messages are (also) written to stdout (not "
                                                                 "available\n"

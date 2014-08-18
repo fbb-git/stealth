@@ -14,10 +14,18 @@ manpage(stealth)(1)(_CurYrs_)(stealth__CurVers_.tar.gz)(Security Enhancement)
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
 manpagesynopsis()
-        s()  -dcnoq -i <interval> -r <nr> -s skip-files nl()
-            [--max-size <size>[BKMG] ] nl()
-            [--daemon pidfile [--repeat <seconds> ] ]  policy nl()
-        s()  {--reload,--rerun,--resume,--suppress,--terminate} pidfile
+    s()  --daemon pidfile --dry-run --log <path> --logmail+nl()
+            --max-size <size>[BKMG] --no-mail --parse-policy-file+nl()
+            --random-interval <seconds> --repeat <seconds>nl()
+            --run-command <nr> --skip-files <path> --stdout --syslog+nl()
+            --syslog-facility <fac> --syslog-priority <pri> 
+                                                    --syslog-tag <tag>nl()
+            --verbosity <value> policy
+
+    s() {--reload,--rerun,--resume,--suspend,--terminate} pidfile
+
+    s() --help --version
+
 
 manpagedescription()
 
@@ -35,20 +43,20 @@ s() has em(stealthy) characteristics. This is considered an
 important feature, improving the security (integrity) of the software of
 computers monitored by s().
 
-    On the other hand, one should realize that s() intends to be just
-another security tool: other security measures like firewalls, portscanners,
-intrusion detection systems, abolishment of unencrypted protocols, etc. are
-usually required to improve or promote the security of a group of computers
-that are connected to the Internet.
+    On the other hand, one should realize that s() intends to be just another
+security tool: other security measures like firewalls, portscanners, intrusion
+detection systems, dropping unencrypted protocols, etc. are usually required
+to improve or promote the security of a group of computers that are connected
+to the Internet.
 
     s() uses a policy file to determine the actions to perform. Each
-policy file is uniquely associated with a host to be tested. This remote host
-(called the em(client) below) trusts the computer on which s() runs
-(hence: a em(Locally Trusted Host)), called the em(controller). The controller
+policy file is uniquely associated with a host to be tested. This host
+(called the em(client) below) trusts the computer on which s() runs, called
+the em(controller) (hence: a em(Locally Trusted Host)). The controller
 performs tasks (normally file integrity tests) that em(Enforce) the em(Trust)
 we have in the client computer. Since almost all integrity tests can be run
 on the client, one controller can control many clients, even if the
-controller itself uses aged hardware components.
+controller itself uses aged hard- and software components.
 
 As the controller and the client normally are different computers, the
 controller must communicate with the client in a secure fashion. This is
@@ -64,7 +72,7 @@ in a physically secure location. Sensitive information of clients are stored
 in the controller, and passwordless access to clients can be obtained from the
 controller by anyone who gains (root)-access).
 
-    The controller itself only needs two kinds of outgoing services:
+    The controller itself normally only uses two kinds of outgoing services:
 bf(SSH) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
@@ -72,40 +80,48 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     itemization(
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by s().
-    it() If the command-line option tt(--daemon pidfile) is specified,
-s() will run as a backgrond process, writing its process id in the file
-tt(pifile).  With tt(--repeat <seconds>) the scan will be rerun every
-tt(<seconds>) seconds. The number of seconds until the next rerun will be at
-least 60. However, using the tt(--rerun pidfile) option a background s()
-process may always be forced into its next scan. When tt(--daemon) is
-specified the scan will be performed just once, whereafter bf(PROGRAM) will
-wait until it is reactivated by another run of s(), called using the
-tt(--rerun pidfile) command-line option (note that integrity scans are
-suppressed between a tt(--suppress) and a tt(--resume) command, see below).
-Consider specifying  tt(--quiet) (see below) when tt(--daemon) is used.
-    it() Then, the controller opens a command shell on the client using
-bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
-    it() Next, commands defined in the policy file are executed in their order
-of appearance. Examples are given below. Normally, return values of the
-programs are  tested. Non-zero return values will terminate s()
-prematurely. In this case, a message about the reason why s() terminated is
-written to the report file (and into the mail message sent by s()). In some
-cases (e.g., when the report file could not be written), the message is
-written to the standard error stream.
-    it() In most cases, integrity tests can be controlled by the bf(find)(1)
-program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its own
-tt(-printf) method to produce file-integrity related statistics. Most of these
-programs write file names at the end of generated lines. This characteristic
-is used by an internal routine of s() to detect changes in the generated
-output, which could indicate some harmful intent, like an installed
+
+    it() If the command-line option tt(--daemon pidfile) is specified, s()
+runs as a backgrond process, writing its process id in the file tt(pifile).
+
+With tt(--repeat <seconds>) the scan is rerun every tt(<seconds>) seconds. The
+number of seconds until the next rerun is restricted by s() to a value of at
+least 60. However, using the tt(--rerun pidfile) option a daemon s() another
+integrity scan can be requested after a shorter interval. 
+
+    When tt(--daemon) is specified the scan is performed just once, whereafter
+s()  waits until another integrity scan is requested using the
+s() tt(--rerun pidfile) invokation
+
+    it() Next, the controller opens a command shell on the client using
+bf(ssh)(1), and a command shell on itself using bf(sh)(1).
+
+    it() Once the command shells are available, commands defined in the policy
+file are executed in their order of appearance. Examples are given
+below. Normally, return values of the programs are tested. When return values
+are tested s() terminates when a non-zero return
+value is received. If this happens, a message stating the
+reason why s() terminated is written to the report file (and into the mail
+message sent by s()). In some cases (e.g., when the report file could not be
+written), the message is written to the standard error stream.
+
+    it() In most cases, integrity tests can be controlled using the
+bf(find)(1) program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its
+own tt(-printf) method to produce file-integrity related statistics. Most of
+these programs write file names at the end of generated lines. This
+characteristic is used by an internal routine of s() to detect changes in the
+generated output, which could indicate some harmful intent, like an installed
 em(root-kit).
-    it() When changes are detected, they are logged on a em(report file), to
-which information is always appended. s() never reduces or rewrites the
-report file. Whenever information is added to the report file (exceeding a
-plain time stamp) the appended information is emailed to a configurable email
-address for further (human) processing. Usually this will be the systems
-manager of the tested client. s() follows the `dark cockpit' approach in
-that no mail is sent when no changes were detected.
+
+    it() When changes are detected, they are logged in a em(report file), to
+which information is always appended. S() never reduces the report file's size
+or rewrites its contents. Whenever information is added to the report file
+(exceeding a plain time stamp) the appended information is e-mailed to a
+configurable e-mail address for further (human) processing. Usually the e-mail
+is sent to the systems manager of the tested client. S() follows the `dark
+cockpit' approach in the sense that no mail is sent when no changes were
+detected.
+
     it() When the tt(--repeat) or tt(--rerun) options are issued, the report
 file should not be rotated by, e.g., a log-rotating process, but the report
 file may safely be rotated between a pair of tt(--suppress) and tt(--resume)
@@ -113,31 +129,32 @@ commands.
     )
 
 manpagesection(REPORT FILE ROTATION)
-    Since s() only appends information to the report file, it will
-eventually grow to a large file, and log-rotation may be desirable. It is of
-course possible to issue a tt(--terminate) command, rotate the logfiles, and
-restart s(), but s() also offers a facility to temporarily suppress
-further scans:
+    Since s() only appends information to the report file, the report file's
+size may eventually become prohibitively large, and log-rotation may be
+desirable. It is of course possible to issue a tt(--terminate) command, rotate
+the logfiles, and restart s(), but s() also offers a facility to temporarily
+suspend integrity scans performed by a s() daemon process:
     itemization(
-    it() Starting s() using the option tt(--suppress pidfile) will
-            suppress a currently active s() process. If s() is
+    it() Calling s() with the option tt(--suspend <pidfile>) suspends the
+            daemon's integrity scans. If s() is
             actually performing a series of integrity scans when
-            tt(--suppress) is issued, the currently executing command is first
-            completed before the tt(--suppress) command completes. Once
-            tt(--suppress) is active, all scheduled scans
-            are skipped and tt(--rerun) is ignored. However, the 
-            tt(--resume) and tt(--terminate) options are still handled.
-    it() Once `s() tt(--suppress pidfile)' has returned, the report file
+            tt(--suspend) is issued, the currently executing command is first
+            completed after which the tt(--suspend) command completes. Once
+            the s() daemon has been suspended, automatic or explicit
+            integrity scan requests are denied, and the daemon can only be
+            instructed to resume its scanning tasks (s() --resume <pidfile>)
+            or to terminate (s() --terminate <pidfile>).
+
+    it() Once `s() tt(--suspend <pidfile>)' has returned, the report file
             may safely be rotated (using, e.g., bf(logrotate)(1)), and a new
             (empty) report file may optionally be created by the logrotation
             process.
-    it() Finally, when the log-rotation has been completed, the log-rotation
-            process should issue the command `s() tt(--resume
-            pidfile)'. This will resume a suppressed s() process,
-            immediately performing the next integrity scan (thus implying 
-            tt(--rerun)), whereafter s() will be back in its normal
-            integrity scanning mode (so, resuming repeated scans if
-            originally requested so).
+
+    it() Once the log-rotation has been completed, the log-rotation process
+            should issue the command `s() tt(--resume <pidfile>)'. This
+            resumes the activities of a suspended s() daemon process,
+            immediately performing the next integrity scan. Following this the
+            s() daemon is back to its original integrity scanning mode.
     )
     Here is an example of bf(logrotate)(1) specification rotating s()
 log-files:
@@ -158,25 +175,31 @@ log-files:
 
 manpagesection(RELOAD, RERUN AND TERMINATE)
 
-    Here is what happens when s() is run using other synopses:
+    Here is what happens when s() is run using the second synopsis:
     itemization(
-    it() When started using the tt(--reload pidfile) command-line option,
-the s() process reloads its configuration files (policy file and
-tt(--skip-files) specification file, if specified), immediately followed by a
-s() run, using the information in the reloaded files.
-    it() When started using the tt(--rerun pidfile) command-line option, the
-s() process associated with process id file tt(pidfile) will perform
-another scan. This command has no effect following a tt(--suppress) command.
-    it() When started using the tt(--terminate pidfile) command-line option,
-the s() process associated with process id file tt(pidfile) is terminated.
+    it() When started as s() tt(--reload <pidfile>), the s() daemon process
+        reloads its policy file and (if specified) tt(--skip-files)
+        specification file. Next the s() daemon process performs a file
+        integrity scan using the information in the re-read policy and
+        skip-files files. S() can reload the (modified) contents of the
+        originally specified policy- and skip-files names. If another policy
+        and/or skip-files files must be used another s() process must be
+        started, for which these new filenames are specified.
+
+    it() When started as s() tt(--rerun <pidfile>), the s() daemon performs
+        another scan (unless it has been suspended using s() tt(--suspend
+        <pidfile>).
+
+    it() When started as s() tt(--terminate pidfile), the s() daemon is
+        terminated.
     )
 
     manpagesection(OPEN SSH LINK TO CLIENTS)
 
-    The tt(--daemon, --repeat, --rerun, --resume) and tt(--suppress)
-options were implemented in such a way that the bf(ssh) link to the client
-remains open, thus minimizing the number of bf(sshd) entries caused by
-bf(PROGRAM) in the client's log files.
+    Once s() is started as a foreground or daemon process performing file
+integrity scans one one bf(ssh)(1) connection is opened to the client. This
+connection remains active during s()'s lifetime to minimize the number of
+bf(sshd) entries caused by s() in the client's log files.
 
     nsect(THE POLICY FILE)
 
@@ -186,22 +209,24 @@ and starts at a line merely containing tt(%%).
     The policy file's first section consists of two sets of data: em(use
 directives) (starting with the keyword bf(USE)) and em(commands). Blank lines
 and information beyond hash-marks (#) are ignored, while lines following lines
-terminating in backslashes (\) will be concatenated (em(en passant) removing
-the backslashes). Initial white space on lines of the policy file is ignored.
+terminating in backslashes (\) are concatenated (em(en passant) removing these
+trailing backslashes). Initial white space on lines of the policy file is
+ignored.
 
-    The (optional) second section starts at a line merely containing tt(%%),
-which may then contain long option specifications 
+    The (optional) second section starts at a line merely containing
+tt(%%). Following this separating line long option specifications can be
+entered (see below at section bf(OPTIONS)).
 
 nsect(DEFINE DIRECTIVES)
 
-    bf(DEFINE) directives may be used to associate longer strings of text with
+    bf(DEFINE) directives are used to associate longer strings of text with
 certain symbols. E.g., after
     tt(DEFINE FINDARGS -xdev -type f -exec /usr/bin/sha1sum {} \;)
-    the text tt(${FINDARGS}) may be used in bf(USE DIRECTIVES) and
+    the specification tt(${FINDARGS}) may be used in bf(USE DIRECTIVES) and
 bf(commands) (see below) to use the text associated with the bf(FINDARGS)
-symbol. 
+symbol.
 
-    Note that bf(DEFINE) symbols may be used in the definition of 
+    Note that bf(DEFINE) symbols may also be used in the definition of 
 other bf(DEFINE) symbols as well. Direct or indirect circular definitions
 should be avoided, as they are either not or incompletely expanded.
 
@@ -210,10 +235,10 @@ nsect(USE DIRECTIVES)
     The following bf(USE) directives may be specified (directives are written
 in capitals, and should appear exactly as written below: letter casing is
 preserved). Specifications in angular brackets (like tt(<this>)) represent
-specifications to be given by users of s():
+specifications to be provided  by s()'s users:
     itemization(
-    it() bf(USE BASE) tt(<basedirectory>)nl()
-        bf(BASE) defines the directory from where s() operates. All
+    it() bf(USE BASE) tt(<base-irectory>)nl()
+        bf(BASE) defines the directory from where s() operates. All subsequent
 relative path specifications are interpreted relative to bf(BASE). em(By
 default) this is the directory where s() was started. nl()
     bf(BASE) and other non-existing paths are created automatically by
@@ -224,14 +249,14 @@ s() if not yet existing.nl()
     it() bf(USE DD) tt(<dd>)nl()
         The bf(DD) specification uses tt(/bin/dd) as default, and defines the
 location of the bf(dd)(1) program, both on the server and on the client. The
-bf(bin)(1) program is used to copy files between the client and the controller
-without opening separate ssh-connections. The program specified here is only
-used by s() for the tt(PUT) and tt(GET) commands, described below.nl()
+bf(DD) program is used to copy files between the client and the controller
+over the existing ssh-connection. The program specified here is only used by
+s() when executing tt(PUT) and tt(GET) commands (described below).nl()
     Example showing the default:nl()
     tt(USE DD /bin/dd)
 
     it() bf(USE DIFF) tt(<diff>)nl()
-        The bf(DIFF) specification uses tt(/usr/bin/diff) as default,
+        The default bf(DIFF) specification uses tt(/usr/bin/diff),
 and defines the location of the bf(diff)(1) program on the controller. The
 bf(diff)(1) program is used to compare a formerly created logfile of an
 integrity check with a newly created logfile.nl()
@@ -241,6 +266,7 @@ integrity check with a newly created logfile.nl()
     it() bf(USE DIFFPREFIX) tt(<prefix>)nl()
         The bf(DIFFPREFIX) specification defines the size of the prefix added
 by the tt(DIFF) command to lines produced by commands executed through s().
+
 The default tt(/usr/bin/diff) program prefixes lines by either `tt(> )' or
 `tt(< )'. The default value for tt(<prefix>) is therefore equal to 2.nl()
     Example showing the default:nl()
@@ -255,11 +281,11 @@ controller):nl()
     tt(USE EMAIL root)
 
     it() bf(USE MAILER) tt(<mailer>)nl()
-        The bf(MAILER) specification defines the program that is used to send
-the mail to the bf(EMAIL)-address. Contrary to bf(DIFF) and bf(DD) and (see
+        The bf(MAILER) specification defines the program that to send
+e-mail to the bf(EMAIL)-address. Contrary to bf(DIFF) and bf(DD) and (see
 below) bf(SH) and bf(SSH), bf(MAILER) is run as a tt(/bin/sh) command, to
 allow shell-scripts to process the mail too. By default bf(MAILER) is defined
-as bf(/usr/bin/mail)(1). bf(MAILER) is called with the following
+as bf(/usr/bin/mail). bf(MAILER) is called with the following
 arguments:nl()
     ----------------------------------------------------------nl()
     bf(MAILARGS), see below;nl()
@@ -269,24 +295,24 @@ arguments:nl()
     tt(USE MAILER /usr/bin/mail)
 
     As an alternative, the script tt(stealthmail) is provided. It offers a
-convenient filter sorting s()'s output and keeping only lines containing
-tt(ADDED), tt(MODIFIED), tt(REMOVED) and tt(STEALTH). Usually these lines are
-are the ones system managers are interested in. The report and log files can
-always be consulted to determine the actual nature of the changes.
+convenient filter sorting s()'s output and keeping only lines containing the
+text tt(ADDED), tt(MODIFIED), tt(REMOVED) or tt(STEALTH). Usually these lines
+are the ones system managers are interested in. The report and log files
+can always be consulted to determine the actual nature of the changes.
 
     it() bf(USE MAILARGS) tt(<args>)nl()
         The bf(MAILARGS) specification defines the arguments that are passed
-to tt(MAILER), followed by the specification of tt(EMAIL).
+to tt(MAILER), followed by the tt(EMAIL) specification.nl()
     Example showing the default:nl()
     tt(USE MAILARGS -s "STEALTH scan report")nl()
     Note that blanks may be used in the subject specification: use double or
 single quotes to define elements containing blanks. Use tt(\") to use a double
-quote in a string that is itself delimted by double quotes, use tt(\') to use
-a single quote in a string that is itself delimted by single quotes. 
+quote in a string that itself is delimted by double quotes; use tt(\') to use
+a single quote in a string that itself is delimted by single quotes. 
 
     it() bf(USE REPORT) tt(<reportfile>)nl()
         bf(REPORT) defines the name of the reportfile. Information is always
-appended to this file. For each run of s() a em(time marker line) is
+appended to this file. At each s() integrity scan a em(time marker line) is
 written to the report file. Only when (in addition to the marker line)
 additional information is appended to the report file the added contents of
 the report file are mailed to the mail address specified in the bf(USE EMAIL)
@@ -311,9 +337,9 @@ access to all directories and files of the client's file system.
 
     In practice, connecting to a account using the bf(sh)(1) shell is
 preferred. When another shell is already used by that account, one should make
-sure that that shell doesn't setup its own redirections for standard input and
-standard output. One way to accomplish that is for force the execution of
-tt(/bin/sh) in the bf(USE SSH) specification. 
+sure that that shell doesn't define its own redirections for standard input
+and standard output. One way to accomplish that is for force the execution of
+tt(/bin/sh) in the bf(USE SSH) specification.
     Examples:
         verb(
     # root's shell is /bin/sh:
@@ -326,7 +352,7 @@ tt(/bin/sh) in the bf(USE SSH) specification.
     )
 
     In some installations s() is used to inspect the computer itself, even
-though this is em(not) recommended, as it counters one of the main reasons
+though this is em(not) recommended, as it breaks one of the main reasons
 for s()'s existence. In situations where s() is used to monitor the integrity
 of the tt(localhost), tt(/bin/bash) could be specified with the tt(USE SSH)
 directive. For example:
@@ -360,20 +386,20 @@ transformed to a newline character.
     Example:nl()
     tt(LABEL Inspecting files in /etc\nIncluding subdirectories)nl()
     tt(LABEL) nl()
-        (The former bf(LABEL) specification clears the latter label text).
+        (In this example the latter bf(LABEL) specification erases the former
+        label text).
     )
 
 nsect(LOCAL COMMANDS)
 
-    The following bf(LOCAL) commands are available to be executed on the
-controller:
+    bf(LOCAL) commands are executed on the controller itself:
     itemization(
     it() bf(LOCAL) tt(<command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
 shell. The command must succeed (i.e., must return a zero exit value). nl()
     Example:nl()
     tt(LOCAL scp rootsh@client:/usr/bin/sha1sum /tmp)nl()
-    This command will copy the client's bf(sha1sum)(1) program to the
+    This command copies the client's bf(sha1sum)(1) program to the
 controller.
 
     it() bf(LOCAL NOTEST) tt(<command>)nl()
@@ -381,19 +407,20 @@ controller.
 shell. The command may or may not succeed.nl()
     Example:nl()
     tt(LOCAL NOTEST mkdir /tmp/subdir)nl()
-    This command will create tt(/tmp/subdir) on the controller. The command
-will fail if the directory cannot be created, but this will not terminate
-s().
+    This command creates tt(/tmp/subdir) on the controller. The command fails
+if the directory cannot be created, but this does not terminate s().
 
     it() bf(LOCAL CHECK) [bf(LOG =)] tt(<logfile> [pathOffset] <command>)nl()
         Execute tt(command) on the controller, using the bf(SH) command
 shell. The command must succeed. The output of this command is compared to the
-output of this command generated during the previous run of s(). The phrase
-bf(LOG =) is optional. The tt([pathOffset]) is also optional. If specified it
-defines the (0-based) offset where path-names of inspected files start in
-lines produced by tt(<command>). By default s() assumes that the
-first occurrence of a forward slash defines the first character of the
-path-names of inspected files. 
+output of this command generated during the previous integrity check run by
+s(). 
+
+    The phrase bf(LOG =) is optional. tt(PathOffset) is also
+optional. If specified it defines the (0-based) offset where path-names of
+inspected files start in lines produced by tt(<command>). By default s()
+assumes that the first occurrence of a forward slash defines the first
+character of the path-names of inspected files.
 
     For example, if diff-output looks like this:
         verb(
@@ -415,7 +442,7 @@ tt(command-to-be-executed).
 Any differences between the previous and current output are written to
 bf(REPORT). If differences were found, the existing tt(logfile) name is
 renamed to tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the
-datetime-stamp at the time s() was run.
+(UTC) datetime-stamp at the time s() was run.
 
     Note that eventually many tt(logfile.YYMMDD-HHMMSS) files could be
 created: It is up to the controller's systems manager to decide what to do
@@ -428,7 +455,7 @@ are created first.
 
     Example:nl()
     tt(LOCAL CHECK LOG = local/sha1sum sha1sum /tmp/sha1sum)nl()
-    This command will check the SHA1 sum of the tt(/tmp/sha1sum) program. The
+    This command checks the SHA1 sum of the tt(/tmp/sha1sum) program. The
 resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
 succeed (i.e., tt(sha1sum) must return a zero exit-value).
 
@@ -439,7 +466,7 @@ exactly like the bf(LOCAL CHECK ...) command, discussed above.
 
     Example:nl()
     tt(LOCAL NOTEST CHECK LOG=local/sha1sum sha1sum /tmp/sha1sum)nl()
-    This command will check the SHA1 sum of the tt(/tmp/sha1sum) program. The
+    This command checks the SHA1 sum of the tt(/tmp/sha1sum) program. The
 resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
 succeed (i.e., tt(sha1sum) must return a zero exit-value).
     )
@@ -448,13 +475,13 @@ succeed (i.e., tt(sha1sum) must return a zero exit-value).
 client and the controller, using a local command. This, however, is
 discouraged, as a separate bf(ssh)(1)-connection is required for each separate
 bf(scp)(1) command. This subtlety was brought to the author's attention by
-Hopko Meijerink (tt(h.meijering@rc.rug.nl)). Using bf(scp)(1) results in
-several additional entries showing bf(sshd)(1) connections in the client's
-logfiles, which in turn may provide hints to a hacker that the client is
-intensively monitored. In order to copy files between the client and the
-controller, the tt(GET) and tt(PUT) commands (described below) may be used,
-which use the existing bf(ssh)(1) connection. In general, tt(LOCAL) commands
-should not be used to establish additional bf(ssh)(1) connections to a client.
+Hopko Meijerink (tt(h.meijering@rug.nl)). Using bf(scp)(1) results in several
+additional entries showing bf(sshd)(1) connections in the client's logfiles,
+which in turn may disclose information that the client is intensively
+monitored. In order to copy files between the client and the controller, the
+tt(GET) and tt(PUT) commands (described below) may be used instead, which use
+the existing bf(ssh)(1) connection. In general, tt(LOCAL) commands should not
+be used to establish additional bf(ssh)(1) connections to a client.
 
 nsect(REMOTE COMMANDS)
 
@@ -467,7 +494,7 @@ intended program.
 
     Two special remote commands are tt(GET) and tt(PUT), which can be used to
 copy files between the client and the controller.  Internally, tt(GET) and
-tt(PUT) use the tt(DD) use-specification. If a non-default specification is
+tt(PUT) use the tt(DD) specification. If a non-default specification is
 used, one should ensure that the alternate program accepts bf(dd)(1)'s tt(if=,
 of=, bs=) and tt(count=) options. With tt(GET) the options tt(bs=, count=) and
 tt(of=) are used, with tt(PUT) the options tt(bs=, count=) and tt(if=) are
@@ -487,8 +514,8 @@ local file already exists, it is overwritten by the copy-procedure.
     Example:nl()
     tt(GET /usr/bin/sha1sum /tmp)nl()
     The program tt(/usr/bin/sha1sum), available at the client, is copied to the
-controller's tt(/tmp) directory. If the copying fails for some reason,
-any subsequent commands are skipped, and bf(stealth) terminates.
+controller's tt(/tmp) directory. If, for whatever reason, copying fails, then
+s() terminates.
 
     it() bf(GET NOTEST) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
@@ -517,8 +544,7 @@ exists, it is overwritten by tt(PUT).
     Example:nl()
     tt(PUT /tmp/sha1sum /usr/bin/sha1sum)nl()
     The program tt(/tmp/sha1sum), available at the controller, is copied to the
-client as tt(usr/bin/sha1sum). If the copying fails for some reason,
-any subsequent commands are skipped, and bf(stealth) terminates.
+client as tt(usr/bin/sha1sum). If the copying fails, bf(stealth) terminates.
 
     it() bf(PUT NOTEST) tt(<local-path> <remote-path>)nl()
     Copy the file indicated by tt(local-path) at the controller to
@@ -538,12 +564,12 @@ executed, even if the copying process wasn't successful.
     )
 
     Plain commands can be executed on the client computer by merely specifying
-them. Of course, this means that programs on the client called, e.g.,
-tt(LABEL), tt(LOCAL) or tt(USE), cannot be executed, since these names are
-interpreted otherwise by s(). I don't think that represents much of a
-problem, though....
+them. Of course, this implies that programs on the client which are named,
+e.g., tt(LABEL), tt(LOCAL) or tt(USE), cannot be executed, since these names
+are interpreted otherwise by s(). It's unlikely that this restriction presents
+much of a problem....
 
-    The following commands are available to be executed on the client:
+    The following commands are available for execution on the client:
     itemization(
     it() tt(<command>)nl()
         Execute tt(command) on the client, using the bf(SSH) command
@@ -613,17 +639,17 @@ tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha1sum {} \;)
 
     The SHA1 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/sha1.root). s() will not
+listing is written on the file bf(BASE)tt(/remote/sha1.root). s() does not
 terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
     )
 
     The maximum download size (using GET or CHECK) can be specified using the
-tt(--max-size) option, see below. By default it is set at 10M.
+tt(--max-size) option, see below. By default this size is set at 10M.
 
 
 manpagesection(OPTIONS)
 
-    Short options are mentioned between parentheses immediately following
+    Short options are provided between parentheses, immediately following
 their long option equivalents. Option descriptions starting with (C) can only
 be used on the command-line, and are ignored when specified in the second
 section of the policy file.
@@ -634,7 +660,7 @@ section of the policy file.
         communication with the daemon process;
     it() tt(--dry-run): (C) no integrity scans or reloads are performed, but
         are assumed OK. Remaining tasks are normally performed;
-    it() tt(--help): (C) Display help information and exit;
+    it() tt(--help (-h)): (C) Display help information and exit;
     it() tt(--log (-L) <path>): log messages are appended to `path'. If path
             does not exist, it is first created;
     it() tt(--logmail): mail sent by s() is logged (requires tt(--log) or
@@ -649,9 +675,10 @@ section of the policy file.
         s() ends.  Specify once to see the numbered commands; twice to add the
         policy file parsing steps.  Results are written to the std. output.
     it() tt(--random-interval (-i) <interval>[m]>): start the scan a random
-        interval of <interval> seconds (or minutes if an `m' is appended to
-        <interval>) following the delay specified at tt(--repeat) (see
-        below). This option requires options tt(--daemon) and tt(--repeat);
+        interval of <interval> seconds (or minutes if an `m' is appended (no
+        blanks) to <interval>) following the delay specified at tt(--repeat)
+        (see below). This option requires options tt(--daemon) and
+        tt(--repeat);
     it() tt(--reload pidfile): reloads the configuration and skip-files and
             restarts the scan of the s() daemon process.
     it() tt(--repeat <seconds>): wake up and perform an integrity scan at
@@ -662,7 +689,7 @@ section of the policy file.
         that are specifed in the s() daemon process's policy file;
     it() tt(--resume pidfile): resume a suspended s()
             process, implies tt(--rerun);
-    it() tt(--run-command (r) <nr>): (C) Only execute command number <nr>
+    it() tt(--run-command (-r) <nr>): (C) Only execute command number <nr>
         (natural number).  Command numbers are shown by s()
         tt(---parse-policy-file); 
     it() tt(--skip-files (-s) <skippath>): all entries in tt(skippath)
@@ -719,20 +746,20 @@ pre-version 3.00 versions and will be removed in a future version:
     it() tt(--echo-commands (-e)):
             echo commands to std error when they are processed; use tt(--log)
             instead.
-    it() tt(--parse-config-file (-c)): 
-            processes the config file; use tt(--parse-policy-file) instead. 
     it() tt(--keep-alive): run as a daemon; use tt(--daemon) instead.
     it() tt(--only-stdout): scan report is written to stdout; use
         tt(--stdout) instead.
+    it() tt(--parse-config-file (-c)): 
+            processes the config file; use tt(--parse-policy-file) instead. 
     it() tt(--quiet (-q)): suppresses progress messages written to stderr; use
         tt(--verbosity 0) instead.
     it() tt(--suppress pidfile): suppresses a currently active s()
             process; use tt(--suspend) instead.
     )
 
-The following options were discontinued after s() version 2.11.04:
+The following options were discontinued starting with s() version 3.00.00:
     itemization(
-    it() tt(--debug): use option tt(--verbosity) instead;
+    it() tt(--debug): use option tt(--verbosity) or tt(--dry-run) instead;
     it() tt(--no-child-processes).
     )
 
