@@ -8,7 +8,9 @@ void Stealth::reload()
     
     d_stealthLog.close();
 
-    if (not d_options.dryrun())
+    if (d_options.dryrun())
+        d_stealthLog << "--dry-run: reload suppressed" << endl;
+    else
     {
         d_policyFile->reload();
         

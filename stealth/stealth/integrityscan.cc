@@ -4,7 +4,9 @@ void Stealth::integrityScan()
 {
     d_stealthLog.scanHeader();
 
-    if (not d_options.dryrun())
+    if (d_options.dryrun())
+        d_stealthLog << "--dry-run: integrity scan suppressed" << endl;
+    else
         d_integrityScanner->run();
 
     if (d_run.interrupted())

@@ -8,7 +8,11 @@ void Stealth::doChores()
 
     setupSignals();
 
-    d_integrityScanner->startCommandShells(); 
+    if (d_options.dryrun())
+        d_stealthLog << 
+            "--dry-run: SH/SSH connections not established" << endl;
+    else
+        d_integrityScanner->startCommandShells(); 
 
     processRequests();
 }

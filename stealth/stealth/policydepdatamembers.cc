@@ -7,9 +7,9 @@ void Stealth::policyDepDataMembers()
     d_stealthLog.open((*d_policyFile)["REPORT"]);
 
     d_integrityScanner.reset(
-                                new IntegrityScanner(
-                                        d_run, *d_policyFile, d_stealthLog
-                                    )  
+                            new IntegrityScanner(
+                                    d_run, *d_policyFile, d_stealthLog
+                                )  
                             );
 }
 
