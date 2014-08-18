@@ -11,7 +11,7 @@
 
 #include "../stealthenums/stealthenums.h"
 
-class Options: public StealthEnums
+struct Options: public StealthEnums
 {
     FBB::ArgConfig &d_arg;
 
@@ -55,7 +55,6 @@ class Options: public StealthEnums
     FBB::LinearMap<std::string, FBB::Priority>::const_iterator 
                                                         d_syslogPriority;
 
-
     static Options *s_options;
 
     static char const       s_configFileBase[];
@@ -71,7 +70,7 @@ class Options: public StealthEnums
     static FBB::LinearMap<std::string, FBB::Priority> const 
                                                         s_syslogPriorities;
 
-    static FBB::LinearMap<Mode, char const *> const     s_ipc;
+    static FBB::LinearMap<Mode, ModeInfo> const         s_modeInfo;
 
     public:
         static Options &instance();
@@ -96,6 +95,7 @@ class Options: public StealthEnums
         bool dryrun() const;
 
         Mode mode() const;
+        ModeInfo const &modeInfo() const;
 
         size_t repeatInterval() const;
         size_t randomAddition() const;
@@ -146,6 +146,11 @@ class Options: public StealthEnums
 inline Options::Mode Options::mode() const
 {
     return d_mode;
+}
+
+inline Options::ModeInfo const &Options::modeInfo() const
+{
+    return s_modeInfo.find(d_mode)->second;
 }
 
 inline bool Options::sendMail() const

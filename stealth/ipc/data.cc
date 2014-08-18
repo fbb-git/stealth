@@ -2,9 +2,9 @@
 
 LinearMap<std::string, StealthEnums::Mode> const IPC::s_request = 
     {
-        {"Suspend",     SUSPEND},
-        {"Resume",      RESUME},
-        {"ReRun",       RERUN},
-        {"Reload",      RELOAD},
-        {"Terminate",   TERMINATE},
+        {"suspend",     SUSPEND},
+        {"resume",      RESUME},
+        {"rerun",       RERUN},
+        {"reload",      RELOAD},
+        {"terminate",   TERMINATE},
     };

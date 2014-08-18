@@ -5,6 +5,13 @@
 
 struct StealthEnums
 {
+    struct ModeInfo
+    {
+        int signum;
+        char const *signalTxt;
+        char const *modeTxt;
+    };
+
     enum Mode       // uses bit-flags values
     {
         LEAVE           = 1 << 0,

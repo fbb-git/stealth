@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <unistd.h>
+#include <csignal>
 
 #include <bobcat/user>
 #include <bobcat/mstream>

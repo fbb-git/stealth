@@ -22,7 +22,7 @@ class IPC: public StealthEnums
     public:
         IPC();
                                             // always returns true, or
-        bool signalDaemon(char const *request); // throws exception on failure
+        bool signalDaemon();                // throws exception on failure
         StealthEnums::Mode request();  
         std::string const &requestText() const;
 
@@ -40,7 +40,7 @@ class IPC: public StealthEnums
         void sleep();                       // sleep until wakeup
 
         size_t getPid() const;
-        void sendSignal(int sig, pid_t pid);
+        void sendSignal(ModeInfo const &info, pid_t pid);
         void write(char const *request) const;
 
 };

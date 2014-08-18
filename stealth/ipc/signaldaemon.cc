@@ -1,14 +1,17 @@
 #include "ipc.ih"
 
-bool IPC::signalDaemon(char const *request)
+bool IPC::signalDaemon()
 {
     size_t pid = getPid();    // get the pid of the process to signal 
 
-    write(request);
+    auto const &info = d_options.modeInfo();
 
-    m2 << "Sending signal SIGUSR1 to process " << pid << endl;
+    write(info.modeTxt);
 
-    sendSignal(SIGUSR1, pid);
+    m2 << "Sending signal " << info.signalTxt << " to process " << pid << 
+                                                                        endl;
+
+    sendSignal(info, pid);
 
     return true;
 }

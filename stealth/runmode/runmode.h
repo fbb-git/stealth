@@ -17,8 +17,7 @@ struct RunMode: public StealthEnums
         bool mode(Mode query) const;
         Mode mode() const;
         char const *modeName() const;
-        int signum() const;     // exception if called without associated 
-                                // signal
+
         void setMode(Mode mode);
         bool interrupted() const; // a running integrity scan was interrupted
 };
@@ -41,11 +40,6 @@ inline bool RunMode::mode(Mode mode) const
 inline bool RunMode::interrupted() const
 {
     return mode(SUSPEND | TERMINATE | RELOAD);
-}
-        
-inline int RunMode::signum() const
-{
-    return s_mode2signal.find(d_mode)->second;
 }
         
 #endif
