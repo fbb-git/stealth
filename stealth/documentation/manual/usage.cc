@@ -6,10 +6,12 @@ using namespace std;
 #include "../../VERSION"
 
 #include "../../version.cc"
-#include "../../usage.cc"
+#include "../../options/options.h"
+#include "../../options/data.cc"
+#include "../../options/usage.cc"
 
 int main(int argc, char **argv)
 {
-    usage("stealth");
+    Options::usage("stealth");
     return 0;
 }

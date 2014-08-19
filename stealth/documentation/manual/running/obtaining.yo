@@ -1,0 +1,4 @@
+First, the tt(sha1sum) program is copied to a local directory:
+        verb(    GET /usr/bin/sha1sum /root/tmp)
+    This command must succeed. 
+

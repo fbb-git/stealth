@@ -158,8 +158,7 @@ suspend integrity scans performed by a s() daemon process:
     )
     Here is an example of bf(logrotate)(1) specification rotating s()
 log-files:
-        verb(
-/root/stealth/host/report {
+        verb(/root/stealth/host/report {
     weekly
     rotate 12
     compress
@@ -170,8 +169,7 @@ log-files:
     postrotate
         /usr/bin/stealth --resume /run/stealth.host
     endscript 
-}
-        )
+})
 
 manpagesection(RELOAD, RERUN AND TERMINATE)
 
@@ -188,7 +186,7 @@ manpagesection(RELOAD, RERUN AND TERMINATE)
 
     it() When started as s() tt(--rerun <pidfile>), the s() daemon performs
         another scan (unless it has been suspended using s() tt(--suspend
-        <pidfile>).
+        <pidfile>)).
 
     it() When started as s() tt(--terminate pidfile), the s() daemon is
         terminated.
@@ -341,14 +339,12 @@ sure that that shell doesn't define its own redirections for standard input
 and standard output. One way to accomplish that is for force the execution of
 tt(/bin/sh) in the bf(USE SSH) specification.
     Examples:
-        verb(
-    # root's shell is /bin/sh:
+        verb(    # root's shell is /bin/sh:
         USE SSH root@client -T -q    
     # root uses another shell
         USE SSH root@client -T -q exec /bin/bash    
     # an alternative:
-        USE SSH root@client -T -q exec /bin/bash --noprofile 
-        )    
+        USE SSH root@client -T -q exec /bin/bash --noprofile)    
     )
 
     In some installations s() is used to inspect the computer itself, even
@@ -356,10 +352,8 @@ though this is em(not) recommended, as it breaks one of the main reasons
 for s()'s existence. In situations where s() is used to monitor the integrity
 of the tt(localhost), tt(/bin/bash) could be specified with the tt(USE SSH)
 directive. For example:
-        verb(
-    # For stealth inspecting localhost:
-        USE SSH /bin/bash --noprofile
-        )
+        verb(    # For stealth inspecting localhost:
+        USE SSH /bin/bash --noprofile)
 
 nsect(COMMANDS)
 
@@ -423,17 +417,13 @@ assumes that the first occurrence of a forward slash defines the first
 character of the path-names of inspected files.
 
     For example, if diff-output looks like this:
-        verb(
-    01234567890123456789012345678901234567890 (column offsets)
+        verb(    01234567890123456789012345678901234567890 (column offsets)
     33c33
     < 90d8b506d249634c4ff80b9018644567  filename-specification
     ---
-    > b88d0b77db74cc4a742d7bc26cdd2a1e  filename-specification
-        )
+    > b88d0b77db74cc4a742d7bc26cdd2a1e  filename-specification)
     then the specification
-        verb(
-    LOCAL CHECK logfile 36 command-to-be-executed
-        )
+        verb(    LOCAL CHECK logfile 36 command-to-be-executed)
     informs s() where to find the filename specifications in the
 diff-output. Using the standard tt(/usr/bin/diff) command, this offset equals
 2 + the offset of the tt(filename-specification) found in
@@ -475,13 +465,20 @@ succeed (i.e., tt(sha1sum) must return a zero exit-value).
 client and the controller, using a local command. This, however, is
 discouraged, as a separate bf(ssh)(1)-connection is required for each separate
 bf(scp)(1) command. This subtlety was brought to the author's attention by
-Hopko Meijerink (tt(h.meijering@rug.nl)). Using bf(scp)(1) results in several
-additional entries showing bf(sshd)(1) connections in the client's logfiles,
-which in turn may disclose information that the client is intensively
-monitored. In order to copy files between the client and the controller, the
-tt(GET) and tt(PUT) commands (described below) may be used instead, which use
-the existing bf(ssh)(1) connection. In general, tt(LOCAL) commands should not
-be used to establish additional bf(ssh)(1) connections to a client.
+Hopko Meijerink (tt(h.meijering@rug.nl)). 
+
+    New bf(ssh)(1) connections may be difficult to establish if the used
+ssh-key is passphrase-protected (but it is not impossible to do so, see e.g.,
+bf(ssh-cron)(1)), and using an ssh-key without a passphrase is discouraged as
+client computers are immediagely compromised too, once the controller is
+compromised. Furthermore, using bf(scp)(1) results in several additional
+entries showing bf(sshd)(1) connections in the client's logfiles, which in
+turn may disclose information that the client is intensively monitored. 
+
+    To copy files between the client and the controller, the tt(GET) and
+tt(PUT) commands (described below) should be used instead, as these commands
+use the existing bf(ssh)(1) connection. In general, tt(LOCAL) commands should
+not be used to establish additional bf(ssh)(1) connections to a client.
 
 nsect(REMOTE COMMANDS)
 
@@ -703,7 +700,7 @@ section of the policy file.
         interpreted as the path names of files to skip. Initial and trailing
         blanks, empty lines and lines having a tt(#) as their 1st non blank
         character are ignored.
-    it() tt(--stdout (-o)): Messages are (also) written to the std. output
+    it() tt(--stdout (-o)): messages are (also) written to the std. output
         stream (not available when for option tt(--daemon));
     it() tt(--suspend pidfile): suspends a currently active s() process. Use
         tt(--resume) to re-activate an s() daemon or tt(--terminate) to end an
@@ -749,8 +746,6 @@ pre-version 3.00 versions and will be removed in a future version:
     it() tt(--keep-alive): run as a daemon; use tt(--daemon) instead.
     it() tt(--only-stdout): scan report is written to stdout; use
         tt(--stdout) instead.
-    it() tt(--parse-config-file (-c)): 
-            processes the config file; use tt(--parse-policy-file) instead. 
     it() tt(--quiet (-q)): suppresses progress messages written to stderr; use
         tt(--verbosity 0) instead.
     it() tt(--suppress pidfile): suppresses a currently active s()
@@ -759,8 +754,10 @@ pre-version 3.00 versions and will be removed in a future version:
 
 The following options were discontinued starting with s() version 3.00.00:
     itemization(
-    it() tt(--debug): use option tt(--verbosity) or tt(--dry-run) instead;
-    it() tt(--no-child-processes).
+    it() tt(--debug) (option tt(--verbosity) or tt(--dry-run) could be used 
+                    instead);
+    it() tt(--no-child-processes);
+    it() tt(--parse-config-file).
     )
 
 
@@ -788,7 +785,7 @@ manpagefiles()
 manpageseealso() 
    bf(cron)(1), bf(dd)(1), bf(diff)(1), bf(dpkg)(1), bf(find)(1),
     bf(logrotate)(1), bf(ls)(1), bf(mail)(1), bf(sha1sum)(1), bf(passwd)(5),
-    bf(sendmail)(1), bf(sh)(1), bf(ssh)(1)
+    bf(sendmail)(1), bf(sh)(1), bf(ssh)(1), bf(ssh-cron)(1)
 
 manpagesection(DIAGNOSTICS)
        By default, executed commands are echoed to stderr. Use bf(-q) to

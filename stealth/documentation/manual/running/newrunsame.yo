@@ -1,4 +1,4 @@
-    When bf(stealth) is run again, it will update
+    When s() is run again, it will update
 its report files under tt(root/stealth/client). If nothing has changed,
 the log-files will remain unaltered. The new run will, however, produce some
 new info on the file tt(/root/client/report):

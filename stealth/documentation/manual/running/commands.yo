@@ -1,0 +1,4 @@
+First, we copy the client's tt(sha1sum) program to the controller. In
+practice, this should also include the shared object libraries that are used
+by tt(sha1sum), as they might have become corrupted as well.
+

@@ -1,5 +1,5 @@
-Welcome to bf(stealth). The program bf(stealth) implements a file integrity
-scanner. The acronym bf(stealth) can be expanded to
+Welcome to s(). The program s() implements a file integrity
+scanner. The acronym s() can be expanded to
 
 center(
 nsect(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
@@ -22,71 +22,72 @@ to use an ssh-connection to perform commands on it. The client therefore
 em(locally trusts) the controller. Hence, em(locally trusted host).
     )
 
-    bf(stealth) is based on an idea by em(Hans Gankema) and em(Kees Visser),
+    s() is based on an idea by em(Hans Gankema) and em(Kees Visser),
 both at the Center for Information Technology of the University of Groningen.
 
-    bf(stealth)'s main task is to perform file integrity tests. However, the
-testing will leave no sediments on the tested computer. Therefore, bf(stealth)
-has em(stealthy) characteristics. I consider this an important security
-improving feature of bf(stealth).
+    s()'s main task is to perform file integrity tests. However, the
+testing will leave virtually no sediments on the tested computer. Therefore,
+s() has em(stealthy) characteristics. I consider this an important
+security improving feature of s().
 
     The controller itself only needs two kinds of outgoing services:
 bf(ssh)(1) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
-    Here is what happens when bf(stealth) is run:
+    Here is what happens when s() is run:
     itemization(
     it() First, a em(policy) file is read. This determines actions to be
-performed, and  values of several variables used by bf(stealth).
-    it() If the command-line option tt(--daemon) or tt(--repeat <seconds>)
-is given, bf(stealth) will run as a backgrond process, displaying the process
-ID of the background process. With tt(--repeat <seconds>) the scan will be
-rerun every tt(<seconds>) seconds. The number of seconds until the next rerun
-will be at least 60. However, using the tt(--rerun) option a background
-bf(stealth) process may always be goated into its next scan. When
-tt(--daemon) is specified the scan will be performed just once, whereafter
-bf(stealth) will wait until it is reactivated by another run of bf(stealth),
-called using the tt(--rerun <pid>) command-line option.
+performed, as well as the values of several variables used by s().
+    it() If the command-line option tt(--daemon) is given, s() runs as
+a backgrond (daemon) process, writing its process ID in a separate file. Using
+tt(--repeat <seconds>) the scan will be rerun every tt(<seconds>) seconds. The
+number of seconds until the next rerun uses an implementation defined minimum
+of 60. However, another integrity scan may always be requested using the
+tt(--rerun) option. When merely the tt(--daemon) is specified the scan is
+performed only once, whereafter s() waits until it is reactivated
+through the s() tt(--rerun <pid>) command.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order
 of appearance. Examples are given below. Normally, return values of the
-programs are  tested. Non-zero return values will terminate bf(stealth)
-prematurely.
+programs are  tested. Non-zero return values terminate s().
     it() In most cases, integrity tests can be controlled by the bf(find)(1)
 program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its own tt(-printf)
 method to produce file-integrity related statistics. Most of these programs
 write file names at the end of generated lines. This characteristic is used by
-an internal routine of bf(stealth) to detect changes in the generated output,
-which could indicate some harmful intent, like an installed em(root-kit).
+an internal routine of s() to detect changes in the generated output,
+which could indicate some malignant software, like an installed em(root-kit).
     it() When changes are detected, they are logged on a em(report file), to
-which information is always appended. bf(stealth) never reduces or rewrites
+which information is always appended. s() never reduces or rewrites
 the report file. When information is added to the report file the newly
 written information is emailed to a configurable email address for further
-(human) processing. Usually this will be the systems manager of the tested
-client. bf(stealth) follows the `dark cockpit' approach in that no mail is
-sent when no changes were detected.
+(human) processing. Usually the e-mail is sent to the systems manager of the
+tested client. s() follows the `dark cockpit' approach in that no mail
+is sent when no changes were detected.
     )
 
-    Alternatively, the command-line options tt(--reload, --rerun, --suppress,
---resume) and tt(--terminate) may be provided to communicate with a running
-bf(stealth) process started earlier using either the tt(--daemon) or
-tt(--repeat) option. For these options one argument must be provided: the
-pathname to a pid-file of a running s(). 
+    Alternatively, the command-line options tt(--reload, --rerun, --suspend,
+--resume) and tt(--terminate) may be provided to communicate with an existing
+s() daemon. These options require but one argument: the pathname to a pid-file
+of a running s().
     itemization(
-    it() When started using the tt(--reload <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) will reload its configuration
-and skip-files, which is then immediately followed by  another stealth 
-scan.
-    it() When started using the tt(--rerun <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) will perform another
-scan. 
+    it() When started using the tt(--reload <pidfile>) command-line option,
+the stealth daemon corresponding to tt(pidfile) reloads its policy and skip
+files, immediately followed by another integrity scan;
+    it() When started using the tt(--rerun <pidfile>) command-line option, the
+stealth daemon corresponding to tt(pidfile) performs another integrity scan;
     it() When started using the tt(--terminate <pid>) command-line option, the
-stealth process running at process-ID tt(<pid>) is terminated. 
+stealth daemon corresponding to tt(pidfile) terminates. The daemon is also
+terminated if it receives a tt(SIGTERM) or tt(SIGINT) signal.
     )
 
-    The options tt(--suppress) and tt(--rerun) (see section ref(ROTATE)) were
-implemented to allow safe rotations of bf(stealth)'s report file. 
+    The options tt(--suspend) and tt(--rerun) (see section ref(ROTATE)) were
+implemented to allow safe rotations of s()'s report file. 
+
+COMMENT(
+
+This second was removed since the distributions are responsible for 
+archive integrity
 
 subsect(The integrity of the stealth distribution)
 
@@ -95,7 +96,7 @@ follows:
     itemization(
     it() At the location where you found this archive, you should also find a
 file named tt(stealth-_CurVers_.dsc). This file contains a PGP signed
-bf(sha1sum)(1) signature of the tt(tar.gz) archive. The PGP sigature was
+bf(sha1sum)(1) signature of the tt(tar.gz) archive. The PGP signature was
 provided by me using bf(gpg)(1) (bf(pgp)(1)).
     it() Compute the SHA1 checksum of the tt(stealth-_CurVers_.tar.gz)
 archive. Its value should match the SHA1 checksum that is mentioned in the
@@ -105,29 +106,29 @@ archive has been compromised, and should em(not) be used.
 follows: 
         itemization(
         it() Obtain my public key from a public PGP keyserver, e.g.
-            verb(
-    http://pgp.surfnet.nl:11371/
-            )
+            verb(    http://pgp.surfnet.nl:11371/)
         it() Make sure you have the right key. Its fingerprint is
-            verb(
-    DF32 13DE B156 7732 E65E  3B4D 7DB2 A8BE EAE4 D8AA
-            )
+            verb(    DF32 13DE B156 7732 E65E  3B4D 7DB2 A8BE EAE4 D8AA)
         and it has been electronically signed by, e.g., the University of
 Groningen's PGP-certificate authority. If in doubt, contact me to verify you
 have the right key.
         it() Once you're sufficiently satisfied that you indeed have obtained
 my public PGP key, verify the validity of the signature used for signing
 tt(stealth-_CurVers_.dsc). With bf(gpg)(1) this can be done by the command
-            verb(
-    gpg --verify stealth-_CurVers_.dsc
-            )
+            verb(    gpg --verify stealth-_CurVers_.dsc)
         )
     )
     This should produce output comparable to:
-        verb(
-gpg: Signature made Fri Jun  1 10:57:41 2012 CEST using DSA key ID EAE4D8AA
-gpg: Good signature from "Frank B. Brokken <f.b.brokken@rug.nl>"
-        )
+        verb(gpg: Signature made Fri Jun  1 10:57:41 2012 CEST using DSA key ID EAE4D8AA
+gpg: Good signature from "Frank B. Brokken <f.b.brokken@rug.nl>")
+
+END COMMENT)
+
+
+
+
+
+
 
 
 

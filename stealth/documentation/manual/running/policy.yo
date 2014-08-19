@@ -1,0 +1,3 @@
+Here is the complete policy file we've constructed so far:
+
+    verbinclude(policy.demo)

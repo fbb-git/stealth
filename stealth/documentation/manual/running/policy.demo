@@ -10,7 +10,6 @@
 
     USE DD          /bin/dd
     USE DIFF        /usr/bin/diff
-    USE PIDFILE     /var/run/stealth-
     USE REPORT      report
     USE SH          /bin/sh
 

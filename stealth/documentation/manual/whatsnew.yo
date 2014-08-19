@@ -1,6 +1,56 @@
 COMMENT(
-    With 2.02.00:
+    With 3.00.00:
 )
+    itemization(
+    it() Internally the flow control handling, in particular with s() running
+        as a daemon, has completely been redesigned.
+    it() Options were changed:
+        itemization(
+        it() tt(--keep-alive) is now tt(--daemon);
+        it() tt(--suppress) is now tt(--suspend);
+        )
+    it() Options were dropped in favor of replacement options:
+        itemization(
+        it() tt(--echo-commands): replaced by tt(--log);
+        it() tt(--only-stdout): replaced by tt(--stdout);
+        it() tt(--quiet): replaced by tt(--verbosity);
+        )
+    it() Some options were discontinued without replacements:
+        itemization(
+        it() tt(--debug) (option tt(--verbosity) or tt(--dry-run) could be used 
+                    instead);
+        it() tt(--no-child-processes);
+        it() tt(--parse-config-file);
+        )
+    it() New options were added, see section ref(OPTIONS) for a more extensive
+        description: 
+        itemization(
+        it() tt(--daemon): run as background (daemon) process;
+        it() tt(--dry-run): no integrity scans or reloads are performed;
+        it() tt(--log): log messages are written to a file;
+        it() tt(--logmail): mail sent by s() is also logged;
+        it() tt(--no-mail): mail is not sent;
+        it() tt(--parse-policy-file): parse the policy file;
+        it() tt(--stdout): messages are (also) written to the std. output
+            stream; 
+        it() tt(--suspend): suspends a currently active s() process;
+        it() tt(--syslog): write syslog messages;
+        it() tt(--syslog-facility): sets the syslog facility to use; 
+        it() tt(--syslog-priority): sets the syslog priority to use; 
+        it() tt(--syslog-tag): specifies an identifier that is prefixed to 
+            syslog messages;
+        it() tt(--verbosity <value>): determines the amount of logged
+            information.
+        )
+    it() The policy file now contains two section. The second section starts
+        at a line merely containing tt(%%), is optional, and may contain
+        (some) long option specifications. See section ref(OPTIONS) for
+        details.
+    )
+
+COMMENT(
+    With 2.02.00:
+
     itemization(
     it() The file specified at the option -s (--skip-files) may contain empty
 lines and lines having a tt(#) as their 1st non-blank character. These lines
@@ -8,6 +58,7 @@ are ignored. Furthermore, initial and trailing blanks on its lines are
 ignored.
     it() NOTE: requires bobcat 2.17.00 or later
     )
+)
 
 COMMENT(
     With 2.0.0:
@@ -28,7 +79,7 @@ COMMENT(
 
     itemization(
     it() Since the MD5 hash is no longer considered to be cryptographically
-secure, bf(stealth)(1) should now use an alternative way to compute
+secure, s()(1) should now use an alternative way to compute
 hash-values. In this manual it is suggested to switch to SHA1 hash
 computations. 
     it() The tt(--max-size) option was implement to restrict the maximum sizes
@@ -57,7 +108,7 @@ std error when they are processed (this option is implied by tt(-d));
 specified), the reason why the command failed is written to the report file or
 to the standard error stream;
     it() The debugging facility is now always available, and does not require
-recompilation of bf(stealth) anymore.
+recompilation of s() anymore.
     )
 END COMMENT)
 
@@ -66,9 +117,9 @@ COMMENT(
 
     Two new options were added to facilitate report-file rotations:
     itemization(
-    it() tt(--resume pidfile): resume a suppressed bf(stealth)
+    it() tt(--resume pidfile): resume a suppressed s()
             process (implying tt(--rerun));
-    it() tt(--suppress pidfile): suppress a currently active bf(stealth)
+    it() tt(--suppress pidfile): suppress a currently active s()
             process. All scheduled scans following tt(--suppress) are skipped,
             tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
             can be issued;
@@ -79,13 +130,13 @@ the report file must be rotated. The bf(ssh) connections to clients remain
 open between pairs of tt(--suppress) and tt(--resume) commands. See section
 ref(ROTATE) for details about these two options.
 
-    Issues related to suppressing bf(stealth) runs are:
+    Issues related to suppressing s() runs are:
     itemization(
     it() cleaning up obsolete status files (section ref(STATUS));
     it() automating report- and status file rotation using external
 programs. In section ref(LOGROTATE) a setup is described that can be used with
 the familiar bf(logrotate)(1) program.
-    it() When upgrading bf(stealth), make sure that all bf(stealth) processes
+    it() When upgrading s(), make sure that all s() processes
 using earlier versions are terminated first.
     )
 END COMMENT)

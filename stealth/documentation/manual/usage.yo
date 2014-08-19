@@ -1,4 +1,4 @@
-When bf(stealth) is started without arguments, it provides some help about how
+When s() is started without arguments, it provides some help about how
 to start it. A message like the following is produced:
 
     verbinclude(../../tmp/usage.txt)

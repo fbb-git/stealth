@@ -1,0 +1,25 @@
+    Next we specify some tt(USE) directives, to fit our specific, local,
+situation: 
+        verb(    USE BASE        /root/stealth/client
+    USE EMAIL       admin@elswhere
+    USE MAILER      /root/bin/stealthmail
+    USE MAILARGS    "Client STEALTH report"
+    USE SSH         ${SSHCMD})
+    itemization(
+    it() All output is  written under the tt(/root/stealth/client) directory;
+    it() Mail is sent to the user tt(admin@elsewhere);
+    it() As mail program we use a filtering script (tt(stealthmail)), which is
+        installed in tt(/root/bin);
+    it() The script handles its own argument. As it can be used by s()
+        performing integrity scans on other clients as well, it is given an
+        argument which can be used as e-mail subject, identifying the
+        client-computer that has been integrity-scanned;
+    it() The ssh-command is defined by the tt(SSHCMD). It's definition is used
+        at the tt(USE SSH) specification;
+    it() Default values of all remaining tt(USE) directives are OK, and thus
+        were not explicitly specified. They are:
+        verb(    USE DD          /bin/dd
+    USE DIFF        /usr/bin/diff
+    USE REPORT      report
+    USE SH          /bin/sh)
+    )

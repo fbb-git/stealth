@@ -1,22 +1,27 @@
-    bf(stealth) reads a policy file defining the actions that must be 
-performed. Each policy file is uniquely associated with a host to be
-tested. There may be multiple policy files for a host, though. In that case,
-each policy file will define a certain set of checks to be performed.
+    S() reads a policy file consisting of two sections, the second
+section being optional. The policy file's first section defines the actions
+that s() must perform. Each policy file is uniquely associated with a host to
+be tested. Each host may have multiple policy files, though. In that case,
+each policy file defines its own certain set of checks to be performed.
 
-    Below, the term em(controller) is used for the computer where bf(stealth)
-is started, while the term em(client) is used for the computer that is scanned
-by bf(stealth). The controller and the client could be the same computer, but
+    The policy file's optional second part starts with a line merely
+containing tt(%%), which may then be followed by certain long option
+specifications. See section ref(OPTIONS) for an overview.
+
+    In this chapter the term em(controller) is used for the computer running
+s(), while the term em(client) is used for the computer that is scanned by
+s(). The controller and the client could be the same computer, but
 normally they are different.
 
-    The policy file consists of three sets of data: em(define directives)
-(starting with the keyword bf(DEFINE)), em(use directives) (starting with the
-keyword bf(USE)) and em(commands). 
+    The policy file's first section consists of three sets of data: em(define
+directives) (starting with the keyword bf(DEFINE)), em(use directives)
+(starting with the keyword bf(USE)) and em(commands).
 
 Directives are written in capitals, and should appear exactly as written
-below: letter casing is preserved. 
+below; letter casing is preserved. 
 
     Blank lines and information beyond hash-marks (#) are ignored, while lines
 following lines terminating in backslashes (\ ) will be concatenated (em(en
-passant) removing the backslashes). Initial white space on lines of the policy
-file is ignored.
+passant) removing these backslashes). Initial white space on lines of the
+policy file is ignored.
 

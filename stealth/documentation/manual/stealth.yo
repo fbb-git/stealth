@@ -5,6 +5,9 @@ mailto(f.b.brokken@rug.nl)
 
 includefile(../../release.yo)
 
+DEFINEMACRO(s)(0)(bf(stealth))
+DEFINEMACRO(S)(0)(bf(Stealth))
+    
 COMMENT(htmlbodyopt(background)(rcbackground.jpg))
 htmlbodyopt(text)(#27408B)
 htmlbodyopt(bgcolor)(#FFFAF0)
@@ -44,11 +47,32 @@ chapter(Introduction)
 chapter(Installation)
 includefile(install/intro)
 
+    sect(Compiling and installing Stealth)
+    includefile(install/compile)
+
 chapter(The `policy' file)
 includefile(policy/intro)
-includefile(policy/defines)
-includefile(policy/use)
-includefile(policy/commands)
+
+    sect(DEFINE directives)
+    includefile(policy/defines)
+
+    sect(USE directives)
+    includefile(policy/use)
+
+    lsect(COMMANDS)(Commands)
+    includefile(policy/commands)
+
+        subsect(LABEL commands)
+        includefile(policy/label)
+
+        subsect(LOCAL commands)
+        includefile(policy/local)
+
+        subsect(REMOTE commands)
+        includefile(policy/remote)
+
+        subsect(Preventing Controller Denial of Service (--max-size))
+        includefile(policy/preventing)
 
 chapter(Granting access)
 includefile(policy/access)
@@ -61,6 +85,35 @@ includefile(running/intro)
     
     sect(Construct one or more policy files)
     includefile(running/makepolicy)
+
+        subsect(DEFINE directives)
+        includefile(running/define)
+
+        subsect(USE directives)        
+        includefile(running/use)
+
+        subsect(Commands)
+        includefile(running/commands)
+
+            subsubsect(Obtaining the client's sha1sum program)
+            includefile(running/obtaining)
+
+            subsubsect(Checking the integrity of the client's sha1sum program)
+            includefile(running/checking)
+
+            subsubsect(Checking the client's /usr/bin/find program)
+            includefile(running/checkingfind)
+
+            subsubsect(Checking the client's setuid/setgid files)
+            includefile(running/checkingsetuid)
+
+            subsubsect(Checking the configuration files in the client's /etc/ directory)
+            includefile(running/checkingconfig)
+
+        subsect(The complete `policy' file)
+        includefile(running/policy)
+
+COMMENT(================)
 
     sect(Running `stealth' for the first time)
     includefile(running/firstrun)
@@ -96,3 +149,7 @@ includefile(usage)
 
 chapter(Errormessages)
 includefile(errors)
+
+END)
+
+

@@ -1,0 +1,58 @@
+Either by malicious intent or by accident (as happened to me) the controller
+may be a victim of a Denial of Service (DOS) attack. This DOS attack may occur
+when the client (apparently) sends a never ending stream of bytes in response
+to a tt(GET) or tt(REMOTE) command. Once one of my controllers fell victim to
+this attack when a client's power went down and the controller kept on trying
+to read bytes from that client filling up the controller's disk....
+
+This problem was of course caused by a programming error: while reading
+information from a client s() failed to check whether the reading had actually
+succeeded. This bug has now been fixed, but an intentional DOS attack could
+still be staged along this line when, e.g., the bf(find)(1) command is somehow
+replaced by a manipulated version continuously writing information to its
+standard output stream. Without further precaution s() would receive a never
+ending stream of bytes to be written to its `report' file, thus causing its
+disk to fill up.
+
+To prevent this from happening s() offers the tt(--max-size)
+command line option allowing the specification of the maximum size of a stream
+of bytes received by s() (e.g., a report or downloaded file). The
+maximum is used for each individual download and can be specified in bytes
+(using no suffix or the tt(B) suffix), kilo-bytes (using tt(K)), mega-bytes
+(using tt(M)) or giga-bytes (using tt(G)). The default is set at 10M,
+equivalent to the command line specification of tt(--max-size 10M). 
+
+If a file or report received from the client exceeds its maximum allowed size
+then s() terminates after writing the following message to the report
+file (which is sent to the configured mail address):
+        verb(    STEALTH - CAN'T CONTINUE: `<name of offending file>' EXCEEDS MAX. 
+                                                DOWNLOAD SIZE (<size shown>)
+    STEALTH - THIS COULD SIGNAL A SERIOUS PROBLEM WITH THE CLIENT
+    STEALTH - ONE OR MORE LOG FILES MAY BE INVALID AS A RESULT
+    STEALTH - *** INVESTIGATE ***)
+    Since a tt(--max-size) specification may cause s() to terminate
+while receiving the output of a (remotely run) command, an empty or partial
+log file will be the result. Of course this partial result is spurious as it
+is a direct result of s() terminating due to a size violation. 
+
+    After investigating (and removing) the reasons for the size violation a
+new s() run using the previous log file as the latest baseline should
+show only expected changes.
+
+    For example, assume the following situation represents a (valid) state of
+logfiles:
+        verb(    etc                       stealth                   
+    setuid                    stealth.20080316-105756)
+    Now s() is run with tt(--max-size 20), prematurely 
+terminating s(). This results in the following set of logfiles:
+        verb(    etc                       stealth
+    setuid                    stealth.20080316-105756   
+                              stealth.20080316-110215)
+    The file tt(stealth) now contains incomplete data with the (latest) file
+tt(stealth.20080316-110215) containing its previous contents.
+
+    The reasons for the size-violation should of course be investigated and
+removed. It is suggested to move the file last saved
+(tt(stealth.20080316-110215)) to the file tt(stealth), as it represents the
+state before the size violation was encountered. Following this s() should
+operate normally again.

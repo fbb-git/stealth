@@ -1,0 +1,8 @@
+    Having checked the client's tt(sha1sum) and tt(find) programs, sha1 checksum
+checks should be performed on all setuid and setgid files on the
+client. For this we activate the tt(sha1sum) program on the client. In
+order to check the setuid/setgid files, the following command is added to the
+policy file:
+        verb(    LABEL \nsuid/sgid/executable files uid or gid root on the / partition     
+    CHECK LOG = remote/setuidgid /usr/bin/find / ${EXECSHA1})
+

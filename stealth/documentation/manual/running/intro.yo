@@ -1,15 +1,15 @@
-Now that bf(stealth) has been compiled, the construction of a policy file has
+Now that s() has been compiled, the construction of a policy file has
 been covered, and a service-account on the client has been defined, what must
-be done to run bf(stealth) in practice?
+be done to run s() in practice?
 
 Here's what remains to be done:
     itemization(
-    it() Install bf(stealth) at a proper location
+    it() Install s() at a proper location
     it() Construct one or more policy files
-    it() Learn to interpret bf(stealth)'s output.
+    it() Learn to interpret s()'s output.
     it() Optionally, automate the removal of old log-files.
     it() Determine a schedule for running stealth automatically, e.g. using
-        bf(cron)(1)
+        bf(cron)(1) or bf(ssh-cron)(1)
     )
-    In this chapter, these topics will be discussed.
+    In this chapter, these topics are discussed.
 

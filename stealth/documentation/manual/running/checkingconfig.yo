@@ -1,0 +1,11 @@
+    Finally, the client's configuration files are checked. Some of these files
+change so frequently that we don't want them to be checked. E.g.,
+tt(/etc/adjtime, /etc/mtab). To check the configuration file, do:
+    COMMENT(
+                NOTE: KEEP THE BLANKS AFTER THE BACKSLASHES
+    END)
+        verb(    LABEL \nconfiguration files under /etc
+    CHECK LOG = remote/etcfiles                         \ 
+          /usr/bin/find /etc -type f -not -perm /6111   \ 
+            -not -regex "/etc/\(adjtime\|mtab\)"        \ 
+            -exec /usr/bin/sha1sum {} \;)

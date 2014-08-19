@@ -1,10 +1,10 @@
-    Whenever bf(stealth) is run and it encounters a modified situation the
+    Whenever s() is run and it encounters a modified situation the
 already existing status file that is used to summarize that particular
 situation is saved and a new status file is created. Eventually, this will
 result in many status files. While report files can be rotated, it is
 pointless to rotate old status files, since they never are modified. Instead
 status files exceeding a certain age could be removed and more recent files
-might be zipped to conserve space. In bf(stealth)'s binary distribution the
+might be zipped to conserve space. In s()'s binary distribution the
 file tt(/usr/share/doc/stealth/usr/bin/stealthcleanup) is provided which can
 be used to perform this cleanup. The script expects one argument: a resource
 file defining the following shell variables:
@@ -32,5 +32,5 @@ as follows:
     /usr/bin/stealthcleanup /etc/stealth/cleanup.rc
         )
     Note that tt(stealthcleanup) may be called whether or not there are active
-bf(stealth) processes, as bf(stealth) does not use status files anymore once
+s() processes, as s() does not use status files anymore once
 they have been written.

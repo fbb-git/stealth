@@ -1,0 +1,12 @@
+    First we write some tt(DEFINE) directives simplifying complex command
+specifications: 
+        verb(    DEFINE  SSHCMD  /usr/bin/ssh root@client -T -q exec /bin/bash --noprofile
+    DEFINE  EXECSHA1 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
+                    -type f -exec /usr/bin/sha1sum {} \;)
+    The first tt(DEFINE) defines the tt(ssh) command to use: an ssh-connection
+will be made to the root account at the client.
+    
+    The second tt(DEFINE) shows the arguments for bf(find)(1) when looking for
+all root setuid or setgid normal files. For all these files the bf(sha1sum)(1)
+program should be run.
+

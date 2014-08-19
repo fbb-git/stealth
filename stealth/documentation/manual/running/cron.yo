@@ -1,28 +1,28 @@
-    In order to automate the execution of bf(stealth), a file
+    In order to automate the execution of s(), a file
 tt(/etc/cron.d/stealth) could be created, containing a line like
-(assuming bf(stealth) lives in tt(/usr/bin)): 
+(assuming s() lives in tt(/usr/bin)): 
         verb(
     2,17,32,47 * * * *  root    test -x /usr/bin/stealth && \ 
                                 /usr/bin/stealth -q /root/stealth/client.pol
         )
-    This will start bf(stealth) 2 minutes after every hour. Alternate schemes
+    This will start s() 2 minutes after every hour. Alternate schemes
 are left to the reader to design.
 
     In general, randomizing events makes it harder to notice them.
-bf(stealth) may start its tasks at a random point in time if its
+s() may start its tasks at a random point in time if its
 tt(-i) flag (for em(random interval)) is used. This flag expects an argument
 in seconds (or in minutes, if at least an tt(m) is appended to the interval
-specification). Somewhere between the time bf(stealth) starts and the
+specification). Somewhere between the time s() starts and the
 specified interval the scan will commence. For example, the following two
 commands have identical effects: the scan is started somewhere between the
-moment bf(stealth) was started and 5 minutes:
+moment s() was started and 5 minutes:
         verb(
     stealth -i 5min -q /root/stealth/client.pol
     stealth -i 300  -q /root/stealth/client.pol
         )
     When the tt(-d) flag is given, the tt(-i) flag has no effect.
 
-    As another alternative, bf(stealth) my be started specifying the
+    As another alternative, s() my be started specifying the
 tt(--daemon pidfile) option. Here, tt(pidfile) is the name of a file that
 will contain the process id of the stealth process running in the background.
 For example:
@@ -36,8 +36,8 @@ For example:
         )
     
     As yet another alternative, the cron-job may activate a script performing
-bf(stealth)'s rerun, starting another bf(stealth) run if necessary. The
-advantage of such an approach is that bf(stealth) is automatically started
+s()'s rerun, starting another s() run if necessary. The
+advantage of such an approach is that s() is automatically started
 after, e.g., a reboot. The following script expects two arguments (both of
 which must be absolute paths). The first argument is the path to the
 em(pidfile) to use, the second argument is the path to the policy file to

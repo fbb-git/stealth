@@ -1,40 +1,76 @@
-After downloading the bf(stealth) archive, it should be unpacked. The name of
+After downloading the s() archive, it should be unpacked. The name of
 the archive is of the form tt(stealth-_CurVers_.tar.gz), where tt(_CurVers_)
 is a version number. Below, tt(_CurVers_) should be altered into the version
 of the archive that is actually used.
 
     itemization(
-    it() First, determine a directory under which the archive's file should be
+    it() S() compilation is controlled by bf(icmake)(1). The program
+maintenance utility bf(icmake)(1) can be obtained at
+lurl(http://icmake.sourceforge.net/), and it is also available in several
+Linux distributions (e.g., Debian, Ubuntu). It is assumed below 
+that you have an install a recent tt(icmake) version;
+
+    it() Determine a directory under which the archive's file should be
 stored. E.g., if the files in the archive should be stored under tt(/tmp), and
 the archive itself is stored in tt(/tmp) as well, do:
         verb(
     cd /tmp
     tar xzf stealth-_CurVers_.tar.gz
         )
-    This creates a subdirectory tt(stealth) in which the sources are
-found
+    This creates a subdirectory tt(stealth) containing s()'s sources;
+
     it() Next, tt(chdir) to that directory:
         verb(
     chdir stealth
         )
-    it() Check the contents of the file tt(make/parameters). It should need no
-modifications. Among other entries, it contains the entry tt(GCC=g++),
-indicating the compiler to use. The compiler should be the tt(GNU g++)
-compiler version 4.0.2 or above. Also note tt(-lbobcat) in the entry 
+
+    it() Check the contents of the files tt(INSTALL.im) and tt(icmconf), and
+verify that all tt(#defines) match your computer's file system and
+software. Also note, in tt(icmconf), the entry
         verb(
-    LOPTS="-lbobcat -lstealth -L. -s"
+    #define ADD_LIBRARIES       "bobcat"
         )
-    When compiling bf(stealth), the
-url(bobcat)(http://bobcat.sourceforge.net/) library must be available. If you
-haven't installed bf(bobcat) yet, download it from 
+
+    When compiling and s(), the
+url(bobcat)(http://bobcat.sourceforge.net/) header files must be
+available. When s() is run it is dynamically linked against the bobcat
+library. If you haven't installed bf(bobcat) yet, download it from
 lurl(http://sourceforge.net/projects/bobcat/), and follow its installation
-instructions. Make sure to install both the run-time (bf(bobcat_...)) 
-and the development (bf(bobcat-dev_...)) versions. 
+instructions (alternatively, bobcat may be available in your distribution,
+like Debian or Ubunty). Make sure to install both the run-time
+(bf(bobcat_...))  and the development (bf(bobcat-dev_...)) versions.
+
     it() Execute the command
         verb(
-    make/program
+    ./build program strip
         )
-    This command (note that it is bf(not) em(make program)!) will create the
-program bf(./tmp/bin/stealth), which may then be installed in, e.g.,
-tt(/usr/bin).
+    This command by default creates the
+program bf(./tmp/bin/binary).
+
+    it() To install s() and its documentation, several commands are available:
+        verb(
+   ./build install program [path] - installs the program as `path'
+                                (by default as `/usr/bin/stealth')
+   ./build install man [base]   - install the man pages below `base'
+                                (by default below `/usr/share/man/man1')
+   ./build install manual [base]- install the manual below `base'
+                                (by default below 
+                                    `/usr/share/doc/stealth-doc/manual')
+   ./build install std [base]   - install standard docs below `base'
+                                (by default below `/usr/share/doc/stealth')
+   ./build install extra [base] - install extra docs below `base'
+                                (by default below 
+                                    `/usr/share/doc/stealth-doc')
+        )
     )
+
+
+
+
+
+
+
+
+
+
+

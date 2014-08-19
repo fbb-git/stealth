@@ -1,0 +1,12 @@
+    The client normally uses its tt(find) command intensively: tt(find) is a
+great tool for producing reports about almost any conceivable combination of
+characteristics of sets of files. Of course, the client's tt(find) command
+must itself be OK, as well as the client's tt(sha1sum) program. Now that we
+know that the client's tt(sha1sum) program is OK, we can use it to check the
+client's tt(/usr/bin/find) program.
+
+Note that the controller itself will not suffer any processing load here: only
+the client itself is taxed for checking the intergrity of its own files:
+        verb(    LABEL \nchecking the client's /usr/bin/find program
+    CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find)
+

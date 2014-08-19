@@ -1,0 +1,21 @@
+Next, we check the received tt(sha1sum) program, using our own:
+        verb(
+    LABEL \nCheck the client's sha1sum program
+    LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
+        )
+    The tt(LABEL) command writes the label to the report file just before
+writing the tt(sha1sum) program's output.
+
+    The tt(LOCAL) command checks the sha1sum of the program copied from the
+client. The report is written on the file
+tt(/root/stealth/client/local/sha1). If this fails, s() terminates, alerting
+tt(admin@elsewhere) that the check failed. This is a serious event, as it
+indicates that either the controller's tt(sha1sum) is behaving unexpectedly or
+that the client's tt(sha1sum) program has unexpectedly changed.
+
+    The tt(sha1sum) program em(may) have changed due to a normal upgrade. If
+so, tt(admin@elsewhere) will know this, and can (probably) ignore the
+warning. The next time s() is run, the (now updated) SHA1 value is used, and
+it again compares the obtained tt(SHA1) value to the one obtained for the
+downloaded tt(sha1sum) program.
+

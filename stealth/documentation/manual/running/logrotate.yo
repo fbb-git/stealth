@@ -1,5 +1,5 @@
     A program like bf(logrotate)(1) allows its users to specify a command or
-script immediately following log-rotation, and `bf(stealth) tt(--resume
+script immediately following log-rotation, and `s() tt(--resume
 pidfile)' could be specified nicely in such a post-rotation section.
 
     Here is an example of a specification that can be used with
@@ -12,9 +12,9 @@ specification file (e.g., tt(/etc/logrotate.d/target) could be:
     itemization(
     it() Perform weekly rotations of the report file;
     it() Keep up to 12 rotated files, compressing them using bf(gzip)(1);
-    it() Before rotating the report file, bf(stealth)'s actions are
+    it() Before rotating the report file, s()'s actions are
 suppressed; 
-    it() Following the rotation, bf(stealth)'s actions are resumed
+    it() Following the rotation, s()'s actions are resumed
     )
     Note thet tt(stealth --resume xxx) will always start with another file
 integrity scan.
