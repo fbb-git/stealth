@@ -3,6 +3,6 @@
 void Stealth::logMsg(char const *label)
 {
     d_stealthLog << "STEALTH " << label << " after " << 
-            d_integrityScanner->nScans() << " scans at " << DateTime() << 
-            endl;
+            d_integrityScanner->nScans() << " scans at " << 
+                                                DateTime().rfc2822() << endl;
 }
