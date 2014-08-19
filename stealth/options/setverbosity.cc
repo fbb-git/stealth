@@ -9,20 +9,11 @@ void Options::setVerbosity(bool useSyslog, string const &logName)
                             :
                                 s_defaultVerbosity;
 
-    if (verb and d_ipc)
-    {
-        warnOption("--verbosity not used");
-        verbosityValue = 0;
-    }
-    else if (useSyslog || logName.length() != 0)
+    if (useSyslog || logName.length() != 0)
         imsg.reset(d_msg);
-    else
-    {
-        if (verb && verbosityValue != 0)
-            wmsg << "--verbosity ignored: --syslog or --log not specified" << 
-                                                                        endl;
-        verbosityValue = 0;
-    }
 
     Msg::setVerbosity(verbosityValue);
 }
+
+
+

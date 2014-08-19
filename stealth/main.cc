@@ -21,9 +21,7 @@ ArgConfig::LongOption longOption[] =
     {"max-size", Arg::Required},         // 10m by default
 
 
-    {"config", 'C'},            // : new
-
-    {"log",  'l'},              // : new
+    {"log",  'L'},              // : new
 
     {"log-mail", Arg::None},    // new
     {"no-mail", Arg::None},     // new
@@ -67,7 +65,7 @@ int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
     ArgConfig &arg = ArgConfig::initialize(
-                                "d:hL:pi:r:s:ov"
+                                "d:hL:pi:r:s:ovV:"
                                 "ecq",
                                 longOption, endLongOption, 
                                 argc, argv); 

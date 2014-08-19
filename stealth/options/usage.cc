@@ -79,7 +79,8 @@ void Options::usage(std::string const &progname)
     "      --syslog-tag tag: identifier prefixed to syslog messages. By\n"
     "                   default `" << s_defaultSyslogIdent << "')\n"
 
-    "      --verbosity value: determines the amount of logged information.\n"
+    "      --verbosity (-V) value: determines the amount of logged "
+                                                            "information.\n"
     "                   Requires --log or --syslog:\n"
     "                       0: nothing is logged\n"
     "                       1: mode reports and policy commands\n"

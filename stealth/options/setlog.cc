@@ -3,7 +3,7 @@
 string Options::setLog()
 {
     string logName;
-    if (d_arg.option(&logName, 'l'))
+    if (d_arg.option(&logName, 'L'))
     {
         d_log.open(logName);
         if (not d_log)
