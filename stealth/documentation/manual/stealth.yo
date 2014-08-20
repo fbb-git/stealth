@@ -47,7 +47,7 @@ chapter(Introduction)
 chapter(Installation)
 includefile(install/intro)
 
-    sect(Compiling and installing Stealth)
+    lsect(COMPILING)(Compiling and installing Stealth)
     includefile(install/compile)
 
 chapter(The `policy' file)
@@ -82,6 +82,9 @@ includefile(running/intro)
 
     sect(Installing `stealth')
     includefile(running/installing)
+
+    lsect(OPTIONS)(Stealth command-line and policy file options)
+    includefile(running/options)
     
     sect(Construct one or more policy files)
     includefile(running/makepolicy)
@@ -139,8 +142,6 @@ includefile(running/intro)
     sect(Automating repeated `stealth' runs)
     includefile(running/cron)
 
-COMMENT(===================)
-
     lsect(ROTATE)(Report File Rotation)
     includefile(running/rotate)
 
@@ -159,9 +160,3 @@ includefile(usage)
 
 chapter(Errormessages)
 includefile(errors)
-
-
-
-
-
-

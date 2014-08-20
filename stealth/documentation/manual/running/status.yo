@@ -1,12 +1,12 @@
-    Whenever s() is run and it encounters a modified situation the
-already existing status file that is used to summarize that particular
-situation is saved and a new status file is created. Eventually, this will
-result in many status files. While report files can be rotated, it is
-pointless to rotate old status files, since they never are modified. Instead
-status files exceeding a certain age could be removed and more recent files
-might be zipped to conserve space. In s()'s binary distribution the
-file tt(/usr/share/doc/stealth/usr/bin/stealthcleanup) is provided which can
-be used to perform this cleanup. The script expects one argument: a resource
+    Whenever s() is run and it encounters a modified situation the already
+existing status file summarizing that particular situation is saved and a new
+status file is created. Eventually, this will result in many status
+files. While report files can be rotated, it is pointless to rotate old status
+files, since they are never modified. Instead, status files exceeding a
+certain age could be removed and more recent files might be zipped to conserve
+space. In s()'s binary distribution the file
+tt(/usr/share/doc/stealth/usr/bin/stealthcleanup) is provided which can be
+used to perform such a cleanup. The script expects one argument: a resource
 file defining the following shell variables:
     itemization(
     it() tt(directories): the directories below which the status files are
@@ -16,8 +16,8 @@ file defining the following shell variables:
     it() tt(rmdays): the maximum age (in days) of compressed status
         files. Files exceeding this age are removed using bf(rm)(1).
     )
-    Here is the tt(stealthcleanup) script as it is found in the binary distribution's
-tt(/usr/share/doc/stealth/usr/bin) directory:
+    Here is the tt(stealthcleanup) script as contained in the binary
+distribution's tt(/usr/share/doc/stealth/usr/bin) directory:
         verbinclude(../../../share/usr/bin/stealthcleanup)
     Assuming that the status files are written in
 tt(/var/stealth/target/local) and tt(/var/stealth/target/remote); that status
@@ -28,9 +28,7 @@ the resource file is:
 tt(/etc/stealth/cleanup.rc) and the tt(stealthcleanup) script itself in
 tt(/usr/bin/stealthcleanup), the tt(stealthcleanup) script could be called
 as follows:
-        verb(
-    /usr/bin/stealthcleanup /etc/stealth/cleanup.rc
-        )
+        verb(    /usr/bin/stealthcleanup /etc/stealth/cleanup.rc)
     Note that tt(stealthcleanup) may be called whether or not there are active
 s() processes, as s() does not use status files anymore once
 they have been written.

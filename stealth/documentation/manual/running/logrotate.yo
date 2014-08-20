@@ -10,11 +10,11 @@ specification file (e.g., tt(/etc/logrotate.d/target) could be:
         verbinclude(../../../share/etc/logrotate.d/target)
     Using this specification file, bf(logrotate)(1) will 
     itemization(
-    it() Perform weekly rotations of the report file;
-    it() Keep up to 12 rotated files, compressing them using bf(gzip)(1);
-    it() Before rotating the report file, s()'s actions are
+    it() perform weekly rotations of the report file;
+    it() keep up to 12 rotated files, compressing them using bf(gzip)(1);
+    it() suspend the s() daemon, before rotating its report file;
 suppressed; 
-    it() Following the rotation, s()'s actions are resumed
+    it() following the rotation, s()'s actions are resumed.
     )
-    Note thet tt(stealth --resume xxx) will always start with another file
-integrity scan.
+    Note thet tt(stealth --resume xxx) always initiates another file integrity
+scan.
