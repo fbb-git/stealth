@@ -1,0 +1,23 @@
+    If the client's tt(sha1sum) program itself is altered, a serious situation
+has developed. In that case, further actions by s() would be suspect, as their
+results might easily be currupted. Additional checks em(will) be performed,
+but a warning is generated on the tt(report) file (and in the mail sent to
+tt(admin@elsewhere):
+        verb(    STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:13:38 +0000
+
+    Check the client's sha1sum program
+    MODIFIED: /root/tmp/sha1sum
+        < fc62fc774999584f1e29e0f94279a652  /root/tmp/sha1sum
+        > 45251e259bfaf1951658a7b66c328c52  /root/tmp/sha1sum
+    
+    *** BE CAREFUL *** REMAINING RESULTS MAY BE FORGED
+    
+    configuration files under /etc
+    REMOVED: /etc/motd.org
+        > 945d0b8208e9861b8f9f2de155e619f9  /etc/motd.org
+    MODIFIED: /etc/motd
+        < 945d0b8208e9861b8f9f2de155e619f9  /etc/motd
+        > 7f96195d5f051375fe7b523d29e379c1  /etc/motd)
+    (The report shows the removal of the previously added file tt(motd.org),
+and the modification of tt(motd). These are real, as the original tt(motd)
+file, modified earlier, was restored at this point).

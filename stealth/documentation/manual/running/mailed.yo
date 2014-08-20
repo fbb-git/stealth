@@ -1,0 +1,17 @@
+The tt(/root/bin/stealthmail) script is called with the following arguments:
+        verb(    "Client STEALTH report" admin@elswhere)
+
+The mailed report contains information comparable to this:
+        verb(    STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:06:50 +0000
+        
+    Check the client's sha1sum program
+    Initialized report on local/sha1
+    
+    checking the client's /usr/bin/find program
+    Initialized report on remote/binfind
+    
+    suid/sgid/executable files uid or gid root on the / partition     
+    Initialized report on remote/setuidgid
+    
+    configuration files under /etc
+    Initialized report on remote/etcfiles)

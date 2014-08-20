@@ -1,56 +1,22 @@
-    In order to automate the execution of s(), a file
+    To automate s()'s  integrity scans, a file
 tt(/etc/cron.d/stealth) could be created, containing a line like
-(assuming s() lives in tt(/usr/bin)): 
         verb(
     2,17,32,47 * * * *  root    test -x /usr/bin/stealth && \ 
                                 /usr/bin/stealth -q /root/stealth/client.pol
         )
-    This will start s() 2 minutes after every hour. Alternate schemes
-are left to the reader to design.
+    This starts s() 2 minutes after every hour. In this example the ssh-key
+must not require a passphrase, as bf(crontab)(1) cannot provide passphrases of
+ssh-keys. Ssh-keys requiring passphrases can, however, be used if repeated 
+s() runs are controlled  by a program like bf(ssh-cron)(1).
 
-    In general, randomizing events makes it harder to notice them.
-s() may start its tasks at a random point in time if its
-tt(-i) flag (for em(random interval)) is used. This flag expects an argument
-in seconds (or in minutes, if at least an tt(m) is appended to the interval
-specification). Somewhere between the time s() starts and the
-specified interval the scan will commence. For example, the following two
-commands have identical effects: the scan is started somewhere between the
-moment s() was started and 5 minutes:
-        verb(
-    stealth -i 5min -q /root/stealth/client.pol
-    stealth -i 300  -q /root/stealth/client.pol
-        )
-    When the tt(-d) flag is given, the tt(-i) flag has no effect.
+    In general, randomized events are harder to notice. For this s()'s daemon
+mode offers the tt(--repeat) and tt(--random-interval) flags. The latter flag
+expects an argument in seconds (or in minutes, if an tt(m) is appended to the
+interval specification). After each integrity scan the next integrity scan
+starts after the time interval specified by the tt(--repeat) option plus a
+random time interval until the interval specified by the tt(--random-interval)
+specification. For example, the s() daemon started by the following command
+repeatedly performs integrity scans between two and five minutes after the
+last integrity scan completed:
+        verb(    stealth -d /var/run/client.pid -r 120 -i 3m /root/stealth/client.pol)
 
-    As another alternative, s() my be started specifying the
-tt(--daemon pidfile) option. Here, tt(pidfile) is the name of a file that
-will contain the process id of the stealth process running in the background.
-For example:
-        verb(    
-    stealth --daemon /var/run/stealth -i 300  -q /root/stealth/client.pol
-        )
-    Now, bf(cron)(1) may be used to restart this process at indicated times:
-        verb(
-    2,17,32,47 * * * *  root    test -x /usr/bin/stealth && \ 
-                                   /usr/bin/stealth --rerun /var/run/stealth
-        )
-    
-    As yet another alternative, the cron-job may activate a script performing
-s()'s rerun, starting another s() run if necessary. The
-advantage of such an approach is that s() is automatically started
-after, e.g., a reboot. The following script expects two arguments (both of
-which must be absolute paths). The first argument is the path to the
-em(pidfile) to use, the second argument is the path to the policy file to
-use. The script is found in the distribution package as
-tt(/usr/share/doc/stealth/usr/bin/stealthcron): 
-        verbinclude(../../../share/usr/bin/stealthcron)
-    The script could be called from tt(/etc/cron.d/stealth) using a line like
-        verb(
-22  8  * * * root test -x /usr/bin/stealthcron && /usr/bin/stealthcron
-        /var/run/stealth.target /usr/share/stealth/target.pol
-        )
-    Note that the command should be on a single line. It was spread out here 
-over two lines to enhance readability. Also note that the directory
-tt(/var/run) is usually not writable to non-root users. If tt(stealth) is used
-by a non-root user another directory should be used to store
-tt(stealth.target) in. 

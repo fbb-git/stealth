@@ -113,23 +113,33 @@ includefile(running/intro)
         subsect(The complete `policy' file)
         includefile(running/policy)
 
-COMMENT(================)
-
     sect(Running `stealth' for the first time)
     includefile(running/firstrun)
 
-    sect(Running `stealth' again)
+        subsect(The mailed report)
+        includefile(running/mailed)
+
+        subsect(Files under /root/stealth/client)
+        includefile(running/files)
+
+    sect(Subsequent `stealth' runs)
+
         subsect(All files unaltered)
         includefile(running/newrunsame)
 
-        subsect(Modifications have occurred)
+        subsect(Modifications occurred)
         includefile(running/newrundelta)
+
+        subsect(Failing LOCAL commands)
+        includefile(running/failing)
 
         subsect(Skipping (some) integrity checks)
         includefile(running/skipping)
 
-    sect(Automating `stealth' runs using `cron')
+    sect(Automating repeated `stealth' runs)
     includefile(running/cron)
+
+COMMENT(===================)
 
     lsect(ROTATE)(Report File Rotation)
     includefile(running/rotate)
@@ -150,6 +160,8 @@ includefile(usage)
 chapter(Errormessages)
 includefile(errors)
 
-END)
+
+
+
 
 
