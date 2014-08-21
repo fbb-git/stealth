@@ -31,6 +31,6 @@ void PolicyFile::fetchCommands()
     }
 
     if (!ok)
-        fmsg << "USE SSH ... entry missing in the configuration file" << endl;
+        fmsg << "USE SSH ... entry missing in the policy file" << endl;
 }
 
