@@ -75,7 +75,7 @@ command. If incompatible options are specified s() terminates after reporting
 which (incompatible) options were received.)
 
     tt(--max-size <value>: invalid option value)
-    qutoe(An invalid specification for tt(--max-size) was received. Refer to
+    quote(An invalid specification for tt(--max-size) was received. Refer to
 the man-page or manual for information about valid options.)
 
     tt(No exit value for <cmd> ...)
