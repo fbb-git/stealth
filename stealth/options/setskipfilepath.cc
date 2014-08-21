@@ -6,8 +6,5 @@ void Options::setSkipFilePath()
         return;
 
     if (d_ipc)
-    {
-        warnOption("--skip-files ignored");
-        d_skipFilePath.clear();
-    }
+        fmsg << "--skip-files incompatible with IPC calls" << endl;
 }

@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::loadConfigFile()
+void Options::loadPolicyOptions()
 {
     if (d_ipc)
         return;

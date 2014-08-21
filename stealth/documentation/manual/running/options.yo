@@ -21,8 +21,10 @@ section of the policy file.
         configured in the policy-file (tt(--logmail) can be specified
         independently from tt(--no-mail));
     it() tt(--parse-policy-file (-p)): (C) parse the policy file, after which
-        s() ends.  Specify once to see the numbered commands; twice to add the
-        policy file parsing steps.  Results are written to the std. output.
+        s() ends.nl()
+        Specify once to see the numbered commands;nl()
+        twice to see the policy file parsing steps as well.nl()
+        Results are written to the std. output.
     it() tt(--random-interval (-i) <interval>[m]>): start the scan a random
         interval of <interval> seconds (or minutes if an `m' is appended (no
         blanks) to <interval>) following the delay specified at tt(--repeat)

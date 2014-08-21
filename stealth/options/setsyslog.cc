@@ -6,10 +6,7 @@ bool Options::setSyslog()
         return false;
 
     if (d_ipc)
-    {
-        warnOption("--syslog* options not used");
-        return false;
-    }
+        fmsg << "--syslog* options incompatible with IPC calls" << endl;
 
     d_syslog.reset(
                 new SyslogStream(

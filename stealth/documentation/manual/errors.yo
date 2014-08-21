@@ -74,6 +74,13 @@ a time. E.g., you cannot specify tt(--daemon --rerun --suspend) in one
 command. If incompatible options are specified s() terminates after reporting
 which (incompatible) options were received.)
 
+    tt(--max-size incompatible with IPC calls)
+    quote(The tt(--max-size) option can can only be used when s() is also
+receiving a policy file. It cannot be used in combination with the Inter
+Process Communication (IPC) options tt(--reload, --rerun, --resume, --suspend)
+or tt(--terminate).
+    )
+
     tt(--max-size <value>: invalid option value)
     quote(An invalid specification for tt(--max-size) was received. Refer to
 the man-page or manual for information about valid options.)
@@ -86,6 +93,11 @@ terminates.
     tt(--<option name> is only valid for a stealth foreground process)
     quote(The specified option is incompatible with the tt(--daemon)
 option. Either do not specify tt(--daemon) or omit the offending option.)
+
+    tt(--random-interval requires --repeat)
+    quote(The tt(--random-interval) option can only be used when the
+tt(--repeat) option has also been specified.
+    )
 
     tt(--repeat requires --daemon)
     quote(The specified option requires the tt(--daemon)
@@ -108,11 +120,38 @@ positive, integral value at most equal to the number of commands listed in the
 policy file.
     )
 
+    tt(--skip-files incompatible with IPC calls)
+    quote(The tt(--skip-files) option can only be used when s() is also
+receiving a policy file. It cannot be used in combination with the Inter
+Process Communication (IPC) options tt(--reload, --rerun, --resume, --suspend)
+or tt(--terminate).
+    )
+
+    tt(Stealth V _CurVers_ terminated)
+    quote(Some pre-3.00.00 options were discontinued starting at s() version
+3.00.00. Two of these options are tt(--suppress) and tt(--keep-alive). If
+these options are used, their use is reported and s() terminates with the
+above message.
+    )
+
+    tt(--stdout incompatible with --daemon)
+    quote(The tt(--stdout) option can only be used when s() is not started as
+a daemon process.
+    )
+
     tt(syslog facility <facility> not supported)
     quote(The option tt(--syslog-facility) requires the name of a standard
 bf(syslog)(1) facility. Supported facilities are tt(DAEMON, LOCAL0) through
 tt(LOCAL7) and tt(USER). See, e.g., the bf(syslog)(3) man-page for an overview
 of their definitions.)
+
+    tt(--syslog* options incompatible with IPC calls)
+    quote(tt(--syslog*) options can can only be used when s() is also
+receiving a policy file. It cannot be used in combination with the Inter
+Process Communication (IPC) options tt(--reload, --rerun, --resume, --suspend)
+or tt(--terminate).
+    )
+
 
     tt(syslog priority <priority> not supported)
     quote(The option tt(--syslog-priority) requires the name of a standard

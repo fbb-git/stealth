@@ -9,10 +9,7 @@ void Options::setRandomDelay()
         return;
 
     if (not d_repeat)
-    {
-        wmsg << "--random-interval requires --repeat" << endl;
-        return;
-    }
+        fmsg << "--random-interval requires --repeat" << endl;
 
     try
     {

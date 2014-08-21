@@ -44,8 +44,8 @@ void Options::usage(std::string const &progname)
 
     "      --parse-policy-file (-p): (C) parse the policy file, no further "
                                                                 "action.\n"
-    "                   Specify once to see the numbered commands, twice to\n"
-    "                   add the policy file parsing steps.\n"
+    "                   Specify once to see the numbered commands,\n"
+    "                   twice to see the policy file parsing steps as well.\n"
     "                   Results to std output.\n"
 
     "      --random-interval (-i) value: start integrity scans within\n"
@@ -64,9 +64,9 @@ void Options::usage(std::string const &progname)
     "                   files having their absolute path names listed in "
                                                                 "`path'\n"
 
-    "      --stdout (-o): messages are (also) written to stdout (not "
-                                                                "available\n"
-    "                   for --daemon)\n"
+    "      --stdout (-o): messages are (also) written to stdout "
+                                                        "(incompatible\n"
+    "                   with the --daemon option)\n"
 
     "      --syslog: write syslog messages\n"
 

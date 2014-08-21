@@ -21,7 +21,7 @@ Options::Options()
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)
                                                         
-    loadConfigFile();           // load any configuration options from the
+    loadPolicyOptions();        // load any configuration options from the
                                 // policy file into ArgConfig
 
     setMail();                  // sets log-mail and no-mail
@@ -34,14 +34,3 @@ Options::Options()
     setRandomDelay();
     setDownloadSize();
 }       
-
-
-
-
-
-
-
-
-
-
-

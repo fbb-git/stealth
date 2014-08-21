@@ -55,18 +55,16 @@ void Options::oldOptions() const
 
     if (nOld != 0)
     {
-        cerr << "\n" <<
+        wmsg << "\n" <<
             basename() << " V" << Icmbuild::version << "\n"
             "Obsoleted option(s):\n" <<
             msg.str();
 
         if (usedKeepAlive or usedSuppress)
-        {
-            cerr << basename() << " V" << Icmbuild::version << " terminated\n";
-            throw 1;
-        }
-        
-        cerr << endl;
+            fmsg << basename() << " V. " << Icmbuild::version << 
+                                                        " terminated" << endl;
+        else
+            wmsg << flush;
     }
 }
 

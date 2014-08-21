@@ -6,10 +6,7 @@ void Options::setDownloadSize()
         return;
 
     if (d_ipc)
-    {
-        warnOption("--max-size ignored");
-        return;
-    }
+        fmsg << "--max-size incompatible with IPC calls" << endl;
 
     size_t pos;
     try
