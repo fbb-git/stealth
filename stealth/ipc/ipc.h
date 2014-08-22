@@ -15,6 +15,7 @@ class IPC: public StealthEnums
     Options        &d_options;
     FBB::Selector   d_selector;
     std::string     d_requestText;
+    size_t          d_requestorPid;
     bool            d_timeout = false;
 
     static FBB::LinearMap<std::string, Mode> const s_request;
@@ -23,11 +24,15 @@ class IPC: public StealthEnums
         IPC();
                                             // always returns true, or
         bool signalDaemon();                // throws exception on failure
-        StealthEnums::Mode request();  
+
+        StealthEnums::Mode request();       // retrieve the request/msg and 
+                                            // requestor's pid
         std::string const &requestText() const;
 
-        void wait();                        // wait until signaled
+        void sendRequestor(std::string const &msg);
 
+        void wait(bool doM2 = true);        // wait until signaled
+        
         void timedWait();                   // wait until signaled or wait
                                             // until time has passed
         bool timeout() const;               // true if timedWait's waiting
@@ -35,14 +40,14 @@ class IPC: public StealthEnums
 
         void writeRunFile(pid_t pid);
 
+        void write(std::string const &msg) const;   // write msg and own pid
+                                                    // to the runfile
         
     private:
         void sleep();                       // sleep until wakeup
 
         size_t daemonPid() const;
-        void sendSignal(ModeInfo const &info, pid_t pid);
-        void write(char const *request) const;
-
+        void sendRequest(char const *request, pid_t pid);
 };
 
 inline bool IPC::timeout() const

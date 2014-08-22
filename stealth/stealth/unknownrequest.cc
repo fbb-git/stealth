@@ -3,7 +3,7 @@
 void Stealth::unknownRequest()
 {
     ostringstream msg;
-    msg << "request `" << d_ipc.requestText() << "' not supported";
+    msg << "received undefined request `" << d_ipc.requestText() << '\'';
 
     m2 << msg << endl;
     d_stealthLog << msg << endl;

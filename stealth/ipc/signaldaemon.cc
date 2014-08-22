@@ -4,14 +4,13 @@ bool IPC::signalDaemon()
 {
     size_t pid = daemonPid();    // get the pid of the daemon to signal 
 
-    auto const &info = d_options.modeInfo();    // requestname, signal(name)
+    char const *request = d_options.modeRequest();
 
-    write(info.modeTxt);
+    write(request);
 
-    m2 << "Sending signal " << info.signalTxt << " to process " << pid << 
-                                                                        endl;
+    m2 << "Sending signal SIGUSR1 to process " << pid << endl;
 
-    sendSignal(info, pid);
+    sendRequest(request, pid);
 
     return true;
 }

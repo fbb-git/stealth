@@ -8,13 +8,13 @@ char const Options::s_defaultSyslogIdent[]      = "STEALTH";
 Facility Options::s_defaultSyslogFacility   = Facility::DAEMON;
 Priority Options::s_defaultSyslogPriority   = Priority::NOTICE;
 
-LinearMap<Options::Mode, Options::ModeInfo> const Options::s_modeInfo = 
+LinearMap<Options::Mode, char const *> const Options::s_modeName = 
     {
-        {RELOAD,    {SIGUSR1, "SIGUSR1", "reload"}},
-        {RERUN,     {SIGUSR1, "SIGUSR1", "rerun"}},
-        {SUSPEND,   {SIGUSR1, "SIGUSR1", "suspend"}},
-        {RESUME,    {SIGUSR1, "SIGUSR1", "resume"}},
-        {TERMINATE, {SIGTERM, "SIGTERM", "terminate"}}
+        {RELOAD,    "reload"},
+        {RERUN,     "rerun"},
+        {SUSPEND,   "suspend"},
+        {RESUME,    "resume"},
+        {TERMINATE, "terminate"}
     };
 
 LinearMap<string, Facility> const Options::s_syslogFacilities = 

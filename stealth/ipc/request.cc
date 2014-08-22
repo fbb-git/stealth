@@ -7,7 +7,7 @@ StealthEnums::Mode IPC::request()
 
     runFile.ignore(numeric_limits<int>::max(), '\n');
 
-    runFile >> d_requestText;
+    getline(runFile, d_requestText) >> d_requestorPid;
 
     auto iter = s_request.find(d_requestText);
 

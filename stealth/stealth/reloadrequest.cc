@@ -3,7 +3,11 @@
 void Stealth::reloadRequest()
 {
     if (d_run.mode(INTEGRITY_SCAN | WAIT | SUSPEND))
-        d_run.setMode(RELOAD);
+        acceptMode(RELOAD);
     else
-        m2 << "ignored --reload in mode " << d_run.modeName() << endl;
+        deniedMode("--reload");
 }
+
+
+
+

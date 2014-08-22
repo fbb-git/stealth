@@ -71,7 +71,7 @@ struct Options: public StealthEnums
     static FBB::LinearMap<std::string, FBB::Priority> const 
                                                         s_syslogPriorities;
 
-    static FBB::LinearMap<Mode, ModeInfo> const         s_modeInfo;
+    static FBB::LinearMap<Mode, char const *> const         s_modeName;
 
     public:
         static Options &instance();
@@ -96,7 +96,7 @@ struct Options: public StealthEnums
         bool dryrun() const;
 
         Mode mode() const;
-        ModeInfo const &modeInfo() const;
+        char const *modeRequest() const;
 
         size_t commandNr() const;
         size_t randomAddition() const;
@@ -155,9 +155,9 @@ inline Options::Mode Options::mode() const
     return d_mode;
 }
 
-inline Options::ModeInfo const &Options::modeInfo() const
+inline char const *Options::modeRequest() const
 {
-    return s_modeInfo.find(d_mode)->second;
+    return s_modeName.find(d_mode)->second;
 }
 
 inline bool Options::sendMail() const

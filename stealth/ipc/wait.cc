@@ -1,15 +1,17 @@
 #include "ipc.ih"
 
-void IPC::wait()
+void IPC::wait(bool doM2)
 {
     try
     {
-        m2 << "waiting..." << endl;
+        if (doM2)
+            m2 << "waiting..." << endl;
         d_selector.wait();              // bobcat's selector throws an
                                         // Exception on negative returns
     }
     catch(...)
     {}
 
-    m2 << "continuing after wait" << endl;
+    if (doM2)
+        m2 << "continuing after wait" << endl;
 }

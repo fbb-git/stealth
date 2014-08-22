@@ -3,7 +3,7 @@
 void Stealth::rerunRequest()
 {
     if (d_run.mode(WAIT))
-        d_run.setMode(INTEGRITY_SCAN);
+        acceptMode(INTEGRITY_SCAN);
     else
-        m2 << "ignored --rerun in mode " << d_run.modeName() << endl;
+        deniedMode("--rerun");
 }

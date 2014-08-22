@@ -49,6 +49,8 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
             void reloadRequest();
             void terminateRequest();
             void unknownRequest();
+            void acceptMode(Mode mode);
+            void deniedMode(char const *request);
 
         void logMsg(char const *label);
 
