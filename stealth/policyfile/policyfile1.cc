@@ -1,8 +1,8 @@
 #include "policyfile.ih"
 
-PolicyFile::PolicyFile(string const &confPath)
+PolicyFile::PolicyFile(string const &policyPath)
 :
-    d_confPath(confPath)
+    d_policyPath(policyPath)
 {
     reload();
 }

@@ -2,7 +2,7 @@
 
 void Stealth::childProcess()
 {
-    prepareDaemon();
+    prepareDaemon();                // by Fork.
 
     doChores();    
 

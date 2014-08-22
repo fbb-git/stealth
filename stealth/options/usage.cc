@@ -84,8 +84,8 @@ void Options::usage(std::string const &progname)
     "                   Requires --log or --syslog:\n"
     "                       0: nothing is logged\n"
     "                       1: mode reports and policy commands\n"
-    "                       2: ipc commands and actions\n"
-    "                       3: integrity scan informative messages\n"
+    "                       2: also: ipc commands and actions\n"
+    "                       3: also: integrity scan informative messages\n"
 
     "      --version (-v): (C) show version information and terminate\n"
 

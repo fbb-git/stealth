@@ -2,7 +2,8 @@
 
 void Stealth::policyDepDataMembers()
 {
-    d_policyFile.reset(   new PolicyFile(d_options.policyFilePath()) );
+    d_policyFile.reset(   new PolicyFile(d_options.policyFilePath()) 
+                        );
 
     d_stealthLog.open((*d_policyFile)["REPORT"]);
 
@@ -11,13 +12,7 @@ void Stealth::policyDepDataMembers()
                                     d_run, *d_policyFile, d_stealthLog
                                 )  
                             );
+
 }
-
-
-//    handleKeepAliveOption();                        // maybe not needed ??  
-//    d_repeatInterval = d_options.repeatInterval();      
-//    if (d_options.randomDelay()))
-//        s_delayInterval = d_options.delayInterval();
-
 
 

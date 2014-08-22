@@ -8,7 +8,7 @@
 void Stealth::processPolicy()
 {
     if (d_options.daemon())
-        fork();
-    else
+        fork();                 // creates the daemon. Its childProcess
+    else                        // does the chores.
         doChores();
 }

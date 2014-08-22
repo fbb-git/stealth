@@ -2,7 +2,7 @@
 
 void PolicyFile::reload()
 {
-    d_configfile.open(d_confPath);
+    d_configfile.open(d_policyPath);
 
     d_use = LinearMap(
                 &s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords]
@@ -23,7 +23,13 @@ void PolicyFile::reload()
         fmsg << "Can't chdir to `" << cp << '\'' << endl;
 
     base.resize(base.length() - 1);         // cut off the . again
+
+    m2 << "(re)loaded the policy file `" << d_policyPath << '\'' << endl;
 }
+
+
+
+
 
 
 

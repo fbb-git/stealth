@@ -74,8 +74,8 @@ section of the policy file.
         values are:nl()
                          0: nothing is logged+nl()
                          1: mode reports and policy commands+nl()
-                         2: ipc commands and actions+nl()
-                         3: integrity scan informative messages
+                         2: also: ipc commands and actions+nl()
+                         3: also: integrity scan informative messages
     it() tt(--version (-v)): (C) Display s()'s version information and
         terminate;
     )

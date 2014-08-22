@@ -47,6 +47,7 @@ struct Options: public StealthEnums
     size_t d_delayInterval = 0;
     size_t d_commandNr = 0;
     size_t d_parsePolicy = 0;
+    size_t d_verbosity;
 
     std::streamsize d_maxDownloadSize = 10 * 1024 * 1024;   // 10 MB
 
@@ -97,16 +98,18 @@ struct Options: public StealthEnums
         Mode mode() const;
         ModeInfo const &modeInfo() const;
 
-        size_t repeatInterval() const;
-        size_t randomAddition() const;
         size_t commandNr() const;
+        size_t randomAddition() const;
+        size_t repeatInterval() const;
+        size_t verbosity() const;
+
         std::streamsize maxDownloadSize() const;
 
+        std::string const &basename() const;
         std::string const &maxSizeStr() const;
         std::string const &policyFilePath() const;
-        std::string const &skipFilePath() const;
-        std::string const &basename() const;
         std::string const &runFile() const;
+        std::string const &skipFilePath() const;
 
         static void usage(std::string const &progname);
 
@@ -141,6 +144,11 @@ struct Options: public StealthEnums
 
         void foregroundOnly(char const *optionName) const;
 };
+
+inline size_t Options::verbosity() const
+{
+    return d_verbosity;
+}
 
 inline Options::Mode Options::mode() const
 {

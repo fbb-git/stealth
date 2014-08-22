@@ -58,7 +58,7 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
 
         void doChores();            // run all scanning (related) tasks 
             void policyDepDataMembers();
-            void setupSignals();
+            void defineSupportedSignals();
 
             void processRequests();
                 void process(Mode request);     // process one single request

@@ -2,9 +2,9 @@
 
 bool IPC::signalDaemon()
 {
-    size_t pid = getPid();    // get the pid of the process to signal 
+    size_t pid = daemonPid();    // get the pid of the daemon to signal 
 
-    auto const &info = d_options.modeInfo();
+    auto const &info = d_options.modeInfo();    // requestname, signal(name)
 
     write(info.modeTxt);
 

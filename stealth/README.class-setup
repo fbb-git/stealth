@@ -5,8 +5,8 @@ Options:    singleton, prepares all options received either on the command
             line or found in the policy file. Ends the program if incompatible
             options were specified. Initialized by Stealth::Stealth()
 
-PolicyFile: processes (through its member 'reload') the first section of the
-            policy file.
+PolicyFile: analyzes and stores the information found in the first section of
+            the policy file (through its member 'reload').
 
 IPC:        handles the runfile (pid file): requests are written to the
             runfile followed by signaling the daemon through its member
@@ -27,31 +27,3 @@ Msg:        m1..m3 insert messages depending on verbosity level. mp is used
 StealthEnums: struct StealthEnums is empty, defining the enum Mode and the
             Mode | Mode operator.
 
-===============================================================
-
-    stealth:        uses:   bobcat
-                            IOFork
-                            ConfigSorter
-                            Scanner
-                            Monitor
-
-Classes:
-========
-
-    ConfigSorter:   uses:   bobcat
-
-    IOFork:         uses:   bobcat
-
-    Reporter:       uses:   bobcat
-
-    Scanner:        uses:   bobcat
-                            ConfigSorter
-                            IOFork
-                            Reporter
-  
-    Monitor:        uses:   bobcat
-                            ConfigSorter
-                            IOFork
-                            Reporter
-                            Scanner
-                                                      

@@ -15,7 +15,7 @@ class PolicyFile
 {
         typedef FBB::LinearMap<std::string, std::string> LinearMap;
 
-        std::string                     d_confPath;
+        std::string                     d_policyPath;
         FBB::ConfigFile                 d_configfile;
         std::vector<std::string>        d_command;
 
@@ -30,7 +30,7 @@ class PolicyFile
                                                 // [1]: all ${NAME} text
                                                 // [2]: NAME itself
     public:
-        PolicyFile(std::string const &confPath);
+        PolicyFile(std::string const &policyPath);
 
         void reload();
 

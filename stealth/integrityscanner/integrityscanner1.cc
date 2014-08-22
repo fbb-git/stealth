@@ -41,6 +41,7 @@ IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile,
 
     loadSkipFiles();                    
 
+    m2 << "(re)constructed the Integrity Scanner" << endl;
     m3 << "max. download size: " << d_options.maxSizeStr() << endl;
 }
 

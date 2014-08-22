@@ -2,6 +2,6 @@
 
 void Stealth::terminate()
 {
-    logMsg("was terminated");
+    logMsg("terminates");
     d_run.setMode(LEAVE);
 }

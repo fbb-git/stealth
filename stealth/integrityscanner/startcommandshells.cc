@@ -19,4 +19,7 @@ void IntegrityScanner::startCommandShells()
     waitForSentinel(d_sshFork);  // continue after reading 
 
     m3 << d_policyFile["SSH"] << " appears to be functioning well" << endl;
+
+    if (d_options.verbosity() != 3)
+        m2 << "Integrity Scanner command shells activated" << endl;
 }

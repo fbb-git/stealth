@@ -4,7 +4,7 @@ void Options::setVerbosity(bool useSyslog, string const &logName)
 {
     string verbosity;
     bool verb;
-    size_t verbosityValue = (verb = d_arg.option(&verbosity, 'V')) ?
+    d_verbosity = (verb = d_arg.option(&verbosity, 'V')) ?
                                 stoul(verbosity)
                             :
                                 s_defaultVerbosity;
@@ -12,7 +12,7 @@ void Options::setVerbosity(bool useSyslog, string const &logName)
     if (useSyslog || logName.length() != 0)
         imsg.reset(d_msg);
 
-    Msg::setVerbosity(verbosityValue);
+    Msg::setVerbosity(d_verbosity);
 }
 
 

@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::setupSignals()
+void Stealth::defineSupportedSignals()
 {
     Signal &signal = Signal::instance();
 

@@ -39,7 +39,7 @@ class IPC: public StealthEnums
     private:
         void sleep();                       // sleep until wakeup
 
-        size_t getPid() const;
+        size_t daemonPid() const;
         void sendSignal(ModeInfo const &info, pid_t pid);
         void write(char const *request) const;
 
