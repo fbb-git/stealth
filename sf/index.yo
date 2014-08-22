@@ -7,7 +7,7 @@ COMMENT(
     scp index.html fbb@shell.sourceforge.net:/home/groups/s/st/stealth/htdocs/
 )
 
-mailto(fbbrokken@users.sourceforge.net)
+mailto(f.b.brokken@rug.nl)
 
 affiliation(Center for Information Technology, University of Groningen)
 
