@@ -4,7 +4,7 @@
 // exist and the pid stored in the lock-file must be the process-id of an
 // existing Stealth program. 
 
-size_t IPC::daemonPid() const
+void IPC::readDaemonPid()
 {
     ifstream in;
 
@@ -17,7 +17,7 @@ size_t IPC::daemonPid() const
     if (not (in >> pid))
         fmsg << "daemonPid: Can't read `" << runFile << '\'' << endl;
 
-    return pid;
+    d_daemonPid = pid;
 }
 
 

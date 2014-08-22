@@ -10,9 +10,12 @@ bool Stealth::contactPeer()
     
     if (d_ipc.signalDaemon())
     {
-        d_ipc.wait(false);         // false: don't log through m2
+        d_ipc.timedWait(s_contactPeerWaitSeconds);
 
-        if (d_ipc.requestText() != "OK")
+        if (d_ipc.timeout())
+            cout << "No reply from daemon (pid " << d_ipc.daemonPid() << 
+                                                        ')' << endl;
+        else if (d_ipc.requestText() != "OK")
             cout << d_ipc.requestText() << endl;
         
         return true;

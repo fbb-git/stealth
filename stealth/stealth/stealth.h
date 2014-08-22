@@ -17,6 +17,8 @@ class Options;
 
 class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
 {
+    static size_t const s_contactPeerWaitSeconds = 3;
+
     Options &d_options;
     IPC d_ipc;
 

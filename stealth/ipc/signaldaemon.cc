@@ -2,15 +2,15 @@
 
 bool IPC::signalDaemon()
 {
-    size_t pid = daemonPid();    // get the pid of the daemon to signal 
+    readDaemonPid();               // get the pid of the daemon to signal 
 
     char const *request = d_options.modeRequest();
 
     write(request);
 
-    m2 << "Sending signal SIGUSR1 to process " << pid << endl;
+    m2 << "Sending signal SIGUSR1 to process " << d_daemonPid << endl;
 
-    sendRequest(request, pid);
+    sendRequest(request, d_daemonPid);
 
     return true;
 }
