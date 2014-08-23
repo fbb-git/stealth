@@ -31,8 +31,8 @@ the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
 
-    Example:nl()
-    tt(GET /usr/bin/sha1sum /tmp)nl()
+    Example:
+    verb(    GET /usr/bin/sha1sum /tmp)
     The program tt(/usr/bin/sha1sum), available at the client, is copied to
 the controller's tt(/tmp) directory. If copying fails for some reason, any
 subsequent commands are skipped, and s() terminates.
@@ -45,8 +45,8 @@ the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
 
-    Example:nl()
-    tt(GET NOTEST /usr/bin/sha1sum /tmp)nl()
+    Example:
+    verb(    GET NOTEST /usr/bin/sha1sum /tmp)
     The program tt(/usr/bin/sha1sum), available at the client, is copied to the
 controller's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
@@ -61,8 +61,8 @@ full path of an existing file on the controller. The argument tt(remote-path)
 must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
-    Example:nl()
-    tt(PUT /tmp/sha1sum /usr/bin/sha1sum)nl()
+    Example:
+    verb(    PUT /tmp/sha1sum /usr/bin/sha1sum)
     The program tt(/tmp/sha1sum), available at the controller, is copied to the
 client as tt(usr/bin/sha1sum). If the copying fails for some reason,
 any subsequent commands are skipped, and s() terminates.
@@ -74,8 +74,8 @@ full path of an existing file on the controller. The argument tt(remote-path)
 must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
-    Example:nl()
-    tt(PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum)nl()
+    Example:
+    verb(    PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum)
     Copy the file indicated by tt(local-path) at the controller to
 tt(remote-path) at the client. The argument tt(local-path) must be the full
 path of an existing file on the controller. The argument tt(remote-path) must

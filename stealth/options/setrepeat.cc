@@ -7,8 +7,8 @@ void Options::setRepeat()
     if (not (d_repeat = d_arg.option(&value, "repeat")))
         return;
 
-    if (!d_daemon)
-        fmsg << "--repeat requires --daemon" << endl;
+    if (d_ipc)
+        fmsg << "--repeat not available in IPC modes" << endl;
 
     try
     {

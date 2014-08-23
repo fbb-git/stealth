@@ -1,0 +1,13 @@
+    On order to minimize the amount of clutter and possible complications when
+only a simple command-shell is required for executing commands, it is
+suggested to use a bf(bash)(1) shell when logging into tt(account@client)'s
+account.
+
+    When another shell is already used for tt(account@client), then an extra
+account (optionally using the same tt(UID) as the original account, but using
+bf(sh)(1) as the shell), could be defined in the client's tt(/etc/passwd)
+file. In the bf(passwd)(5) file this could, e.g., be realized for em(root) as
+em(rootsh) as follows:nl()
+        verb(    rootsh:x:0:0:root:/root:/bin/bash)
+    If shadow passwording is used, a matching entry in the tt(/etc/shadow)
+file is required as well.

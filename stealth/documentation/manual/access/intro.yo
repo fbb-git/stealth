@@ -1,0 +1,5 @@
+Access to clients (remote hosts) must be granted using the tt(ssh) protocol.
+
+Clients must allow the controller to connect using tt(ssh). S() connects to
+its clients using ssh certificates, after the controler's public
+key has been transferred to its clients.

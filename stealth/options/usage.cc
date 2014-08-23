@@ -10,7 +10,7 @@ void Options::usage(std::string const &progname)
                                                                     "Host\n"
         "Copyright (c) GPL " << Icmbuild::years << "\n"
         "\n"
-        "Usage 1:\n"
+        "Usage 1 (activation modes):\n"
         "   " << progname << " [options] policy\n"
         "Where:\n"
     "   [options] - optional arguments (short options between parentheses,\n"
@@ -23,8 +23,6 @@ void Options::usage(std::string const &progname)
 
     "      --dry-run: (C) no integrity scans or reloads are performed, but\n"
     "               are assumed OK. Remaining tasks are normally performed\n"
-
-    "      --help (-h):       (C) provide this help\n"
 
     "      --log (-L) path:   log messages are appended to `path'. If path\n"
     "                   does not exist, it is first created \n"
@@ -43,7 +41,7 @@ void Options::usage(std::string const &progname)
     "                   from --no-mail)\n"
 
     "      --parse-policy-file (-p): (C) parse the policy file, no further "
-                                                                "action.\n"
+                                                                "actions.\n"
     "                   Specify once to see the numbered commands,\n"
     "                   twice to see the policy file parsing steps as well.\n"
     "                   Results to std output.\n"
@@ -53,7 +51,7 @@ void Options::usage(std::string const &progname)
                                                                 "minutes\n" 
     "                   if an `m' is appended) after the --repeat "
                                                                 "interval.\n"
-    "                   Requires --repeat and --daemon.\n"
+    "                   Requires --repeat.\n"
 
     "      --repeat value: start an integrity scan every `value' seconds\n"
     "                   Requires --daemon.\n"
@@ -70,11 +68,11 @@ void Options::usage(std::string const &progname)
 
     "      --syslog: write syslog messages\n"
 
-    "      --syslog-facility fac:  syslog facility to use. By default:\n" <<
-    "                   " << s_defaultSyslogFacility << "')\n"
+    "      --syslog-facility fac:  syslog facility to use. By default "
+                                                    "DAEMON\n"
 
-    "      --syslog-priority pri:  syslog priority to use. By default:\n" <<
-    "                   " << s_defaultSyslogPriority << "')\n"
+    "      --syslog-priority pri:  syslog priority to use. By default "
+                                                    "NOTICE\n"
 
     "      --syslog-tag tag: identifier prefixed to syslog messages. By\n"
     "                   default `" << s_defaultSyslogIdent << "')\n"
@@ -87,12 +85,10 @@ void Options::usage(std::string const &progname)
     "                       2: also: ipc commands and actions\n"
     "                       3: also: integrity scan informative messages\n"
 
-    "      --version (-v): (C) show version information and terminate\n"
-
     "   policy: path to the policy file\n"
     "\n"
 
-    "Usage 2:\n"
+    "Usage 2 (IPC modes, all options are command-line only):\n"
     "   " << progname << 
             " {--reload,--rerun,--resume,--suspend,--terminate} pidfile\n"
     "Where:\n"
@@ -105,6 +101,13 @@ void Options::usage(std::string const &progname)
     "                   to continue: --resume; to end: --terminate\n"
     "      --terminate: terminate the " << progname << " daemon\n"
     "   pidfile: file containing the pid of the stealth daemon process.\n"
+    "\n"
+    "Usage 3 (support mode, all options are command-line only)\n"
+    "   " << progname << " {--help,--version}\n"
+    "Where:\n"
+    "      --help (-h):    provide this help and terminate\n"
+    "      --version (-v): show version information and terminate\n"
+
     "\n";
 }
 

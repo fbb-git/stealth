@@ -1,0 +1,16 @@
+
+    Next, at the client's account where s()'s tt(ssh) command connects to (see
+also the tt(USE SSH) specification in section ref(USE) ssh-access must be
+granted to the controller's user. To do so, the controller user's file
+tt(~/.ssh/id_rsa.pub) is added to the client account user's file
+tt(~/.ssh/authorized_keys):
+        verb(    # transfer user@controller's file id_rsa.pub to the client's /tmp
+    # directory. Then do:
+
+    cat /tmp/id_rsa.pub >> /home/account/.ssh/authorized_keys)
+
+    This allows the user at the controller to login at the account at the
+client without specifying the client account's password (of course, if the
+ssh-key is passphrase protected that passphrase must still be provided at the
+controller once s() is started).
+

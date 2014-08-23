@@ -7,32 +7,31 @@ following steps:
     it() Unpack tt(stealth__CurVers_.tar.gz): 
         tt(tar xzvf tealth__CurVers_.tar.gz)
     it() tt(cd stealth);
-    it() Inspect the values of the variables in the files tt(INSTALL.cf) and
-tt(icmconf). Modify these values when necessary;
-    it() Make sure the bobcat library has been installed.
+    it() Inspect, and where necessary modify the values of the variables in
+the files tt(INSTALL.cf) and tt(icmconf);
+    it() Install a recent Gnu tt(g++) compiler;
+    it() Install the bobcat library
 (lurl(http://bobcat.sourceforge.net));
-    it() Make sure the the tt(icmake) program library has been installed.
+    it() Install  the tt(icmake) program
 (lurl(http://icmake.sourceforge.net));
     it() Run `tt(./build program strip)' to compile s();
     it() Run (probably as root) `tt(./build install program)' to install;
     it() Optionally install documentation. See section ref(COMPILING).
     )
-    Following the installation nothing in the tt(stealth) directory tree is
-required for s()'s proper functioning, and thus this tree can be removed.
+    Following the installation the tt(stealth) directory tree has become
+superfluous and can safely be removed.
     
-    Compiling s() assumes that a recent version of the Gnu tt(g++) compiler is
-available. If not: install it first.
-
     Next, do:
     itemization(
-    it() tt(cp stealthmail  /usr/local/bin)
+    it() tt(cp share/usr/bin/stealthmail  /usr/local/bin)
     it() tt(mkdir           /root/stealth)
-    it() tt(cp local.pol    /root/stealth)
+    it() tt(cp documentation/example-policies/localhost.pol  /root/stealth)
     )
 
-    tt(ssh) and tt(sh) should be available. tt(root@localhost) should be able
-to login at tt(localhost) using tt(ssh root@localhost), using the
-tt(/bin/bash) or tt(/bin/sh) shell. Check (as `root') at least 
+    tt(ssh) and tt(bash) (or another shell program) should be
+available. tt(root@localhost) should be able to login at tt(localhost) using
+tt(ssh root@localhost), using the tt(/bin/bash). Check
+(as `root') at least
         verb(    ssh root@localhost)
     as this might ask you for a confirmation that you've got the correct
 host. 
@@ -45,7 +44,7 @@ the report for
     it() and for all files under tt(/etc/) on tt(localhost). 
     )
 
-    The mail-report is written on tt(/tmp/stealth-_CurVers_.mail)
+    The mail-report is sent to tt(root@localhost).
 
     Now change or add or remove one of these files, and rerun s(). The
 file tt(/tmp/stealth-_CurVers_.mail) should reflect these changes.

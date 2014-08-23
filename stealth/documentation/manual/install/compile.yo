@@ -37,7 +37,7 @@ available. When s() is run it is dynamically linked against the bobcat
 library. If you haven't installed bf(bobcat) yet, download it from
 lurl(http://sourceforge.net/projects/bobcat/), and follow its installation
 instructions (alternatively, bobcat may be available in your distribution,
-like Debian or Ubunty). Make sure to install both the run-time
+like Debian or Ubuntu). Make sure to install both the run-time
 (bf(bobcat_...))  and the development (bf(bobcat-dev_...)) versions.
 
     it() Execute the command

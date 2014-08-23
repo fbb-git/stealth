@@ -28,14 +28,14 @@ section of the policy file.
     it() tt(--random-interval (-i) <interval>[m]>): start the scan a random
         interval of <interval> seconds (or minutes if an `m' is appended (no
         blanks) to <interval>) following the delay specified at tt(--repeat)
-        (see below). This option requires options tt(--daemon) and
-        tt(--repeat);
+        (see below). This option requires specification of the tt(--repeat)
+        option;
     it() tt(--reload pidfile): (C) reloads the configuration and skip-files
         and restarts the scan of the s() daemon process.
     it() tt(--repeat <seconds>): wake up and perform an integrity scan at
         interrupts or after tt(<seconds>) seconds. The interval will be at
         least 60 seconds. To this interval a random delay may be added (see
-        tt(--random-interval)). This option requires option tt(--daemon);
+        tt(--random-interval)).
     it() tt(--rerun pidfile): start executing the integrity scan commands
         that are specifed in the s() daemon process's policy file;
     it() tt(--resume pidfile): (C) resume a suspended s() process, implies
@@ -65,7 +65,8 @@ section of the policy file.
     it() tt(--syslog-priority <priority>): syslog priority to use. By
         default priority NOTICE is used;
    it() tt(--syslog-tag <tag>): tt(<tag>) specifies the identifier that is
-        prefixed to syslog messages. By default the tag `STEALTH' is used;
+        prefixed to syslog messages. By default the tag `STEALTH' is used, see
+        also the next section;
     it() tt(--terminate pidfile): (C) terminate a currently active s()
         process;
     it() tt(--usage): (C) Display help information and exit;
@@ -90,8 +91,9 @@ section of the policy file.
 --suspend,) and tt(--terminate) can be specified. The options tt(--reload,
 --rerun, --resume, --suspend,) and tt(--terminate) ignore any other options.
 
-The following options were kept for backward compatibility with s()
-pre-version 3.00 versions and will be removed in a future version:
+The following options are still recognized for backward compatibility with s()
+pre-3.00 versions and will be removed in future versions. They generate error
+messages suggesting alternatives:
 
     itemization(
     it() tt(--echo-commands (-e)):

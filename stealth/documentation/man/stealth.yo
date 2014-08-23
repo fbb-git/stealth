@@ -648,6 +648,10 @@ manpagesection(OPTIONS)
 
     includefile(../manual/running/options.yo)
 
+manpagesection(RSYSLOG FILTERING)
+
+    includefile(../manual/running/rsyslog.yo)
+
 manpagesection(DEPLOYMENT SUMMARY)
     The following summarizes the advised steps to perform when installing
     stealth. All these steps are elaborated upon in s()'s em(User Guide)
@@ -672,7 +676,7 @@ manpagefiles()
 manpageseealso() 
    bf(cron)(1), bf(dd)(1), bf(diff)(1), bf(dpkg)(1), bf(find)(1),
     bf(logrotate)(1), bf(ls)(1), bf(mail)(1), bf(sha1sum)(1), bf(passwd)(5),
-    bf(sendmail)(1), bf(sh)(1), bf(ssh)(1), bf(ssh-cron)(1)
+    bf(rsyslog)(1), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1), bf(ssh-cron)(1)
 
 manpagesection(DIAGNOSTICS)
        By default, executed commands are echoed to stderr. Use bf(-q) to

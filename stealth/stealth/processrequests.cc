@@ -13,8 +13,7 @@ void Stealth::processRequests()
         if (request == LEAVE)
             break;
 
-        m1 << "\n"
-              "MODE: " << d_run.modeName() << endl;
+        m1 << "MODE: " << d_run.modeName() << endl;
     
         d_stealthLog.refresh();
 

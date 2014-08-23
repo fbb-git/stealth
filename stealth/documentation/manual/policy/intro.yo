@@ -1,12 +1,16 @@
-    S() reads a policy file consisting of two sections, the second
-section being optional. The policy file's first section defines the actions
-that s() must perform. Each policy file is uniquely associated with a host to
-be tested. Each host may have multiple policy files, though. In that case,
-each policy file defines its own certain set of checks to be performed.
+    S() uses a policy file consisting of two sections, the second
+section is optional. 
 
-    The policy file's optional second part starts with a line merely
+    itemization(
+    it() The policy file's first section defines the actions that s() must
+perform. Each policy file is uniquely associated with a host to be
+tested. Each host may have multiple policy files, though. In that case, each
+policy file defines its own set of checks to be performed.
+
+    it() The policy file's optional second section starts with a line merely
 containing tt(%%), which may then be followed by certain long option
 specifications. See section ref(OPTIONS) for an overview.
+    )
 
     In this chapter the term em(controller) is used for the computer running
 s(), while the term em(client) is used for the computer that is scanned by

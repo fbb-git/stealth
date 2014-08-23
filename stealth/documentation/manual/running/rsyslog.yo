@@ -1,0 +1,16 @@
+    When using bf(rsyslogd)(1) property based filters may be used to filter
+syslog messages and write them to a file of your choice. E.g., to filter
+messages starting with the syslog message tag (e.g., tt(STEALTH)) use
+        verb(
+:syslogtag, isequal, "STEALTH:"   /var/log/stealth.log
+:syslogtag, isequal, "STEALTH:"   ~
+        )
+    Note that the colon is part of the tag, but is not specified with the 
+tt(syslog-tag) option.
+
+    This causes all messages having the tt(STEALTH:) tag to be written on
+tt(/var/log/stealth.log) after which they are discarded. More extensive
+filtering is also supported, see, e.g.,
+tt(http://www.rsyslog.com/doc/rsyslog_conf_filter.html) and
+tt(http://www.rsyslog.com/doc/property_replacer.html)
+

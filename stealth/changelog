@@ -15,6 +15,8 @@ stealth (3.00.00)
     immediatly relevant at the user-level. E.g., the option --keep-alive is no
     longer supported.
 
+  * The manual's .pdf version now offers clickable hyperlinks.
+
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 22 Aug 2014 14:24:49 +0200
 
 

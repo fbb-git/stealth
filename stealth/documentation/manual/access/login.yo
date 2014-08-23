@@ -1,0 +1,20 @@
+    When user@controller now issues, for the first time, the command
+        verb(    ssh account@controller)
+    tt(Ssh) responds like this:
+        verb(    The authenticity of host 'controller (xxx.yyy.aaa.bbb)' can't be
+    established.
+    RSA key fingerprint is c4:52:d6:a3:d4:65:0d:5e:2e:66:d8:ab:de:ad:12:be.
+    Are you sure you want to continue connecting (yes/no)?)
+    Answering tt(yes) results in the message:
+        verb(    Warning: Permanently added 'controller,xxx.yyy.aaa.bbb' (RSA) to the
+    list of known hosts.)
+
+    The next time a login is attempted, the authenticity question isn't asked
+anyore. However, the proper value of the host's RSA key fingerprint (i.e., the
+key fingerprint of the em(client) computer) should em(always) be verified to
+prevent em(man in the middle) attacks. The proper value may be obtained at the
+client computer by issuing (at the client) the command
+        verb(    ssh-keygen -l -f /etc/ssh/ssh_host_rsa_key.pub)
+    This should show the same value of the fingerprint as shown when the
+first tt(ssh) connection was established. E.g.,
+        verb(    1024 c4:52:d6:a3:d4:65:0d:5e:2e:66:d8:ab:de:ad:12:be ssh_host_rsa_key.pub)

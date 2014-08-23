@@ -10,7 +10,7 @@
     USE MAILER      /usr/bin/mail
     USE MAILARGS    -s "${CLIENT} STEALTH report"
 
-    USE SSH         /usr/bin/ssh rootbash@${CLIENT} -q
+    USE SSH         /usr/bin/ssh root@${CLIENT} /bin/bash -i
 
 
 LABEL \nroot setuid/setgid files

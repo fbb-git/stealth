@@ -16,6 +16,7 @@ COMMENT(    include(abstract)   )
 
 latexoptions(a4paper)
 latexpackage()(epsf)
+latexpackage()(stealth)
 
 latexcommand(
 \hfuzz=70pt
@@ -38,11 +39,10 @@ IFDEF(html)
 )
 
 chapter(Introduction)
+    includefile(intro)
+
     sect(What's new in Stealth V._CurVers_)
     includefile(whatsnew)
-
-    sect(Stealth)
-    includefile(intro)
 
 chapter(Installation)
 includefile(install/intro)
@@ -50,13 +50,28 @@ includefile(install/intro)
     lsect(COMPILING)(Compiling and installing Stealth)
     includefile(install/compile)
 
+chapter(Granting access)
+includefile(access/intro)
+
+    subsect(The controller's user: creating an ssh-key)
+    includefile(access/controller)
+
+    subsect(The client's account: accepting ssh from the controller's user)
+    includefile(access/client)
+
+    subsect(Logging into the account@client account)
+    includefile(access/login)
+
+    subsect(Using the proper shell)
+    includefile(access/using)
+
 chapter(The `policy' file)
 includefile(policy/intro)
 
     sect(DEFINE directives)
     includefile(policy/defines)
 
-    sect(USE directives)
+    lsect(USE)(USE directives)
     includefile(policy/use)
 
     lsect(COMMANDS)(Commands)
@@ -74,9 +89,6 @@ includefile(policy/intro)
         subsect(Preventing Controller Denial of Service (--max-size))
         includefile(policy/preventing)
 
-chapter(Granting access)
-includefile(policy/access)
-
 chapter(Running `stealth')
 includefile(running/intro)
 
@@ -85,7 +97,10 @@ includefile(running/intro)
 
     lsect(OPTIONS)(Stealth command-line and policy file options)
     includefile(running/options)
-    
+
+        subsect(Rsyslog filtering)
+        includefile(running/rsyslog)
+
     sect(Construct one or more policy files)
     includefile(running/makepolicy)
 
@@ -152,7 +167,7 @@ includefile(running/intro)
                 (Using `logrotate' to control report- and status files)
         includefile(running/logrotate.yo)
 
-chapter(Kick starting `stealth')
+chapter(Kick-starting `stealth')
 includefile(kickstart)
 
 lchapter(USAGE)(Usage info)

@@ -60,6 +60,8 @@ void manual()
     {
         run("yodl2latex -o " LATEXDEST " stealth.yo");
 
+        run("cp stealth.sty ../../tmp/manual/LaTeX");
+
         chdir("../../tmp/manual/LaTeX");
         runP(P_NOCHECK, "latex stealth.latex");
         runP(P_NOCHECK, "latex stealth.latex");
