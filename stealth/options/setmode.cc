@@ -23,8 +23,13 @@ void Options::setMode()
         and 
         d_runFile[0] != '/'
     )
-        fmsg << "--daemon: " << d_runFile << 
-                    " should be absolute file name" << endl;
+    {
+        if (d_arg.nArgs() == 0)
+            fmsg << "--daemon: missing run-file or policy file" << endl;
+        else
+            fmsg << "--daemon: " << d_runFile << 
+                    ": must use an absolute file name" << endl;
+    }
 
     if (d_mode & (RELOAD | RERUN | TERMINATE | SUSPEND | RESUME))
         d_runFile = d_arg[0];

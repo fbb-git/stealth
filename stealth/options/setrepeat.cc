@@ -10,14 +10,7 @@ void Options::setRepeat()
     if (d_ipc)
         fmsg << "--repeat not available in IPC modes" << endl;
 
-    try
-    {
-        d_repeatInterval = stoul(value);    // value 0: wait indefinite
-    }
-    catch (...)
-    {
-        fmsg << "--repeat requires <seconds> until next run" << endl;
-    }
+    d_repeatInterval = checkM(value, "repeat");  // value 0: wait indefinitely
 
     if (d_repeatInterval < s_shortestRepeatInterval)
     {

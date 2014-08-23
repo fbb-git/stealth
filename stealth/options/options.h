@@ -128,6 +128,8 @@ struct Options: public StealthEnums
 
         void setRepeat();
         void setRandomDelay();
+            size_t checkM(std::string const &spec, char const *option) const;
+
         void setMail();
         void setSkipFilePath();
         void setDownloadSize();

@@ -3,8 +3,6 @@
 void Options::usage(std::string const &progname)
 {
     cout <<
-        progname << " by " << Icmbuild::author << "\n"
-        "\n" <<
         progname << " V" << Icmbuild::version << "\n"
         "SSH-based Trust Enhancement Acquired through a Locally Trusted "
                                                                     "Host\n"
@@ -17,7 +15,7 @@ void Options::usage(std::string const &progname)
     "               option descriptions starting with (C) can only be used\n"
     "               on the command-line and are ignored when specified in "
                                                                     "the\n"
-    "               policy file.n"
+    "               policy file.\n"
 
     "      --daemon (-d) pidfile: (C) run as a background (daemon) process\n"
 
@@ -47,14 +45,13 @@ void Options::usage(std::string const &progname)
     "                   Results to std output.\n"
 
     "      --random-interval (-i) value: start integrity scans within\n"
-    "                   a random interval of `value' seconds ("
-                                                                "minutes\n" 
-    "                   if an `m' is appended) after the --repeat "
-                                                                "interval.\n"
+    "                   a random interval of `value' seconds (minutes\n" 
+    "                   if an `m' is appended to the specified value).\n"
     "                   Requires --repeat.\n"
 
     "      --repeat value: start an integrity scan every `value' seconds\n"
-    "                   Requires --daemon.\n"
+    "                   (minutes if an `m' is appended to the specified "
+                                                                "value.\n"
 
     "      --run-command (-r) value: (C) only execute command #`value'\n"
 

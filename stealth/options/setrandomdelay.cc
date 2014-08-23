@@ -11,23 +11,7 @@ void Options::setRandomDelay()
     if (not d_repeat)
         fmsg << "--random-interval requires --repeat" << endl;
 
-    try
-    {
-        size_t pos;
-        d_delayInterval = stoul(delay, &pos);
-
-        char ch = delay[pos];
-
-        if (ch == 'm')
-            d_delayInterval *= 60;
-        else if (isprint(ch))
-            wmsg << '`' << ch << "' character following --random-interval " <<
-                    d_delayInterval << " ignored" << endl;
-    }
-    catch (...)
-    {
-        fmsg << "Invalid --random-interval specified" << endl;
-    }
+    d_delayInterval = checkM(delay, "random-interval");
 
     srandom(time(0));               // seed the random time generator
 }

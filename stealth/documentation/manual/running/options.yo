@@ -33,9 +33,10 @@ section of the policy file.
     it() tt(--reload pidfile): (C) reloads the configuration and skip-files
         and restarts the scan of the s() daemon process.
     it() tt(--repeat <seconds>): wake up and perform an integrity scan at
-        interrupts or after tt(<seconds>) seconds. The interval will be at
-        least 60 seconds. To this interval a random delay may be added (see
-        tt(--random-interval)).
+        interrupts or after tt(<seconds>) seconds (or minutes if an `m' is
+        appended (no blanks) to <seconds>). The interval will be at least 60
+        seconds. Using tt(--random-interval) a random delay until the next
+        integrity scan is added to tt(seconds).
     it() tt(--rerun pidfile): start executing the integrity scan commands
         that are specifed in the s() daemon process's policy file;
     it() tt(--resume pidfile): (C) resume a suspended s() process, implies

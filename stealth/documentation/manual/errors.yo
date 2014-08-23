@@ -53,9 +53,19 @@ assist you in your repairs.
     quote(The specified run-file could not be written to. Check its
 permissions and whether it actually exists.)
 
-    tt(--daemon: <run-file>: should be absolute file name)
-    quote(The daemon option requires an absolute filename to be used as its
-run-file. Often this is a file in the tt(/run) directory.)
+    tt(--daemon: missing run-file or policy file)
+    quote(The tt(--daemon) option requires an absolute filename to a run-file,
+and the call also requires a policy file. Most likely the path to the run-file
+was not specified, thus confusing the policy file with the run-file. The
+run-file is often created in the tt(/run) directory.
+    )
+
+    tt(--daemon <run-file>: must use an absolute file name)
+    quote(The tt(--daemon) option requires a full (absolute) path to the
+run-file name. Most likely the name of the run-file was not specified, thus
+confusing the policy file with the skip-file. The run-file is often created in
+the tt(/run) directory.
+    )
 
     tt(Inserting command `...' failed.)
     quote(the mentioned command could not be sent to a child-process (tt(sh)
@@ -125,6 +135,19 @@ policy file.
 receiving a policy file. It cannot be used in combination with the Inter
 Process Communication (IPC) options tt(--reload, --rerun, --resume, --suspend)
 or tt(--terminate).
+    )
+
+    tt(--skip-files: missing skip-file or policy file)
+    quote(The tt(--skip-files) option requires a skip-files absolute filename,
+and the call also requires a policy file. Most likely the name of the
+skip-file was not specified, thus confusing the policy file with the
+skip-file.
+    )
+
+    tt(--skip-files <filename>: must use an absolute file name)
+    quote(The tt(--skip-files) option requires a full (absolute) path to the
+skip-file name. Most likely the name of the skip-file was not specified, thus
+confusing the policy file with the skip-file.
     )
 
     tt(Stealth V _CurVers_ terminated)

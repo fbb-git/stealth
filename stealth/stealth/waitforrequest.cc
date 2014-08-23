@@ -4,6 +4,8 @@ void Stealth::waitForRequest()
 {
     if (d_run.mode(WAIT))
     {
+        m1 << "MODE: WAIT" << endl;
+
         while (true)
         {
             d_ipc.timedWait();

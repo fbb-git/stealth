@@ -13,14 +13,4 @@ void IPC::timedWait()
     }
 
     wait();
-
-//    try
-//    {
-//        wait();
-//        d_timeout = true;
-//    }
-//    catch (...)
-//    {
-//        d_timeout = false;
-//    }
 }
