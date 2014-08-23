@@ -118,7 +118,7 @@ The command must succeed. The output of this command is compared to the
 output of this command generated during the previous run of s(). Any
 differences are written to bf(REPORT). If differences were found, the existing
 tt(logfile) name is renamed to tt(logfile.YYYYMMDD-HHMMSS), with
-tt(YYYYMMDD-HHMMSS) being the (UTC) datetime-stamp at the time s() was run.
+tt(YYYYMMDD-HHMMSS) being the datetime-stamp at the time s() was run.
 
     Note that the command is executed on the client, but the logfile is kept
 at the controller. This command represents the core of the method implemented
