@@ -2,7 +2,7 @@
 
 void Stealth::resume()
 {
-    d_stealthLog << "STEALTH resumes its tasks at " << DateTime().rfc2822() << 
+    d_stealthLog << "STEALTH resumes its tasks at " << d_options.rfc2822() << 
                                                                         endl;
     d_run.setMode(INTEGRITY_SCAN);
 

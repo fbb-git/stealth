@@ -14,7 +14,7 @@ void StealthLog::open(string const &name)
     ostringstream headerTxt;
     headerTxt << "\n"
             "STEALTH (" << Icmbuild::version << ") started at " << 
-            DateTime().rfc2822() << '\n';
+            Options::instance().rfc2822() << '\n';
 
     d_headerLine = headerTxt.str();
 

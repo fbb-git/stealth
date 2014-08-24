@@ -56,6 +56,8 @@ struct Options: public StealthEnums
     FBB::LinearMap<std::string, FBB::Priority>::const_iterator 
                                                         d_syslogPriority;
 
+    FBB::TimeStamps  d_timestamp = FBB::UTCTIMESTAMPS;
+
     static Options *s_options;
 
     static char const       s_configFileBase[];
@@ -111,6 +113,8 @@ struct Options: public StealthEnums
         std::string const &runFile() const;
         std::string const &skipFilePath() const;
 
+        std::string rfc2822() const;
+
         static void usage(std::string const &progname);
 
     private:
@@ -121,6 +125,7 @@ struct Options: public StealthEnums
         void setMode();
         void checkMode() const;
 
+        void setTimestamp();
         void setCommandNr();
         void setParsePolicy();
         void setStdout();

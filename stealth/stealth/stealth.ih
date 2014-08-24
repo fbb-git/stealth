@@ -4,7 +4,6 @@
 
 #include <bobcat/mstream>
 #include <bobcat/exception>
-#include <bobcat/datetime>
 #include <bobcat/linearmap>
 #include <bobcat/process>
 

@@ -9,6 +9,8 @@ string Options::setLog()
         if (not d_log)
             fmsg << "could not open " << logName << endl;
 
+        d_log.setTimestamp(d_timestamp);
+
         d_multiStreambuf.insert(d_log);
     }
     return logName;

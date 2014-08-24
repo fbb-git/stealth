@@ -70,6 +70,8 @@ section of the policy file.
         also the next section;
     it() tt(--terminate pidfile): (C) terminate a currently active s()
         process;
+    it() tt(--time-stamp (-t) <type>: the time-stamps to use. By default
+        UTC. To use the local time specify tt(--time-stamp LT);
     it() tt(--usage): (C) Display help information and exit;
     it() tt(--verbosity <value>): determines the amount of logged
         information. Requires options tt(--log) or tt(--syslog). Possible

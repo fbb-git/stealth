@@ -5,7 +5,6 @@
 
 #include <bobcat/exception>
 #include <bobcat/mstream>
-#include <bobcat/datetime>
 
 #include "../options/options.h"
 

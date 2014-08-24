@@ -9,7 +9,6 @@ class Util
         static bool mkdir(std::string const &path); // pathname to a file
                                                     // find full path name
         static std::string realPath(std::string const &path);   
-
 };
     
 #endif

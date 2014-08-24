@@ -1,12 +1,18 @@
+msg
 util 
 stealthenums
-// lock
-ipc
-runmode             stealthenums
-msg
-options             stealthenums
-policyfile          
-stealthlog
-integrityscanner    
-stealth             runmode ipc stealthlog
+
+options             stealthenums msg util
+
+ipc                 options
+policyfile          options 
+runmode             options
+stealthlog          options
+
+integrityscanner    options policyfile stealthlog runmode 
+
+stealth             integrityscanner ipc stealthlog 
+
+
+
 

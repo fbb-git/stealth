@@ -11,6 +11,7 @@
 #include <bobcat/mstream>
 #include <bobcat/tempstream>
 #include <bobcat/exception>
+#include <bobcat/datetime>
 
 #include "../msg/msg.h"
 #include "../util/util.h"

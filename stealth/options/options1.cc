@@ -17,7 +17,7 @@ Options::Options()
                                 // set
 
     d_dryrun = d_arg.option(0, "dry-run");
-    
+
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)
                                                         
@@ -27,10 +27,18 @@ Options::Options()
     setMail();                  // sets log-mail and no-mail
     setSkipFilePath();
 
+    setTimestamp();
+
     setVerbosity( setSyslog(), setLog() );
 
     setStdout();
     setRepeat();
     setRandomDelay();
     setDownloadSize();
+
+    m1 << "timestamps use " << 
+            (d_timestamp == TIMESTAMPS ? "local time" : "UTC") << endl;
 }       
+
+
+

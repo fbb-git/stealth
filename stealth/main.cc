@@ -39,6 +39,7 @@ ArgConfig::LongOption longOption[] =
     {"syslog-priority", Arg::Required},
     {"syslog-tag", Arg::Required},
 
+    {"time-stamp", 't'},        // : new
     {"verbosity", 'V'},         // : new
 
     {"version", 'v'},
@@ -65,7 +66,7 @@ int main(int argc, char **argv)
 try
 {                                       // construct Arg object to process
     ArgConfig &arg = ArgConfig::initialize(
-                                "d:hL:pi:r:s:ovV:"
+                                "d:hL:opi:r:s:t:vV:"
                                 "ecq",
                                 longOption, endLongOption, 
                                 argc, argv); 
