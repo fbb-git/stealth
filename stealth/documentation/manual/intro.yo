@@ -38,14 +38,12 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     itemization(
     it() First, a em(policy) file is read. This determines actions to be
 performed, as well as the values of several variables used by s().
-    it() If the command-line option tt(--daemon) is given, s() runs as
-a backgrond (daemon) process, writing its process ID in a separate file. Using
-tt(--repeat <seconds>) the scan will be rerun every tt(<seconds>) seconds. The
-number of seconds until the next rerun uses an implementation defined minimum
-of 60. However, another integrity scan may always be requested using the
-tt(--rerun) option. When merely the tt(--daemon) is specified the scan is
-performed only once, whereafter s() waits until it is reactivated
-through the s() tt(--rerun <pid>) command.
+    it() If the command-line option tt(--daemon) is given, s() runs as a
+backgrond (daemon) process, writing its process ID in a separate file. Using
+tt(--repeat <seconds>) the scan is rerun every tt(<seconds>) seconds after
+completing the previous integrity scan. When merely tt(--daemon) is
+specified the scan is performed only once, whereafter s() waits until it is
+reactivated through the s() tt(--rerun <pid>) command.
     it() Then, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
     it() Next, commands defined in the policy file are executed in their order

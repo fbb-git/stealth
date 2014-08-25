@@ -9,14 +9,13 @@ must not require a passphrase, as bf(crontab)(1) cannot provide passphrases of
 ssh-keys. Ssh-keys requiring passphrases can, however, be used if repeated 
 s() runs are controlled  by a program like bf(ssh-cron)(1).
 
-    In general, randomized events are harder to notice. For this s()'s daemon
-mode offers the tt(--repeat) and tt(--random-interval) flags. The latter flag
-expects an argument in seconds (or in minutes, if an tt(m) is appended to the
-interval specification). After each integrity scan the next integrity scan
-starts after the time interval specified by the tt(--repeat) option plus a
-random time interval until the interval specified by the tt(--random-interval)
-specification. For example, the s() daemon started by the following command
+    In general, randomized events are harder to notice. For this s() offers
+the tt(--repeat) and tt(--random-interval) options. Both options expect an
+argument in seconds (or in minutes, if an tt(m) is appended to the
+specification). After each integrity scan the next integrity scan starts after
+the time interval specified by the tt(--repeat) option plus a random time
+value selected from the time interval specified by the tt(--random-interval)
+option. For example, the s() daemon started by the following command
 repeatedly performs integrity scans between two and five minutes after the
 last integrity scan completed:
-        verb(    stealth -d /var/run/client.pid -r 120 -i 3m /root/stealth/client.pol)
-
+        verb(    stealth -d /var/run/client.pid -r 2m -i 3m /root/stealth/client.pol)

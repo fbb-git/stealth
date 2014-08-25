@@ -15,9 +15,11 @@ void Options::usage(std::string const &progname)
     "               option descriptions starting with (C) can only be used\n"
     "               on the command-line and are ignored when specified in "
                                                                     "the\n"
-    "               policy file.\n"
+    "               policy file).\n"
 
-    "      --daemon (-d) pidfile: (C) run as a background (daemon) process\n"
+    "      --daemon (-d) <path>: (C) run as a background (daemon) process.\n"
+    "               <path> is the absolute filename of a pid-file used for\n"
+    "               communication with the stealth daemon process\n"
 
     "      --dry-run: (C) no integrity scans or reloads are performed, but\n"
     "               are assumed OK. Remaining tasks are normally performed\n"
@@ -25,7 +27,7 @@ void Options::usage(std::string const &progname)
     "      --log (-L) path:   log messages are appended to `path'. If path\n"
     "                   does not exist, it is first created \n"
 
-    "      --logmail: mail is loggeed (requires --log or --syslog\n"
+    "      --logmail: mail is loggeed (requires --log or --syslog)\n"
 
     "      --max-size value[BKMG]: files retrieved by GET may at most\n"
     "                   have `value' bytes (B), Kbytes (K), Mbytes (M), "
@@ -51,7 +53,7 @@ void Options::usage(std::string const &progname)
 
     "      --repeat value: start an integrity scan every `value' seconds\n"
     "                   (minutes if an `m' is appended to the specified "
-                                                                "value.\n"
+                                                                "value).\n"
 
     "      --run-command (-r) value: (C) only execute command #`value'\n"
 
@@ -89,7 +91,7 @@ void Options::usage(std::string const &progname)
 
     "Usage 2 (IPC modes, all options are command-line only):\n"
     "   " << progname << 
-            " {--reload,--rerun,--resume,--suspend,--terminate} pidfile\n"
+            " {--reload,--rerun,--resume,--suspend,--terminate} pid-file\n"
     "Where:\n"
     "      --reload: reload a " << progname << " process's policy and "
                                                             "skip-files\n"

@@ -66,7 +66,6 @@ struct Options: public StealthEnums
     static char const       s_defaultSyslogIdent[];
 
     static size_t   s_defaultVerbosity;
-    static size_t   s_shortestRepeatInterval;
 
     static FBB::LinearMap<std::string, FBB::Facility> const 
                                                         s_syslogFacilities;

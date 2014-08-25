@@ -4,9 +4,9 @@ be used on the command-line, and are ignored when specified in the second
 section of the policy file. 
 
     itemization(
-    it() tt(--daemon (-d) <pidfile>): (C) run as background (daemon)
-        process. tt<pidfile> specifies the path to the pid file used for
-        communication with the daemon process;
+    it() tt(--daemon (-d) <path>): (C) run as background (daemon)
+        process. tt<path> specifies the absolute filename of the pid-file used
+        for communication with the daemon process;
     it() tt(--dry-run): (C) no integrity scans or reloads are performed, but
         are assumed OK. Remaining tasks are normally performed;
     it() tt(--help (-h)): (C) Display help information and exit;
@@ -30,16 +30,17 @@ section of the policy file.
         blanks) to <interval>) following the delay specified at tt(--repeat)
         (see below). This option requires specification of the tt(--repeat)
         option;
-    it() tt(--reload pidfile): (C) reloads the configuration and skip-files
+    it() tt(--reload <pid-file>): (C) reloads the configuration and skip-files
         and restarts the scan of the s() daemon process.
     it() tt(--repeat <seconds>): wake up and perform an integrity scan at
         interrupts or after tt(<seconds>) seconds (or minutes if an `m' is
-        appended (no blanks) to <seconds>). The interval will be at least 60
-        seconds. Using tt(--random-interval) a random delay until the next
-        integrity scan is added to tt(seconds).
-    it() tt(--rerun pidfile): start executing the integrity scan commands
+        appended (no blanks) to <seconds>) after completing the previous
+        integrity scan. The option tt(--random-interval) can be used to add a
+        random delay to tt(<seconds>) until the next integrity scan is
+        performed.
+    it() tt(--rerun <pid-file>): start executing the integrity scan commands
         that are specifed in the s() daemon process's policy file;
-    it() tt(--resume pidfile): (C) resume a suspended s() process, implies
+    it() tt(--resume <pid-file>): (C) resume a suspended s() process, implies
         tt(--rerun);
     it() tt(--run-command (-r) <nr>): (C) Only execute command number <nr>
         (natural number).  Command numbers are shown by s()
@@ -57,7 +58,7 @@ section of the policy file.
         character are ignored.
     it() tt(--stdout (-o)): messages are (also) written to the std. output
         stream (not available when for option tt(--daemon));
-    it() tt(--suspend pidfile): (C) suspends a currently active s()
+    it() tt(--suspend <pid-file>): (C) suspends a currently active s()
         process. Use tt(--resume) to re-activate an s() daemon or
         tt(--terminate) to end an s() daemon;
     it() tt(--syslog): write syslog messages;
@@ -68,9 +69,9 @@ section of the policy file.
    it() tt(--syslog-tag <tag>): tt(<tag>) specifies the identifier that is
         prefixed to syslog messages. By default the tag `STEALTH' is used, see
         also the next section;
-    it() tt(--terminate pidfile): (C) terminate a currently active s()
+    it() tt(--terminate <pid-file>): (C) terminate a currently active s()
         process;
-    it() tt(--time-stamp (-t) <type>: the time-stamps to use. By default
+    it() tt(--time-stamp (-t) <type>): the time-stamps to use. By default
         UTC. To use the local time specify tt(--time-stamp LT);
     it() tt(--usage): (C) Display help information and exit;
     it() tt(--verbosity <value>): determines the amount of logged
@@ -85,8 +86,8 @@ section of the policy file.
     )
 
     itemization(
-    it() tt(pidfile): path to a file that is used for communication with a s()
-        daemon process;
+    it() tt(<pid-file>): absolute filename of a file that is used for
+        communication with a s() daemon process;
     it() tt(policy): path to the policy file;
     )
 
@@ -107,7 +108,7 @@ messages suggesting alternatives:
         tt(--stdout) instead.
     it() tt(--quiet (-q)): suppresses progress messages written to stderr; use
         tt(--verbosity 0) instead.
-    it() tt(--suppress pidfile): suppresses a currently active s()
+    it() tt(--suppress <pid-file>): suppresses a currently active s()
             process; use tt(--suspend) instead.
     )
 

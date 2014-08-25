@@ -94,7 +94,8 @@ COMMENT(
     itemization(
     it() The tt(--random-interval) option is ignored unless tt(--repeat) is
 specified as well. The random interval is em(added) to the the interval
-specified at tt(--repeat) before the next tt(stealth)-run is started.
+specified at tt(--repeat), determining the time interval before starting the
+next tt(stealth)-run.
     )
 END COMMENT)
 

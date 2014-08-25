@@ -109,16 +109,6 @@ option. Either do not specify tt(--daemon) or omit the offending option.)
 tt(--repeat) option has also been specified.
     )
 
-    tt(--repeat requires --daemon)
-    quote(The specified option requires the tt(--daemon)
-option. Either also specify tt(--daemon) or omit the offending option.
-    )
-
-    tt(--repeat requires <seconds> until next run)
-    quote(The tt(--repeat) option requires an argument: the number of seconds
-to wait before the next integrity scan is started.
-    )
-
     tt(--run-command 0: not a valid (natural) command number)
     quote(The tt(--run-command) option requires an argument, which is a
 positive, integral value.
