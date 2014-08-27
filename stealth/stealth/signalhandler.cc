@@ -2,6 +2,8 @@
 
 void Stealth::signalHandler(size_t signal)
 {
+    d_ipc.signaled();
+
     if (d_options.ipc())
     {
         d_ipc.request();                // retrieve the return message

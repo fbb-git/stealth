@@ -76,7 +76,8 @@ void Options::usage(std::string const &progname)
     "      --syslog-tag tag: identifier prefixed to syslog messages. By\n"
     "                   default `" << s_defaultSyslogIdent << "')\n"
 
-    "      --time-stamp <type>: the time-stamps to use. By default UTC\n"
+    "      --time-stamp <type>: the time-stamps to use. By default UTC.\n"
+    "                   (does not apply to syslog-timestamps)\n"
 
     "      --verbosity (-V) value: determines the amount of logged "
                                                             "information.\n"

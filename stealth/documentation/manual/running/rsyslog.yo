@@ -14,3 +14,9 @@ filtering is also supported, see, e.g.,
 tt(http://www.rsyslog.com/doc/rsyslog_conf_filter.html) and
 tt(http://www.rsyslog.com/doc/property_replacer.html)
 
+Time stamps written by tt(rsyslogd) are not controlled by s()'s
+tt(--time-stamp) option, but, e.g., by a tt(TZ) specification in
+tt(/etc/default/rsyslog). Simply add the line
+    verb(    export TZ=UTC)
+ to tt(/etc/default/rsyslog), followed by restarting tt(rsyslogd) configures
+tt(rsyslogd) to generate time stamps using UTC.

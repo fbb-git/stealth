@@ -15,8 +15,8 @@ class IPC: public StealthEnums
     Options        &d_options;
     FBB::Selector   d_selector;
     std::string     d_requestText;
-    size_t          d_requestorPid;
-    bool            d_timeout = false;
+    size_t          d_requestorPid = 0;
+    volatile bool   d_signaled;
     size_t          d_daemonPid;
 
     static FBB::LinearMap<std::string, Mode> const s_request;
@@ -31,6 +31,8 @@ class IPC: public StealthEnums
         std::string const &requestText() const;
 
         void sendRequestor(std::string const &msg);
+
+        void signaled();                    // call when receiving a signal
 
         void wait(bool doM2 = true);        // wait until signaled
         
@@ -57,9 +59,14 @@ class IPC: public StealthEnums
         void sendRequest(char const *request, pid_t pid);
 };
 
+inline void IPC::signaled()
+{
+    d_signaled = true;
+}
+
 inline bool IPC::timeout() const
 {
-    return d_timeout;
+    return not d_signaled;
 }
 
 inline std::string const &IPC::requestText() const

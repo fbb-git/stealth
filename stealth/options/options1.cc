@@ -36,7 +36,8 @@ Options::Options()
     setRandomDelay();
     setDownloadSize();
 
-    m1 << "timestamps use " << 
+    if (not d_ipc)
+        m1 << "timestamps use " << 
             (d_timestamp == TIMESTAMPS ? "local time" : "UTC") << endl;
 }       
 
