@@ -15,7 +15,7 @@ struct Options: public StealthEnums
 {
     FBB::ArgConfig &d_arg;
 
-    std::unique_ptr<FBB::SyslogStream> d_syslog;
+    std::shared_ptr<FBB::SyslogStream> d_syslog;
     FBB::Log d_log;
 
     FBB::MultiStreambuf d_multiStreambuf;

@@ -16,8 +16,8 @@ IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile,
     d_run(run),
     d_policyFile(policyFile),
     d_stealthLog(stealthLog),
-    d_firstWord(*new Pattern("(\\S+)(\\s+(.*))?")), // firstword ([1]) and the
-                                                    // rest ([3]) of a text
+    d_firstWord("(\\S+)(\\s+(.*))?"),           // firstword ([1]) and the
+                                                // rest ([3]) of a text
     d_sshFork
     (
         Process::CIN | Process::COUT | Process::IGNORE_CERR,

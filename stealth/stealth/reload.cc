@@ -16,10 +16,10 @@ void Stealth::reload()
         
         d_stealthLog.open((*d_policyFile)["REPORT"]);
     
-        d_integrityScanner.reset( 
-            new IntegrityScanner(d_run, *d_policyFile, d_stealthLog) 
-        );
-    
+        d_integrityScanner = make_shared<IntegrityScanner>(
+                                   d_run, *d_policyFile, d_stealthLog
+                            );
+
         d_integrityScanner->startCommandShells();
     }
 

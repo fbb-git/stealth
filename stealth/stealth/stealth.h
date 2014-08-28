@@ -26,8 +26,8 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
     volatile bool d_request;
 
     StealthLog     d_stealthLog;
-    std::unique_ptr<PolicyFile>         d_policyFile;
-    std::unique_ptr<IntegrityScanner>   d_integrityScanner;
+    std::shared_ptr<PolicyFile>         d_policyFile;
+    std::shared_ptr<IntegrityScanner>   d_integrityScanner;
 
     typedef void (Stealth::*Action)();
 

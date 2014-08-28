@@ -1,8 +1,9 @@
-Initially the running mode is set to INTEGRITY_SCAN. Options may change the
+Initially the running mode is INTEGRITY_SCAN. Options may change the
 initial mode.
 
-If the --daemon option was not requested, there is just one integrity scan and
-Stealth::performtasks terminates
+If the --daemon option was not requested, stealth runs as a forgeground
+process. Unless --repeat is specified there is just one integrity scan after
+which Stealth::processRequests terminates
 
 Flow control is handled through IPC signals, in combination with information
 written to the pid-file.
@@ -11,12 +12,13 @@ The first line of the PID file contains the pid of the daemon process.
 A second line may be written by a stealth process requesting an action of the
 daemon, followed by the pid of the process issuing the request. Requests are:
 
-    Suspend     - suspend
-    Resume      - resume
-    Run         - run an itegrity scan once
-    Reload      - after the current scan has completed (it may already have
-                    completed) load a new policy file / skip file
-                    specification and perform another integrity scan.
+    suspend,
+    resume,
+    rerun       - rerun the full itegrity scan
+    reload      - after the current scan has completed (it may already have
+                    completed) load a new policy- and possibly skip-file
+                    and perform another integrity scan.
+    terminate
 
 A request is written to the PID file, followed by sending the daemon a SIGUSR1
 signal. When the daemon has completed the request it sends the requesting

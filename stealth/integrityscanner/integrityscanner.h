@@ -8,11 +8,7 @@
 #include <sys/types.h>
 
 #include <bobcat/process>
-
-namespace FBB
-{
-    class Pattern;
-}
+#include <bobcat/pattern>
 
 class PolicyFile;
 class RunMode;
@@ -27,7 +23,7 @@ class IntegrityScanner
     RunMode        &d_run;
     PolicyFile     &d_policyFile;
     std::ostream   &d_stealthLog;
-    FBB::Pattern   &d_firstWord;
+    FBB::Pattern    d_firstWord;
     FBB::Process    d_sshFork;
     FBB::Process    d_shFork;
     std::string     d_sentinel;
@@ -36,7 +32,6 @@ class IntegrityScanner
     bool            d_testExitValue;
     size_t          d_nScans;
     off_t           d_maxSize;
-//    std::string     d_maxSizeStr;
     StringVector    d_skipFiles;
     std::string     d_skipFilePath;
     size_t          d_diffPrefix;

@@ -1,6 +1,5 @@
 #include "integrityscanner.h"
 
-#include <bobcat/pattern>
 #include <bobcat/mstream>
 #include <bobcat/stat>
 #include <bobcat/datetime>

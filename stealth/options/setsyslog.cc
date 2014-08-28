@@ -8,11 +8,8 @@ bool Options::setSyslog()
     if (d_ipc)
         fmsg << "--syslog* options incompatible with IPC calls" << endl;
 
-    d_syslog.reset(
-                new SyslogStream(
-                    syslogTag(), syslogPriority(), syslogFacility()
-                )
-            );
+    d_syslog = make_shared<SyslogStream>(syslogTag(), syslogPriority(),
+                            syslogFacility());
 
     d_multiStreambuf.insert(*d_syslog);
     return true;
