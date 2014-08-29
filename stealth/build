@@ -1,4 +1,4 @@
-#!/usr/bin/icmake -qt/tmp/bisonc++
+#!/usr/bin/icmake -qt/tmp/stealth
 
 #include "icmconf"
 
