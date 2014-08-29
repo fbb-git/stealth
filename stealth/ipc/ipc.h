@@ -3,20 +3,24 @@
 
 #include <string>
 
-#include <bobcat/selector>
+//#include <bobcat/selector>
+
+
 #include <bobcat/linearmap>
 
 #include "../stealthenums/stealthenums.h"
+#include "../wait11/wait11.h"
 
 class Options;
 
 class IPC: public StealthEnums
 {
     Options        &d_options;
-    FBB::Selector   d_selector;
+
+    Wait11          d_wait11;
+
     std::string     d_requestText;
     size_t          d_requestorPid = 0;
-    volatile bool   d_signaled;
     size_t          d_daemonPid;
 
     static FBB::LinearMap<std::string, Mode> const s_request;
@@ -32,16 +36,17 @@ class IPC: public StealthEnums
 
         void sendRequestor(std::string const &msg);
 
-        void signaled();                    // call when receiving a signal
+        void signaled();                    // call after receiving a signal
 
         void wait(bool doM2 = true);        // wait until signaled
         
         void timedWait();                   // wait until signaled or wait
-                                            // until time has passed
+                                            // until --repeat time has passed
 
         void timedWait(size_t seconds);     // wait until signaled or wait
                                             // until seconds has passed
-                                            // (no m2 messages)
+                                            // (no m2 messages), called from
+                                            // the ipc-modes
 
         bool timeout() const;               // true if timedWait's waiting
                                             // time has expired
@@ -53,20 +58,23 @@ class IPC: public StealthEnums
         size_t daemonPid() const;
 
     private:
-        void sleep();                       // sleep until wakeup
-
         void readDaemonPid();
         void sendRequest(char const *request, pid_t pid);
 };
 
+inline void IPC::timedWait(size_t seconds)
+{
+    d_wait11.waitFor(seconds, false);
+}
+
 inline void IPC::signaled()
 {
-    d_signaled = true;
+    d_wait11.notify();
 }
 
 inline bool IPC::timeout() const
 {
-    return not d_signaled;
+    return not d_wait11.signaled();
 }
 
 inline std::string const &IPC::requestText() const

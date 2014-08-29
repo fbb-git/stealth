@@ -1,0 +1,41 @@
+This file summarizes the changes from stealth 2.12.00 to stealth.3.00.00
+Consult the man-page and manual for more extensive information.
+
+Affected options:
+
+        --echo-commands:        replaced by --log
+        --keep-alive:           replaced by --daemon
+        --only-stdout:          replaced by --stdout
+        --parse-config-file:    replaced by --parse-policy-file
+        --quiet:                replaced by --verbosity
+        --suppress:             replaced by --suspend
+
+        --debug:                discontinued. Use --verbosity and/or --dry-run
+                                              instead.  
+        --no-child-processes:   discontinued.
+
+New options:
+
+        --daemon:               run as background (daemon) process;
+        --dry-run:              no integrity scans or reloads are performed;
+        --log:                  log messages are written to a file;
+        --logmail:              mail sent by s() is also logged;
+        --no-mail:              mail is not sent;
+        --parse-policy-file:    parse the policy file;
+        --stdout:               messages are (also) written to the std. output
+                                stream;
+        --suspend:              suspends a currently active s() process;
+        --syslog:               write syslog messages;
+        --syslog-facility:      sets the syslog facility to use; 
+        --syslog-priority:      sets the syslog priority to use; 
+        --syslog-tag:           specifies an identifier that is prefixed to
+                                syslog messages;
+        --verbosity <value>:    determines the amount of logged information.
+
+
+The policy file now contains two sections.
+
+    The first section is identical to the 2.12.00 configuration file. 
+    The second section starts at a line merely containing tt(%%), is optional,
+    and may contain (some) long option specifications. See the manual/man-page
+    OPTIONS section for details.

@@ -7,7 +7,12 @@ stealth (3.00.00)
 
   * At the program's logical flow level continuation and related flow control
     was re-implemented, using, e.g., Bobcat's FBB::Signal class to handle
-    signals.
+    signals. Also, wait facilities based on sleep(3) selector(3bobcat) were
+    replaced by C++11 facilities using mutexes and condition variables.
+
+  * Stealth's cross-refeence information is added to the source archive,
+    installed by default in EXTRA/stealth.xref.gz (cf. INSTALL.im for the
+    actual EXTRA location.
 
   * The manual and man-pages received a complete overhaul.
 
@@ -16,6 +21,9 @@ stealth (3.00.00)
     longer supported.
 
   * The manual's .pdf version now offers clickable hyperlinks.
+
+  * Several README.* files were added. In particular: README.3.00.00 summarizes
+    the changes from stealth 2.12.00 to stealth 3.00.00
 
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 22 Aug 2014 14:24:49 +0200
 

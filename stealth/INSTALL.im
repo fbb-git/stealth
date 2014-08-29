@@ -10,10 +10,10 @@
 #define CXX                 "g++"
     // the compiler to use. 
 
-#define CXXFLAGS            "--std=c++11 -Wall -O2 -g"
+#define CXXFLAGS            "--std=c++11 -Wall -O2 -pthread -g"
     // the compiler options to use.
 
-#define LDFLAGS             ""
+#define LDFLAGS             "-lpthread"
     // flags passed to the linker
 
 // =========================================================================

@@ -8,9 +8,14 @@ Options:    singleton, prepares all options received either on the command
 PolicyFile: analyzes and stores the information found in the first section of
             the policy file (through its member 'reload').
 
+Wait11:     implements C++11 (timed) waiting for events, like receiving
+            signals, and sending notifications when they are received.  The
+            actual signal handling is handled by the class Stealth itself.
+
 IPC:        handles the runfile (pid file): requests are written to the
-            runfile followed by signaling the daemon through its member
-            'signalDaemon'
+            runfile followed by signaling the daemon. All actual
+            waiting/notification steps are left to Wait11. signaling the
+            daemon is handled by its member 'signalDaemon'
 
 RunMode:    keeps track of the currently active Stealth mode. A mode may also
             be queried, and the name of a mode can be requested. When a mode

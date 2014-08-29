@@ -1,7 +1,7 @@
 #include "INSTALL.im"
 
 #undef  CXXFLAGS
-#define CXXFLAGS            "--std=c++11 -Wall -O2"
+#define CXXFLAGS            "--std=c++11 -Wall -O2 -pthread"
 
 #define MAIN                "main.cc"
 #define ADD_LIBRARIES       "bobcat"

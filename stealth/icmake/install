@@ -86,7 +86,7 @@ void install(string what, string where)
         run("gzip -9 < changelog > " + where + "/changelog.gz");
 
         printf("  INSTALLING README and ACKNOWLEDGEMENTS at `", where, "\n");
-        run("cp README ACKNOWLEDGEMENTS " + where);
+        run("cp README README.3.00.00 ACKNOWLEDGEMENTS " + where);
  
         printf("  INSTALLING examples at `", where, "'\n");
         md(where + "/examples");
@@ -96,6 +96,9 @@ void install(string what, string where)
                                         where + "/examples/localhost.pol.gz");
         run("gzip -9 < documentation/example-policies/simple.pol > " + 
                                         where + "/examples/simple.pol.gz");
+
+        printf("  INSTALLING CROSS REFERENCE INFO at `", where, "\n");
+        run("gzip -9 < stealth.xref > " + where + "/stealth.xref.gz");
     }
 
     exit(0);

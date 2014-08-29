@@ -1,15 +1,19 @@
 msg
+
+wait11              msg
+
 util 
 stealthenums
 
 options             stealthenums msg util
 
-ipc                 options
 policyfile          options 
 runmode             options
 stealthlog          options
 
 integrityscanner    options policyfile stealthlog runmode 
+
+ipc                 options wait11
 
 stealth             integrityscanner ipc stealthlog 
 
