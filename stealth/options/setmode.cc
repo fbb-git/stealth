@@ -20,21 +20,16 @@ void Options::setMode()
     if 
     (
         (d_daemon = d_arg.option(&d_runFile, 'd'))
-        and 
-        d_runFile[0] != '/'
+        &&
+        (d_arg.nArgs() == 0)
     )
-    {
-        if (d_arg.nArgs() == 0)
-            fmsg << "--daemon: missing run-file or policy file" << endl;
-        else
-            fmsg << "--daemon: " << d_runFile << 
-                    ": must use an absolute file name" << endl;
-    }
+        fmsg << "--daemon: missing run-file or policy file" << endl;
 
-    if (d_mode & (RELOAD | RERUN | TERMINATE | SUSPEND | RESUME))
-        d_runFile = d_arg[0];
 
     d_ipc = d_reload || d_rerun || d_terminate || d_suspend || d_resume;
+
+    if (d_daemon || d_ipc)
+        d_runFile = Util::realPath(d_arg[0]);
 
     d_foreground = not d_ipc and not d_daemon;
 }

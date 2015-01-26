@@ -6,16 +6,13 @@ void Stealth::doChores()
 {
     policyDepDataMembers();
 
-    defineSupportedSignals();
-
     if (d_options.dryrun())
         d_stealthLog << "--dry-run: SH/SSH connections not established" << 
                                                                         endl;
     else
         d_integrityScanner->startCommandShells(); 
 
-    processRequests();              // Stealth terminates once this function
-                                    // ends
+    processRequests());
 }
 
 

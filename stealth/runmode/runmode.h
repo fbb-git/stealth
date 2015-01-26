@@ -20,7 +20,20 @@ struct RunMode: public StealthEnums
 
         void setMode(Mode mode);
         bool interrupted() const; // a running integrity scan was interrupted
+
+        static Mode validate(int mode);
 };
+
+inline RunMode::Mode RunMode::validate(int mode)
+{
+    return 
+        ((mode - 1)  & mode) == 0 
+        && 
+        mode <= UNKNOWN ?
+            mode
+        :
+            UNKNOWN;
+}
 
 inline char const *RunMode::modeName() const
 {

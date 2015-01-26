@@ -9,13 +9,19 @@ FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_task =
         {RESUME,            &Stealth::resume},
     };
 
+    // possible incoming requests at the communicator
 FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_request =
     {
-        {RELOAD,            &Stealth::reloadRequest},
+        {LEAVE,             &Stealth::unknownRequest},
+        {INTEGRITY_SCAN,    &Stealth::unknownRequest},
+        {WAIT,              &Stealth::unknownRequest},
+
         {RERUN,             &Stealth::rerunRequest},
-        {RESUME,            &Stealth::resumeRequest},
         {SUSPEND,           &Stealth::suspendRequest},
+        {RESUME,            &Stealth::resumeRequest},
+        {RELOAD,            &Stealth::reloadRequest},
         {TERMINATE,         &Stealth::terminateRequest},
+
         {UNKNOWN,           &Stealth::unknownRequest},
     };
 

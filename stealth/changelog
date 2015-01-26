@@ -1,3 +1,11 @@
+stealth (3.01.00)
+
+  * Signals are no longer used for communication between
+    stealth-programs. Instead, unix domain sockets are used. 
+
+  * Added option 'socket' defining the unix domain socket to be used for
+    communication between stealth programs.
+
 stealth (3.00.00)
 
   * Version 3.00.00 completely reorganizes and refactors Stealth's

@@ -4,20 +4,20 @@
 #include <string>
 #include <memory>
 
-#include <bobcat/signal>
 #include <bobcat/fork>
 
 #include "../runmode/runmode.h"     // declares LinearMap
 #include "../ipc/ipc.h"
 #include "../stealthlog/stealthlog.h"
+#include "../semaphore/semaphore.h"
 
 class PolicyFile;
 class IntegrityScanner;
 class Options;
 
-class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
+class Stealth: public StealthEnums, public FBB::Fork
 {
-    static size_t const s_contactPeerWaitSeconds = 3;
+//    static size_t const s_contactPeerWaitSeconds = 3;
 
     Options &d_options;
     IPC d_ipc;
@@ -29,7 +29,11 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
     std::shared_ptr<PolicyFile>         d_policyFile;
     std::shared_ptr<IntegrityScanner>   d_integrityScanner;
 
-    typedef void (Stealth::*Action)();
+    Semaphore d_chore;
+    int d_request;
+    Semaphore d_communicate;
+
+    typedef std::string (Stealth::*Action)();
 
     static FBB::LinearMap<Mode, Action> s_task;
     static FBB::LinearMap<Mode, Action> s_request;
@@ -38,21 +42,21 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
         Stealth();
         ~Stealth() override;
 
-        bool contactPeer();         // contact a stealth daemon
+        void contactPeer();         // contact a stealth daemon
         void processPolicy();       // do all policy-file related tasks
 
     private:
+        void parentProcess() override;  // no actions here
         void childProcess() override;
-        void parentProcess() override;
-        void signalHandler(size_t signum) override;
-            void rerunRequest();
-            void suspendRequest();
-            void resumeRequest();
-            void reloadRequest();
-            void terminateRequest();
-            void unknownRequest();
-            void acceptMode(Mode mode);
-            void deniedMode(char const *request);
+
+        std::string rerunRequest();
+        std::string suspendRequest();
+        std::string resumeRequest();
+        std::string reloadRequest();
+        std::string terminateRequest();
+        std::string unknownRequest();
+            std::string acceptMode(Mode mode);
+            std::string deniedMode(char const *request);
 
         void logMsg(char const *label);
 
@@ -62,7 +66,6 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
 
         void doChores();            // run all scanning (related) tasks 
             void policyDepDataMembers();
-            void defineSupportedSignals();
 
             void processRequests();
                 void process(Mode request);     // process one single request
@@ -76,14 +79,13 @@ class Stealth: public StealthEnums, public FBB::Fork, public FBB::SignalHandler
             void suspend();
             void resume();
 
+            static void comThread(Stealth *obj);
+            void communicator();
 };
 
+inline void Stealth::comThread(Stealth *obj)
+{
+    obj->communicator();
+}
+
 #endif
-
-
-
-
-
-
-
-

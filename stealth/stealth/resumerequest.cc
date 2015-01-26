@@ -1,9 +1,11 @@
 #include "stealth.ih"
 
-void Stealth::resumeRequest()
+std::string Stealth::resumeRequest()
 {
-    if (d_run.mode(SUSPEND))
-        acceptMode(RESUME);
-    else
-        deniedMode("--resume");
+    string ret = d_run.mode(SUSPEND) ?
+                    acceptMode(RESUME)
+                :    
+                    deniedMode("--resume");
+
+    return ret;
 }

@@ -6,6 +6,10 @@ void Stealth::waitForRequest()
     {
         m1 << "MODE: WAIT" << endl;
 
+        if (d_chore.wait(d_ipc.waitSeconds()) == cv_status::timeout)
+
+
+
         while (true)
         {
             d_ipc.timedWait();

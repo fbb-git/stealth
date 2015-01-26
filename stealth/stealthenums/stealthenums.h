@@ -21,8 +21,7 @@ struct StealthEnums
 
         RELOAD          = 1 << 6,   // reload the config files 
 
-        TERMINATE       = 1 << 7,   // terminate a Stealth run (-> SIGTERM,
-                                    //                             SIGINT)
+        TERMINATE       = 1 << 7,   // terminate a Stealth run
 
         UNKNOWN         = 1 << 8,   
     };

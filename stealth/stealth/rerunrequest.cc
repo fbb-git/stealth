@@ -1,9 +1,11 @@
 #include "stealth.ih"
 
-void Stealth::rerunRequest()
+string Stealth::rerunRequest()
 {
-    if (d_run.mode(WAIT))
-        acceptMode(INTEGRITY_SCAN);
-    else
-        deniedMode("--rerun");
+    string ret = d_run.mode(WAIT) ?
+            acceptMode(INTEGRITY_SCAN)
+        :
+            deniedMode("--rerun");
+
+    return ret;
 }

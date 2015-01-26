@@ -2,15 +2,21 @@ Initially the running mode is INTEGRITY_SCAN. Options may change the
 initial mode.
 
 If the --daemon option was not requested, stealth runs as a forgeground
-process. Unless --repeat is specified there is just one integrity scan after
-which Stealth::processRequests terminates
+process. 
 
-Flow control is handled through IPC signals, in combination with information
-written to the pid-file.
+Unless --repeat is specified there is just one integrity scan after which
+Stealth::processRequests terminates
 
-The first line of the PID file contains the pid of the daemon process.
-A second line may be written by a stealth process requesting an action of the
-daemon, followed by the pid of the process issuing the request. Requests are:
+| Flow control is handled through locks on the pid-file, in combination with
+| information written to the pid-file.
+| 
+| The first line of the PID file contains the pid of the daemon process.
+| A second line may be written by a stealth process requesting an action of the
+| daemon, followed by the pid of the process issuing the request. Requests are:
+
+
+Flow control is handled by communicating through a Unix Domain Socket, which
+uses the run-file. Requests are:
 
     suspend,
     resume,
@@ -20,13 +26,48 @@ daemon, followed by the pid of the process issuing the request. Requests are:
                     and perform another integrity scan.
     terminate
 
-A request is written to the PID file, followed by sending the daemon a SIGUSR1
-signal. When the daemon has completed the request it sends the requesting
-process a SIGUSR1 signal; 
+At requests,
+
+    the request is sent using the Unix domain socket defined by the run-file
+    the daemon performs the request and replies with an answer indicating
+    success or failure. Success is inferred when an empty line is received.
+    Failure information contains an indication of the nature of the failure.
+
+Requests are passed to the daemon from the function Stealth::contactPeer.
+
+|    - the pid file is locked
+|    - the request is written to the pid-file
+|    - the pid file is unlocked.
+| 
+| A request is written to the PID file, followed by sending the daemon a SIGUSR1
+| signal. When the daemon has completed the request it sends the requesting
+| process a SIGUSR1 signal; 
 
 
 Stealth uses a RunMode object to keep track of its current mode of operation
-and an IPC object to handle the inter process communication.
+| now OBS? and an IPC object to handle the inter process communication.
+
+The member Stealth::processPolicy handles the actual commands.
+
+processPolicy:
+==============
+processPolicy forks if a Stealth should run as a daemon, in which case the
+fork's child process performs the daemon's tasks, and the parent process
+immediately finishes. 
+
+When a daemon starts its childProcess prepares the daemon (using
+Fork::prepareDaemon), and the communication thread starts, defining the
+unix domain server socket. Hereafter 'doChores' starts.
+
+The communicator uses two semaphores: doChores waits for d_chore to be ready,
+after which a command is performed, communicator waits for d_communicate to be
+ready, indicating that the result of a chore is available in d_result. Both
+are binary semaphores, and both are initialized to 0.
+
+With foreground runs 'doChores' is directly started.
+
+doChores:
+=========
 
 The flow of control handling requests is defined in processRequests,
 called from doChores. ProcessRequests defines a loop basically processing a
@@ -34,8 +75,16 @@ request and waiting for the next request ((waitForRequest)
 
 The file integrity scan itself is handled by an IntegrityScanner object.
 
+| 
+| Communications with the daemon use the run-file and signals SIGUSR1 (and
+| SIGTERM). The run-file by default contains the pid of the daemon process. The
+| signalling stealth process adds a request to the
+| file. The daemon reads the request and honors it if possible.
 
-Communications with the daemon use the run-file and signals SIGUSR1 (and
-SIGTERM). The run-file by default contains the pid of the daemon process. The
-signalling stealth process adds a request to the
-file. The daemon reads the request and honors it if possible.
+
+doChores calls processRequests to process the requests
+
+
+
+
+

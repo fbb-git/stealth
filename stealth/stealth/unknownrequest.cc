@@ -1,14 +1,15 @@
 #include "stealth.ih"
 
-void Stealth::unknownRequest()
+string Stealth::unknownRequest()
 {
     ostringstream msg;
-    msg << "received undefined request `" << d_ipc.requestText() << '\'';
+    string ret("unknown request");
+    msg << "received " << ret;
 
     m2 << msg << endl;
     d_stealthLog << msg << endl;
 
-    d_request = false;
+    return ret;
 }
 
 

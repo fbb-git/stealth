@@ -1,8 +1,6 @@
 #include "stealth.ih"
 
-// requests are received through interrupts (SIGUSR1, SIGTERM, SIGINT). For
-// SIGUSR1 requests the type of request is written in line 2 of the run file.
-// When a SIGUSR1 signal is received, the request
+// requests are received through the LocalServerSocket unix domain socket.
 
 void Stealth::processRequests()
 {
@@ -17,7 +15,8 @@ void Stealth::processRequests()
     
         d_stealthLog.refresh();
 
-        process(request);                    // process the current request
+        process(request);                   // process the current request
+                                            // calls a function from s_task
 
         mailLogs();
 

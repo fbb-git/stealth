@@ -6,6 +6,8 @@
 #include <bobcat/exception>
 #include <bobcat/linearmap>
 #include <bobcat/process>
+#include <bobcat/ifdstream>
+#include <bobcat.ofdstream>
 
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"

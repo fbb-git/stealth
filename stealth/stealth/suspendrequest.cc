@@ -2,8 +2,10 @@
 
 void Stealth::suspendRequest()
 {
-    if (d_run.mode(INTEGRITY_SCAN | WAIT | SUSPEND))
-        acceptMode(SUSPEND);
-    else
-        deniedMode("--suspend");
+    string ret = d_run.mode(INTEGRITY_SCAN | WAIT | SUSPEND) ?
+                    acceptMode(SUSPEND)
+                :
+                    deniedMode("--suspend");
+
+    return ret;
 }

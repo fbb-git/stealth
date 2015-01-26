@@ -2,5 +2,5 @@
 
 IPC::IPC()
 :
-    d_options(Options::instance())
+    d_options(Options::instance()),
 {}

@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::terminateRequest()
+string Stealth::terminateRequest()
 {
-    acceptMode(TERMINATE);
+    return acceptMode(TERMINATE);
 }

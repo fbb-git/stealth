@@ -1,27 +1,22 @@
 #include "stealth.ih"
 
-bool Stealth::contactPeer()
+void Stealth::contactPeer()
 {
     if (not d_options.ipc())
         return false;
 
-    Signal &signal = Signal::instance();
-    signal.add(SIGUSR1, *this);
-    
-    if (d_ipc.signalDaemon())
-    {
-        d_ipc.timedWait(s_contactPeerWaitSeconds);
+    LocalClientSocket lcs(d_options.runFile()); // open the unix domain socket
+    int fd = lcs.socket();
 
-        if (d_ipc.timeout())
-            cout << "No reply from daemon (pid " << d_ipc.daemonPid() << 
-                                                        ')' << endl;
-        else if (d_ipc.requestText() != "OK")
-            cout << d_ipc.requestText() << endl;
-        
-        return true;
-    }
+    OFdStream out(fd);
+    out << d_options.mode() << endl;        // send the requested mode
 
-    return false;
+    IFdStream in(fd);
+    string answer;                          // wait for the answer
+    getline(in, answer);
+
+    if (not answer.empty())                 // show the answer if something
+        throw Exception() << answer;        // went wrong.
 }
 
 
