@@ -19,7 +19,7 @@ void Options::setMode()
 
     if 
     (
-        (d_daemon = d_arg.option(&d_runFile, 'd'))
+        (d_daemon = d_arg.option(&d_unixDomainSocket, 'd'))
         &&
         (d_arg.nArgs() == 0)
     )
@@ -28,8 +28,8 @@ void Options::setMode()
 
     d_ipc = d_reload || d_rerun || d_terminate || d_suspend || d_resume;
 
-    if (d_daemon || d_ipc)
-        d_runFile = Util::realPath(d_arg[0]);
+    if (d_ipc)
+        d_unixDomainSocket = d_arg[0];
 
     d_foreground = not d_ipc and not d_daemon;
 }

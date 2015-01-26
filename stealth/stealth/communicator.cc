@@ -2,17 +2,17 @@
 
 void Stealth::communicator()
 {
-    LocalServerSocket server(d_options,runFile(), Socket::UNLINK);
+    LocalServerSocket server(unixDomainSocket(), LocalServerSocket::UNLINK);
 
     server.listen();
 
-    while (d_options.mode() != TERMINATE)
+    while (d_run.mode() != TERMINATE)
     {
         int socket = server.accept();       // accept a request
 
-        IFdStream in(socket);
-        Mode request;
-        if (not (in >> request).ignore(1000, '\n')) // read the request
+        IFdStream in(socket);               // read the request
+        int request;
+        if (not (in >> request).ignore(1000, '\n')) 
             request = UNKNOWN;
 
                                             // validate and prepare the req.

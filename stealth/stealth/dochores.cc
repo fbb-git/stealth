@@ -12,7 +12,7 @@ void Stealth::doChores()
     else
         d_integrityScanner->startCommandShells(); 
 
-    processRequests());
+    processRequests();
 }
 
 

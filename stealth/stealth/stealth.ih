@@ -1,13 +1,16 @@
 #include "stealth.h"
 
 #include <iostream>
+#include <thread>
 
 #include <bobcat/mstream>
 #include <bobcat/exception>
 #include <bobcat/linearmap>
 #include <bobcat/process>
 #include <bobcat/ifdstream>
-#include <bobcat.ofdstream>
+#include <bobcat/ofdstream>
+#include <bobcat/localclientsocket>
+#include <bobcat/localserversocket>
 
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"

@@ -30,7 +30,7 @@ inline RunMode::Mode RunMode::validate(int mode)
         ((mode - 1)  & mode) == 0 
         && 
         mode <= UNKNOWN ?
-            mode
+            static_cast<Mode>(mode)
         :
             UNKNOWN;
 }

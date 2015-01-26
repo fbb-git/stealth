@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_task =
+FBB::LinearMap<Stealth::Mode, Stealth::Task> Stealth::s_task =
     {
         {RELOAD,            &Stealth::reload},
         {TERMINATE,         &Stealth::terminate},

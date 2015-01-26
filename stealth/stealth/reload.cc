@@ -25,5 +25,3 @@ void Stealth::reload()
 
     d_run.setMode(INTEGRITY_SCAN);
 }
-
-

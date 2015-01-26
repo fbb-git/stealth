@@ -26,7 +26,7 @@ struct Options: public StealthEnums
 
     std::string d_policyFilePath;
     std::string d_skipFilePath;
-    std::string d_runFile;
+    std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
 
     bool d_reload;
@@ -109,7 +109,7 @@ struct Options: public StealthEnums
         std::string const &basename() const;
         std::string const &maxSizeStr() const;
         std::string const &policyFilePath() const;
-        std::string const &runFile() const;
+        std::string const &unixDomainSocket() const;
         std::string const &skipFilePath() const;
 
         std::string rfc2822() const;
@@ -246,9 +246,9 @@ inline std::string const &Options::skipFilePath() const
     return d_skipFilePath;
 }
 
-inline std::string const &Options::runFile() const
+inline std::string const &Options::unixDomainSocket() const
 {   
-    return d_runFile;
+    return d_unixDomainSocket;
 }
 
 inline std::string const &Options::basename() const

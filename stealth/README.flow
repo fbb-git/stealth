@@ -26,9 +26,7 @@ uses the run-file. Requests are:
                     and perform another integrity scan.
     terminate
 
-At requests,
-
-    the request is sent using the Unix domain socket defined by the run-file
+    Requests are received through the Unix domain socket defined by the run-file
     the daemon performs the request and replies with an answer indicating
     success or failure. Success is inferred when an empty line is received.
     Failure information contains an indication of the nature of the failure.
@@ -59,15 +57,25 @@ When a daemon starts its childProcess prepares the daemon (using
 Fork::prepareDaemon), and the communication thread starts, defining the
 unix domain server socket. Hereafter 'doChores' starts.
 
-The communicator uses two semaphores: doChores waits for d_chore to be ready,
-after which a command is performed, communicator waits for d_communicate to be
-ready, indicating that the result of a chore is available in d_result. Both
-are binary semaphores, and both are initialized to 0.
+communicator:
+=============
 
-With foreground runs 'doChores' is directly started.
+The communicator creates the LocalServerSocket, and loops while d_run.mode()
+is unequal TERMINATE. When a request arrives, the matching function is
+called. These functions should return an empty string indicating that the
+request can be handled. Otherwise the returned string contains an error
+message which is returned to the requestor. 
+
+If the request can be handled d_chore is notified, and the communicator waits
+for d_communicate to return, indicating that the request has been
+handled. When d_communicate.wait() returns the contents of d_result is
+returned to the requestor. Again: an empty string indicates that the request
+was successfully processed.
 
 doChores:
 =========
+
+With foreground runs 'doChores' is directly started.
 
 The flow of control handling requests is defined in processRequests,
 called from doChores. ProcessRequests defines a loop basically processing a
@@ -82,9 +90,14 @@ The file integrity scan itself is handled by an IntegrityScanner object.
 | file. The daemon reads the request and honors it if possible.
 
 
-doChores calls processRequests to process the requests
+processRequests:
+================
 
+Stealth (when performing integrity scans) starts up with an initial mode
+INTEGRITY_SCAN. At processRequests netTask() returns the next mode, which is
+then processed by 'process'. 
 
+NextTask() inspects the current mode. If it's WAIT wait() is called, which 
 
 
 

@@ -5,11 +5,14 @@
 #include <memory>
 
 #include <bobcat/fork>
+#include "../semaphore/semaphore" 
+
 
 #include "../runmode/runmode.h"     // declares LinearMap
-#include "../ipc/ipc.h"
+
+//#include "../ipc/ipc.h"
+
 #include "../stealthlog/stealthlog.h"
-#include "../semaphore/semaphore.h"
 
 class PolicyFile;
 class IntegrityScanner;
@@ -17,35 +20,37 @@ class Options;
 
 class Stealth: public StealthEnums, public FBB::Fork
 {
-//    static size_t const s_contactPeerWaitSeconds = 3;
-
     Options &d_options;
-    IPC d_ipc;
-
     RunMode d_run;
-    volatile bool d_request;
 
     StealthLog     d_stealthLog;
     std::shared_ptr<PolicyFile>         d_policyFile;
     std::shared_ptr<IntegrityScanner>   d_integrityScanner;
 
-    Semaphore d_chore;
+    FBB::Semaphore d_communicate;
+    std::string d_result;
+    FBB::Semaphore d_chore;
     int d_request;
-    Semaphore d_communicate;
 
     typedef std::string (Stealth::*Action)();
+    typedef void (Stealth::*Task)();
 
-    static FBB::LinearMap<Mode, Action> s_task;
+    static FBB::LinearMap<Mode, Task> s_task;
     static FBB::LinearMap<Mode, Action> s_request;
 
     public:
         Stealth();
         ~Stealth() override;
 
-        void contactPeer();         // contact a stealth daemon
+        bool contactPeer();         // contact a stealth daemon
         void processPolicy();       // do all policy-file related tasks
 
     private:
+                                    // constructs uds-filename from
+                                    // d_use["BASE"] and 
+                                    // options.unixDomainSocket()
+        std::string unixDomainSocket() const;    
+
         void parentProcess() override;  // no actions here
         void childProcess() override;
 
@@ -68,16 +73,21 @@ class Stealth: public StealthEnums, public FBB::Fork
             void policyDepDataMembers();
 
             void processRequests();
-                void process(Mode request);     // process one single request
-                void waitForRequest();
+                Mode nextTask();
+                void process(Mode request); // process one single request
+                    void reload();          // reload the configuration files.
+                    void terminate();
+                    void suspend();
+                    void resume();
+                    void integrityScan();
 
-            void integrityScan();
+        void wait();                // wait for command or timeout. At timeout
+                                    // the mode is set to INTEGRITY_SCAN
 
 
-            void reload();          // reload the configuration files.
-            void terminate();
-            void suspend();
-            void resume();
+
+
+//                void waitForRequest();
 
             static void comThread(Stealth *obj);
             void communicator();
