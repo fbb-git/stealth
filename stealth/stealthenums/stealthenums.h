@@ -5,13 +5,14 @@
 
 struct StealthEnums
 {
+    enum Leave
+    {};
+
     enum Mode       // uses bit-flags values
     {
-        LEAVE           = 1 << 0,
-
         INTEGRITY_SCAN  = 1 << 1,   // perform an integrity scan
 
-        WAIT            = 1 << 3,   // waiting for another signal/tine
+//        WAIT            = 1 << 3,   // waiting for another signal/tine
 
         RERUN           = 1 << 4,   // rerun on request at WAITING 
 

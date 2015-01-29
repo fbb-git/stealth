@@ -2,8 +2,8 @@
 
 string Stealth::rerunRequest()
 {
-    string ret = d_run.mode(WAIT) ?
-            acceptMode(INTEGRITY_SCAN)
+    string ret = d_task.mode(INTEGRITY_SCAN) ?
+            acceptMode(RERUN)
         :
             deniedMode("--rerun");
 

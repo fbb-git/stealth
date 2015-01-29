@@ -4,17 +4,16 @@ FBB::LinearMap<Stealth::Mode, Stealth::Task> Stealth::s_task =
     {
         {RELOAD,            &Stealth::reload},
         {TERMINATE,         &Stealth::terminate},
-        {INTEGRITY_SCAN,    &Stealth::integrityScan},
+        {INTEGRITY_SCAN,    &Stealth::startScan},
         {SUSPEND,           &Stealth::suspend},
         {RESUME,            &Stealth::resume},
+        {RERUN,             &Stealth::rerun},
     };
 
     // possible incoming requests at the communicator
 FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_request =
     {
-        {LEAVE,             &Stealth::unknownRequest},
         {INTEGRITY_SCAN,    &Stealth::unknownRequest},
-        {WAIT,              &Stealth::unknownRequest},
 
         {RERUN,             &Stealth::rerunRequest},
         {SUSPEND,           &Stealth::suspendRequest},

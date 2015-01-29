@@ -2,7 +2,7 @@
 
 void Stealth::waitForRequest()
 {
-    if (d_run.mode(WAIT))
+    if (d_task.mode(WAIT))
     {
         m1 << "MODE: WAIT" << endl;
 
@@ -17,7 +17,7 @@ void Stealth::waitForRequest()
                 break;                          // or timeout
         }
 
-        if (d_run.mode(WAIT))
-            d_run.setMode(INTEGRITY_SCAN);
+        if (d_task.mode(WAIT))
+            d_task.setMode(INTEGRITY_SCAN);
     }
 }

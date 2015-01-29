@@ -4,7 +4,8 @@ void Stealth::childProcess()
 {
     prepareDaemon();                // by Fork.
 
-    thread comm(comThread, this);   // start the communication thread
+                                    // start the communication thread
+    thread comm(startThread<&Stealth::communicator>, this);   
 
     doChores();    
 

@@ -12,6 +12,6 @@ void Stealth::wait()
         m2 << "waiting for " << nSeconds << " seconds or for a command" << 
                                                                         endl;
         if (d_chore.wait_for(chrono::seconds(nSeconds)) == cv_status::timeout)
-            d_run.setMode(INTEGRITY_SCAN);
+            d_task.setMode(INTEGRITY_SCAN);
     }
 }

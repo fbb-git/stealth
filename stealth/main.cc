@@ -88,6 +88,10 @@ catch (int ret)
 {
     return ArgConfig::instance().option("hv") ? 0 : ret;
 }
+catch (StealthEnums::Leave)
+{
+    return 1;
+}
 catch (...)
 {
     cerr << "\n"

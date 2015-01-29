@@ -20,7 +20,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     {
         if (!src.read(&c, 1))               // read char by char
         {
-            d_run.setMode(RunMode::TERMINATE);
+            d_task.setMode(RunMode::TERMINATE);
             d_stealthLog << "Incomplete read from `" << fname << "'" <<
                                                             StealthEnums::leave; 
             return;

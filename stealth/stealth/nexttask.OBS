@@ -2,8 +2,8 @@
 
 Stealth::Mode Stealth::nextTask()
 {
-    if (d_run.mode() == WAIT)
+    if (d_task.mode() == WAIT)
         wait();
 
-    return d_run.mode();
+    return d_task.mode();
 }

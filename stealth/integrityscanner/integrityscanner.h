@@ -20,7 +20,7 @@ class IntegrityScanner
     typedef StringVector::const_iterator const_iterator;
 
     Options        &d_options;
-    RunMode        &d_run;
+    RunMode        &d_task;
     PolicyFile     &d_policyFile;
     std::ostream   &d_stealthLog;
     FBB::Pattern    d_firstWord;
@@ -30,6 +30,7 @@ class IntegrityScanner
     std::string     d_label;
     const_iterator  d_cmdIterator;
     bool            d_testExitValue;
+    volatile bool   d_active;           // scanning process currently active
     size_t          d_nScans;
     off_t           d_maxSize;
     StringVector    d_skipFiles;
@@ -62,6 +63,9 @@ class IntegrityScanner
         void        run();    
 
         void killChildren();
+        
+        void stop();                // stops an ongoing integrity scan
+        bool active() const;
         
     private:
 
@@ -174,6 +178,16 @@ class IntegrityScanner
 inline void IntegrityScanner::nScansReset()
 {
     d_nScans = 0;
+}
+
+inline void IntegrityScanner::stop()
+{
+    d_active = false;
+}
+
+inline bool IntegrityScanner::active() const
+{
+    return d_active;
 }
 
 #endif

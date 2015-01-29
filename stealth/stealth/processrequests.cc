@@ -4,22 +4,18 @@
 
 void Stealth::processRequests()
 {
-    while (true)
+    do
     {
-        Mode mode = nextTask();
+        nextMode();
 
-        if (mode == LEAVE)
-            break;
-
-        m1 << "MODE: " << d_run.modeName() << endl;
+        m1 << "MODE: " << d_task.modeName() << endl;
     
         d_stealthLog.refresh();
 
-        process(mode);                      // process the current request
-                                            // calls a function from s_task
+                                            // process the current request
+        (this->*(s_task.find(d_task.mode())->second))();
 
         mailLogs();
-
-//        waitForRequest();
     }
+    while (not d_task.mode(TERMINATE));
 }

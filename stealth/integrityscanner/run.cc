@@ -2,6 +2,8 @@
 
 void IntegrityScanner::run()
 {
+    d_active = true;
+
     ++d_nScans;
 
     setSentinel();                              // determine d_sentinel
@@ -19,10 +21,10 @@ void IntegrityScanner::run()
 
         for (auto &cmd: ranger(d_cmdIterator, beyond))
         {
-            if (d_run.interrupted())    // terminate, suspend, reload
+            if (not d_active)                   
             {
                 m1 << "integrity scan interrupted by " << 
-                            d_run.modeName() << " request" << endl;
+                            d_task.modeName() << " request" << endl;
                 return;
             }
 
@@ -31,6 +33,7 @@ void IntegrityScanner::run()
     }
 
     m3 << "policy file processed" << endl;
+    d_active = false;
 }
 
 

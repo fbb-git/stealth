@@ -2,6 +2,6 @@
 
 string Stealth::acceptMode(Mode mode)
 {
-    d_run.setMode(mode);
+    d_task.setMode(mode);
     return "";
 }

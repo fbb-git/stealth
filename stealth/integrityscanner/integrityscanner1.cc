@@ -13,7 +13,7 @@ IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile,
                                    ostream &stealthLog)
 :
     d_options(Options::instance()),
-    d_run(run),
+    d_task(run),
     d_policyFile(policyFile),
     d_stealthLog(stealthLog),
     d_firstWord("(\\S+)(\\s+(.*))?"),           // firstword ([1]) and the

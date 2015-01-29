@@ -3,14 +3,13 @@
 
 #include <string>
 #include <memory>
+#include <thread>
 
 #include <bobcat/fork>
-#include "../semaphore/semaphore" 
+#include <bobcat/semaphore>
 
 
 #include "../runmode/runmode.h"     // declares LinearMap
-
-//#include "../ipc/ipc.h"
 
 #include "../stealthlog/stealthlog.h"
 
@@ -21,16 +20,20 @@ class Options;
 class Stealth: public StealthEnums, public FBB::Fork
 {
     Options &d_options;
-    RunMode d_run;
+    RunMode d_task;                  // the current run-mode.
+
+    FBB::Semaphore d_command;       // Semaphore for the next command
+                                    
+    FBB::Semaphore d_remote;        // Semaphore for answering the client
+    std::string d_result;           // answer to the client
+
+    std::thread d_scanThread;       // the thread running the scanning process
+    bool        d_integrityScan;    // stops the scanning process when false.
+
 
     StealthLog     d_stealthLog;
     std::shared_ptr<PolicyFile>         d_policyFile;
     std::shared_ptr<IntegrityScanner>   d_integrityScanner;
-
-    FBB::Semaphore d_communicate;
-    std::string d_result;
-    FBB::Semaphore d_chore;
-    int d_request;
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();
@@ -73,29 +76,29 @@ class Stealth: public StealthEnums, public FBB::Fork
             void policyDepDataMembers();
 
             void processRequests();
-                Mode nextTask();
-                void process(Mode request); // process one single request
+                void nextMode();
+
                     void reload();          // reload the configuration files.
                     void terminate();
                     void suspend();
                     void resume();
+                    void rerun();
                     void integrityScan();
 
-        void wait();                // wait for command or timeout. At timeout
-                                    // the mode is set to INTEGRITY_SCAN
+                    void startScan();
+                    void endScanner();
 
-
-
-
-//                void waitForRequest();
-
-            static void comThread(Stealth *obj);
+        template <void (Stealth::*fun)()>
+        static void startThread(Stealth *obj);
+        
             void communicator();
 };
 
-inline void Stealth::comThread(Stealth *obj)
+
+template <void (Stealth::*fun)()>
+inline void Stealth::startThread(Stealth *obj)
 {
-    obj->communicator();
+    (obj->*fun)();
 }
 
 #endif

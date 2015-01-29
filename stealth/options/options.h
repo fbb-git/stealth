@@ -100,8 +100,8 @@ struct Options: public StealthEnums
         char const *modeRequest() const;
 
         size_t commandNr() const;
-        size_t randomAddition() const;
-        size_t repeatInterval() const;
+        size_t nextIntegrityScan() const;
+
         size_t verbosity() const;
 
         std::streamsize maxDownloadSize() const;
@@ -133,6 +133,9 @@ struct Options: public StealthEnums
         void setRepeat();
         void setRandomDelay();
             size_t checkM(std::string const &spec, char const *option) const;
+
+        size_t randomAddition() const;
+        size_t repeatInterval() const;
 
         void setMail();
         void setSkipFilePath();
@@ -259,6 +262,11 @@ inline std::string const &Options::basename() const
 inline size_t Options::repeatInterval() const
 {
     return d_repeatInterval;
+}
+
+inline size_t Options::nextIntegrityScan() const
+{
+    return repeatInterval() + randomAddition();
 }
 
 inline size_t Options::commandNr() const

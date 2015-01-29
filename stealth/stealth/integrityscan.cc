@@ -9,10 +9,10 @@ void Stealth::integrityScan()
     else
         d_integrityScanner->run();
 
-    if (d_run.interrupted())
-        return;
+//    if (d_task.interrupted())
+//        return;
 
-    d_run.setMode(d_options.daemon() or d_options.repeat() ? WAIT : LEAVE);
+//    d_task.setMode(d_options.daemon() or d_options.repeat() ? WAIT : LEAVE);
 }
 
 

@@ -3,5 +3,5 @@
 ostream &StealthEnums::leave(ostream &out)
 {
     out << endl;
-    throw LEAVE;
+    throw Leave();
 }

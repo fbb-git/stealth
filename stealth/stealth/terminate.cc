@@ -3,5 +3,7 @@
 void Stealth::terminate()
 {
     logMsg("terminates");
-    d_run.setMode(LEAVE);
+    d_integrityScanner->stop();
+    endScanner();
+    d_remote.notify();    
 }

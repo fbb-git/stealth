@@ -1,7 +1,5 @@
 msg
 
-# wait11              msg
-
 util 
 stealthenums
 
@@ -13,12 +11,7 @@ stealthlog          options
 
 integrityscanner    options policyfile stealthlog runmode 
 
-# ipc                 options wait11
-
-semaphore
-
-# stealth             integrityscanner ipc stealthlog semaphore
-stealth             integrityscanner stealthlog semaphore
+stealth             integrityscanner stealthlog
 
 
 
