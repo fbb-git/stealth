@@ -89,7 +89,6 @@ class Stealth: public StealthEnums, public FBB::Fork
                     void integrityScan();
 
                     void startScan();
-                    void endScanner();
 
         void autoScan(char const *label);
 

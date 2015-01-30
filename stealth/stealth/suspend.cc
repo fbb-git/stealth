@@ -2,8 +2,6 @@
 
 void Stealth::suspend()
 {
-    endScanner();
-
     logMsg("is suspended");
 
     mailLogs();

@@ -16,6 +16,9 @@ void Stealth::processRequests()
         (this->*(s_task.find(d_task.mode())->second))();
 
         mailLogs();
+
+        if (d_scanThread.joinable())
+            d_scanThread.join();
     }
     while (not d_task.mode(TERMINATE));
 }
