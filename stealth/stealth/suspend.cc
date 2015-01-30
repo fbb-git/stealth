@@ -9,7 +9,7 @@ void Stealth::suspend()
     mailLogs();
     d_stealthLog.refresh();
 
-    m2 << "received SUSPEND signal" << endl;
+    m2 << "received SUSPEND request" << endl;
 
     d_remote.notify();
 }

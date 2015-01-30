@@ -8,7 +8,7 @@ void Stealth::processRequests()
     {
         nextMode();
 
-        m1 << "MODE: " << d_task.modeName() << endl;
+        m1 << "MODE REQUEST: " << d_task.modeName() << endl;
     
         d_stealthLog.refresh();
 

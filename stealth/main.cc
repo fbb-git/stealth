@@ -71,7 +71,7 @@ try
                                 longOption, endLongOption, 
                                 argc, argv); 
 
-    arg.versionHelp(Options::usage, Icmbuild::version, 0);
+    arg.versionHelp(Options::usage, Icmbuild::version, 1);
 
     Stealth stealth;
 

@@ -15,19 +15,29 @@ void Stealth::nextMode()
         while (true)
         {
             auto cvStatus = d_command.wait_for(chrono::seconds(nSeconds));
-            if (cvStatus == cv_status::timeout)
-            {
-                if 
-                (
-                    d_task.mode(SUSPEND)             // At timeout during 
-                    ||                              // suspend, or 
-                    d_integrityScanner->active()    // still busy scanning
-                )
-                    continue;                       // then wait some more
-                                        
-                d_task.setMode(INTEGRITY_SCAN);
+
+            m2 << "wait ends" << endl;
+
+            if (cvStatus != cv_status::timeout)
                 break;
+
+            m2 << "timeout" << endl;
+
+            if 
+            (
+                d_task.mode(SUSPEND)             // At timeout during 
+                ||                              // suspend, or 
+                d_integrityScanner->active()    // still busy scanning
+            )
+            {
+                m2 << "SUSPEND or scanner busy: wait some more" << endl;
+                continue;                       // then wait some more
             }
+                                    
+            d_task.setMode(INTEGRITY_SCAN);
+            m2 << "Next mode: INTEGRITY_SCAN" << endl;
+            break;
         }
     }
+    m2 << "nextMode returns with mode " << d_task.modeName() << endl;
 }

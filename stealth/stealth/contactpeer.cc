@@ -1,13 +1,23 @@
 #include "stealth.ih"
 
 bool Stealth::contactPeer()
-try
 {
     if (not d_options.ipc())
         return false;
-                                            // open the unix domain socket
-    LocalClientSocket lcs(d_options.unixDomainSocket()); 
-    int fd = lcs.connect();
+
+    int fd;
+    LocalClientSocket uds;
+
+    try
+    {
+        uds.open(d_options.unixDomainSocket());
+        fd = uds.connect();
+    }
+    catch (...)
+    {
+        throw Exception() << "can't connect to `" << 
+                            d_options.unixDomainSocket() << '\'';
+    }
 
     OFdStream out(fd);
     out << d_options.mode() << endl;        // send the requested mode
@@ -21,9 +31,5 @@ try
 
     return true;
 }
-catch (...)
-{
-    throw Exception() << "can't connect to `" << 
-                            d_options.unixDomainSocket() << '\'';
-}
+
 

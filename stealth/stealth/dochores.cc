@@ -12,6 +12,8 @@ void Stealth::doChores()
     else
         d_integrityScanner->startCommandShells(); 
 
+    m2 << "TMP: doChores, processing requests: " << d_task.modeName() << endl;
+
     processRequests();
 }
 

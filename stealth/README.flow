@@ -101,3 +101,12 @@ NextTask() inspects the current mode. If it's WAIT wait() is called, which
 
 
 
+Possible task requests:
+=======================
+rerun:      OK in mode WAIT
+suspend:    OK in mode SCAN, WAIT, SUSPEND
+resume:     OK in mode SUSPEND
+reload:     OK in mode SCAN, WAIT, SUSPEND
+terminate:  always OK.
+
+
