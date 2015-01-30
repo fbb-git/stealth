@@ -1,9 +1,0 @@
-#include "stealth.ih"
-
-Stealth::Mode Stealth::nextTask()
-{
-    if (d_task.mode() == WAIT)
-        wait();
-
-    return d_task.mode();
-}

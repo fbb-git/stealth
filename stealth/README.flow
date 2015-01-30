@@ -1,18 +1,120 @@
-Initially the running mode is INTEGRITY_SCAN. Options may change the
-initial mode.
+Stealth may run in one of three modes:
 
-If the --daemon option was not requested, stealth runs as a forgeground
-process. 
+    1. Foreground, where stealth performs one integrity scan and terminates;
 
-Unless --repeat is specified there is just one integrity scan after which
-Stealth::processRequests terminates
+    2. Background, where stealth, after performing its initial integrity scan
+       waits for additional commands and/or performs additional integrity scans
+       after (possibly random) time intervals.
 
-| Flow control is handled through locks on the pid-file, in combination with
-| information written to the pid-file.
-| 
-| The first line of the PID file contains the pid of the daemon process.
-| A second line may be written by a stealth process requesting an action of the
-| daemon, followed by the pid of the process issuing the request. Requests are:
+    3. Control, where stealth sends commands to a stealth daemon process.
+
+Communication between stealth processes running in modes 2 and 3 is realized
+through a unix domain socket, which is created by the stealth daemon process. 
+
+Figure 1 (documentation/images/communication.jpg) shows the organization:
+
+    * Stealth --daemon starts the daemon process, its childprocess
+        (stealth/childprocess) starting the ipcInterface thread (separate
+        threads are shown in light green), running the stealth/ipcinterface
+        function.
+
+    * ChildProcess is the main thread of the running stealth daemon. It
+        performs all the chores (through stealth/doChores). 
+
+        DoChores performs some bookkeeping tasks, eventually passing control
+        to stealth/processrequests. 
+
+        ProcessRequests runs the current task, which may be an integrity
+        scan. The integrity scan itself is run as a separate thread. Since an
+        integrity scan may require some processing time it runs as a separate
+        thread, allowing the child process to respond to requests received
+        from the ipcInterface
+
+    * The ipcInterface is a separate thread preparing the next task for
+        ProcessRequests. It creates the Unix domain server socket, waiting for
+        incoming request. Incoming requests are verified, and if OK passed on
+        to processRequests. The ipcInterface's mode of operation is described
+        in mode details below. 
+
+    * Stealth handling ipc requests connects to the stealth daemon's unix
+        domain socket, passing it the received request. It then waits for a
+        reply from the daemon. If the daemon reports an error the error
+        message is shown, and stealth running in ipc mode terminates with exit
+        value 1. Otherwise exit value 0 is returned and no additional output
+        is shown. 
+
+Figure 2 (documentation/images/ipcInterface.jpg) shows the inner workings of
+the ipcInterface function.
+
+    * Each loop handles one incoming connection. If a TERMINATE request is
+        received, the ipcInterface thread ends. A TERMINATE request also ends
+        the processRequests thread. Once both threads have terminated the
+        stealth daemon ends.
+
+    * Incoming requests are first verified. Verification is done by ...request
+        functions. If a request cannot be granted, an error message is stored
+        in d_result. Otherwise d_result is empty, indicating a valid request.
+
+        Given a current task (mode of operation) the following requests are
+        valid: 
+
+        ----------------------------------------------------------
+        Actual Task:            Valid Request:
+        ----------------------------------------------------------
+        INTEGRITY_SCAN          RELOAD, RERUN, SUSPEND, TERMINATE
+        RELOAD                  TERMINATE
+        SUSPEND                 RELOAD, RESUME, SUSPEND, TERMINATE
+        ----------------------------------------------------------
+
+    * If a request is valid, the d_processor Semaphore is notified. At startup
+        this semaphore is initialized to 1, with d_task initialized to
+        INTEGRITY_SCAN. Therefore, at startup processRequests (see below)
+        immediately receives the command to start the integrity scan.
+
+    * Actions performed by processRequests eventually end, and set
+        d_ranswer (maybe clearing d_result to indicate successful completion)
+        having notified ipcInterface about the task to perform ipcInterface
+        now waits for the answer to be set, using the d_result Semaphore.
+
+    * Having received (or initially: set by the validation functions) a
+        result, it is sent to the the stealth-ipc process.
+
+The processRequests function handles the incoming requests. This function also
+loops until (at the end of the loop) the task (mode) TERMINATE has been
+set. At the top of the loop the next task is determined. Once determined, the
+requested task starts.
+
+Figure 3 ((documentation/images/nexttask.jpg) shows the inner workings of
+the nextTask function. 
+
+When returning from nextTask the d_processor binary Semaphore has decayed to
+zero. The next command is processed after notifying  d_processor
+Notifications may be sent as a side-effect of the next task, or by
+ipcInterface. Conflicts between commands set by ipcInterface and by autoScan
+cannot occur:
+        - While a task is active is run, ipcInterface blocks until d_result is
+notified. In the meantime no ipc-stealth runs can start because the unix
+domain sockets is not listening for new connections.
+        - Once a task completes, it may or may not set the next command. If no
+command is set, then an ipc-stealth run is free to request the next
+command. If a command is set, then it is always (through autoScan) the
+INTEGRITY_SCAN command. In the following unlikely event:
+            autoScan sets INTEGRITY_SCAN
+            autoScan notifies d_processor
+            autoScan notifies d_answer
+    TASK SWITCH:
+                                ipcInterface sends d_answer to the current
+                                    ipc-stealth process
+                                icpInterface receives the next connection
+
+
+
+    
+
+Since the tasks can only arrive via the ipcInterface
+function there is no need t
+
+
 
 
 Flow control is handled by communicating through a Unix Domain Socket, which

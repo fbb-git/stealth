@@ -1,9 +1,9 @@
 #include "stealth.ih"
 
-void Stealth::nextMode()
+void Stealth::nextTask()
 {
     if (not d_options.repeat())     // if the scan is not automatically
-        d_command.wait();           // restarted, then wait for the next
+        d_processor.wait();           // restarted, then wait for the next
                                     // command. 
     else
     {
@@ -14,7 +14,7 @@ void Stealth::nextMode()
 
         while (true)
         {
-            auto cvStatus = d_command.wait_for(chrono::seconds(nSeconds));
+            auto cvStatus = d_processor.wait_for(chrono::seconds(nSeconds));
 
             m2 << "wait ends" << endl;
 
@@ -39,5 +39,5 @@ void Stealth::nextMode()
             break;
         }
     }
-    m2 << "nextMode returns with mode " << d_task.modeName() << endl;
+    m2 << "nextTask returns with mode " << d_task.modeName() << endl;
 }

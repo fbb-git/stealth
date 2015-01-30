@@ -1,6 +1,0 @@
-#include "stealth.ih"
-
-void Stealth::process()
-{
-    (this->*(s_task.find(d_mode)->second))();
-}

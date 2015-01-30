@@ -1,10 +1,27 @@
 stealth (3.01.00)
 
-  * Signals are no longer used for communication between
-    stealth-programs. Instead, unix domain sockets are used. 
+  * The communication between stealth programs now uses unix domain sockets,
+    rather than signals.
 
   * Added option 'socket' defining the unix domain socket to be used for
     communication between stealth programs.
+
+  * The --repeat option can only be specified in combination with --daemon
+
+  * Specifying a non-absolute filename for the unix domain socket (previously:
+    the pid file) defines the location of the unix domain socket relative to
+    the base-directory (USE BASE) which is specified in the policy file.
+
+  * Specifying a non-absolute filename with the --skip-files option defines
+    the location of that file relative to the base-directory (USE BASE) which
+    is specified in the policy file.
+
+  * Specifying a non-absolute filename with the --log option defines the
+    location of that file relative to the base-directory (USE BASE) which is
+    specified in the policy file.
+
+  * The README.flow file is provided with several separately provided 
+    illustrative images in the directory documentation/images.
 
 stealth (3.00.00)
 

@@ -2,15 +2,15 @@
 
 FBB::LinearMap<Stealth::Mode, Stealth::Task> Stealth::s_task =
     {
-        {RELOAD,            &Stealth::reload},
-        {TERMINATE,         &Stealth::terminate},
-        {INTEGRITY_SCAN,    &Stealth::startScan},
-        {SUSPEND,           &Stealth::suspend},
-        {RESUME,            &Stealth::resume},
-        {RERUN,             &Stealth::rerun},
+        {RELOAD,            &Stealth::reload},          // autoscan
+        {TERMINATE,         &Stealth::terminate},       // terminates
+        {INTEGRITY_SCAN,    &Stealth::startScan},       // ipc.notify
+        {SUSPEND,           &Stealth::suspend},         // ipc.notify
+        {RESUME,            &Stealth::resume},          // autoscan
+        {RERUN,             &Stealth::rerun},           // autoscan
     };
 
-    // possible incoming requests at the communicator
+    // possible incoming requests at the ipcInterface
 FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_request =
     {
         {INTEGRITY_SCAN,    &Stealth::unknownRequest},

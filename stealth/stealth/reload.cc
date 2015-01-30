@@ -23,9 +23,6 @@ void Stealth::reload()
         d_integrityScanner->startCommandShells();
     }
 
-    d_task.setMode(INTEGRITY_SCAN);
-
-    d_command.notify();
-    d_remote.notify();
+    autoScan("reload");
 }
 

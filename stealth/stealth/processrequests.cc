@@ -6,7 +6,7 @@ void Stealth::processRequests()
 {
     do
     {
-        nextMode();
+        nextTask();
 
         m1 << "MODE REQUEST: " << d_task.modeName() << endl;
     

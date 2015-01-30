@@ -29,7 +29,7 @@ section of the policy file.
         interval of <interval> seconds (or minutes if an `m' is appended (no
         blanks) to <interval>) following the delay specified at tt(--repeat)
         (see below). This option requires specification of the tt(--repeat)
-        option;
+        and tt(--daemon) options;
     it() tt(--reload <pid-file>): (C) reloads the configuration and skip-files
         and restarts the scan of the s() daemon process.
     it() tt(--repeat <seconds>): wake up and perform an integrity scan at
@@ -37,14 +37,17 @@ section of the policy file.
         appended (no blanks) to <seconds>) after completing the previous
         integrity scan. The option tt(--random-interval) can be used to add a
         random delay to tt(<seconds>) until the next integrity scan is
-        performed.
+        performed. This option requires specification of the and tt(--daemon)
+        option;
     it() tt(--rerun <pid-file>): start executing the integrity scan commands
         that are specifed in the s() daemon process's policy file;
     it() tt(--resume <pid-file>): (C) resume a suspended s() process, implies
         tt(--rerun);
     it() tt(--run-command (-r) <nr>): (C) Only execute command number <nr>
         (natural number).  Command numbers are shown by s()
-        tt(---parse-policy-file); 
+        tt(---parse-policy-file). This option cannot be specified when s()
+        runs in daemon mode (i.e., the tt(--run-command) option cannot be
+        specified in combination with the tt(--daemon) option);
     it() tt(--skip-files (-s) <skippath>): all entries in tt(skippath)
         (specified using an em(absolute path)) are skipped. Their integrity is
         not monitored. If an entry is already present in a log file then s()

@@ -2,10 +2,22 @@
 
 string Stealth::suspendRequest()
 {
-    string ret = d_task.mode(INTEGRITY_SCAN | SUSPEND) ?
-                    acceptMode(SUSPEND)
-                :
-                    deniedMode("--suspend");
+    string ret;
+
+    switch (d_task.mode())
+    {
+        case INTEGRITY_SCAN:
+            ret = acceptMode(SUSPEND);
+        break;
+
+        case SUSPEND:
+            ret = "nop";
+        break;
+
+        default:
+            ret = deniedMode("--suspend");
+        break;
+    }
 
     return ret;
 }

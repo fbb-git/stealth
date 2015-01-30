@@ -4,15 +4,15 @@ void Stealth::childProcess()
 {
     prepareDaemon();                // by Fork.
 
-                                    // start the communication thread
-    thread comm(startThread<&Stealth::communicator>, this);   
+                                    // start the ipc interface thread
+    thread interface(startThread<&Stealth::ipcInterface>, this);   
 
     doChores();    
 
     m1 << d_options.basename() << " (process " << getpid() << 
                                                     ") terminates" << endl;
 
-    comm.join();                    // wait for the comm. thread to finish
+    interface.join();               // wait for the interface thread to finish
 
     throw 0;
 }

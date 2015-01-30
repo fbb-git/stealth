@@ -14,15 +14,24 @@ manpage(stealth)(1)(_CurYrs_)(stealth__CurVers_.tar.gz)(Security Enhancement)
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
 manpagesynopsis()
-    s()  --daemon pidfile --dry-run --log <path> --logmail+nl()
+    `<uds-name>' represents the name of the unix domain socket to use.
+
+    s()  --daemon <uds-name> --dry-run --log <file-spec> --logmail+nl()
             --max-size <size>[BKMG] --no-mail --parse-policy-file+nl()
             --random-interval <seconds> --repeat <seconds>nl()
-            --run-command <nr> --skip-files <path> --stdout --syslog+nl()
+            --skip-files <file-spec> --stdout --syslog+nl()
             --syslog-facility <fac> --syslog-priority <pri> 
                                                     --syslog-tag <tag>nl()
             --verbosity <value> policy
 
-    s() {--reload,--rerun,--resume,--suspend,--terminate} pidfile
+    s()  --dry-run --log <file-spec> --logmail+nl()
+            --max-size <size>[BKMG] --no-mail --parse-policy-file+nl()
+            --run-command <nr> --skip-files <file-spec> --stdout --syslog+nl()
+            --syslog-facility <fac> --syslog-priority <pri> 
+                                                    --syslog-tag <tag>nl()
+            --verbosity <value> policy
+
+    s() {--reload,--rerun,--resume,--suspend,--terminate} <uds-name>
 
     s() --help --version
 
@@ -81,17 +90,19 @@ bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
     it() First, the em(policy) file is read. This determines the actions to be
 performed, and the values of several variables that are used by s().
 
-    it() If the command-line option tt(--daemon pidfile) is specified, s()
+    it() If the command-line option tt(--daemon <uds-name>) is specified, s()
 runs as a backgrond process, writing its process id in the file tt(pifile).
 
-With tt(--repeat <seconds>) the scan is rerun every tt(<seconds>) seconds. The
-number of seconds until the next rerun is restricted by s() to a value of at
-least 60. However, using the tt(--rerun pidfile) option a daemon s() another
-integrity scan can be requested after a shorter interval. 
+When running in daemon mode, tt(--repeat <seconds>) may be specified to rerun
+the integrity scan every tt(<seconds>) seconds. If an integrity scan is being
+performed when, according to the repeat interval the next integrity scan is
+due, then the current scan is first completed. Once completed, the next
+integrity scan will be performed after tt(seconds) seconds. 
 
-    When tt(--daemon) is specified the scan is performed just once, whereafter
-s()  waits until another integrity scan is requested using the
-s() tt(--rerun pidfile) invokation
+    When tt(--daemon) is specified an initial scan is always performed,
+whereafter s() waits until another integrity scan is requested through the s()
+tt(--rerun <uds-name>) invocation, or because the next scan is due based on 
+the configured tt(repeat) interval.
 
     it() Next, the controller opens a command shell on the client using
 bf(ssh)(1), and a command shell on itself using bf(sh)(1).
@@ -99,11 +110,11 @@ bf(ssh)(1), and a command shell on itself using bf(sh)(1).
     it() Once the command shells are available, commands defined in the policy
 file are executed in their order of appearance. Examples are given
 below. Normally, return values of the programs are tested. When return values
-are tested s() terminates when a non-zero return
-value is received. If this happens, a message stating the
-reason why s() terminated is written to the report file (and into the mail
-message sent by s()). In some cases (e.g., when the report file could not be
-written), the message is written to the standard error stream.
+are tested s() terminates when a non-zero return value is received. If this
+happens, a message stating the reason why s() terminated is written to the
+report file (and into the mail message sent by s()). In some cases (e.g., when
+the report file could not be written), the message is written to the standard
+error stream.
 
     it() In most cases, integrity tests can be controlled using the
 bf(find)(1) program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its
@@ -128,76 +139,17 @@ file may safely be rotated between a pair of tt(--suppress) and tt(--resume)
 commands. 
     )
 
-manpagesection(REPORT FILE ROTATION)
-    Since s() only appends information to the report file, the report file's
-size may eventually become prohibitively large, and log-rotation may be
-desirable. It is of course possible to issue a tt(--terminate) command, rotate
-the logfiles, and restart s(), but s() also offers a facility to temporarily
-suspend integrity scans performed by a s() daemon process:
-    itemization(
-    it() Calling s() with the option tt(--suspend <pidfile>) suspends the
-            daemon's integrity scans. If s() is
-            actually performing a series of integrity scans when
-            tt(--suspend) is issued, the currently executing command is first
-            completed after which the tt(--suspend) command completes. Once
-            the s() daemon has been suspended, automatic or explicit
-            integrity scan requests are denied, and the daemon can only be
-            instructed to resume its scanning tasks (s() --resume <pidfile>)
-            or to terminate (s() --terminate <pidfile>).
+manpagesection(OPTIONS)
 
-    it() Once `s() tt(--suspend <pidfile>)' has returned, the report file
-            may safely be rotated (using, e.g., bf(logrotate)(1)), and a new
-            (empty) report file may optionally be created by the logrotation
-            process.
+    includefile(../manual/running/options.yo)
 
-    it() Once the log-rotation has been completed, the log-rotation process
-            should issue the command `s() tt(--resume <pidfile>)'. This
-            resumes the activities of a suspended s() daemon process,
-            immediately performing the next integrity scan. Following this the
-            s() daemon is back to its original integrity scanning mode.
-    )
-    Here is an example of bf(logrotate)(1) specification rotating s()
-log-files:
-        verb(/root/stealth/host/report {
-    weekly
-    rotate 12
-    compress
-    missingok
-    prerotate
-        /usr/bin/stealth --suppress /run/stealth.host
-    endscript
-    postrotate
-        /usr/bin/stealth --resume /run/stealth.host
-    endscript 
-})
-
-manpagesection(RELOAD, RERUN AND TERMINATE)
-
-    Here is what happens when s() is run using the second synopsis:
-    itemization(
-    it() When started as s() tt(--reload <pidfile>), the s() daemon process
-        reloads its policy file and (if specified) tt(--skip-files)
-        specification file. Next the s() daemon process performs a file
-        integrity scan using the information in the re-read policy and
-        skip-files files. S() can reload the (modified) contents of the
-        originally specified policy- and skip-files names. If another policy
-        and/or skip-files files must be used another s() process must be
-        started, for which these new filenames are specified.
-
-    it() When started as s() tt(--rerun <pidfile>), the s() daemon performs
-        another scan (unless it has been suspended using s() tt(--suspend
-        <pidfile>)).
-
-    it() When started as s() tt(--terminate pidfile), the s() daemon is
-        terminated.
-    )
-
-    manpagesection(OPEN SSH LINK TO CLIENTS)
+manpagesection(OPEN SSH LINK TO CLIENTS)
 
     Once s() is started as a foreground or daemon process performing file
-integrity scans one one bf(ssh)(1) connection is opened to the client. This
-connection remains active during s()'s lifetime to minimize the number of
-bf(sshd) entries caused by s() in the client's log files.
+integrity scans bf(ssh)(1) is used to connect to the computer(s) which are
+monitored by s(). While s() runs only one bf(ssh)(1) connection is opened to
+each client. This connection remains active during s()'s lifetime to minimize
+the number of bf(sshd) entries in the client's log files.
 
     nsect(THE POLICY FILE)
 
@@ -644,9 +596,69 @@ terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
 tt(--max-size) option, see below. By default this size is set at 10M.
 
 
-manpagesection(OPTIONS)
+manpagesection(REPORT FILE ROTATION)
+    Since s() only appends information to the report file, the report file's
+size may eventually become prohibitively large, and log-rotation may be
+desirable. It is of course possible to issue a tt(--terminate) command, rotate
+the logfiles, and restart s(), but s() also offers a facility to temporarily
+suspend integrity scans performed by a s() daemon process:
+    itemization(
+    it() Calling s() with the option tt(--suspend <<uds-name>>) suspends the
+            daemon's integrity scans. If s() is
+            actually performing a series of integrity scans when
+            tt(--suspend) is issued, the currently executing command is first
+            completed after which the tt(--suspend) command completes. Once
+            the s() daemon has been suspended, automatic or explicit
+            integrity scan requests are denied, and the daemon can only be
+            instructed to resume its scanning tasks (s() --resume <<uds-name>>)
+            or to terminate (s() --terminate <<uds-name>>).
 
-    includefile(../manual/running/options.yo)
+    it() Once `s() tt(--suspend <<uds-name>>)' has returned, the report file
+            may safely be rotated (using, e.g., bf(logrotate)(1)), and a new
+            (empty) report file may optionally be created by the logrotation
+            process.
+
+    it() Once the log-rotation has been completed, the log-rotation process
+            should issue the command `s() tt(--resume <<uds-name>>)'. This
+            resumes the activities of a suspended s() daemon process,
+            immediately performing the next integrity scan. Following this the
+            s() daemon is back to its original integrity scanning mode.
+    )
+    Here is an example of bf(logrotate)(1) specification rotating s()
+log-files:
+        verb(/root/stealth/host/report {
+    weekly
+    rotate 12
+    compress
+    missingok
+    prerotate
+        /usr/bin/stealth --suppress /run/stealth.host
+    endscript
+    postrotate
+        /usr/bin/stealth --resume /run/stealth.host
+    endscript 
+})
+
+manpagesection(RELOAD, RERUN AND TERMINATE)
+
+    Here is what happens when s() is run using the third synopsis:
+    itemization(
+    it() When started as s() tt(--reload <<uds-name>>), the s() daemon process
+        reloads its policy file and (if specified) tt(--skip-files)
+        specification file. Next the s() daemon process performs a file
+        integrity scan using the information in the re-read policy and
+        skip-files files. S() can reload the (modified) contents of the
+        originally specified policy- and skip-files names. If another policy
+        and/or skip-files files must be used another s() process must be
+        started, for which these new filenames are specified.
+
+    it() When started as s() tt(--rerun <<uds-name>>), the s() daemon performs
+        another scan (unless it has been suspended using s() tt(--suspend
+        <<uds-name>>)).
+
+    it() When started as s() tt(--terminate <uds-name>), the s() daemon is
+        terminated.
+    )
 
 manpagesection(RSYSLOG FILTERING)
 

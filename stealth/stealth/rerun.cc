@@ -8,10 +8,5 @@ void Stealth::rerun()
     endScanner();                               // wait for an ongoing scan to
                                                 // end
 
-    d_task.setMode(INTEGRITY_SCAN);
-
-    m2 << "rerunning INTEGRITY_SCAN next" << endl;
-
-    d_command.notify();
-    d_remote.notify();
+    autoScan("rerun");
 }
