@@ -28,6 +28,8 @@ void Stealth::ipcInterface()
                                 )->second
                         )();
 
+        bool newTask = false;
+
         if (d_answer == "nop")
             d_answer.clear();           // command not requiring an operation
         else if (d_answer.empty())      // if the *request functions succeed
@@ -35,12 +37,16 @@ void Stealth::ipcInterface()
                                         // handled. Otherwise `remote' is 
                                         // informed about the reason of the
                                         // failure.
+            newTask = true;
             d_processor.notify();
             d_result.wait();
         }
         
         OFdStream out(socket);
         out << d_answer << endl;
+
+        if (not newTask)                // reset the Semaphore so another
+            d_ipc.notify();             // request can arrive
     }
     while (not d_task.mode(TERMINATE));
 }
