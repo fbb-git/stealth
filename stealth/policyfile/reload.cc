@@ -15,7 +15,7 @@ void PolicyFile::reload()
 
     string &base = d_use["BASE"];
 
-    base += "/.";                           // the . is required by mkdir
+    base += '.';                            // the . is required by mkdir
 
     char const *cp = base.c_str();
 

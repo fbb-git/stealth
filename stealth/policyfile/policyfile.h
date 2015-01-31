@@ -29,6 +29,8 @@ class PolicyFile
         static FBB::Pattern              s_define;   // [0]: all text,
                                                 // [1]: all ${NAME} text
                                                 // [2]: NAME itself
+        static FBB::Pattern              s_log; // [4]: name of the logfile
+
     public:
         PolicyFile(std::string const &policyPath);
 
@@ -50,6 +52,8 @@ class PolicyFile
                                     // replaces the DEFINE's in text
         void replaceDefines(std::string &text); 
         void insert(LinearMap &linMap, std::string const &line);
+
+        void fixRelativeLocations();
 };
 
 inline size_t PolicyFile::size() const

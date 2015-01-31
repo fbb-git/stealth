@@ -23,4 +23,10 @@ Pattern PolicyFile::s_define("(\\$\\{([-_[:alnum:]]+)\\})");
                                                     // [0]: all text,
                                                     // [1]: all ${NAME} text
                                                     // [2]: NAME itself
+Pattern PolicyFile::s_log(
+        "^\\s*"
+        "(LOCAL\\s+)?"                      // 1
+        "(NOTEST\\s+)?"                     // 2
+        "CHECK\\s+(LOG\\s*=\\s*)?"          // 3
+        "(\\S+)");                          // 4: name of the logfile
 
