@@ -1,7 +1,5 @@
 #include "util.ih"
 
-#include <iostream>
-
 string Util::realPath(string const &path)
 {
     String::Type type;
