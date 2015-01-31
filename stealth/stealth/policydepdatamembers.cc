@@ -2,7 +2,7 @@
 
 void Stealth::policyDepDataMembers()
 {
-    d_policyFile = make_shared<PolicyFile>(d_options.policyFilePath());
+    d_policyFile = d_options.policyFile();
 
     d_stealthLog.open((*d_policyFile)["REPORT"]);
 

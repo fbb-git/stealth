@@ -24,9 +24,9 @@ void PolicyFile::fetchCommands()
 
     fixRelativeLocations();
 
-    if (size_t parse = Options::instance().parsePolicyFile())
+    if (d_parseOnly != 0)
     {
-        if (parse > 1)
+        if (d_parseOnly > 1)
         {
             for(auto &value: d_use)
                 mp << "USE " << value.first << ": " << value.second << endl;

@@ -34,8 +34,9 @@ class Stealth: public StealthEnums, public FBB::Fork
     bool        d_integrityScan;    // stops the scanning process when false.
 
 
-    StealthLog     d_stealthLog;
-    std::shared_ptr<PolicyFile>         d_policyFile;
+    StealthLog  d_stealthLog;
+    PolicyFile  *d_policyFile;
+
     std::shared_ptr<IntegrityScanner>   d_integrityScanner;
 
     typedef std::string (Stealth::*Action)();

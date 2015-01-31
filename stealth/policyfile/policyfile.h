@@ -16,6 +16,8 @@ class PolicyFile
         typedef FBB::LinearMap<std::string, std::string> LinearMap;
 
         std::string                     d_policyPath;
+        size_t                          d_parseOnly;
+
         FBB::ConfigFile                 d_configfile;
         std::vector<std::string>        d_command;
 
@@ -32,7 +34,7 @@ class PolicyFile
         static FBB::Pattern              s_log; // [4]: name of the logfile
 
     public:
-        PolicyFile(std::string const &policyPath);
+        PolicyFile(std::string const &policyPath, size_t parseOnly);
 
         void reload();
 

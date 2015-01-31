@@ -5,10 +5,13 @@ void Options::loadPolicyOptions()
     if (d_ipc)
         return;
 
-    d_policyFilePath = Util::realPath(d_arg[0]);
+    
+    string policyPath = Util::realPath(d_arg[0]);
 
+    d_policyFile = make_shared<PolicyFile>(policyPath, d_parsePolicy);
+    
     ifstream policy;
-    Exception::open(policy, d_policyFilePath);
+    Exception::open(policy, policyPath);
 
     string line;
     while (getline(policy, line) && line != "%%")   // find the %% separator

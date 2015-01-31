@@ -11,10 +11,14 @@
 
 #include "../stealthenums/stealthenums.h"
 
+class PolicyFile;
+
 struct Options: public StealthEnums
 {
     FBB::ArgConfig &d_arg;
 
+    std::shared_ptr<PolicyFile>         d_policyFile;
+    
     std::shared_ptr<FBB::SyslogStream> d_syslog;
     FBB::Log d_log;
 
@@ -24,7 +28,7 @@ struct Options: public StealthEnums
 
     Mode d_mode = INTEGRITY_SCAN;
 
-    std::string d_policyFilePath;
+//    std::string d_policyFilePath;
     std::string d_skipFilePath;
     std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
@@ -108,11 +112,13 @@ struct Options: public StealthEnums
 
         std::string const &basename() const;
         std::string const &maxSizeStr() const;
-        std::string const &policyFilePath() const;
+//        std::string const &policyFilePath() const;
         std::string const &unixDomainSocket() const;
         std::string const &skipFilePath() const;
 
         std::string rfc2822() const;
+
+        PolicyFile *policyFile();
 
         static void usage(std::string const &progname);
 
@@ -189,10 +195,10 @@ inline bool Options::verbose() const
     return d_arg.option('V');
 }
 
-inline size_t Options::parsePolicyFile() const
-{   
-    return d_parsePolicy;
-}
+//inline size_t Options::parsePolicyFile() const
+//{   
+//    return d_parsePolicy;
+//}
 
 inline bool Options::rerun() const
 {   
@@ -239,9 +245,14 @@ inline bool Options::dryrun() const
     return d_dryrun;
 }
 
-inline std::string const &Options::policyFilePath() const
+//inline std::string const &Options::policyFilePath() const
+//{   
+//    return d_policyFilePath;
+//}
+
+inline PolicyFile *Options::policyFile()
 {   
-    return d_policyFilePath;
+    return d_policyFile.get();
 }
 
 inline std::string const &Options::skipFilePath() const

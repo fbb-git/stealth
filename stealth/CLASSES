@@ -3,15 +3,16 @@ msg
 util 
 stealthenums
 
-options             stealthenums msg util
+policyfile
 
-policyfile          options 
+options             stealthenums msg util policyfile
+
 runmode             options
 stealthlog          options
 
-integrityscanner    options policyfile stealthlog runmode 
+integrityscanner    stealthlog runmode 
 
-stealth             integrityscanner stealthlog
+stealth             integrityscanner 
 
 
 

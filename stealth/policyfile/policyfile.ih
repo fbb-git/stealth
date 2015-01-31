@@ -4,7 +4,6 @@
 #include <bobcat/mstream>
 
 #include "../util/util.h"
-#include "../options/options.h"
 #include "../msg/msg.h"
 
 using namespace std;
