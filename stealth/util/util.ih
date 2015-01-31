@@ -1,12 +1,17 @@
 #include "util.h"
 
-#include <ostream>
-#include <string>
-#include <climits>
-#include <cstdlib>
-#include <libgen.h>
+//#include <ostream>
 
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <string>
+#include <algorithm>
+
+//#include <libgen.h>
+
+//#include <sys/stat.h>
+//#include <sys/types.h>
+
+#include <bobcat/string>
+#include <bobcat/exception>
 
 using namespace std;
+using namespace FBB;

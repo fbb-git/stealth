@@ -4,9 +4,15 @@ void Options::loadPolicyOptions()
 {
     if (d_ipc)
         return;
-
     
-    string policyPath = Util::realPath(d_arg[0]);
+    char buffer[PATH_MAX];
+
+    string policyPath = d_arg[0];
+
+    string base(getcwd(buffer, PATH_MAX));
+    base += '/';
+    
+    Util::absPath(base, policyPath);
 
     d_policyFile = make_shared<PolicyFile>(policyPath, d_parsePolicy);
     

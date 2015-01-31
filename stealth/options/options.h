@@ -28,7 +28,6 @@ struct Options: public StealthEnums
 
     Mode d_mode = INTEGRITY_SCAN;
 
-//    std::string d_policyFilePath;
     std::string d_skipFilePath;
     std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
@@ -85,7 +84,6 @@ struct Options: public StealthEnums
 
         void oldOptions() const;
 
-        size_t parsePolicyFile() const;
         bool verbose() const;
         bool ipc() const;
         bool reload() const;        
@@ -112,7 +110,6 @@ struct Options: public StealthEnums
 
         std::string const &basename() const;
         std::string const &maxSizeStr() const;
-//        std::string const &policyFilePath() const;
         std::string const &unixDomainSocket() const;
         std::string const &skipFilePath() const;
 
@@ -195,11 +192,6 @@ inline bool Options::verbose() const
     return d_arg.option('V');
 }
 
-//inline size_t Options::parsePolicyFile() const
-//{   
-//    return d_parsePolicy;
-//}
-
 inline bool Options::rerun() const
 {   
     return d_rerun;
@@ -244,11 +236,6 @@ inline bool Options::dryrun() const
 {   
     return d_dryrun;
 }
-
-//inline std::string const &Options::policyFilePath() const
-//{   
-//    return d_policyFilePath;
-//}
 
 inline PolicyFile *Options::policyFile()
 {   
