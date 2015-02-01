@@ -48,8 +48,18 @@ void IntegrityScanner::run()
 //        m2 << "SLEEP SCAN: for 10 secs." << endl;
 //        this_thread::sleep_for(chrono::seconds(10));
 //    }
-//    
-//    m3 << "policy file processed" << endl;
-//    d_active = false;
-
+    
+    m3 << "policy file processed" << endl;
+    d_active = false;
 }
+
+
+
+
+
+
+
+
+
+
+
