@@ -19,8 +19,8 @@ class Stealth: public StealthEnums, public FBB::Fork
 {
     Options &d_options;
 
-    RunMode d_task;                  // the current run-mode.
-    RunMode d_pending;               // a pending run-mode.
+    RunMode d_task;                 // the current run-mode.
+    RunMode d_pending;              // a pending run-mode.
 
     FBB::Semaphore d_ipc;           // Folowing wait Stealth is available
                                     // for the next ipc-command

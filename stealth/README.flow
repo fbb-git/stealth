@@ -6,7 +6,7 @@ Stealth may run in one of three modes:
        waits for additional commands and/or performs additional integrity scans
        after (possibly random) time intervals.
 
-    3. Control, where stealth sends commands to a stealth daemon process.
+    3. IPC, where stealth sends commands to a stealth daemon process.
 
 Communication between stealth processes running in modes 2 and 3 is realized
 through a unix domain socket, which is created by the stealth daemon process. 
@@ -15,8 +15,8 @@ Figure documentation/images/communication.jpg shows the organization:
 
     * Stealth --daemon starts the daemon process, its childprocess
         (stealth/childprocess) starting the ipcInterface thread (separate
-        threads are shown in light green), running the stealth/ipcinterface
-        function.
+        threads are shown in light green), implemented by the
+        stealth/ipcinterface function.
 
     * ChildProcess is the main thread of the running stealth daemon. It
         performs all the chores (through stealth/doChores). 
@@ -24,70 +24,71 @@ Figure documentation/images/communication.jpg shows the organization:
         DoChores performs some bookkeeping tasks, eventually passing control
         to stealth/processrequests. 
 
-        ProcessRequests runs the current task, which may be an integrity
-        scan. The integrity scan itself is run as a separate thread. Since an
-        integrity scan may require some processing time it runs as a separate
-        thread, allowing the child process to respond to requests received
-        from the ipcInterface
+        JobsHandler runs the current task, which may be an integrity
+        scan. 
 
     * The ipcInterface is a separate thread preparing the next task for
-        ProcessRequests. It creates the Unix domain server socket, waiting for
-        incoming request. Incoming requests are verified, and if OK passed on
-        to processRequests. The ipcInterface's mode of operation is described
-        in mode details below. 
+        jobsHandler. It creates the Unix domain server socket, and waits for
+        incoming request. Incoming requests are verified, and if OK they are
+        forwarded to jobsHandler. IpcInterface's mode of operation is
+        described in more detail below.
 
-    * Stealth handling ipc requests connects to the stealth daemon's unix
-        domain socket, passing it the received request. It then waits for a
-        reply from the daemon. If the daemon reports an error the error
-        message is shown, and stealth running in ipc mode terminates with exit
-        value 1. Otherwise exit value 0 is returned and no additional output
-        is shown. 
+    * Stealth-ipc processes handle ipc requests. These processes connect to
+        the stealth daemon's unix domain socket, passing it the received
+        request. It then waits for a reply from the daemon. If the daemon
+        reports an error the error message is shown, and stealth running in
+        ipc mode terminates with exit value 1. Otherwise exit value 0 is
+        returned and no additional output is shown.
 
 Figure documentation/images/ipcInterface.jpg shows the inner workings of
 the ipcInterface function.
 
-    * Each loop handles one incoming connection. If a TERMINATE request is
-        received, the ipcInterface thread ends. A TERMINATE request also ends
-        the processRequests thread. Once both threads have terminated the
-        stealth daemon ends.
+    * Each cycle of ipcInterface's main loop handles one incoming
+        connection. If a TERMINATE request is received, the ipcInterface
+        thread ends. A TERMINATE request also ends the main (jobsHandler)
+        thread. Once both threads have terminated the stealth daemon ends.
 
-    * When an incoming request arrives, processing may be suspended until
+    * Incoming requests are validated, and initially stored in  arrives, processing may be suspended until
         processRequests is ready to accept the next command (see below at
         nextTask's description). There will be at most a short delay, if ever
         there is one. 
 
-    * Incoming requests are first verified. Verification is done by ...request
-        functions. If a request cannot be granted, an error message is stored
-        in d_result. Otherwise d_result is empty, indicating a valid request.
+    * Incoming requests are validated. For each possible request a matching
+        ...request function handles the valiadation. If a request cannot be
+        granted (i.e., is invalid), an error message is sent to the
+        stealth-ipc process and another cycle starts.
 
         Given a current task (mode of operation) the following requests are
         valid: 
 
         ----------------------------------------------------------
-        Actual Task:            Valid Request:
+        Actual Job:            Valid Incoming Request:
         ----------------------------------------------------------
         INTEGRITY_SCAN          RELOAD, RERUN, SUSPEND, TERMINATE
         RELOAD                  TERMINATE
         SUSPEND                 RELOAD, RESUME, SUSPEND, TERMINATE
         ----------------------------------------------------------
 
-        Requesting SUSPEND while in SUSPEND mode has no effect (validate
-        returns `nop'): in this case the ipc-stealth process is informed that
+        Requesting SUSPEND while in SUSPEND mode has no effect (validation
+        returns `nop'): in this case the stealth-ipc process is informed that
         there is no error but processRequests doesn't actually receive a new
         command to process
 
-    * If a request is valid, the d_processor Semaphore is notified. At startup
-        this semaphore is initialized to 1, with d_task initialized to
-        INTEGRITY_SCAN. Therefore, at startup processRequests (see below)
-        immediately receives the command to start the integrity scan.
+    * If a request is valid, the incoming request is stored in
+        d_pending. Ongoing jobs may inspect d_pending to see whether they
+        should prematurely stop (e.g., when a TERMINATE request arrives while
+        an integrity scan is being executed, the scan will end after
+        completing the command currently being processed)
 
-    * Actions performed by processRequests eventually end, and set
-        d_ranswer (maybe clearing d_result to indicate successful completion)
-        having notified ipcInterface about the task to perform ipcInterface
-        now waits for the answer to be set, using the d_result Semaphore.
+    * Next, ipcInterface waits until jobsHandler is ready for the next task.
+        When ready, the next task is set in d_task, and d_pending is reset,
+        after which jobsHandler is notified that it has another task to
+        handle.
 
-    * Having received (or initially: set by the validation functions) a
-        result, it is sent to the the stealth-ipc process.
+    * The next task may be TERMINATE. If so, ipcInterface ands (and
+        jobsHandler will also end).
+
+
 
 The processRequests function handles the incoming requests. This function also
 loops until (at the end of the loop) the task (mode) TERMINATE has been
