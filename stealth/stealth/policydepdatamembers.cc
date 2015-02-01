@@ -4,6 +4,8 @@ void Stealth::policyDepDataMembers()
 {
     d_policyFile = d_options.policyFile();
 
+    d_policyFile->chdirBase();        
+
     d_stealthLog.open((*d_policyFile)["REPORT"]);
 
     d_integrityScanner = make_shared<IntegrityScanner>(

@@ -41,9 +41,11 @@ class PolicyFile
         size_t size() const;    
         std::vector<std::string>::const_iterator firstCmd() const;
         std::vector<std::string>::const_iterator beyondCmd() const;
+
         std::string const &operator[](std::string const &key) const;
 
         void pathMsg() const;
+        void chdirBase() const;
     
     private:
         void load();

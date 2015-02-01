@@ -15,14 +15,12 @@ void PolicyFile::load()
 
     string &base = d_use["BASE"];
 
-    base += '.';                            // the . is required by mkdir
-
+    base += '.';                        // the . is required by mkdir
     char const *cp = base.c_str();
+    Util::mkdir(cp);
+    base.pop_back();                    // cut off the . again
 
-    if (!Util::mkdir(cp) || chdir(cp))
-        fmsg << "Can't chdir to `" << cp << '\'' << endl;
-
-    base.resize(base.length() - 1);         // cut off the . again
+    chdirBase();
 }
 
 
