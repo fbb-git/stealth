@@ -10,17 +10,19 @@
 #include <bobcat/process>
 #include <bobcat/pattern>
 
+#include "../stealthenums/stealthenums.h"
+
 class PolicyFile;
 class RunMode;
 class Options;
 
-class IntegrityScanner
+class IntegrityScanner: public StealthEnums
 {
     typedef std::vector<std::string>     StringVector;
     typedef StringVector::const_iterator const_iterator;
 
     Options        &d_options;
-    RunMode        &d_task;
+    RunMode const  &d_pending;
     PolicyFile     &d_policyFile;
     std::ostream   &d_stealthLog;
     FBB::Pattern    d_firstWord;
@@ -30,7 +32,7 @@ class IntegrityScanner
     std::string     d_label;
     const_iterator  d_cmdIterator;
     bool            d_testExitValue;
-    volatile bool   d_active;           // scanning process currently active
+    bool            d_active = false;
     size_t          d_nScans;
     off_t           d_maxSize;
     StringVector    d_skipFiles;
@@ -49,7 +51,7 @@ class IntegrityScanner
     static FBB::Pattern  s_exitValue;
 
     public:
-        IntegrityScanner(RunMode &run, PolicyFile &sorter, 
+        IntegrityScanner(RunMode const &pending, PolicyFile &sorter, 
                          std::ostream &stealthlog);
 
         size_t nScans() const
@@ -63,10 +65,9 @@ class IntegrityScanner
         void        run();    
 
         void killChildren();
-        
-        void stop();                // stops an ongoing integrity scan
+
         bool active() const;
-        
+
     private:
 
         void foreground(size_t cmdNr);  // run 1 command 
@@ -178,11 +179,6 @@ class IntegrityScanner
 inline void IntegrityScanner::nScansReset()
 {
     d_nScans = 0;
-}
-
-inline void IntegrityScanner::stop()
-{
-    d_active = false;
 }
 
 inline bool IntegrityScanner::active() const

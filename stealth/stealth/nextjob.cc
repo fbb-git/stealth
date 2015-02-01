@@ -1,10 +1,9 @@
 #include "stealth.ih"
 
-void Stealth::nextTask()
+void Stealth::nextJob()
 {
     if (not d_options.repeat())     // if the scan is not automatically
-        d_processor.wait();           // restarted, then wait for the next
-                                    // command. 
+        d_job.wait();               // restarted, then wait for the next job
     else
     {
         size_t nSeconds = d_options.nextIntegrityScan();
@@ -14,7 +13,7 @@ void Stealth::nextTask()
 
         while (true)
         {
-            auto cvStatus = d_processor.wait_for(chrono::seconds(nSeconds));
+            auto cvStatus = d_job.wait_for(chrono::seconds(nSeconds));
 
             m2 << "wait ends" << endl;
 
@@ -25,19 +24,20 @@ void Stealth::nextTask()
 
             if 
             (
-                d_task.mode(SUSPEND)             // At timeout during 
+                d_task.hasMode(SUSPEND)         // At timeout during 
                 ||                              // suspend, or 
                 d_integrityScanner->active()    // still busy scanning
             )
             {
-                m2 << "SUSPEND or scanner busy: wait some more" << endl;
+                m2 << "SUSPEND or actively scanning: wait some more" << endl;
                 continue;                       // then wait some more
             }
                                     
             d_task.setMode(INTEGRITY_SCAN);
             m2 << "Next mode: INTEGRITY_SCAN" << endl;
+            d_autoJob = true;
             break;
         }
     }
-    m2 << "nextTask returns with mode " << d_task.modeName() << endl;
+    m2 << "nextTask returns with mode " << d_task << endl;
 }

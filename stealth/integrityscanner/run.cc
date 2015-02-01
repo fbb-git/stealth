@@ -1,5 +1,8 @@
 #include "integrityscanner.ih"
 
+// #include <chrono>                   // IUO, see below
+// #include <thread>
+
 void IntegrityScanner::run()
 {
     d_active = true;
@@ -21,22 +24,32 @@ void IntegrityScanner::run()
 
         for (auto &cmd: ranger(d_cmdIterator, beyond))
         {
-            if (not d_active)                   
+            if (d_pending.hasMode(SUSPEND | RELOAD | TERMINATE))
             {
                 m1 << "integrity scan interrupted by " << 
-                            d_task.modeName() << " request" << endl;
+                            d_pending << " request" << endl;
+                d_active = false;
                 return;
             }
-
             execute(cmd);
         }
     }
 
-    m3 << "policy file processed" << endl;
-    d_active = false;
+// For internal testing use only:
+//
+//    for (size_t idx = 0; idx != 5; ++idx)
+//    {
+//        if (d_pending.hasMode(SUSPEND | RELOAD | TERMINATE))
+//        {
+//            m2 << "TMP: ENDING SCAN BY SUSPEND OR TERMINATE" << endl;
+//            break;
+//        }
+//
+//        m2 << "SLEEP SCAN: for 10 secs." << endl;
+//        this_thread::sleep_for(chrono::seconds(10));
+//    }
+//    
+//    m3 << "policy file processed" << endl;
+//    d_active = false;
+
 }
-
-
-
-
-

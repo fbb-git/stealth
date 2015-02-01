@@ -152,7 +152,7 @@ struct Options: public StealthEnums
         FBB::Facility syslogFacility() const;
 
 
-        void loadPolicyOptions();
+        void loadPolicy();
 
         void foregroundOnly(char const *optionName) const;
 };

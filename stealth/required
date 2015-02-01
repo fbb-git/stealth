@@ -2,7 +2,27 @@ This file lists non-standard software only. Thus, standard utilities like cp,
 mv, sed, etc, etc, are not explicitly mentioned. Neither is the gcc compiler
 explicitly mentioned, but a fairly recent one is assumed.
 
-Required software for building Icmake 7.22.00:
+Required software for building Stealth 4.00.00
 ----------------------------------------------
 
-No additional build-dependencies.
+libbobcat-dev (>= 3.24.00),
+
+
+To use the provided build-script:
+
+    icmake (>= 7.22.00)         
+
+To construct the manual and map-page:
+        
+    yodl (>= 3.05.0)
+
+To construct the manual:
+
+    texlive-latex-base,
+    texlive-generic-recommended, 
+    texlive-latex-recommended,
+    texlive-fonts-recommended,
+    cm-super-minimal,
+    ghostscript
+
+

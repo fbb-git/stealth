@@ -42,8 +42,12 @@ class PolicyFile
         std::vector<std::string>::const_iterator firstCmd() const;
         std::vector<std::string>::const_iterator beyondCmd() const;
         std::string const &operator[](std::string const &key) const;
+
+        void pathMsg() const;
     
     private:
+        void load();
+
         std::string const &getDEFINE(std::string const &key) const;
         bool  hasDEFINE(std::string const &key) const;
 

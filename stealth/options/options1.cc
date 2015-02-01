@@ -20,10 +20,10 @@ Options::Options()
 
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)
-                                                        
-    loadPolicyOptions();        // load any configuration options from the
-                                // policy file into ArgConfig
 
+    loadPolicy();               // load the policy file and load configuration 
+                               // options from the policy file into ArgConfig
+                                
     setMail();                  // sets log-mail and no-mail
     setSkipFilePath();
 
@@ -37,8 +37,11 @@ Options::Options()
     setDownloadSize();
 
     if (not d_ipc)
+    {
         m1 << "timestamps use " << 
             (d_timestamp == TIMESTAMPS ? "local time" : "UTC") << endl;
+        d_policyFile->pathMsg();
+    }
 }       
 
 

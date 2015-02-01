@@ -11,79 +11,36 @@ void Stealth::ipcInterface()
         int socket = uds.accept();      // accept a request
 
         IFdStream in(socket);           // stream to read the request from
+        OFdStream out(socket);          // stream to write answers to the 
+                                        // ipc-stealth process to.
 
         int request;                    // read te request
         if (not (in >> request).ignore(numeric_limits<int>::max(), '\n')) 
             request = UNKNOWN;
 
+        d_pending.setMode(RunMode::validate(request));
+        string answer = (this->*s_request.find(d_pending.mode())->second)();
+
+        if (not answer.empty())         // error or no operation (nop)
+        {
+            if (answer == "nop")
+                answer.clear();
+
+            out << answer << endl;
+            continue;                   // no-action or error request:
+                                        // read the next request
+        }
+
         d_ipc.wait();                   // wait until an IPC command can be
                                         // accepted
 
-                                        // validate and prepare the req.
-                                        // using the ...request() functions
-                                        // when this succeeds, d_task holds
-                                        // the requested mode
-        d_answer = (this->*s_request.find(  
-                                    RunMode::validate(request)
-                                )->second
-                        )();
+        out << endl;                    // all commands succeed: empty return
+                                        // texts indicates so.
 
-        bool newTask = false;
+        d_task = d_pending;             // set the next request
+        d_pending.setMode(UNKNOWN);        // clear the pending request
 
-        if (d_answer == "nop")
-            d_answer.clear();           // command not requiring an operation
-        else if (d_answer.empty())      // if the *request functions succeed
-        {                               // d_answer is empty, and the mode is
-                                        // handled. Otherwise `remote' is 
-                                        // informed about the reason of the
-                                        // failure.
-            newTask = true;
-            d_processor.notify();
-            d_result.wait();
-        }
-        
-        OFdStream out(socket);
-        out << d_answer << endl;
-
-        if (not newTask)                // reset the Semaphore so another
-            d_ipc.notify();             // request can arrive
+        d_job.notify();                 // notify processRequests (i.e., 
     }
-    while (not d_task.mode(TERMINATE));
+    while (not d_task.hasMode(TERMINATE));
 }
-
-
-
-
-//    while (d_task.mode() != TERMINATE)
-//    {
-//        int socket = uds.accept();       // accept a request
-//
-//        IFdStream in(socket);               // read the request
-//        int request;
-//        if (not (in >> request).ignore(1000, '\n')) 
-//            request = UNKNOWN;
-//
-//                                            // validate and prepare the req.
-//                                            // using the *request() functions
-//        d_answer = (this->*s_request.find(  
-//                                    RunMode::validate(request)
-//                                )->second
-//                        )();
-//
-//        if (d_answer.empty())               // if the *request functions fail
-//        {                                   // d_answer contains the reason
-//                                            // otherwise:
-//            d_chore.notify();               // indicate that another chore is
-//            d_communicate.wait();           // pending and wait for the result
-//        }
-//
-//        OFdStream out(socket);
-//        out << d_answer << endl;            // send the result to the client
-//    }
-
-
-
-
-
-
-

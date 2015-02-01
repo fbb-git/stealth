@@ -4,12 +4,9 @@
 
 void Stealth::autoScan(char const *label)
 {
-    d_task.setMode(INTEGRITY_SCAN);
-
     m2 << "automatically starting an INTEGRITY_SCAN following --" << label 
                                                                     << endl;
-    d_processor.notify();
-    d_result.notify();
-
-    // 
+    d_task.setMode(INTEGRITY_SCAN);
+    d_autoJob = true;
+    d_job.notify();
 }

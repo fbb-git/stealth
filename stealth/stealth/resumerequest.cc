@@ -2,7 +2,7 @@
 
 std::string Stealth::resumeRequest()
 {
-    string ret = d_task.mode(SUSPEND) ?
+    string ret = d_task.hasMode(SUSPEND) ?
                     acceptMode(RESUME)
                 :    
                     deniedMode("--resume");

@@ -1,7 +1,7 @@
 #include "stealth.h"
 
-#include <iostream>
 #include <thread>
+#include <chrono>
 
 #include <bobcat/mstream>
 #include <bobcat/exception>

@@ -8,9 +8,7 @@
 #include <bobcat/fork>
 #include <bobcat/semaphore>
 
-
-#include "../runmode/runmode.h"     // declares LinearMap
-
+#include "../runmode/runmode.h"     // includes LinearMap, StealthEnums
 #include "../stealthlog/stealthlog.h"
 
 class PolicyFile;
@@ -20,19 +18,16 @@ class Options;
 class Stealth: public StealthEnums, public FBB::Fork
 {
     Options &d_options;
+
     RunMode d_task;                  // the current run-mode.
+    RunMode d_pending;               // a pending run-mode.
 
     FBB::Semaphore d_ipc;           // Folowing wait Stealth is available
                                     // for the next ipc-command
 
-    FBB::Semaphore d_processor;     // Semaphore for the next command
+    FBB::Semaphore d_job;           // Semaphore for the next command
                                     
-    FBB::Semaphore d_result;        // Semaphore for answering the client
-    std::string d_answer;           // answer to the client
-
-    std::thread d_scanThread;       // the thread running the scanning process
-    bool        d_integrityScan;    // stops the scanning process when false.
-
+    bool d_autoJob = false;
 
     StealthLog  d_stealthLog;
     PolicyFile  *d_policyFile;
@@ -79,9 +74,8 @@ class Stealth: public StealthEnums, public FBB::Fork
         void doChores();            // run all scanning (related) tasks 
             void policyDepDataMembers();
 
-            void processRequests();
-                void nextTask();
-
+            void jobsHandler();
+                void nextJob();
                     void reload();          // reload the configuration files.
                     void terminate();
                     void suspend();
@@ -89,21 +83,15 @@ class Stealth: public StealthEnums, public FBB::Fork
                     void rerun();
                     void integrityScan();
 
-                    void startScan();
-
         void autoScan(char const *label);
 
-        template <void (Stealth::*fun)()>
-        static void startThread(Stealth *obj);
-        
-            void ipcInterface();
+        void ipcInterface();
+        static void startIpcInterface(Stealth *obj);
 };
 
-
-template <void (Stealth::*fun)()>
-inline void Stealth::startThread(Stealth *obj)
+inline void Stealth::startIpcInterface(Stealth *obj)
 {
-    (obj->*fun)();
+    obj->ipcInterface();
 }
 
 #endif

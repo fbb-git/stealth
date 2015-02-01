@@ -1,4 +1,4 @@
-stealth (3.01.00)
+stealth (4.00.00)
 
   * The communication between stealth programs now uses unix domain sockets,
     rather than signals.

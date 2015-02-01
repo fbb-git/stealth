@@ -8,7 +8,4 @@ void Stealth::suspend()
     d_stealthLog.refresh();
 
     m2 << "received SUSPEND request" << endl;
-
-    d_result.notify();
-    d_ipc.notify();
 }

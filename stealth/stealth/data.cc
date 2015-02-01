@@ -4,8 +4,8 @@ FBB::LinearMap<Stealth::Mode, Stealth::Task> Stealth::s_task =
     {
         {RELOAD,            &Stealth::reload},          // autoscan
         {TERMINATE,         &Stealth::terminate},       // terminates
-        {INTEGRITY_SCAN,    &Stealth::startScan},       // ipc.notify
-        {SUSPEND,           &Stealth::suspend},         // ipc.notify
+        {INTEGRITY_SCAN,    &Stealth::integrityScan},
+        {SUSPEND,           &Stealth::suspend},
         {RESUME,            &Stealth::resume},          // autoscan
         {RERUN,             &Stealth::rerun},           // autoscan
     };

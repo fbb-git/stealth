@@ -1,21 +1,23 @@
 #ifndef INCLUDED_RUNMODE_
 #define INCLUDED_RUNMODE_
 
+#include <iostream>
 #include <bobcat/linearmap>
 
 #include "../stealthenums/stealthenums.h"
 
 struct RunMode: public StealthEnums
 {
+    friend std::ostream &operator<<(std::ostream &out, RunMode const &mode);
+
     private:
-        static FBB::LinearMap<volatile Mode, char const *> const s_modeName;
+        static FBB::LinearMap<Mode, char const *> const s_modeName;
 
         volatile Mode  d_mode = INTEGRITY_SCAN;
 
     public:
-        bool mode(Mode query) const;
+        bool hasMode(Mode query) const;
         Mode mode() const;
-        char const *modeName() const;
 
         void setMode(Mode mode);
 
@@ -33,19 +35,19 @@ inline RunMode::Mode RunMode::validate(int mode)
             UNKNOWN;
 }
 
-inline char const *RunMode::modeName() const
-{
-    return s_modeName.find(d_mode)->second;
-}
-
 inline RunMode::Mode RunMode::mode() const
 {
     return d_mode;
 }
         
-inline bool RunMode::mode(Mode mode) const
+inline bool RunMode::hasMode(Mode mode) const
 {
     return d_mode & mode;
+}
+
+inline std::ostream &operator<<(std::ostream &out, RunMode const &mode)
+{
+    return out << RunMode::s_modeName.find(mode.mode())->second;
 }
         
 #endif

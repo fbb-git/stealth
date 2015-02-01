@@ -2,10 +2,11 @@
 
 void Stealth::childProcess()
 {
+//    prepareDaemon("/tmp/serr", "/tmp/serr");                // by Fork.
     prepareDaemon();                // by Fork.
 
                                     // start the ipc interface thread
-    thread interface(startThread<&Stealth::ipcInterface>, this);   
+    thread interface(startIpcInterface, this);
 
     doChores();    
 

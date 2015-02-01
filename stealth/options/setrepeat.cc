@@ -10,9 +10,6 @@ void Options::setRepeat()
     if (d_ipc)
         fmsg << "--repeat not available in IPC modes" << endl;
 
-    if (d_daemon)
-        fmsg << "--repeat not available in daemon mode" << endl;
-
     d_repeatInterval = checkM(value, "repeat");  
 
     if (d_repeatInterval == 0)

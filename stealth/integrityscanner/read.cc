@@ -19,12 +19,9 @@ void IntegrityScanner::read(Process &src, string const &fname)
     while (true)
     {
         if (!src.read(&c, 1))               // read char by char
-        {
-            d_task.setMode(RunMode::TERMINATE);
-            d_stealthLog << "Incomplete read from `" << fname << "'" <<
-                                                            StealthEnums::leave; 
-            return;
-        }
+            d_stealthLog <<                 // throws exception on failure
+                "Incomplete read from `" << 
+                fname << "'" << StealthEnums::leave; 
 
         checkSize(fname, ++size);           // throws if not OK
 

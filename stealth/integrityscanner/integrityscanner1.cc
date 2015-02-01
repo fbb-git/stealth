@@ -1,19 +1,19 @@
 #include "integrityscanner.ih"
 
 /*
-    Since the IntegrityScanner's destruction is also the termination of the program, no
-explicit destruction of the newly created objects is necessary. A pointer is
-used to prevent the construction of a constant object. As the constructor
-itself would create a constant object, the construction *new... 
+    Since the IntegrityScanner's destruction is also the termination of the
+program, no explicit destruction of the newly created objects is necessary. A
+pointer is used to prevent the construction of a constant object. As the
+constructor itself would create a constant object, the construction *new...
 is used.
 
 */
 
-IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile, 
-                                   ostream &stealthLog)
+IntegrityScanner::IntegrityScanner(RunMode const &pending, 
+                               PolicyFile &policyFile, ostream &stealthLog)
 :
     d_options(Options::instance()),
-    d_task(run),
+    d_pending(pending),
     d_policyFile(policyFile),
     d_stealthLog(stealthLog),
     d_firstWord("(\\S+)(\\s+(.*))?"),           // firstword ([1]) and the
@@ -44,11 +44,3 @@ IntegrityScanner::IntegrityScanner(RunMode &run, PolicyFile &policyFile,
     m2 << "(re)constructed the Integrity Scanner" << endl;
     m3 << "max. download size: " << d_options.maxSizeStr() << endl;
 }
-
-
-
-
-
-
-
-

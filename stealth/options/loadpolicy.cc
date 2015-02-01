@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::loadPolicyOptions()
+void Options::loadPolicy()
 {
     if (d_ipc)
         return;
@@ -15,7 +15,7 @@ void Options::loadPolicyOptions()
     Util::absPath(base, policyPath);
 
     d_policyFile = make_shared<PolicyFile>(policyPath, d_parsePolicy);
-    
+
     ifstream policy;
     Exception::open(policy, policyPath);
 
