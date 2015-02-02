@@ -1,8 +1,8 @@
 #include "options.ih"
 
-void Options::setSkipFilePath()
+void Options::setSkipFile()
 {
-    if (not d_arg.option(&d_skipFilePath, 's'))
+    if (not d_arg.option(&d_skipFile, 's'))
         return;
 
     if (d_arg.nArgs() == 0)
@@ -11,5 +11,5 @@ void Options::setSkipFilePath()
     if (d_ipc)
         fmsg << "--skip-files incompatible with IPC calls" << endl;
 
-    Util::absPath((*d_policyFile)["BASE"], d_skipFilePath);
+    Util::absPath((*d_policyFile)["BASE"], d_skipFile);
 }

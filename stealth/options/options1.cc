@@ -25,7 +25,7 @@ Options::Options()
                                // options from the policy file into ArgConfig
                                 
     setMail();                  // sets log-mail and no-mail
-    setSkipFilePath();
+    setSkipFile();
 
     setTimestamp();
 

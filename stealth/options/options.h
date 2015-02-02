@@ -28,7 +28,7 @@ struct Options: public StealthEnums
 
     Mode d_mode = INTEGRITY_SCAN;
 
-    std::string d_skipFilePath;
+    std::string d_skipFile;
     std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
 
@@ -111,7 +111,7 @@ struct Options: public StealthEnums
         std::string const &basename() const;
         std::string const &maxSizeStr() const;
         std::string const &unixDomainSocket() const;
-        std::string const &skipFilePath() const;
+        std::string const &skipFile() const;
 
         std::string rfc2822() const;
 
@@ -123,6 +123,8 @@ struct Options: public StealthEnums
         Options();
 
         void requireSomeArgument();
+
+//        void setPolicyOptions();
 
         void setMode();
         void checkMode() const;
@@ -141,7 +143,7 @@ struct Options: public StealthEnums
         size_t repeatInterval() const;
 
         void setMail();
-        void setSkipFilePath();
+        void setSkipFile();
         void setDownloadSize();
         void setVerbosity(bool useSyslog, std::string const &logName);
 
@@ -242,9 +244,9 @@ inline PolicyFile *Options::policyFile()
     return d_policyFile.get();
 }
 
-inline std::string const &Options::skipFilePath() const
+inline std::string const &Options::skipFile() const
 {   
-    return d_skipFilePath;
+    return d_skipFile;
 }
 
 inline std::string const &Options::unixDomainSocket() const

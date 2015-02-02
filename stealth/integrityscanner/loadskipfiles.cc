@@ -2,9 +2,9 @@
 
 void IntegrityScanner::loadSkipFiles()
 {
-    d_skipFilePath = d_options.skipFilePath();
+    d_skipFile = d_options.skipFile();
 
-    if (d_skipFilePath.length())        // skip files
+    if (d_skipFile.length())        // skip files
         setSkip();
     else                                // or don't skip
         d_skip = &IntegrityScanner::dontSkip;

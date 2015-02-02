@@ -3,7 +3,7 @@
 void IntegrityScanner::setSkip()
 {
     ifstream in;
-    Exception::open(in, d_skipFilePath);
+    Exception::open(in, d_skipFile);
 
     for_each(
         istream_iterator<StringLine>(in), istream_iterator<StringLine>(), 

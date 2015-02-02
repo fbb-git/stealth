@@ -36,7 +36,7 @@ class IntegrityScanner: public StealthEnums
     size_t          d_nScans;
     off_t           d_maxSize;
     StringVector    d_skipFiles;
-    std::string     d_skipFilePath;
+    std::string     d_skipFile;
     size_t          d_diffPrefix;
     size_t          d_pathOffset;       // begin of the abs path if not
                                         // at the first / on a line
