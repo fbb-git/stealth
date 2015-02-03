@@ -631,6 +631,7 @@ log-files:
     rotate 12
     compress
     missingok
+    copytruncate
     prerotate
         /usr/bin/stealth --suppress /run/stealth.host
     endscript

@@ -18,6 +18,7 @@ struct Options: public StealthEnums
     FBB::ArgConfig &d_arg;
 
     std::shared_ptr<PolicyFile>         d_policyFile;
+    std::string d_policyFilePath;
     
     std::shared_ptr<FBB::SyslogStream> d_syslog;
     FBB::Log d_log;
@@ -117,6 +118,8 @@ struct Options: public StealthEnums
 
         PolicyFile *policyFile();
 
+        void reloadPolicy();
+
         static void usage(std::string const &progname);
 
     private:
@@ -124,7 +127,7 @@ struct Options: public StealthEnums
 
         void requireSomeArgument();
 
-//        void setPolicyOptions();
+        void setPolicyOptions();
 
         void setMode();
         void checkMode() const;
@@ -153,8 +156,8 @@ struct Options: public StealthEnums
         FBB::Priority syslogPriority() const;
         FBB::Facility syslogFacility() const;
 
-
         void loadPolicy();
+        void loadPolicyOptions();
 
         void foregroundOnly(char const *optionName) const;
 };

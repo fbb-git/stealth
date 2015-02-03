@@ -23,6 +23,8 @@ stealth (4.00.00)
   * The README.flow file is provided with several separately provided 
     illustrative images in the directory documentation/images.
 
+  * logrotate specifications should use 'copytruncate'
+
 stealth (3.00.00)
 
   * Version 3.00.00 completely reorganizes and refactors Stealth's
