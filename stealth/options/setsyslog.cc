@@ -11,6 +11,6 @@ bool Options::setSyslog()
     d_syslog = make_shared<SyslogStream>(syslogTag(), syslogPriority(),
                             syslogFacility());
 
-    d_multiStreambuf.insert(*d_syslog);
+    d_multiStreambuf->insert(*d_syslog);
     return true;
 }

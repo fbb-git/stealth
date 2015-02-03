@@ -17,7 +17,7 @@ void Options::setCommandNr()
         if (not d_stdout)
         {
             d_stdout = true;
-            d_multiStreambuf.insert(cout);
+            d_multiStreambuf->insert(cout);
         }
     }
     catch (...)

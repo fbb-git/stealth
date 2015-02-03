@@ -23,7 +23,9 @@ struct Options: public StealthEnums
     std::shared_ptr<FBB::SyslogStream> d_syslog;
     FBB::Log d_log;
 
-    FBB::MultiStreambuf d_multiStreambuf;
+    //FBB::MultiStreambuf d_multiStreambuf;
+    std::shared_ptr<FBB::MultiStreambuf> d_multiStreambuf;
+
     std::ostream d_msg;                     // d_msg handles all messages to
                                             // syslog and/or d_log
 

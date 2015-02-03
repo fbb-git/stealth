@@ -13,7 +13,7 @@ string Options::setLog()
 
         d_log.setTimestamp(d_timestamp);
 
-        d_multiStreambuf.insert(d_log);
+        d_multiStreambuf->insert(d_log);
     }
     return logName;
 }

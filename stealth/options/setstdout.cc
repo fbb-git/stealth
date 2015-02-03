@@ -8,6 +8,6 @@ void Options::setStdout()
             fmsg << "--stdout incompatible with --daemon" << endl;
 
         d_stdout = true;
-        d_multiStreambuf.insert(cout);
+        d_multiStreambuf->insert(cout);
     }
 }

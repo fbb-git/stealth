@@ -3,7 +3,8 @@
 Options::Options()
 :
     d_arg(ArgConfig::instance()),
-    d_msg(&d_multiStreambuf),
+    d_multiStreambuf(new MultiStreambuf),
+    d_msg(d_multiStreambuf.get()),
     d_maxSizeStr("10M"),
     d_repeatInterval(numeric_limits<int>::max())
 {

@@ -1,21 +1,12 @@
 Stealth:    handles the integrity scan or handles the communication with a
             running stealth daemon.
-
+    
 Options:    singleton, prepares all options received either on the command
             line or found in the policy file. Ends the program if incompatible
             options were specified. Initialized by Stealth::Stealth()
 
 PolicyFile: analyzes and stores the information found in the first section of
             the policy file (through its member 'reload').
-
-Wait11:     implements C++11 (timed) waiting for events, like receiving
-            signals, and sending notifications when they are received.  The
-            actual signal handling is handled by the class Stealth itself.
-
-IPC:        handles the runfile (pid file): requests are written to the
-            runfile followed by signaling the daemon. All actual
-            waiting/notification steps are left to Wait11. signaling the
-            daemon is handled by its member 'signalDaemon'
 
 RunMode:    keeps track of the currently active Stealth mode. A mode may also
             be queried, and the name of a mode can be requested. When a mode
@@ -31,4 +22,8 @@ Msg:        m1..m3 insert messages depending on verbosity level. mp is used
 
 StealthEnums: struct StealthEnums is empty, defining the enum Mode and the
             Mode | Mode operator.
+
+Util:
+
+IntegrityScanner:
 
