@@ -2,7 +2,7 @@
 
 void Stealth::logMsg(char const *label)
 {
-    d_stealthLog << "STEALTH " << label << " after " << 
+    d_stealthReport << "STEALTH " << label << " after " << 
             d_integrityScanner->nScans() << " scans at " << 
                                                 d_options.rfc2822() << endl;
 }

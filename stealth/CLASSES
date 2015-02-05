@@ -8,9 +8,9 @@ policyfile
 options             stealthenums msg util policyfile
 
 runmode             options
-stealthlog          options
+stealthreport          options
 
-integrityscanner    stealthlog runmode 
+integrityscanner    stealthreport runmode 
 
 stealth             integrityscanner 
 

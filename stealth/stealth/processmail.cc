@@ -4,10 +4,10 @@ void Stealth::processMail()
 {
     if (d_options.logMail())
     {
-        d_stealthLog.rewind();
+        d_stealthReport.rewind();
 
         string line;
-        while (getline(d_stealthLog.in(), line))
+        while (getline(d_stealthReport.in(), line))
             imsg << "Mail: " << line << endl;
     }
     

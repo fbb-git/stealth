@@ -6,10 +6,10 @@ void Stealth::policyDepDataMembers()
 
     d_policyFile->chdirBase();        
 
-    d_stealthLog.open((*d_policyFile)["REPORT"]);
+    d_stealthReport.open((*d_policyFile)["REPORT"]);
 
     d_integrityScanner = make_shared<IntegrityScanner>(
-                                d_task, *d_policyFile, d_stealthLog
+                                d_task, *d_policyFile, d_stealthReport
                             );
 }
 

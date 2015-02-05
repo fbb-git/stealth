@@ -1,5 +1,0 @@
-#include "stealthlog.ih"
-
-void StealthLog::
-{
-}

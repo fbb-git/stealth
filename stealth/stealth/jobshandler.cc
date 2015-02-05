@@ -10,7 +10,7 @@ void Stealth::jobsHandler()
 
         m1 << "MODE REQUEST: " << d_task << endl;
     
-        d_stealthLog.refresh();
+        d_stealthReport.refresh();
 
                                             // process the current request
         (this->*(s_task.find(d_task.mode())->second))();

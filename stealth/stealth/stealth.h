@@ -9,7 +9,7 @@
 #include <bobcat/semaphore>
 
 #include "../runmode/runmode.h"     // includes LinearMap, StealthEnums
-#include "../stealthlog/stealthlog.h"
+#include "../stealthreport/stealthreport.h"
 
 class PolicyFile;
 class IntegrityScanner;
@@ -29,7 +29,7 @@ class Stealth: public StealthEnums, public FBB::Fork
                                     
     bool d_autoJob = false;
 
-    StealthLog  d_stealthLog;
+    StealthReport  d_stealthReport;
     PolicyFile  *d_policyFile;
 
     std::shared_ptr<IntegrityScanner>   d_integrityScanner;

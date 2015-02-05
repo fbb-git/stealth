@@ -5,7 +5,7 @@ void Stealth::suspend()
     logMsg("is suspended");
 
     mailLogs();
-    d_stealthLog.refresh();
+    d_stealthReport.refresh();
 
     m2 << "received SUSPEND request" << endl;
 }

@@ -7,7 +7,7 @@ void Stealth::doChores()
     policyDepDataMembers();
 
     if (d_options.dryrun())
-        d_stealthLog << "--dry-run: SH/SSH connections not established" << 
+        d_stealthReport << "--dry-run: SH/SSH connections not established" << 
                                                                         endl;
     else
         d_integrityScanner->startCommandShells(); 

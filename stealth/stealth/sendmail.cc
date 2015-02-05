@@ -2,7 +2,7 @@
 
 void Stealth::sendMail()
 {
-    d_stealthLog.rewind();
+    d_stealthReport.rewind();
 
     m3 << "Mailing new logs using: " << 
             (*d_policyFile)["MAILER"] << ' ' <<
@@ -23,10 +23,10 @@ void Stealth::sendMail()
 
     mail.start();
 
-    mail << d_stealthLog.headerLine() << '\n';
+    mail << d_stealthReport.headerLine() << '\n';
 
     string line;
-    while (getline(d_stealthLog.in(), line))
+    while (getline(d_stealthReport.in(), line))
         mail << line << '\n';
 
     mail.close();

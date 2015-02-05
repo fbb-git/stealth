@@ -7,7 +7,7 @@ string Stealth::unknownRequest()
     msg << "received " << ret;
 
     m2 << msg << endl;
-    d_stealthLog << msg << endl;
+    d_stealthReport << msg << endl;
 
     return ret;
 }

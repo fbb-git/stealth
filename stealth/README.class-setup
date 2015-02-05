@@ -12,8 +12,8 @@ RunMode:    keeps track of the currently active Stealth mode. A mode may also
             be queried, and the name of a mode can be requested. When a mode
             is changed, setMode is used to update RunMode's mode.
 
-StealthLog: Handles all logs. d_stealthLog in the Stealth object is a stream
-            into which log messages can be inserted. 
+StealthReport: Handles all logs. d_stealthReport in the Stealth object is a
+            stream into which log messages for the REPORT file are inserted.  
 
 Msg:        m1..m3 insert messages depending on verbosity level. mp is used
             for messages related to parsing the policy file. These are global
