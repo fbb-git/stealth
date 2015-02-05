@@ -9,7 +9,8 @@ class Msg: public std::ostream
         Msg();                  // msgs are inserted if verbosity <= 
                                 // the configured verbosity level
                                 // E.g., configured: 3 inserts m1, m2 and m3
-        Msg(std::ostream &out);
+
+        Msg(std::ostream &out); // Used by mp, writing to cout
 
         static void setVerbosity(size_t verbosity);
 };

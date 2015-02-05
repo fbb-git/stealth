@@ -15,10 +15,10 @@ RunMode:    keeps track of the currently active Stealth mode. A mode may also
 StealthReport: Handles all logs. d_stealthReport in the Stealth object is a
             stream into which log messages for the REPORT file are inserted.  
 
-Msg:        m1..m3 insert messages depending on verbosity level. mp is used
-            for messages related to parsing the policy file. These are global
-            objects. Other than the m-objects imsg, wmsg and fmsg can also be
-            used.
+Msg:        m1..m3 insert messages, depending on verbosity level, into imsg,
+            mp writes to cout is used for messages related to parsing the
+            policy file. These are global objects. Other than the m-objects
+            imsg, wmsg and fmsg can also be used.
 
 StealthEnums: struct StealthEnums is empty, defining the enum Mode and the
             Mode | Mode operator.
