@@ -31,8 +31,8 @@ Options::Options()
     setTimestamp();
 
     setVerbosity( setSyslog(), setLog() );
-
     setStdout();
+
     setRepeat();
     setRandomDelay();
     setDownloadSize();

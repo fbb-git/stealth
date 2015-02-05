@@ -1,0 +1,39 @@
+
+In options:
+
+    d_msg: sends messages to a FBB::MultiStreamBuf.
+
+    The FBB::MultiStreambuf sends information to 
+
+        - stdout (not in daemon mode)
+        - an FBB::SyslogStream
+        - an FBB::Log
+
+
+    The SyslogStream d_syslog is initialized in setSyslog
+
+m1, m2, m3 are reset 
+m1, m2, m3 write messages to d_msg, if the matching verbosity was set.
+           m1 is only active for verbosity 1, m2 for verb. 2, m3 for verb. 3
+
+
+--------------------------------------------------------------------------
+
+    m1(imsg.rdbuf) at construction time (same for m2, m3)
+
+    d_msg(d_multiStreambuf.get()) by Options' constructor
+
+    imsg is reset to use d_msg in Options.setverbosity
+
+
+options/setlog.cc:        d_multiStreambuf->insert(d_log);
+options/setcommandnr.cc:  d_multiStreambuf->insert(cout);
+options/setstdout.cc:     d_multiStreambuf->insert(cout);
+options/setsyslog.cc:     d_multiStreambuf->insert(*d_syslog);
+
+
+
+
+
+
+

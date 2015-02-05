@@ -3,6 +3,7 @@
 void Options::reloadPolicy()
 {
     d_policyFile->reload();
+
     loadPolicyOptions();
     setPolicyOptions();
 }

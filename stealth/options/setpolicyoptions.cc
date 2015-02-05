@@ -1,18 +1,15 @@
 #include "options.ih"
 
-extern string g_logName;
-
 void Options::setPolicyOptions()
 {
-     setMail();                  // sets log-mail and no-mail
-     setSkipFile();
+    setMail();                  // sets log-mail and no-mail
+    setSkipFile();
  
-     setTimestamp();
+    setTimestamp();
  
-// //    setVerbosity( setSyslog(), setLog() );
-// //    setVerbosity(true, g_logName );
+//    setVerbosity( setSyslog(), setLog() );
  
-//    setStdout();              // not with daemons
+    setStdout();              // not with daemons
 
     setRepeat();
     setRandomDelay();
