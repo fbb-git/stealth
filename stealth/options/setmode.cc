@@ -17,14 +17,12 @@ void Options::setMode()
     if ((d_resume = d_arg.option(0, "resume")))
         d_mode = RESUME;
 
-    if 
-    (
+    if (
         (d_daemon = d_arg.option(&d_unixDomainSocket, 'd'))
         &&
         (d_arg.nArgs() == 0)
     )
         fmsg << "--daemon: missing run-file or policy file" << endl;
-
 
     d_ipc = d_reload || d_rerun || d_terminate || d_suspend || d_resume;
 

@@ -48,11 +48,6 @@ class Stealth: public StealthEnums, public FBB::Fork
         void processPolicy();       // do all policy-file related tasks
 
     private:
-                                    // constructs uds-filename from
-                                    // d_use["BASE"] and 
-                                    // options.unixDomainSocket()
-        std::string unixDomainSocket() const;    
-
         void parentProcess() override;  // no actions here
         void childProcess() override;
 

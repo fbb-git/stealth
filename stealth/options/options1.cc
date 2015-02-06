@@ -21,7 +21,16 @@ Options::Options()
     setParsePolicy();           // sets the policy file (requires foreground)
 
     loadPolicy();               // load the policy file and load configuration 
-                               // options from the policy file into ArgConfig
+                                // options from the policy file into ArgConfig
+
+    if (d_daemon)
+    {
+        Util::absPath((*d_policyFile)["BASE"], d_unixDomainSocket);
+
+        if (access(d_unixDomainSocket.c_str(), F_OK) == 0)
+            fmsg << "Unix domain socket `" << d_unixDomainSocket << 
+                    "': already in use, remove it first" << endl;
+    }
 
     setPolicyOptions();
 }       

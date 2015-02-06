@@ -2,10 +2,7 @@
 
 void Stealth::ipcInterface()
 {
-    string udsName =  unixDomainSocket();
-
-    if (access(udsName.c_str(), F_OK) == 0)    // file exists?
-        fmsg << '`' << udsName << "' exists. Remove it first" << endl;
+    string const &udsName =  d_options.unixDomainSocket();
 
     m2 << "unix domain socket: " << udsName << endl;
 
