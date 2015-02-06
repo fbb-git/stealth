@@ -1,6 +1,7 @@
 #include "stealth.ih"
 
 void Stealth::ipcInterface()
+try
 {
     string const &udsName =  d_options.unixDomainSocket();
 
@@ -18,26 +19,8 @@ void Stealth::ipcInterface()
         OFdStream out(socket);          // stream to write answers to the 
                                         // ipc-stealth process to.
 
-        int request;                    // read te request
-        if (not (in >> request).ignore(numeric_limits<int>::max(), '\n')) 
-            request = UNKNOWN;
-
-        RunMode incoming;
-        incoming.setMode(RunMode::validate(request));
-
-        string answer = (this->*s_request.find(incoming.mode())->second)();
-
-        if (not answer.empty())         // error or no operation (nop)
-        {
-            if (answer == "nop")
-                answer.clear();
-
-            out << answer << endl;
-            continue;                   // no-action or error request:
-                                        // read the next request
-        }
-
-        d_pending = incoming;
+        if (not incomingRequest(in, out))
+            continue;
 
         d_ipc.wait();                   // wait until an IPC command can be
                                         // accepted
@@ -45,10 +28,34 @@ void Stealth::ipcInterface()
         out << endl;                    // all commands succeed: empty return
                                         // texts indicates so.
 
-        d_task = d_pending;             // set the next request
-        d_pending.setMode(UNKNOWN);     // clear the pending request
-
-        d_job.notify();                 // notify processRequests (i.e., 
+        notifyTask();
     }
     while (not d_task.hasMode(TERMINATE));
 }
+catch (exception const &exc)
+{
+    ostringstream msg;
+    msg << '\n' << exc.what() << "\n"
+                       "    caught exception in ipcInterface: TERMINATING\n";
+
+    imsg << msg.str() << endl;
+    d_stealthReport << msg.str() << endl;
+
+    d_pending.setMode(TERMINATE);
+    d_ipc.wait();
+    notifyTask();
+}
+        
+
+
+
+
+
+
+
+
+
+
+
+
+

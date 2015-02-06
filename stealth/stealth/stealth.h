@@ -1,6 +1,7 @@
 #ifndef _INCLUDED_STEALTH_H_
 #define _INCLUDED_STEALTH_H_
 
+#include <iosfwd>
 #include <string>
 #include <memory>
 #include <thread>
@@ -81,6 +82,9 @@ class Stealth: public StealthEnums, public FBB::Fork
         void autoScan(char const *label);
 
         void ipcInterface();
+        bool incomingRequest(std::istream &in, std::ostream &out);
+        void notifyTask();
+
         static void startIpcInterface(Stealth *obj);
 };
 

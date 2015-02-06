@@ -1,6 +1,7 @@
 #include "stealth.h"
 
 #include <unistd.h>
+#include <sstream>
 #include <thread>
 #include <chrono>
 
