@@ -2,7 +2,14 @@
 
 void Stealth::ipcInterface()
 {
-    LocalServerSocket uds(unixDomainSocket());
+    string udsName =  unixDomainSocket();
+
+    if (access(udsName.c_str(), F_OK) == 0)    // file exists?
+        fmsg << '`' << udsName << "' exists. Remove it first" << endl;
+
+    m2 << "unix domain socket: " << udsName << endl;
+
+    LocalServerSocket uds(udsName);
 
     uds.listen();
 

@@ -1,5 +1,6 @@
 #include "stealth.h"
 
+#include <unistd.h>
 #include <thread>
 #include <chrono>
 
@@ -17,6 +18,7 @@
 #include "../options/options.h"
 #include "../msg/msg.h"
 #include "../logunit/logunit.h"
+#include "../util/util.h"
 
 using namespace std;
 using namespace FBB;
