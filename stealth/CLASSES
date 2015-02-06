@@ -1,18 +1,21 @@
+syslogstruct
 msg
-
 util 
 stealthenums
 
-policyfile
+policyfile          util msg
 
-options             stealthenums msg util policyfile
+options             stealthenums syslogstruct policyfile
 
-runmode             options
-stealthreport          options
+runmode             stealthenums
 
-integrityscanner    stealthreport runmode 
+stealthreport       options
 
-stealth             integrityscanner 
+integrityscanner    policyfile runmode options
+
+logunit             syslogstruct
+
+stealth             runmode stealthreport integrityscanner  logunit
 
 
 

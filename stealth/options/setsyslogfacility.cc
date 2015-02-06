@@ -1,12 +1,10 @@
 #include "options.ih"
 
-Facility Options::syslogFacility() const
+void Options::setSyslogFacility()
 {
-    Facility facility;
-
     string option;
     if (not d_arg.option(&option, "syslog-facility"))
-        facility = s_defaultSyslogFacility;
+        d_syslogStruct.facility = s_defaultSyslogFacility;
     else
     {
         LinearMap<string, Facility>::const_iterator 
@@ -15,9 +13,7 @@ Facility Options::syslogFacility() const
         if (iter == s_syslogFacilities.end())
             fmsg << "syslog facility " << option << " not supported" << endl;
     
-        facility = iter->second;
+        d_syslogStruct.facility = iter->second;
     }
-
-    return facility;
 }            
 

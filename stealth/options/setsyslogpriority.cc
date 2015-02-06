@@ -1,12 +1,10 @@
 #include "options.ih"
 
-Priority Options::syslogPriority() const
+void Options::setSyslogPriority()
 {
-    Priority priority;
-
     string option;
     if (not d_arg.option(&option, "syslog-priority"))
-        priority = s_defaultSyslogPriority;
+        d_syslogStruct.priority = s_defaultSyslogPriority;
     else
     {
         LinearMap<std::string, Priority>::const_iterator 
@@ -15,9 +13,7 @@ Priority Options::syslogPriority() const
         if (iter == s_syslogPriorities.end())
             fmsg << "syslog priority " << option << " not supported" << endl;
     
-        priority = iter->second;
+        d_syslogStruct.priority = iter->second;
     }
-
-    return priority;
 }            
 

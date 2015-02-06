@@ -4,6 +4,6 @@ void Options::reloadPolicy()
 {
     d_policyFile->reload();
 
-    loadPolicyOptions();
+    loadPolicyOptions();            // reload the options in the policy file
     setPolicyOptions();
 }

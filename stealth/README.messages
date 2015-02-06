@@ -1,38 +1,38 @@
+Messages sent to m1, m2, and m3 (see ../msg) are sent to imsg.
 
-In options:
+imsg receives its info from this class's d_msg stream, through
+imsg.reset(d_msg) 
 
-    d_msg: sends messages to a FBB::MultiStreamBuf.
+d_msg uses d_multiStreambuf as its streambuffer
 
-    The FBB::MultiStreambuf sends information to 
+d_multiStreambuf is configured, if applicable, with d_syslog and d_log
 
-        - stdout (not in daemon mode)
-        - an FBB::SyslogStream
-        - an FBB::Log
-
-
-    The SyslogStream d_syslog is initialized in setSyslog
-
-m1, m2, m3 are reset 
-m1, m2, m3 write messages to d_msg, if the matching verbosity was set.
-           m1 is only active for verbosity 1, m2 for verb. 2, m3 for verb. 3
+LogUnit itself has no public interface elements, except for the static init
+function handling its singleton (re)construction. All information sent to the
+LogUnit's streams are received via imsg and m1..m3.
 
 
---------------------------------------------------------------------------
+LogUnit:
+========
 
-    m1(imsg.rdbuf) at construction time (same for m2, m3)
+    SyslogStream         --+                
+                           |
+    Log                  --+--- MultiStreambuf
+                           |          |
+    cout (with --stdout) --+          |
+                                      |
+                                      |
+                                      v
+                         imsg.reset(d_msg)
+                           |
+                +----------+----------+
+                m1         m2         m3
 
-    d_msg(d_multiStreambuf.get()) by Options' constructor
 
-    imsg is reset to use d_msg in Options.setverbosity
-
-
-options/setlog.cc:        d_multiStreambuf->insert(d_log);
-options/setcommandnr.cc:  d_multiStreambuf->insert(cout);
-options/setstdout.cc:     d_multiStreambuf->insert(cout);
-options/setsyslog.cc:     d_multiStreambuf->insert(*d_syslog);
-
-
-
+When doing --reload LogUnit::init is called by Stealth::reload after reloading
+de policyfile and the policyfile's options. This will delete the current
+LogUnit, and reinitialize a new one using the current set of options, which
+allows options defined in the policy file to be redefined.
 
 
 

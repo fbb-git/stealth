@@ -6,10 +6,9 @@
 #include <bobcat/argconfig>
 #include <bobcat/linearmap>
 #include <bobcat/log>
-#include <bobcat/multistreambuf>
-#include <bobcat/syslogstream>
 
 #include "../stealthenums/stealthenums.h"
+#include "../syslogstruct/syslogstruct.h"
 
 class PolicyFile;
 
@@ -20,20 +19,12 @@ struct Options: public StealthEnums
     std::shared_ptr<PolicyFile>         d_policyFile;
     std::string d_policyFilePath;
     
-    std::shared_ptr<FBB::SyslogStream> d_syslog;
-    FBB::Log d_log;
-
-    //FBB::MultiStreambuf d_multiStreambuf;
-    std::shared_ptr<FBB::MultiStreambuf> d_multiStreambuf;
-
-    std::ostream d_msg;                     // d_msg handles all messages to
-                                            // syslog and/or d_log
-
     Mode d_mode = INTEGRITY_SCAN;
 
     std::string d_skipFile;
     std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
+    std::string d_logName;
 
     bool d_reload;
     bool d_rerun;
@@ -54,6 +45,9 @@ struct Options: public StealthEnums
     size_t d_commandNr = 0;
     size_t d_parsePolicy = 0;
     size_t d_verbosity;
+
+    SyslogStruct d_syslogStruct;
+
 
     std::streamsize d_maxDownloadSize = 10 * 1024 * 1024;   // 10 MB
 
@@ -115,8 +109,13 @@ struct Options: public StealthEnums
         std::string const &maxSizeStr() const;
         std::string const &unixDomainSocket() const;
         std::string const &skipFile() const;
+        std::string const &logName() const;
 
         std::string rfc2822() const;
+
+        SyslogStruct const &syslogStruct() const;
+
+        FBB::TimeStamps timestamp() const;
 
         PolicyFile *policyFile();
 
@@ -134,11 +133,13 @@ struct Options: public StealthEnums
         void setMode();
         void checkMode() const;
 
-        void setTimestamp();
         void setCommandNr();
         void setParsePolicy();
+
         void setStdout();
-        std::string setLog();
+
+        void setLog();
+        void setTimestamp();
 
         void setRepeat();
         void setRandomDelay();
@@ -150,19 +151,28 @@ struct Options: public StealthEnums
         void setMail();
         void setSkipFile();
         void setDownloadSize();
-        void setVerbosity(bool useSyslog, std::string const &logName);
 
-        bool setSyslog();
+        void setVerbosity();
 
-        std::string syslogTag() const;
-        FBB::Priority syslogPriority() const;
-        FBB::Facility syslogFacility() const;
+        void setSyslog();
+        void setSyslogPriority();
+        void setSyslogFacility();
 
         void loadPolicy();
         void loadPolicyOptions();
 
         void foregroundOnly(char const *optionName) const;
 };
+
+inline FBB::TimeStamps Options::timestamp() const
+{
+    return d_timestamp;
+}
+
+inline SyslogStruct const &Options::syslogStruct() const
+{
+    return d_syslogStruct;
+}
 
 inline size_t Options::verbosity() const
 {
@@ -252,6 +262,11 @@ inline PolicyFile *Options::policyFile()
 inline std::string const &Options::skipFile() const
 {   
     return d_skipFile;
+}
+
+inline std::string const &Options::logName() const
+{   
+    return d_logName;
 }
 
 inline std::string const &Options::unixDomainSocket() const

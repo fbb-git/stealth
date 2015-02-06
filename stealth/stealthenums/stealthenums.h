@@ -12,8 +12,6 @@ struct StealthEnums
     {
         INTEGRITY_SCAN  = 1 << 1,   // perform an integrity scan
 
-//        WAIT            = 1 << 3,   // waiting for another signal/tine
-
         RERUN           = 1 << 4,   // rerun on request at WAITING 
 
         SUSPEND         = 1 << 2,   // suspend a stealth run 

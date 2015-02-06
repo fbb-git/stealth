@@ -12,9 +12,13 @@ void Stealth::reload()
         d_stealthReport << "--dry-run: reload suppressed" << endl;
     else
     {
-//        d_policyFile->reload();
         d_options.reloadPolicy();
         
+        LogUnit::init(d_options.syslogStruct(), 
+                        d_options.logName(), d_options.timestamp(),
+                        d_options.stdout());
+
+
         d_stealthReport.open((*d_policyFile)["REPORT"]);
     
         d_integrityScanner = make_shared<IntegrityScanner>(

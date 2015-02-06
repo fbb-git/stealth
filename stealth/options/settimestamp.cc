@@ -13,7 +13,5 @@ void Options::setTimestamp()
     else if (value != "UTC")
         wmsg << "--time-stamp " << value << " not supported. Using UTC" <<
                                                                     endl;
-
-    cerr << "timestamp = " << d_timestamp << '\n';
 }
 

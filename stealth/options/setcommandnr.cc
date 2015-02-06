@@ -15,10 +15,7 @@ void Options::setCommandNr()
             fmsg << "--run-command 0: not a valid (natural) command number" << 
                                                                         endl;
         if (not d_stdout)
-        {
             d_stdout = true;
-            d_multiStreambuf->insert(cout);
-        }
     }
     catch (...)
     {

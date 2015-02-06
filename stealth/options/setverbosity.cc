@@ -1,16 +1,13 @@
 #include "options.ih"
 
-void Options::setVerbosity(bool useSyslog, string const &logName)
+void Options::setVerbosity()
 {
     string verbosity;
-    bool verb;
-    d_verbosity = (verb = d_arg.option(&verbosity, 'V')) ?
+
+    d_verbosity = (d_arg.option(&verbosity, 'V')) ?
                                 stoul(verbosity)
                             :
                                 s_defaultVerbosity;
-
-    if (useSyslog || logName.length() != 0)
-        imsg.reset(d_msg);
 
     Msg::setVerbosity(d_verbosity);
 }

@@ -9,7 +9,6 @@
 
 #include "../util/util.h"
 #include "../policyfile/policyfile.h"
-#include "../stealthlog/stealthlog.h"
 #include "../runmode/runmode.h"
 #include "../options/options.h"
 #include "../msg/msg.h"

@@ -3,8 +3,6 @@
 Options::Options()
 :
     d_arg(ArgConfig::instance()),
-    d_multiStreambuf(new MultiStreambuf),
-    d_msg(d_multiStreambuf.get()),
     d_maxSizeStr("10M"),
     d_repeatInterval(numeric_limits<int>::max())
 {
@@ -24,25 +22,8 @@ Options::Options()
 
     loadPolicy();               // load the policy file and load configuration 
                                // options from the policy file into ArgConfig
-                                
-    setMail();                  // sets log-mail and no-mail
-    setSkipFile();
 
-    setTimestamp();
-
-    setVerbosity( setSyslog(), setLog() );
-    setStdout();
-
-    setRepeat();
-    setRandomDelay();
-    setDownloadSize();
-
-    if (not d_ipc)
-    {
-        m1 << "timestamps use " << 
-            (d_timestamp == TIMESTAMPS ? "local time" : "UTC") << endl;
-        d_policyFile->pathMsg();
-    }
+    setPolicyOptions();
 }       
 
 

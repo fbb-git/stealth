@@ -16,6 +16,7 @@
 #include "../integrityscanner/integrityscanner.h"
 #include "../options/options.h"
 #include "../msg/msg.h"
+#include "../logunit/logunit.h"
 
 using namespace std;
 using namespace FBB;
