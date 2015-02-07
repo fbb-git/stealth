@@ -1,8 +1,20 @@
     Short options are provided between parentheses, immediately following
-their long option equivalents. Option descriptions starting with (C) can only
-be used on the command-line, and are ignored when specified in the second
-section of the policy file. In the following overview of options tt(uds)
-represents the name of the em(Unix Domain Socket) to use. 
+their long option equivalents. 
+
+    Option descriptions showing (C) can only be used on the command-line, and
+are ignored when specified in the second section of the policy file.
+
+    In the overview of options `tt(<uds>)' represents the name of the
+em(Unix Domain Socket) to use, and `tt(<file-spec>)' refers to a (relative or
+absolute) specification of a file location. 
+
+    With the first and second synopses relative locations (of the Unix Domain
+Socket and of other file-specifications) are interpreted relative to the
+tt(USE BASE) specification in the policy file; with the third (IPC) synopsis
+relative file locations are interpreted relative to the current working
+directory.
+
+    Command-line options overrule options defined in the policy-file.
 
     itemization(
     it() tt(--daemon (-d) <uds>): (C) run as background (daemon)
@@ -13,8 +25,8 @@ represents the name of the em(Unix Domain Socket) to use.
     it() tt(--dry-run): (C) no integrity scans or reloads are performed, but
         are assumed OK. Remaining tasks are normally performed;
     it() tt(--help (-h)): (C) Display help information and exit;
-    it() tt(--log (-L) <path>): log messages are appended to `path'. If path
-            does not exist, it is first created;
+    it() tt(--log (-L) <file-spec>): log messages are appended to
+        `file-spec'. If file-spec does not exist, it is first created;
     it() tt(--logmail): mail sent by s() is logged (requires tt(--log) or
         tt(--syslog)); 
     it() tt(--max-size <size>[BKMG]): files retrieved by tt(GET) commands may
@@ -34,7 +46,11 @@ represents the name of the em(Unix Domain Socket) to use.
         (see below). This option requires specification of the tt(--repeat)
         and tt(--daemon) options;
     it() tt(--reload <uds>): (C) reloads the configuration and skip-files
-        and restarts the scan of the s() daemon process.
+        and restarts the scan of the s() daemon process. Options defined in
+        the policy file are also reloaded. However, command-line options
+        always take priority over options defined in the policy file, so when
+        command-line options were used when starting s() in daemon mode, they
+        cannot be modified by reloading the policy file.
     it() tt(--repeat <seconds>): wake up and perform an integrity scan at
         interrupts or after tt(<seconds>) seconds (or minutes if an `m' is
         appended (no blanks) to <seconds>) after completing the previous
@@ -48,24 +64,30 @@ represents the name of the em(Unix Domain Socket) to use.
         tt(--rerun);
     it() tt(--run-command (-r) <nr>): (C) Only execute command number <nr>
         (natural number).  Command numbers are shown by s()
-        tt(---parse-policy-file). This option cannot be specified when s()
-        runs in daemon mode (i.e., the tt(--run-command) option cannot be
-        specified in combination with the tt(--daemon) option);
-    it() tt(--skip-files (-s) <filename>): all entries in tt(<filename>) are
+        tt(---parse-policy-file). This option can only be specified using the
+        second synopsis;
+    it() tt(--skip-files (-s) <file-spec>): all entries in tt(<file-spec>) are
         skipped. Their integrity is not monitored. If an entry is already
         present in a log file then s() once generates an tt(IGNORING) message
         in the mail sent to the address specified at tt(EMAIL) in the policy
-        file. Each entry mentioned in tt(filepath) must be on a line of its
-        own and must be specified using absolute paths. Entries ending in a
-        slash are assumed to be directories whose full contents must be
-        skipped. Other entries are interpreted as the path names of files to
-        skip. Initial and trailing blanks, empty lines and lines having a
-        tt(#) as their 1st non blank character are ignored.
+        file. Each entry mentioned in tt(file-spec) must be on a line of
+        its own and must be specified using absolute file names. Entries
+        ending in a slash are assumed to be directories whose full contents
+        must be skipped. Other entries are interpreted as the file names
+        of files to skip. Initial and trailing blanks, empty lines and lines
+        having a tt(#) as their 1st non blank character are ignored. Here are
+        some examples:
+            verb(
+        # skip all files in user's Mail directory
+    /home/user/Mail/
+        # skip user's .history file
+    /home/user/.history
+            )
     it() tt(--stdout (-o)): messages are (also) written to the std. output
-        stream (not available when for option tt(--daemon));
+        stream (only available with the second synopsis);
     it() tt(--suspend <uds>): (C) suspends a currently active s()
-        process. Use tt(--resume) to re-activate an s() daemon or
-        tt(--terminate) to end an s() daemon;
+        process. Following tt(--suspend) use tt(--resume) to re-activate an
+        s() daemon or tt(--terminate) to end an s() daemon;
     it() tt(--syslog): write syslog messages;
     it() tt(--syslog-facility <facility>):  syslog facility to use. By
         default facility DAEMON is used;
@@ -93,18 +115,21 @@ represents the name of the em(Unix Domain Socket) to use.
     )
 
     itemization(
-    it() tt(<uds>): absolute filename of a file that is used for
-        communication with a s() daemon process;
-    it() tt(policy): path to the policy file;
+    it() tt(policy): file specification of the policy file. If a relative
+        location is specified then this location is interpreted relative to
+        the current working directory. S() converts this relative
+        specification to an absolute file location, and an option like
+        tt(--reload) will reload the policy file from the thus determined
+        absolute file path.
     )
 
-    Only one of the options tt(--daemon, --reload, --rerun, --resume,
---suspend,) and tt(--terminate) can be specified. The options tt(--reload,
+    Only one of the options tt(--daemon, --reload, --resume,
+--suspend,) or tt(--terminate) can be specified. The options tt(--reload,
 --rerun, --resume, --suspend,) and tt(--terminate) ignore any other options.
 
 The following options are still recognized for backward compatibility with s()
-pre-3.00 versions and will be removed in future versions. They generate error
-messages suggesting alternatives:
+pre-3.00 versions and will be removed in a future s() version. They generate
+error messages suggesting alternatives:
 
     itemization(
     it() tt(--echo-commands (-e)):
@@ -119,7 +144,7 @@ messages suggesting alternatives:
             process; use tt(--suspend) instead.
     )
 
-The following options were discontinued starting with s() version 3.00.00:
+The following options were discontinued starting since s() version 3.00.00:
     itemization(
     it() tt(--debug) (option tt(--verbosity) or tt(--dry-run) could be used 
                     instead);
@@ -127,7 +152,7 @@ The following options were discontinued starting with s() version 3.00.00:
     it() tt(--parse-config-file).
     )
 
-When specifying long options in policy files the initial hyphens should be
+When specifying long options in policy files initial hyphens should be
 omitted. Here are some examples:
         verb(    %%
     log /tmp/stealth.log
