@@ -17,6 +17,8 @@ transformed to a newline character.
     )
 
     Examples:
-        verb(    LABEL Inspecting files in /etc\nIncluding subdirectories
+        verb(
+    LABEL Inspecting files in /etc\nIncluding subdirectories
     LABEL)
-    The second bf(LABEL) command clears the first label.
+    The latter bf(LABEL) command clears the text of the former bf(LABEL)
+command.

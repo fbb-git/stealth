@@ -13,7 +13,7 @@ specification file (e.g., tt(/etc/logrotate.d/target) could be:
     it() perform weekly rotations of the report file;
     it() keep up to 12 rotated files, compressing them using bf(gzip)(1);
     it() suspend the s() daemon, before rotating its report file;
-suppressed; 
+suspended; 
     it() following the rotation, s()'s actions are resumed.
     )
     Note thet tt(stealth --resume xxx) always initiates another file integrity

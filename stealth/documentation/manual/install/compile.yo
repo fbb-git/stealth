@@ -3,41 +3,43 @@ the archive is of the form tt(stealth-_CurVers_.tar.gz), where tt(_CurVers_)
 is a version number. Below, tt(_CurVers_) should be altered into the version
 of the archive that is actually used.
 
+Required, non-standard software, for compiling s() is summarized in the file
+tt(required), which is included in the source file distribution. Currently,
+its contents are:
+
+    verbinclude(../../required)
+
     itemization(
     it() S() compilation is controlled by bf(icmake)(1). The program
 maintenance utility bf(icmake)(1) can be obtained at
 lurl(http://icmake.sourceforge.net/), and it is also available in several
-Linux distributions (e.g., Debian, Ubuntu). It is assumed below 
-that you have an install a recent tt(icmake) version;
+Linux distributions (e.g., Debian, Ubuntu);
 
-    it() Determine a directory under which the archive's file should be
-stored. E.g., if the files in the archive should be stored under tt(/tmp), and
-the archive itself is stored in tt(/tmp) as well, do:
+    it() Determine a directory where the files in s()'s archive ashould be
+stored. E.g., if the files in the archive should be stored under tt(/tmp)
+(and assuming the archive itself is stored in tt(/tmp) as well) then do:
         verb(
     cd /tmp
     tar xzf stealth-_CurVers_.tar.gz
         )
     This creates a subdirectory tt(stealth) containing s()'s sources;
 
-    it() Next, tt(chdir) to that directory:
+    it() Change-dir to that directory:
         verb(
     chdir stealth
         )
 
     it() Check the contents of the files tt(INSTALL.im) and tt(icmconf), and
 verify that all tt(#defines) match your computer's file system and
-software. Also note, in tt(icmconf), the entry
-        verb(
-    #define ADD_LIBRARIES       "bobcat"
-        )
+software. 
 
-    When compiling and s(), the
+    When compiling s(), the
 url(bobcat)(http://bobcat.sourceforge.net/) header files must be
 available. When s() is run it is dynamically linked against the bobcat
-library. If you haven't installed bf(bobcat) yet, download it from
-lurl(http://sourceforge.net/projects/bobcat/), and follow its installation
-instructions (alternatively, bobcat may be available in your distribution,
-like Debian or Ubuntu). Make sure to install both the run-time
+library. bf(Bobcat) can be downloaded from 
+lurl(http://sourceforge.net/projects/bobcat/) (and follow its installation
+instructions). Alternatively, bobcat may be available in your distribution,
+(e.g.,  Debian or Ubuntu). Make sure to install both the run-time
 (bf(bobcat_...))  and the development (bf(bobcat-dev_...)) versions.
 
     it() Execute the command
@@ -63,14 +65,3 @@ program bf(./tmp/bin/binary).
                                     `/usr/share/doc/stealth-doc')
         )
     )
-
-
-
-
-
-
-
-
-
-
-

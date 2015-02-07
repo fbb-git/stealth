@@ -1,18 +1,25 @@
-    The controller's user calling s() to scan the client must first generate
+    The monitor's user calling s() to scan the client must first generate
 an tt(ssh-keypair):
         verb(    ssh-keygen -t rsh) 
-    This generates a public/private ssh key pair in tt(.ssh) in the user's
-home directory. The program asks for a em(passphrase). A passphrase can be
-defined (in which case it must be proviced when s() is started) or, if the
-security if the controller is sufficiently guaranteed, it can remain empty. To
-generate an ssh-key without passphrase simply press tt(Enter) in response to
-the question
+    By default this generates a public/private ssh key-pair in the directory
+tt(.ssh) in the user's home directory. The program asks for a
+em(passphrase). A passphrase can be defined (in which case it must be proviced
+when s() is started) or, if the security if the monitor is sufficiently
+guaranteed, it can remain empty. To generate an ssh-key without passphrase
+simply press tt(Enter) in response to the question
         verb(    Enter passphrase (empty for no passphrase):)
     (a confirmation is required: just press tt(Enter) again).
 
     tt(Ssh-keygen) then  returns a key fingerprint, e.g.,
-        verb(    03:96:49:63:8a:64:33:45:79:ab:ca:de:c8:c8:4f:e9 user@controller)
+        verb(    03:96:49:63:8a:64:33:45:79:ab:ca:de:c8:c8:4f:e9 user@monitor)
     which may be saved for future reference.
 
     In the user's tt(.ssh) directory the files tt(id_rsa) and tt(id_rsa.pub)
-are now created, which completes the preparations at the controller.
+are now created, which completes the preparations at the monitor.
+
+If, instead of running s() in deamon mode it is preferred to let s() perform
+single, but automated integrity scans, then new bf(ssh)(1) connections may be
+difficult to establish if the used ssh-key is passphrase-protected. To
+implement this scenario (i.e., automated integrity scans using passphrase
+protected ssh-keys) the program bf(ssh-cron)(1) can profitably be used. 
+

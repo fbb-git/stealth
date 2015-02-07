@@ -28,7 +28,7 @@ Options::Options()
         Util::absPath((*d_policyFile)["BASE"], d_unixDomainSocket);
 
         if (access(d_unixDomainSocket.c_str(), F_OK) == 0)
-            fmsg << "Unix domain socket `" << d_unixDomainSocket << 
+            fmsg << "Unix Domain Socket `" << d_unixDomainSocket << 
                     "': already in use, remove it first" << endl;
     }
 

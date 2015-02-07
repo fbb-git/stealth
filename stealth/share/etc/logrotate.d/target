@@ -1,12 +1,14 @@
-/var/stealth/target/report {
+/root/stealth/report /var/log/stealth/client-small.log {
     weekly
     rotate 12
     compress
     missingok
+    copytruncate
+    sharedscripts
     prerotate
-        /usr/bin/stealth --suppress /var/run/stealth.target
+        /usr/bin/stealth --suspend /root/stealth/small.uds
     endscript
-    postrotate
-        /usr/bin/stealth --resume /var/run/stealth.target
+    postrotate 
+        /usr/bin/stealth --resume /root/stealth/small.uds
     endscript 
 }

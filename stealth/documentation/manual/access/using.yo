@@ -1,4 +1,4 @@
-    On order to minimize the amount of clutter and possible complications when
+    On order to minimize the amount of clutter and possibly complications when
 only a simple command-shell is required for executing commands, it is
 suggested to use a bf(bash)(1) shell when logging into tt(account@client)'s
 account.

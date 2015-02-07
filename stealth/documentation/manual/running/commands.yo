@@ -1,4 +1,15 @@
-First, we copy the client's tt(sha1sum) program to the controller. In
+The following commands are now defined:
+    itemization(
+    it() first, we copy the client's tt(sha1sum) program to the monitor. In
 practice, this should also include the shared object libraries that are used
-by tt(sha1sum), as they might have become corrupted as well.
+by tt(sha1sum), as they might have become corrupted as well;
+    it() Once tt(sha1sum) is locally available its integrity is verified;
+    it() Once the integrity of the client's tt(sha1sum) has been verified, it
+is used to verify the integrity of the client's tt(/usr/bin/find) program;
+    it() Following this, all setuid and setgid root files are located and
+checked for integrity;
+    it() Finally, the integrity of the client configuration files under
+tt(/etc) is verified;
+    )
+
 

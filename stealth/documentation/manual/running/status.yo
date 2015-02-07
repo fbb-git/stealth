@@ -28,7 +28,8 @@ the resource file is:
 tt(/etc/stealth/cleanup.rc) and the tt(stealthcleanup) script itself in
 tt(/usr/bin/stealthcleanup), the tt(stealthcleanup) script could be called
 as follows:
-        verb(    /usr/bin/stealthcleanup /etc/stealth/cleanup.rc)
+        verb(
+    /usr/bin/stealthcleanup /etc/stealth/cleanup.rc)
     Note that tt(stealthcleanup) may be called whether or not there are active
 s() processes, as s() does not use status files anymore once
 they have been written.

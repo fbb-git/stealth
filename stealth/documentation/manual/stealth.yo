@@ -53,10 +53,10 @@ includefile(install/intro)
 chapter(Granting access)
 includefile(access/intro)
 
-    subsect(The controller's user: creating an ssh-key)
-    includefile(access/controller)
+    subsect(The monitor's user: creating an ssh-key)
+    includefile(access/monitor)
 
-    subsect(The client's account: accepting ssh from the controller's user)
+    subsect(The client's account: accepting ssh from the monitor's user)
     includefile(access/client)
 
     subsect(Logging into the account@client account)

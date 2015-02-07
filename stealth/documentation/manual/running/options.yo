@@ -71,9 +71,9 @@ directory.
         present in a log file then s() once generates an tt(IGNORING) message
         in the mail sent to the address specified at tt(EMAIL) in the policy
         file. Each entry mentioned in tt(file-spec) must be on a line of
-        its own and must be specified using absolute file names. Entries
+        its own and must be specified using absolute file paths. Entries
         ending in a slash are assumed to be directories whose full contents
-        must be skipped. Other entries are interpreted as the file names
+        must be skipped. Other entries are interpreted as the names
         of files to skip. Initial and trailing blanks, empty lines and lines
         having a tt(#) as their 1st non blank character are ignored. Here are
         some examples:

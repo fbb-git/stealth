@@ -1,8 +1,10 @@
 The tt(/root/bin/stealthmail) script is called with the following arguments:
-        verb(    "Client STEALTH report" admin@elswhere)
+        verb(
+    "Client STEALTH report" admin@elswhere)
 
 The mailed report contains information comparable to this:
-        verb(    STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:06:50 +0000
+        verb(
+    STEALTH (4.00.00) started at Sat, 07 Feb 2015 22:10:56 +0100
         
     Check the client's sha1sum program
     Initialized report on local/sha1

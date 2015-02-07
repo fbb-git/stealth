@@ -48,7 +48,7 @@ checksums will be reported.
     
     it() The file tt(/root/client/report) bf(New lines are always appended to
 the tt(/root/client/report) file.  It will never shorten, unless shorten by
-the systems administrator at `controller').
+the systems administrator at `monitor').
 
     This file contains the following:
         verb(    STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:06:50 +0000

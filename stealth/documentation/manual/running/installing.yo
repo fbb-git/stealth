@@ -1,9 +1,13 @@
 As s() is mainly a system administrator's tool, it could be
-installed in tt(/usr/bin). In that case, do (as em(root)) from the
+installed in tt(/usr/bin). In that case, do (as em(root)) in the
 directory where s() was compiled/unpacked:
         verb(    ./build install program)
     Alternatively, another default location may be specified in the
 tt(INSTALL.im) file or may be provided to the tt(build) script. E.g.,
         verb(    ./build install program /usr/local/bin/stealth)
     installing the binary program as tt(/usr/local/bin/stealth).
+
+The provided tt(icmake build) script can be started without arguments for an
+overview of possible commands.
+
 

@@ -1,10 +1,12 @@
-    Next we specify some tt(USE) directives, to fit our specific, local,
-situation: 
-        verb(    USE BASE        /root/stealth/client
+    Next some tt(USE) directives, matching our specific, local,
+situation, are defined: 
+        verb(
+    USE BASE        /root/stealth/client
     USE EMAIL       admin@elswhere
     USE MAILER      /root/bin/stealthmail
     USE MAILARGS    "Client STEALTH report"
     USE SSH         ${SSHCMD})
+
     itemization(
     it() All output is  written under the tt(/root/stealth/client) directory;
     it() Mail is sent to the user tt(admin@elsewhere);

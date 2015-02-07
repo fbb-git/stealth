@@ -9,12 +9,13 @@ require the process-ID file of currently active s() process as their argument.
 
 For example, if a s() process was once started using the command
     COMMENT(KEEP A BLANK FOLLOWING THE BACKSLASH)
-        verb(    stealth --daemon /var/run/small.pid --repeat 900 \ 
-                    /var/stealth/policies/small.pol)
+        verb(
+    stealth --daemon /root/stealth/small.uds --repeat 900 \ 
+                    /root/stealth/small.pol)
     then the tt(--suspend) and tt(--resume) commands for this process should
 be called as:
-        verb(    stealth --suspend /var/run/small.pid
-    stealth --resume /var/run/small.pid)
+        verb(    stealth --suspend /root/stealth/small.uds
+    stealth --resume /root/stealth/small.uds)
     The s() process identified in the files provided as arguments to
 the tt(--suspend) and tt(--resume) options is called the em(daemon stealth
 process) below.
@@ -27,14 +28,13 @@ policy file command is completed, whereafter further commands are ignored,
 except for tt(--resume) (see below) and tt(--terminate).
     it() Any scheduled integrity scans following the tt(--suspend) command
 are ignored by the daemon s() process;
-    it() The daemon s() process writes a message that it is
-being suspended to the report file and then processes the report file as
-usual.
+    it() The daemon s() process writes a message that it is being suspended to
+the report file and then processes the report file as usual.
     )
-    Now that the report file will no longer be affected by the daemon
+    Now that the report file is no longer modified by the daemon
 s() process, log-rotation may take place. E.g., a program like
 bf(logrotate)(1) allows its users to specify a command or script just before
-log-rotation takes place, and `s() tt(--suspend pidfile)' could be
+log-rotation takes place, and `s() tt(--suspend udsfile)' could be
 specified nicely in such a pre-rotation section.
 
 The tt(--resume) option has the following effect:
@@ -54,5 +54,5 @@ stealth process running in the background is:
     itemization(
     it() Wait for the  daemon s() process to complete an ongoing series of
 integrity scan commands;
-    it() Issue the `s() tt(--terminate pidfile)' command.
+    it() Issue the `s() tt(--terminate udsfile)' command.
     )

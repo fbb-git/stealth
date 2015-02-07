@@ -1,6 +1,28 @@
+    With 4.00.00:
+
+    itemization(
+    it() Version 3.00.00 was only short-lived. The inter-process communication
+        using signals never ran smoothly. Version 4.00.00 re-implements s()'s
+        inter-process communication using Unix Domain Sockets.
+    it() Previously required absolute file paths are no longer required. When
+        relative file paths are used with the s() daemon or with s() doing an
+        integrity scan as foreground process they are interpreted relatively
+        to the tt(USE BASE) location specified in the policy file. With s()
+        running in inter-process communication (IPC) mode relative file paths
+        are interpreted relative to the directory in which Stealth running in
+        IPC mode was started.
+    it() The README.flow file is provided with several separately provided
+        illustrative images in the distribution-provided directory
+        tt(documentation/images).
+    it() Specifications for the logrotate specifications should use
+        'tt(copytruncate)' and 'tt(sharedscripts)' (see section ref(ROTATE)
+        for an example)
+    )
+
+
 COMMENT(
     With 3.00.00:
-)
+
     itemization(
     it() Internally the flow control handling, in particular with s() running
         as a daemon, has completely been redesigned.
@@ -47,6 +69,7 @@ COMMENT(
         (some) long option specifications. See section ref(OPTIONS) for
         details.
     )
+)
 
 COMMENT(
     With 2.02.00:
@@ -118,20 +141,20 @@ COMMENT(
 
     Two new options were added to facilitate report-file rotations:
     itemization(
-    it() tt(--resume pidfile): resume a suppressed s()
+    it() tt(--resume pidfile): resume a suspended s()
             process (implying tt(--rerun));
-    it() tt(--suppress pidfile): suppress a currently active s()
-            process. All scheduled scans following tt(--suppress) are skipped,
+    it() tt(--suspend pidfile): suspend a currently active s()
+            process. All scheduled scans following tt(--suspend) are skipped,
             tt(--rerun) is ignored, but tt(--resume) and tt(--terminate) 
             can be issued;
     )
     The report file should not be modified while integrity scans take
 place. The new options were added to make sure this requirement is met when
 the report file must be rotated. The bf(ssh) connections to clients remain
-open between pairs of tt(--suppress) and tt(--resume) commands. See section
+open between pairs of tt(--suspend) and tt(--resume) commands. See section
 ref(ROTATE) for details about these two options.
 
-    Issues related to suppressing s() runs are:
+    Issues related to suspending s() runs are:
     itemization(
     it() cleaning up obsolete status files (section ref(STATUS));
     it() automating report- and status file rotation using external

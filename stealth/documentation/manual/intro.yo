@@ -10,16 +10,15 @@ This expansion contains the following key terms:
     itemization(
     it() tt(SSH-based): The file integrity scan is (usually) performed over an
 ssh-connection. Usually the computer being scanned (called the em(client)) and
-the computer initiating the scan (called the tt(controller)) are different
+the computer initiating the scan (called the tt(monitor)) are different
 computers. 
-    it() The client should accept incoming ssh-connections
-from the initiating computer. The controller doesn't have to (and shouldn't,
-probably).
+    it() The client should accept incoming ssh-connections from the
+monitor. The monitor doesn't have to (and shouldn't, probably).
     it() tt(Trust Enforcement): following the scan, `trust' is enforced in the
 client, due to the integrity of its files.
-    it() tt(Locally Trusted Host): the client apparently trusts the controller
+    it() tt(Locally Trusted Host): the client apparently trusts the monitor
 to use an ssh-connection to perform commands on it. The client therefore
-em(locally trusts) the controller. Hence, em(locally trusted host).
+em(locally trusts) the monitor. Hence, em(locally trusted host).
     )
 
     s() is based on an idea by em(Hans Gankema) and em(Kees Visser),
@@ -30,97 +29,78 @@ testing will leave virtually no sediments on the tested computer. Therefore,
 s() has em(stealthy) characteristics. I consider this an important
 security improving feature of s().
 
-    The controller itself only needs two kinds of outgoing services:
+    The monitor itself only needs two kinds of outgoing services:
 bf(ssh)(1) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
     Here is what happens when s() is run:
     itemization(
-    it() First, a em(policy) file is read. This determines actions to be
-performed, as well as the values of several variables used by s().
-    it() If the command-line option tt(--daemon) is given, s() runs as a
-backgrond (daemon) process, writing its process ID in a separate file. Using
-tt(--repeat <seconds>) the scan is rerun every tt(<seconds>) seconds after
-completing the previous integrity scan. When merely tt(--daemon) is
-specified the scan is performed only once, whereafter s() waits until it is
-reactivated through the s() tt(--rerun <pid>) command.
-    it() Then, the controller opens a command shell on the client using
-bf(ssh)(1), and a command shell on the controller itself using bf(sh)(1).
-    it() Next, commands defined in the policy file are executed in their order
-of appearance. Examples are given below. Normally, return values of the
-programs are  tested. Non-zero return values terminate s().
-    it() In most cases, integrity tests can be controlled by the bf(find)(1)
-program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its own tt(-printf)
-method to produce file-integrity related statistics. Most of these programs
-write file names at the end of generated lines. This characteristic is used by
-an internal routine of s() to detect changes in the generated output,
-which could indicate some malignant software, like an installed em(root-kit).
-    it() When changes are detected, they are logged on a em(report file), to
-which information is always appended. s() never reduces or rewrites
-the report file. When information is added to the report file the newly
-written information is emailed to a configurable email address for further
-(human) processing. Usually the e-mail is sent to the systems manager of the
-tested client. s() follows the `dark cockpit' approach in that no mail
-is sent when no changes were detected.
+    it() First, the em(policy) file is read. For each client a policy file is
+defined, specifying the actions to be performed, and specifying the values of
+several variables used by s().
+
+    it() If the command-line option tt(--daemon <uds>) is specified, s()
+runs as a daemon process, using the Unix Domain Socket (tt(<uds>)) for
+communication with s() processes running in IPC mode.
+
+When running in daemon mode, tt(--repeat <seconds>) may be specified to rerun
+the integrity scan every tt(<seconds>) seconds. If an integrity scan is being
+performed when, according to the repeat interval the next integrity scan is
+due, then the current scan is first completed. Once completed, the next
+integrity scan will be performed after tt(seconds) seconds.
+
+    it() Next, the monitor opens a command shell on the client using
+bf(ssh)(1), and a command shell on the monitor computer itself using
+bf(sh)(1).
+
+    it() Once the command shells are available, commands defined in the policy
+file are executed in their order of appearance. Examples are given
+below. Normally, return values of the programs are tested. When return values
+are to be tested s() terminates when a non-zero return value is sensed. If
+this happens, a message stating the reason why s() terminated is written to
+the report file (and into the mail sent by s()). In some cases (e.g., when the
+report file could not be written), the message is written to the standard
+error stream.
+
+    it() Very often integrity tests can be controlled using bf(find)(1),
+calling programs like bf(ls)(1), bf(sha1sum)(1) or its own tt(-printf) method
+to produce file-integrity related statistics. Most of these programs write
+file names at the end of generated lines. This characteristic is used by one
+of s()'s internal routines to detect changes in the generated output. Such
+changes could indicate some harmful intent, like an installed em(root-kit).
+
+    it() When changes are detected, they are logged in a em(report file), to
+which information is always appended. S() never reduces the report file's size
+or rewrites its contents. When information is added to the report file (beyond
+a plain time stamp) the newly added information is e-mailed to a configurable
+e-mail address for further (human) processing. Usually the e-mail is sent to
+the systems manager of the tested client. S() follows the `dark cockpit'
+approach in the sense that no mail is sent when no changes were detected.
+
+    it() Report and other log-files may safely be rotated between a pair of
+tt(--suspend) and tt(--resume) commands (see below at the section
+ref(ROTATE).
     )
+
 
     Alternatively, the command-line options tt(--reload, --rerun, --suspend,
 --resume) and tt(--terminate) may be provided to communicate with an existing
-s() daemon. These options require but one argument: the pathname to a pid-file
-of a running s().
+s() daemon. These options require but one argument: the location of the Unix
+Domain Socket used by  a running s() daemon.
     itemization(
-    it() When started using the tt(--reload <pidfile>) command-line option,
-the stealth daemon corresponding to tt(pidfile) reloads its policy and skip
-files, immediately followed by another integrity scan;
-    it() When started using the tt(--rerun <pidfile>) command-line option, the
-stealth daemon corresponding to tt(pidfile) performs another integrity scan;
-    it() When started using the tt(--terminate <pid>) command-line option, the
-stealth daemon corresponding to tt(pidfile) terminates. The daemon is also
-terminated if it receives a tt(SIGTERM) or tt(SIGINT) signal.
+    it() When started using the tt(--reload <uds>) command-line option, the
+stealth daemon that created the Unix Domain Socket reloads its policy file
+(and skip-file), immediately followed by another integrity scan;
+    it() When started using the tt(--rerun <uds>) command-line option, the
+stealth daemon that created the Unix Domain Socket performs another integrity
+scan;
+    it() When started using the tt(--terminate <usd>) command-line option, the
+stealth daemon that created the Unix Domain Socket terminates.
     )
 
-    The options tt(--suspend) and tt(--rerun) (see section ref(ROTATE)) were
-implemented to allow safe rotations of s()'s report file. 
+    The options tt(--suspend) and tt(--resume) (see section ref(ROTATE)) were
+implemented to allow safe rotations of s()'s log-files.
 
-COMMENT(
-
-This second was removed since the distributions are responsible for 
-archive integrity
-
-subsect(The integrity of the stealth distribution)
-
-The integrity of the archive tt(stealth-_CurVers_.tar.gz) can be verified as
-follows: 
-    itemization(
-    it() At the location where you found this archive, you should also find a
-file named tt(stealth-_CurVers_.dsc). This file contains a PGP signed
-bf(sha1sum)(1) signature of the tt(tar.gz) archive. The PGP signature was
-provided by me using bf(gpg)(1) (bf(pgp)(1)).
-    it() Compute the SHA1 checksum of the tt(stealth-_CurVers_.tar.gz)
-archive. Its value should match the SHA1 checksum that is mentioned in the
-tt(stealth-_CurVers_.dsc) file. If not, the tt(stealth-_CurVers_.tar.gz)
-archive has been compromised, and should em(not) be used.
-    it() In order to verify the validity of the electronic signature, do as
-follows: 
-        itemization(
-        it() Obtain my public key from a public PGP keyserver, e.g.
-            verb(    http://pgp.surfnet.nl:11371/)
-        it() Make sure you have the right key. Its fingerprint is
-            verb(    DF32 13DE B156 7732 E65E  3B4D 7DB2 A8BE EAE4 D8AA)
-        and it has been electronically signed by, e.g., the University of
-Groningen's PGP-certificate authority. If in doubt, contact me to verify you
-have the right key.
-        it() Once you're sufficiently satisfied that you indeed have obtained
-my public PGP key, verify the validity of the signature used for signing
-tt(stealth-_CurVers_.dsc). With bf(gpg)(1) this can be done by the command
-            verb(    gpg --verify stealth-_CurVers_.dsc)
-        )
-    )
-    This should produce output comparable to:
-        verb(gpg: Signature made Fri Jun  1 10:57:41 2012 CEST using DSA key ID EAE4D8AA
-gpg: Good signature from "Frank B. Brokken <f.b.brokken@rug.nl>")
-
-END COMMENT)
 
 
 

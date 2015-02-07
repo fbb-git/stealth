@@ -13,7 +13,7 @@ is installed in an `earlier' directory of the tt(PATH)-specification than the
 intended program.
 
     Two special remote commands are tt(GET) and tt(PUT), which can be used to
-copy files between the client and the controller.  Internally, tt(GET) and
+copy files between the client and the monitor.  Internally, tt(GET) and
 tt(PUT) use the tt(DD) use-specification. If a non-default specification is
 used, one should ensure that the alternate program accepts bf(dd)(1)'s tt(if=,
 of=, bs=) and tt(count=) options. With tt(GET) the options tt(bs=, count=) and
@@ -25,7 +25,7 @@ specification.
     startit()    
     it() bf(GET) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
-at the controller. tt(client-path) must be the full path of an existing file
+at the monitor. tt(client-path) must be the full path of an existing file
 on the client, tt(local-path) may either be a local directory, in which case
 the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
@@ -34,12 +34,12 @@ local file already exists, it is overwritten by the copy-procedure.
     Example:
     verb(    GET /usr/bin/sha1sum /tmp)
     The program tt(/usr/bin/sha1sum), available at the client, is copied to
-the controller's tt(/tmp) directory. If copying fails for some reason, any
+the monitor's tt(/tmp) directory. If copying fails for some reason, any
 subsequent commands are skipped, and s() terminates.
 
     it() bf(GET NOTEST) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
-at the controller. tt(client-path) must be the full path of an existing file
+at the monitor. tt(client-path) must be the full path of an existing file
 on the client, tt(local-path) may either be a local directory, in which case
 the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
@@ -48,37 +48,37 @@ local file already exists, it is overwritten by the copy-procedure.
     Example:
     verb(    GET NOTEST /usr/bin/sha1sum /tmp)
     The program tt(/usr/bin/sha1sum), available at the client, is copied to the
-controller's tt(/tmp) directory. Remaining commands in the policy file are
+monitor's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
     endit()
 
     The tt(PUT) command may be used as follows:
     startit()    
     it() bf(PUT) tt(<local-path> <remote-path>)nl()
-    Copy the file indicated by tt(local-path) at the controller to
+    Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the
-full path of an existing file on the controller. The argument tt(remote-path)
+full path of an existing file on the monitor. The argument tt(remote-path)
 must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:
     verb(    PUT /tmp/sha1sum /usr/bin/sha1sum)
-    The program tt(/tmp/sha1sum), available at the controller, is copied to the
+    The program tt(/tmp/sha1sum), available at the monitor, is copied to the
 client as tt(usr/bin/sha1sum). If the copying fails for some reason,
 any subsequent commands are skipped, and s() terminates.
 
     it() bf(PUT NOTEST) tt(<local-path> <remote-path>)nl()
-    Copy the file indicated by tt(local-path) at the controller to
+    Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the
-full path of an existing file on the controller. The argument tt(remote-path)
+full path of an existing file on the monitor. The argument tt(remote-path)
 must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:
     verb(    PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum)
-    Copy the file indicated by tt(local-path) at the controller to
+    Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the full
-path of an existing file on the controller. The argument tt(remote-path) must
+path of an existing file on the monitor. The argument tt(remote-path) must
 be the full path to a file on the client. If the remote file already exists,
 it is overwritten by tt(PUT). Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
@@ -110,9 +110,14 @@ tt(/usr/bin/find) is not interpreted.
     it() bf(CHECK)  [bf(LOG =)] tt(logfile [pathOffset] command)
 
         Execute tt(command) on the client, using the bf(SSH) command
-shell. The phrase `bf(LOG =)' is optional. The tt([pathOffset]) specification
-is also optional, and has the same meaning as for the tt(LOCAL CHECK) command,
-described above. 
+shell. 
+
+    The phrase bf(LOG =) is optional. When a relative file location is
+specified at tt(<file-spec>) it is interpreted relatively to the tt(USE BASE)
+path specification. 
+
+tt(PathOffset) is also optional, and has the same meaning as for the tt(LOCAL
+CHECK) command, described above.
 
 The command must succeed. The output of this command is compared to the
 output of this command generated during the previous run of s(). Any
@@ -121,7 +126,7 @@ tt(logfile) name is renamed to tt(logfile.YYYYMMDD-HHMMSS), with
 tt(YYYYMMDD-HHMMSS) being the datetime-stamp at the time s() was run.
 
     Note that the command is executed on the client, but the logfile is kept
-at the controller. This command represents the core of the method implemented
+at the monitor. This command represents the core of the method implemented
 by s(): there will be no residues of the actions performed by s() on client
 computers.
 
@@ -149,10 +154,16 @@ listing is written on the file bf(BASE)tt(/remote/sha1.root).
     it() bf(NOTEST CHECK)  [bf(LOG =)] tt(logfile [pathOffset] command)
 
         Execute tt(command) on the client, using the bf(SSH) command
-shell. The phrase `bf(LOG =)' is optional. The tt([pathOffset]) is also
-optional, and has the same meaning as for the tt(LOCAL CHECK) command,
-described above. The command may or may not succeed. Otherwise, the program
-acts identically as the bf(CHECK ...) command, described above.
+shell. 
+
+    The phrase bf(LOG =) is optional. When a relative file location is
+specified at tt(<file-spec>) it is interpreted relatively to the tt(USE BASE)
+path specification. 
+
+tt(PathOffset) is also optional, and has the same meaning as for the tt(LOCAL
+CHECK) command, described above. The command may or may not
+succeed. Otherwise, the program acts identically as the bf(CHECK ...) command,
+described above.
     Example (using the same tt(${SHA1SUM}))definition:
         verb(    NOTEST CHECK LOG = remote/sha1.root /usr/bin/find / ${SHA1SUM})
     The SHA1 checksums of all suid/gid/executable files on the same device as

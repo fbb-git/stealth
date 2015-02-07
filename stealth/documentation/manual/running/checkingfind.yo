@@ -5,8 +5,10 @@ must itself be OK, as well as the client's tt(sha1sum) program. Now that we
 know that the client's tt(sha1sum) program is OK, we can use it to check the
 client's tt(/usr/bin/find) program.
 
-Note that the controller itself will not suffer any processing load here: only
-the client itself is taxed for checking the intergrity of its own files:
-        verb(    LABEL \nchecking the client's /usr/bin/find program
+Note that the monitor itself no longer needs to invest any significant
+processing load: only the client itself is taxed for checking the integrity
+of its own files:
+        verb(
+    LABEL \nchecking the client's /usr/bin/find program
     CHECK LOG = remote/binfind /usr/bin/sha1sum /usr/bin/find)
 

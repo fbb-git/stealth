@@ -22,7 +22,7 @@ void Options::setMode()
         &&
         (d_arg.nArgs() == 0)
     )
-        fmsg << "--daemon: missing run-file or policy file" << endl;
+        fmsg << "--daemon: missing Unix Domain File or policy file" << endl;
 
     d_ipc = d_reload || d_rerun || d_terminate || d_suspend || d_resume;
 

@@ -2,7 +2,7 @@
 tt(/etc/cron.d/stealth) could be created, containing a line like
         verb(
     2,17,32,47 * * * *  root    test -x /usr/bin/stealth && \ 
-                                /usr/bin/stealth -q /root/stealth/client.pol
+                           /usr/bin/stealth /root/stealth/client.pol
         )
     This starts s() 2 minutes after every hour. In this example the ssh-key
 must not require a passphrase, as bf(crontab)(1) cannot provide passphrases of
@@ -18,4 +18,13 @@ value selected from the time interval specified by the tt(--random-interval)
 option. For example, the s() daemon started by the following command
 repeatedly performs integrity scans between two and five minutes after the
 last integrity scan completed:
-        verb(    stealth -d /var/run/client.pid -r 2m -i 3m /root/stealth/client.pol)
+        verb(
+    stealth --daemon /root/stealth/client.uds \ 
+            --repeat 2m --random-interval 3m /root/stealth/client.pol)
+    Once this program has started its bf(ssh)(1) connection to the client host
+persists, and a possibly required ssh-passphrase is no longer
+required. Additional (intermediate) integrity scans can always be requested
+(also without requiring ssh-passphrase specifications) using the command
+        verb(
+    stealth --rerun /root/stealth/client.uds)
+

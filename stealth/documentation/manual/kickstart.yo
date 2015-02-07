@@ -10,7 +10,7 @@ following steps:
     it() Inspect, and where necessary modify the values of the variables in
 the files tt(INSTALL.cf) and tt(icmconf);
     it() Install a recent Gnu tt(g++) compiler;
-    it() Install the bobcat library
+    it() Install the bobcat library (both the binary and development version)
 (lurl(http://bobcat.sourceforge.net));
     it() Install  the tt(icmake) program
 (lurl(http://icmake.sourceforge.net));

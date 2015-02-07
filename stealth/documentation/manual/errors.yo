@@ -1,15 +1,3 @@
-COMMENT(
-    tt(/bin/sh: no output from /usr/bin/diff ...)
-    quote(the actual program names appearing here could change due to your
-local configuration. The defaults are shown. This indicates that the
-tt(/usr/bin/diff) program could not be activated on the controller. Check the
-correctness of both the shell program (tt(/bin/sh)) and the diff program
-(tt(/usr/bin/diff)): Do they exist? Have their paths been specfied well?
-Note that filenames passed to tt(diff) might not exist anymore when the
-program terminates. This should not be the cause of the error.
-    )
-END)
-    
     tt(Can't chdir to `path')
     quote(the directory tt(path) could not be
 created/used. This may be a permission problem. Check the permissions of
@@ -24,24 +12,6 @@ file may not exist or you may not not have sufficient permissions to read or
 write it.
     )
 
-    tt(could not open <logname>)
-    quote(This message is generated when the mentioned log-file cannot be
-written to. Check the permissions of the file, and check if the path to the
-file exists. The problem may be in a path component, not necessarily in the
-last element of the path or in the file itself.
-    )
-
-    tt(Can't read `<run-file>')
-    quote(The daemon's run-file could not be read. Check if there is indeed a
-s() daemon process using this run-filefile exists; if the run-file actually
-exists (typo in its specification?), and if you have read permissions for it.
-    )
-
-    tt(Can't send signal <signal-name> to process `<pid>')
-    quote(The indicated signal (either tt(SIGTERM) or tt(SIGUSR1)) could not
-be sent to the daemon process. Check if a s() daemon process having process ID
-tt(<pid>) really exist.)
-
     tt(Corrupt line in policy file: ...)
     quote(The apparently corrupted line is shown. The line is corrupted if
 the line could not be split into an initial word and its remainder. Normally
@@ -49,22 +19,25 @@ this should not happen. As the line is mentioned, the message itself should
 assist you in your repairs.
     )
 
-        tt(could not write <run-file name>)
-    quote(The specified run-file could not be written to. Check its
-permissions and whether it actually exists.)
-
-    tt(--daemon: missing run-file or policy file)
-    quote(The tt(--daemon) option requires an absolute filename to a run-file,
-and the call also requires a policy file. Most likely the path to the run-file
-was not specified, thus confusing the policy file with the run-file. The
-run-file is often created in the tt(/run) directory.
+    tt(could not open <logname>)
+    quote(This message is generated when the mentioned log-file cannot be
+written to. Check the permissions of the file, and check if the path to the
+file exists. The problem may be in a path component, not necessarily in the
+last element of the path or in the file itself.
     )
 
-    tt(--daemon <run-file>: must use an absolute file name)
-    quote(The tt(--daemon) option requires a full (absolute) path to the
-run-file name. Most likely the name of the run-file was not specified, thus
-confusing the policy file with the skip-file. The run-file is often created in
-the tt(/run) directory.
+    tt(--daemon: missing uds-file or policy file)
+    quote(The tt(--daemon) option requires the location for its Unix Domain
+Socket, and in addition a policy file must be specified. Most likely the
+location of the Unix Domain File was omitted, thus confusing the policy file
+with the Unix Domain File
+    )
+
+
+    tt(incompatible options: ...)
+    quote(Two or more incompatible options are shown. E.g., tt(--daemon) is
+incompatible with IPC options, which themselves are mutually
+incompatible. Omit all but one of the mentioned options and restart s()
     )
 
     tt(Inserting command `...' failed.)
@@ -78,11 +51,10 @@ client, and whether you have permissions to execute the specified command.
         negative) argument.
     )
 
-    tt(incompatible options: ....)
-    quote(Only one option related to a s() daemon process can be specified at
-a time. E.g., you cannot specify tt(--daemon --rerun --suspend) in one
-command. If incompatible options are specified s() terminates after reporting
-which (incompatible) options were received.)
+    tt(invalid --<option> specified)
+    quote(The specified option value (e.g., tt(--max-size) was specified, but
+its option value is not a valid integral number) is not supported
+    )
 
     tt(--max-size incompatible with IPC calls)
     quote(The tt(--max-size) option can can only be used when s() is also
@@ -100,13 +72,19 @@ the man-page or manual for information about valid options.)
 terminates. 
     )
 
-    tt(--<option name> is only valid for a stealth foreground process)
-    quote(The specified option is incompatible with the tt(--daemon)
-option. Either do not specify tt(--daemon) or omit the offending option.)
+    tt(--<option> is only valid for a s() foreground process)
+    quote(The indicated option cannot be specified in combination with a
+tt(--daemon) or IPC-option (like tt(--suspend))
+    )
 
     tt(--random-interval requires --repeat)
     quote(The tt(--random-interval) option can only be used when the
 tt(--repeat) option has also been specified.
+    )
+
+    tt(--repeat not available in IPC modes)
+    quote(The tt(--repeat) option cannot be specified in combination with an    
+IPC-option (like tt(--suspend))
     )
 
     tt(--run-command 0: not a valid (natural) command number)
@@ -121,30 +99,15 @@ policy file.
     )
 
     tt(--skip-files incompatible with IPC calls)
-    quote(The tt(--skip-files) option can only be used when s() is also
-receiving a policy file. It cannot be used in combination with the Inter
-Process Communication (IPC) options tt(--reload, --rerun, --resume, --suspend)
-or tt(--terminate).
+    quote(The tt(--skip-files) option can only be used when s() is also given
+a policy file. It cannot be used in combination with IPC options (tt(--reload,
+--rerun, --resume, --suspend) or tt(--terminate)).
     )
 
     tt(--skip-files: missing skip-file or policy file)
-    quote(The tt(--skip-files) option requires a skip-files absolute filename,
-and the call also requires a policy file. Most likely the name of the
-skip-file was not specified, thus confusing the policy file with the
-skip-file.
-    )
-
-    tt(--skip-files <filename>: must use an absolute file name)
-    quote(The tt(--skip-files) option requires a full (absolute) path to the
-skip-file name. Most likely the name of the skip-file was not specified, thus
-confusing the policy file with the skip-file.
-    )
-
-    tt(Stealth V _CurVers_ terminated)
-    quote(Some pre-3.00.00 options were discontinued starting at s() version
-3.00.00. Two of these options are tt(--suppress) and tt(--keep-alive). If
-these options are used, their use is reported and s() terminates with the
-above message.
+    quote(The tt(--skip-files) option requires a file name and the s() command
+also requires a policy file. Most likely the name of the skip-file was not
+provided, thus confusing the policy file with the skip-file.
     )
 
     tt(--stdout incompatible with --daemon)
@@ -158,13 +121,13 @@ bf(syslog)(1) facility. Supported facilities are tt(DAEMON, LOCAL0) through
 tt(LOCAL7) and tt(USER). See, e.g., the bf(syslog)(3) man-page for an overview
 of their definitions.)
 
+
     tt(--syslog* options incompatible with IPC calls)
     quote(tt(--syslog*) options can can only be used when s() is also
 receiving a policy file. It cannot be used in combination with the Inter
 Process Communication (IPC) options tt(--reload, --rerun, --resume, --suspend)
 or tt(--terminate).
     )
-
 
     tt(syslog priority <priority> not supported)
     quote(The option tt(--syslog-priority) requires the name of a standard
@@ -174,7 +137,6 @@ used with the priorities in this man-page (i.e., tt(LOG_) should not be used
 when specifying the tt(--syslog-priority). E.g., use tt(--syslog-priority
 WARNING) rather than tt(--syslog-priority LOG-WARNING))
     )
-
 
     tt(terminated: non-zero exit value for `...')
     quote(A local command (not using the tt(CHECK) keyword), returned with a
@@ -191,8 +153,25 @@ component, not necessarily in the last element of the path or in the file
 itself.
     )
 
+    tt(Unix Domain Socket `<uds>': already in use, remove it first)
+    quote(The intended Unix Domain Socket name (tt(<uds>)) is already in
+use. It could be a file that is or has been used by another process. Either
+use another name for the unix domain socket, or remove the existing
+file-system entry)
+
     tt(USE SSH ... entry missing in the policy file)
     quote(there is no default for the tt(USE SSH) specification in the policy
 file. The specification could not be found. Provide a specification like:
     verb(USE SSH     ssh -q root@localhost)
     )
+
+
+
+
+
+
+
+
+
+
+

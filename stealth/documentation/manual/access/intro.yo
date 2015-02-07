@@ -1,5 +1,5 @@
-Access to clients (remote hosts) must be granted using the tt(ssh) protocol.
+Access to clients should be granted using the tt(ssh) protocol.
 
-Clients must allow the controller to connect using tt(ssh). S() connects to
-its clients using ssh certificates, after the controler's public
-key has been transferred to its clients.
+Clients must allow the monitor to connect using tt(ssh). S() connects to its
+clients using ssh certificates, after the monitor's public SSH-key has been
+transferred to the clients.

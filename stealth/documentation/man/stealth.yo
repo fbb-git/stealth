@@ -14,7 +14,7 @@ manpage(stealth)(1)(_CurYrs_)(stealth__CurVers_.tar.gz)(Security Enhancement)
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
 manpagesynopsis()
-    `<uds>' represents the location of the used Unix Domain Socket.
+    `<uds>' represents the location of the used Unix Domain Socket.nl()
 
     s()  --daemon <uds> --dry-run --log <file-spec> --logmail+nl()
             --max-size <size>[BKMG] --no-mail --parse-policy-file+nl()
@@ -181,7 +181,7 @@ and starts at a line merely containing tt(%%).
 directives) (starting with the keyword bf(USE)) and em(commands). Blank lines
 and information beyond hash-marks (#) are ignored, while lines following lines
 terminating in backslashes (\) are concatenated (em(en passant) removing these
-trailing backslashes). Initial white space on lines of the policy file is
+trailing backslashes). Leading white space on lines of the policy file is
 ignored.
 
     The (optional) second section starts at a line merely containing
@@ -360,8 +360,8 @@ transformed to a newline character.
     Example:nl()
     tt(LABEL Inspecting files in /etc\nIncluding subdirectories)nl()
     tt(LABEL) nl()
-        (In this example the latter bf(LABEL) specification erases the former
-        label text).
+        (In this example the former bf(LABEL) specification is erased by the
+        latterbf(LABEL) command).
     )
 
 nsect(LOCAL COMMANDS)
@@ -674,10 +674,10 @@ log-files:
     copytruncate
     sharedscripts
     prerotate
-        /usr/bin/stealth.4 --suspend /root/stealth/clienthost/small.uds
+        /usr/bin/stealth --suspend /root/stealth/client/small.uds
     endscript
     postrotate 
-        /usr/bin/stealth.4 --resume /root/stealth/clienthost/small.uds
+        /usr/bin/stealth --resume /root/stealth/client/small.uds
     endscript 
 }
     )

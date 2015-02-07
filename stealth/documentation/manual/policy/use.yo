@@ -19,7 +19,7 @@ directory tt(/root/client).
     it() bf(USE DD) tt(<dd>)nl()
         The bf(DD) specification uses tt(/bin/dd) as default, and defines the
 location of the bf(dd)(1) program, both on the server and on the client. The
-bf(DD) program is used to copy files between the client and the controller
+bf(DD) program is used to copy files between the client and the monitor
 without creating separate ssh-connections. The bf(DD) program is only
 used by s() for the tt(PUT) and tt(GET) commands, described below.
 
@@ -90,62 +90,59 @@ a single quote in a string that is itself delimited by single quotes.
 taken as a string, and the information beyond the first string is thereupon
 interpreted. 
 
-    it() bf(USE REPORT) tt(reportfile)
-
+    it() bf(USE REPORT) tt(<file-spec>)nl()
         bf(REPORT) defines the name of the reportfile. Information is always
-appended to this file. For each s() run a em(time marker line) is
-written to the report file. Such a marker line looks like this:
-        verb(    STEALTH (1.11) started at Mon Jun 16 12:57:26 2003)
-    Only when (in addition to the marker line)
-additional information was appended to the report file, the added contents of
+appended to this file. At each s() integrity scan a em(time marker line) is
+written to the report file. Only when (in addition to the marker line)
+additional information is appended to the report file the added contents of
 the report file are mailed to the mail address specified in the bf(USE EMAIL)
-specification.
+specification. When a relative file specification is used it is interpreted a
+location relative to the tt(USE BASE) specification.nl()
+    Example showing the default:nl()
+    tt(USE REPORT report)
 
-    Example showing the default:
-        verb(    USE REPORT report)
-
-    it() bf(USE SH) tt(sh-specification)
-
+    it() bf(USE SH) tt(<sh>)nl()
         The bf(SH) specification uses tt(/bin/sh) as default, and defines the
-command shell used by the controller to execute local commands.
+command shell used by the monitor to execute commands on itself. This must be
+an absolute path specification.nl()
+    Example showing the default:nl()
+    tt(USE SH /bin/sh)
 
-    Example showing the default:
-        verb(    USE SH /bin/sh)
-
-    it() bf(USE SSH) tt(ssh-specification)
-
+    it() bf(USE SSH) tt(<user>)nl()
         bf(The SSH specification has no default), and em(must) be
-specified. Assuming the client em(trusts) the controller (which is, after all,
-what this program is all about; so this should not be a very strong
-assumption), preferably the public ssh-identity key of the controller should
-be placed in the client's root tt(.ssh/authorized_keys) file, granting the
-controller root access to the client. Root access is normally needed to gain
-access to all directories and files of the client's file system.
+specified. This must be an absolute path specification.  
 
-    In practice, connecting to a account using the bf(sh)(1) shell is
+    Assuming the client em(trusts) the monitor (which is after all what this
+program is all about, so this should not be a very strong assumption),
+preferably the public ssh key of the monitor should be placed in the
+client's root tt(.ssh/authorized_keys) file, granting the monitor root access
+to the client. Root access is normally needed to gain access to all
+directories and files of the client's file system.
+
+    In practice, connecting to an account using the bf(sh)(1) shell is
 preferred. When another shell is already used by that account, one should make
-sure that that shell doesn't setup its own redirections for standard input and
-standard output. One way to accomplish that is for force the execution of
-tt(/bin/sh) in the bf(USE SSH) specification. 
+sure that its shell doesn't define its own redirections for standard input
+and standard output. One way to accomplish that is for force the execution of
+tt(/bin/sh) in the bf(USE SSH) specification.
 
     An example of an tt(SSH) specification to scan a localhost is:
-        verb(    USE SSH root@localhost -T -q                # root's shell is /bin/sh)
+        verb(
+    USE SSH root@localhost -T -q                # root's shell is /bin/sh)
 
     The same, now explicitly using tt(/bin/bash):
-        verb(    USE SSH root@localhost -T -q exec /bin/bash # root uses another shell)
+        verb(
+    USE SSH root@localhost -T -q exec /bin/bash # root uses another shell)
 
     Alternatively, tt(--noprofile) can be specified to prevent any
 profile-initialization: 
-        verb(    USE SSH root@localhost -T -q exec /bin/bash --noprofile)    
+        verb(
+    USE SSH root@localhost -T -q exec /bin/bash --noprofile)    
     )
-    Using tt(stealth) to inspect tt(localhost) is em(not)
-recommended, as it counters one of the main reasons for tt(stealth)'s
-existence. 
 
-    itemization(
-    it() Yet another alternative, applicable only to tt(localhost). tt(Ssh)
-could completely be avoided, specifying tt(/bin/bash) or a comparable shell
-with the tt(USE SSH) directive. For example:
+    In some installations s() is used to inspect the monitor itself, even
+though this is em(not) recommended, as it breaks one of the main reasons for
+s()'s existence. But in those situations (so, where s() is used to monitor the
+integrity of the tt(localhost)), tt(/bin/bash) could be specified at the
+tt(USE SSH) directive. For example:
         verb(    # For stealth inspecting localhost:
         USE SSH /bin/bash --noprofile)
-    )

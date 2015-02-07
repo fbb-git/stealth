@@ -1,31 +1,32 @@
     S() uses a policy file consisting of two sections, the second
-section is optional. 
+section is optional, and starts at a line merely containing tt(%%).
+
+Each policy file is uniquely associated with a host to be tested. Each host
+may have multiple policy files, though. In that case, each policy file defines
+its own set of checks to be performed.
 
     itemization(
-    it() The policy file's first section defines the actions that s() must
-perform. Each policy file is uniquely associated with a host to be
-tested. Each host may have multiple policy files, though. In that case, each
-policy file defines its own set of checks to be performed.
+    it() The policy file's first section consists of two sets of data: em(use
+directives) (starting with the keyword bf(USE)) and em(commands). 
 
-    it() The policy file's optional second section starts with a line merely
-containing tt(%%), which may then be followed by certain long option
-specifications. See section ref(OPTIONS) for an overview.
+    it() The (optional) second section starts at a line merely containing
+tt(%%). Following this separating line several long option specifications can
+be entered (cf. section ref(OPTIONS)). Options
+specified on the command-line take priority over options specified 
+in the policy file. Although the tt(--reload) option reloads the policy file,
+it will not change option values originally specified as command-line options.
     )
 
-    In this chapter the term em(controller) is used for the computer running
-s(), while the term em(client) is used for the computer that is scanned by
-s(). The controller and the client could be the same computer, but
-normally they are different.
 
     The policy file's first section consists of three sets of data: em(define
 directives) (starting with the keyword bf(DEFINE)), em(use directives)
 (starting with the keyword bf(USE)) and em(commands).
 
 Directives are written in capitals, and should appear exactly as written
-below; letter casing is preserved. 
+below.
 
     Blank lines and information beyond hash-marks (#) are ignored, while lines
 following lines terminating in backslashes (\ ) will be concatenated (em(en
-passant) removing these backslashes). Initial white space on lines of the
+passant) removing these backslashes). Leading white space on lines of the
 policy file is ignored.
 

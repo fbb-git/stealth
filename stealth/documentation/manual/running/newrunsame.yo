@@ -2,7 +2,8 @@
 tt(root/stealth/client). If nothing has changed, the log-files remain
 unaltered. Subsequent runs will, however, add some new info to the file
 tt(/root/client/report):
-        verb(    STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:06:50 +0000
+        verb(
+    STEALTH (4.00.00) started at Sat, 07 Feb 2015 22:10:56 +0100
     
     Check the client's sha1sum program
     Initialized report on local/sha1
@@ -16,7 +17,7 @@ tt(/root/client/report):
     configuration files under /etc
     Initialized report on remote/etcfiles
     
-    STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:13:38 +0000)
+    STEALTH (4.00.00) started at Sat, 07 Feb 2015 22:22:15 +0100)
     Note that just one extra line was added: a timestamp showing the date/time
 of the last run. The systems administrator may rotate the report file every
 once in a while to reclaim some disk space.

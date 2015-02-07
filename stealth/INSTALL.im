@@ -1,38 +1,32 @@
     // Specify the name of the project:
 #define PROJECT             "stealth"
 
-    // When defined, these overrule COMPILER and COMPILER_OPTIONS
-    // COMPILER and COMPILER_OPTIONS are now obsolete
-    // Instead of CXX and CXXFLAGS, CC and CFLAGS can be used.
-    // Their #define values are overruled by identically named environment
-    // variables. 
-
+    // Compiler to use:
 #define CXX                 "g++"
-    // the compiler to use. 
 
-#define CXXFLAGS            "--std=c++14 -Wall -O2 -pthread -g"
-    // the compiler options to use.
+    // The compiler options to use:
+#define CXXFLAGS            "--std=c++14 -Wall -O2 -pthread"
 
+    // Flags passed to the linker:
 #define LDFLAGS             "-lpthread"
-    // flags passed to the linker
 
-// =========================================================================
-// The following locations are overruled by `build install' arguments
 
-#define BINARY     "/usr/bin/"${PROJECT}
+// The following locations can be overruled by `build install' arguments
+
     // the full path of the final program
+#define BINARY     "/usr/bin/"${PROJECT}
 
+    // the directory whre the manual page is stored
 #define MAN     "/usr/share/man/man1"
-    // the directory whre the manual page is stored
 
+    // the directory whre the manual page is stored
 #define MANUAL   "/usr/share/doc/"${PROJECT}"-doc/manual"
-    // the directory whre the manual page is stored
 
-#define STD     "/usr/share/doc/"${PROJECT}
     // the directory where the standard documentation is stored 
+#define STD     "/usr/share/doc/"${PROJECT}
 
-#define EXTRA   "/usr/share/doc/"${PROJECT}"-doc"
     // the directory where the extra documentation is stored 
+#define EXTRA   "/usr/share/doc/"${PROJECT}"-doc"
 
 
 

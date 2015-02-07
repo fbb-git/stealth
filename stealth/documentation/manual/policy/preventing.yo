@@ -1,9 +1,10 @@
-Either by malicious intent or by accident (as happened to me) the controller
-may be a victim of a Denial of Service (DOS) attack. This DOS attack may occur
-when the client (apparently) sends a never ending stream of bytes in response
-to a tt(GET) or tt(REMOTE) command. Once one of my controllers fell victim to
-this attack when a client's power went down and the controller kept on trying
-to read bytes from that client filling up the controller's disk....
+Either by malicious intent or by accident (as happened to me) the monitor may
+be a victim of a (self-inflicted) Denial of Service (DOS) attack. This DOS
+attack may occur when the client (apparently) sends a never ending stream of
+bytes in response to a tt(GET) or tt(REMOTE) command. Once one of my monitors
+fell victim to this attack when a client's power went down and the monitor
+kept on trying to read bytes from that client filling up the monitor's
+disk....
 
 This problem was of course caused by a programming error: while reading
 information from a client s() failed to check whether the reading had actually
@@ -14,7 +15,7 @@ standard output stream. Without further precaution s() would receive a never
 ending stream of bytes to be written to its `report' file, thus causing its
 disk to fill up.
 
-To prevent this from happening s() offers the tt(--max-size)
+To prevent this from happening s() now offers the tt(--max-size)
 command line option allowing the specification of the maximum size of a stream
 of bytes received by s() (e.g., a report or downloaded file). The
 maximum is used for each individual download and can be specified in bytes
@@ -25,7 +26,8 @@ equivalent to the command line specification of tt(--max-size 10M).
 If a file or report received from the client exceeds its maximum allowed size
 then s() terminates after writing the following message to the report
 file (which is sent to the configured mail address):
-        verb(    STEALTH - CAN'T CONTINUE: `<name of offending file>' EXCEEDS MAX. 
+        verb(    
+STEALTH - CAN'T CONTINUE: `<name of offending file>' EXCEEDS MAX. 
                                                 DOWNLOAD SIZE (<size shown>)
     STEALTH - THIS COULD SIGNAL A SERIOUS PROBLEM WITH THE CLIENT
     STEALTH - ONE OR MORE LOG FILES MAY BE INVALID AS A RESULT

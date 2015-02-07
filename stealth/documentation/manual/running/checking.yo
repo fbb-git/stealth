@@ -1,4 +1,5 @@
-Next, we check the received tt(sha1sum) program, using our own:
+Next, we check the integrity of the received tt(sha1sum) program. For this, we
+use the monitor's tt(sha1sum) program:
         verb(
     LABEL \nCheck the client's sha1sum program
     LOCAL CHECK LOG = local/sha1 /usr/bin/sha1sum /root/tmp/sha1sum
@@ -10,7 +11,7 @@ writing the tt(sha1sum) program's output.
 client. The report is written on the file
 tt(/root/stealth/client/local/sha1). If this fails, s() terminates, alerting
 tt(admin@elsewhere) that the check failed. This is a serious event, as it
-indicates that either the controller's tt(sha1sum) is behaving unexpectedly or
+indicates that either the monitor's tt(sha1sum) is behaving unexpectedly or
 that the client's tt(sha1sum) program has unexpectedly changed.
 
     The tt(sha1sum) program em(may) have changed due to a normal upgrade. If
