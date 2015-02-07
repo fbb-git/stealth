@@ -7,7 +7,7 @@ void Stealth::childProcess()
 
 
                                     // start the ipc interface thread
-    thread interface(startIpcInterface, this);
+    thread interface(startThread, &Stealth::ipcInterface, this);
 
     doChores();    
 

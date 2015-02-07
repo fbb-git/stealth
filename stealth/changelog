@@ -1,29 +1,20 @@
 stealth (4.00.00)
 
-  * The communication between stealth programs now uses unix domain sockets,
-    rather than signals.
+  * Stealth 4.00.00 uses Unix Domain Sockets instead of signals to
+    communicatie with the stealth monitor running as a daemon.
 
-  * Added option 'socket' defining the unix domain socket to be used for
-    communication between stealth programs.
-
-  * The --repeat option can only be specified in combination with --daemon
-
-  * Specifying a non-absolute filename for the unix domain socket (previously:
-    the pid file) defines the location of the unix domain socket relative to
-    the base-directory (USE BASE) which is specified in the policy file.
-
-  * Specifying a non-absolute filename with the --skip-files option defines
-    the location of that file relative to the base-directory (USE BASE) which
-    is specified in the policy file.
-
-  * Specifying a non-absolute filename with the --log option defines the
-    location of that file relative to the base-directory (USE BASE) which is
-    specified in the policy file.
-
+  * Previously required absolute file paths are no longer required. When
+    relative file paths are used with the Stealth daemon or with Stealth doing
+    an integrity scan as foreground process they are interpreted relatively to
+    the USE BASE location specified in the policy file. With Stealth running
+    in IPC mode relative file paths are interpreted relative to the directory
+    in which Stealth running in IPC mode was started.
+ 
   * The README.flow file is provided with several separately provided 
     illustrative images in the directory documentation/images.
 
-  * logrotate specifications should use 'copytruncate'
+  * Specifications for the logrotate specifications should use 'copytruncate'
+    and 'sharedscripts' (see the man-page for an example)
 
 stealth (3.00.00)
 

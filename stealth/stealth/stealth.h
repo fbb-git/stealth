@@ -85,12 +85,14 @@ class Stealth: public StealthEnums, public FBB::Fork
         bool incomingRequest(std::istream &in, std::ostream &out);
         void notifyTask();
 
-        static void startIpcInterface(Stealth *obj);
+        void waitForKey();
+
+        static void startThread(void (Stealth::*member)(), Stealth *obj);
 };
 
-inline void Stealth::startIpcInterface(Stealth *obj)
+inline void Stealth::startThread(void (Stealth::*member)(), Stealth *obj)
 {
-    obj->ipcInterface();
+    (obj->*member)();
 }
 
 #endif

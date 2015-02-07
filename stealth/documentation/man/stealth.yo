@@ -14,9 +14,9 @@ manpage(stealth)(1)(_CurYrs_)(stealth__CurVers_.tar.gz)(Security Enhancement)
 manpagename(stealth)(Stealthy File Integrity Scanner)
 
 manpagesynopsis()
-    `<uds-name>' represents the name of the unix domain socket to use.
+    `<uds>' represents the name of the used Unix Domain Socket.
 
-    s()  --daemon <uds-name> --dry-run --log <file-spec> --logmail+nl()
+    s()  --daemon <uds> --dry-run --log <file-spec> --logmail+nl()
             --max-size <size>[BKMG] --no-mail --parse-policy-file+nl()
             --random-interval <seconds> --repeat <seconds>nl()
             --skip-files <file-spec> --stdout --syslog+nl()
@@ -26,12 +26,13 @@ manpagesynopsis()
 
     s()  --dry-run --log <file-spec> --logmail+nl()
             --max-size <size>[BKMG] --no-mail --parse-policy-file+nl()
+            --random-interval <seconds> --repeat <seconds>nl()
             --run-command <nr> --skip-files <file-spec> --stdout --syslog+nl()
             --syslog-facility <fac> --syslog-priority <pri> 
                                                     --syslog-tag <tag>nl()
             --verbosity <value> policy
 
-    s() {--reload,--rerun,--resume,--suspend,--terminate} <uds-name>
+    s() {--reload,--rerun,--resume,--suspend,--terminate} <uds>
 
     s() --help --version
 
@@ -42,102 +43,122 @@ manpagedescription()
     quote(
     bf(SSH-based Trust Enforcement Acquired through a Locally Trusted Host.)
     )
-    s() is based on an idea by em(Hans Gankema) and em(Kees Visser), both at
+    S() is based on an idea by em(Hans Gankema) and em(Kees Visser), both at
 the Center for Information Technology of the University of Groningen. em(Hopko
 Meijering) provided valuable suggestions for improvement.
 
-    s()'s main task is to perform file integrity tests. However, the
+    S()'s main task is to perform file integrity tests. However, the
 testing itself will leave no sediments on the tested computer. Therefore,
 s() has em(stealthy) characteristics. This is considered an
 important feature, improving the security (integrity) of the software of
 computers monitored by s().
 
-    On the other hand, one should realize that s() intends to be just another
-security tool: other security measures like firewalls, portscanners, intrusion
-detection systems, dropping unencrypted protocols, etc. are usually required
-to improve or promote the security of a group of computers that are connected
-to the Internet.
+    Please realize that s() intends to be just another security tool: other
+security measures like firewalls, portscanners, intrusion detection systems,
+dropping unencrypted protocols, etc. are usually required to improve the
+security of a group of computers that are connected to the Internet. S() is a
+file integrity scanner, and file integrity scanners offer no substitute for
+those tools (and vv.).
 
-    s() uses a policy file to determine the actions to perform. Each
-policy file is uniquely associated with a host to be tested. This host
+    S() uses a policy file to determine the actions to perform. Each
+policy file is uniquely associated with a host being monitored. This host
 (called the em(client) below) trusts the computer on which s() runs, called
-the em(controller) (hence: a em(Locally Trusted Host)). The controller
+the em(monitor) (hence: a em(Locally Trusted Host)). The monitor
 performs tasks (normally file integrity tests) that em(Enforce) the em(Trust)
 we have in the client computer. Since almost all integrity tests can be run
-on the client, one controller can control many clients, even if the
-controller itself uses aged hard- and software components.
+on the client, one monitor can control many clients, even if the
+monitor itself uses aged hard- and software components.
 
-As the controller and the client normally are different computers, the
-controller must communicate with the client in a secure fashion. This is
-realized using SSH. So, there's another element of `local trust' involved
-here: the client should permit the controller to set up a secure SSH
-connection allowing the controller to access sensitive files and private parts
-of the client's file system.
+As the monitor and the client are (i.e., should be) different computers, the
+monitor must communicate with the client in a secure fashion. This is realized
+through SSH. So, there's another element of `local trust' involved here: the
+client should permit the monitor to set up a secure SSH connection allowing
+the monitor to access sensitive elements in the client's file system.
 
-    bf(It is important to ensure that there is no public access to the
-controller. All inbound services should be denied. The only access to
-the controller should be via its console and the controller should be placed
-in a physically secure location. Sensitive information of clients are stored
-in the controller, and passwordless access to clients can be obtained from the
-controller by anyone who gains (root)-access).
+bf(It is important to ensure that public access to the monitor is
+prevented. No incoming services should be allowed. The only access to the
+monitor should be via its console and the monitor should be placed in a
+physically secure location. Sensitive information of clients are stored in the
+monitor's file system. To access the clients s() in daemon mode can use a
+passphrase-protected ssh-key, allowing s() to perform its tasks
+thereafter. This, too, makes it important to prevent the monitor from being
+accessed by unauthorized persons.)
 
-    The controller itself normally only uses two kinds of outgoing services:
+If, instead of running s() in deamon mode it is preferred to let s() perform
+single, but automated integrity scans, then new bf(ssh)(1) connections may be
+difficult to establish if the used ssh-key is passphrase-protected. To
+implement this scenario (i.e., automated integrity scans using passphrase
+protected ssh-keys) the program bf(ssh-cron)(1) can profitably be used. 
+
+S()'s current way of connecting to clients uses a single bf(ssh)(1)
+connection, which results in only a single  bf(sshd)(1)
+entry in the client's logfiles, which lasts for the duration of s()'s
+run. When using s() in daemon mode this too minimizes the `footprint' s() has
+on the client hosts.
+
+The monitor itself normally only requires two types of outgoing services:
 bf(SSH) to reach its clients, and some mail transport agent (e.g.,
 bf(sendmail)(1)) to forward its outgoing mail to some mail-hub.
 
-    Here is what happens when s() is run using the first synopsis:
+    Here is what happens when s() running using the first synopsis:
     itemization(
-    it() First, the em(policy) file is read. This determines the actions to be
-performed, and the values of several variables that are used by s().
+    it() First, the em(policy) file is read. For each client a policy file is
+defined, specifying the actions to be performed, and specifying the values of
+several variables used by s().
 
-    it() If the command-line option tt(--daemon <uds-name>) is specified, s()
-runs as a backgrond process, writing its process id in the file tt(pifile).
+    it() If the command-line option tt(--daemon <uds>) is specified, s()
+runs as a daemon process, using the Unix Domain Socket (tt(<uds>)) for
+communication with s() processes running in IPC mode.
 
 When running in daemon mode, tt(--repeat <seconds>) may be specified to rerun
 the integrity scan every tt(<seconds>) seconds. If an integrity scan is being
 performed when, according to the repeat interval the next integrity scan is
 due, then the current scan is first completed. Once completed, the next
-integrity scan will be performed after tt(seconds) seconds. 
+integrity scan will be performed after tt(seconds) seconds.
 
-    When tt(--daemon) is specified an initial scan is always performed,
-whereafter s() waits until another integrity scan is requested through the s()
-tt(--rerun <uds-name>) invocation, or because the next scan is due based on 
-the configured tt(repeat) interval.
-
-    it() Next, the controller opens a command shell on the client using
-bf(ssh)(1), and a command shell on itself using bf(sh)(1).
+    it() Next, the monitor opens a command shell on the client using
+bf(ssh)(1), and a command shell on the monitor computer itself using
+bf(sh)(1).
 
     it() Once the command shells are available, commands defined in the policy
 file are executed in their order of appearance. Examples are given
 below. Normally, return values of the programs are tested. When return values
-are tested s() terminates when a non-zero return value is received. If this
-happens, a message stating the reason why s() terminated is written to the
-report file (and into the mail message sent by s()). In some cases (e.g., when
-the report file could not be written), the message is written to the standard
+are to be tested s() terminates when a non-zero return value is sensed. If
+this happens, a message stating the reason why s() terminated is written to
+the report file (and into the mail sent by s()). In some cases (e.g., when the
+report file could not be written), the message is written to the standard
 error stream.
 
-    it() In most cases, integrity tests can be controlled using the
-bf(find)(1) program, calling programs like bf(ls)(1), bf(sha1sum)(1) or its
-own tt(-printf) method to produce file-integrity related statistics. Most of
-these programs write file names at the end of generated lines. This
-characteristic is used by an internal routine of s() to detect changes in the
-generated output, which could indicate some harmful intent, like an installed
-em(root-kit).
+    it() Very often integrity tests can be controlled using bf(find)(1),
+calling programs like bf(ls)(1), bf(sha1sum)(1) or its own tt(-printf) method
+to produce file-integrity related statistics. Most of these programs write
+file names at the end of generated lines. This characteristic is used by one
+of s()'s internal routines to detect changes in the generated output. Such
+changes could indicate some harmful intent, like an installed em(root-kit).
 
     it() When changes are detected, they are logged in a em(report file), to
 which information is always appended. S() never reduces the report file's size
-or rewrites its contents. Whenever information is added to the report file
-(exceeding a plain time stamp) the appended information is e-mailed to a
-configurable e-mail address for further (human) processing. Usually the e-mail
-is sent to the systems manager of the tested client. S() follows the `dark
-cockpit' approach in the sense that no mail is sent when no changes were
-detected.
+or rewrites its contents. When information is added to the report file (beyond
+a plain time stamp) the newly added information is e-mailed to a configurable
+e-mail address for further (human) processing. Usually the e-mail is sent to
+the systems manager of the tested client. S() follows the `dark cockpit'
+approach in the sense that no mail is sent when no changes were detected.
 
-    it() When the tt(--repeat) or tt(--rerun) options are issued, the report
-file should not be rotated by, e.g., a log-rotating process, but the report
-file may safely be rotated between a pair of tt(--suppress) and tt(--resume)
-commands. 
+    it() Report and other log-files may safely be rotated between a pair of
+tt(--suppress) and tt(--resume) commands (see below at the section `REPORT
+FILE ROTATION').
     )
+
+If s() should not be run as a daemon process the second synopsis can be
+used. In this case s() performs one or more integrity scans (the latter when
+the tt(--repreat) option was specified). When a single integrity scan is
+requested s() terminates after the scan. When tt(--repeat) is specified s()
+shows a prompt (i.e., `tt(? )') and terminates after pressing the
+tt(Enter)-key. 
+
+The third synopsys is used for communication with a s() daemon. In this case
+the the Unix Domain Socket defined by the s() daemon process must be
+specified after the option specifying the requested command.
 
 manpagesection(OPTIONS)
 
@@ -199,7 +220,7 @@ s() if not yet existing.nl()
     it() bf(USE DD) tt(<dd>)nl()
         The bf(DD) specification uses tt(/bin/dd) as default, and defines the
 location of the bf(dd)(1) program, both on the server and on the client. The
-bf(DD) program is used to copy files between the client and the controller
+bf(DD) program is used to copy files between the client and the monitor
 over the existing ssh-connection. The program specified here is only used by
 s() when executing tt(PUT) and tt(GET) commands (described below).nl()
     Example showing the default:nl()
@@ -207,7 +228,7 @@ s() when executing tt(PUT) and tt(GET) commands (described below).nl()
 
     it() bf(USE DIFF) tt(<diff>)nl()
         The default bf(DIFF) specification uses tt(/usr/bin/diff),
-and defines the location of the bf(diff)(1) program on the controller. The
+and defines the location of the bf(diff)(1) program on the monitor. The
 bf(diff)(1) program is used to compare a formerly created logfile of an
 integrity check with a newly created logfile.nl()
     Example showing the default:nl()
@@ -227,7 +248,7 @@ The default tt(/usr/bin/diff) program prefixes lines by either `tt(> )' or
 report of the integrity scan of the client. The `dark cockpit' philosophy is
 followed here: mail is only sent when a modification is detected.nl()
     Example showing the default (apparently an email address on the
-controller):nl()
+monitor):nl()
     tt(USE EMAIL root)
 
     it() bf(USE MAILER) tt(<mailer>)nl()
@@ -272,17 +293,17 @@ specification.nl()
 
     it() bf(USE SH) tt(<sh>)nl()
         The bf(SH) specification uses tt(/bin/sh) as default, and defines the
-command shell used by the controller to execute commands on itself.nl()
+command shell used by the monitor to execute commands on itself.nl()
     Example showing the default:nl()
     tt(USE SH /bin/sh)
 
     it() bf(USE SSH) tt(<user>)nl()
         bf(The SSH specification has no default), and em(must) be
-specified. Assuming the client em(trusts) the controller (which is, after all,
+specified. Assuming the client em(trusts) the monitor (which is, after all,
 what this program is all about; so this should not be a very strong
-assumption), preferably the public ssh-identity key of the controller should
+assumption), preferably the public ssh-identity key of the monitor should
 be placed in the client's root tt(.ssh/authorized_keys) file, granting the
-controller root access to the client. Root access is normally needed to gain
+monitor root access to the client. Root access is normally needed to gain
 access to all directories and files of the client's file system.
 
     In practice, connecting to a account using the bf(sh)(1) shell is
@@ -338,26 +359,26 @@ transformed to a newline character.
 
 nsect(LOCAL COMMANDS)
 
-    bf(LOCAL) commands are executed on the controller itself:
+    bf(LOCAL) commands are executed on the monitor itself:
     itemization(
     it() bf(LOCAL) tt(<command>)nl()
-        Execute tt(command) on the controller, using the bf(SH) command
+        Execute tt(command) on the monitor, using the bf(SH) command
 shell. The command must succeed (i.e., must return a zero exit value). nl()
     Example:nl()
     tt(LOCAL scp rootsh@client:/usr/bin/sha1sum /tmp)nl()
     This command copies the client's bf(sha1sum)(1) program to the
-controller.
+monitor.
 
     it() bf(LOCAL NOTEST) tt(<command>)nl()
-        Execute tt(command) on the controller, using the bf(SH) command
+        Execute tt(command) on the monitor, using the bf(SH) command
 shell. The command may or may not succeed.nl()
     Example:nl()
     tt(LOCAL NOTEST mkdir /tmp/subdir)nl()
-    This command creates tt(/tmp/subdir) on the controller. The command fails
+    This command creates tt(/tmp/subdir) on the monitor. The command fails
 if the directory cannot be created, but this does not terminate s().
 
     it() bf(LOCAL CHECK) [bf(LOG =)] tt(<logfile> [pathOffset] <command>)nl()
-        Execute tt(command) on the controller, using the bf(SH) command
+        Execute tt(command) on the monitor, using the bf(SH) command
 shell. The command must succeed. The output of this command is compared to the
 output of this command generated during the previous integrity check run by
 s(). 
@@ -387,7 +408,7 @@ renamed to tt(logfile.YYMMDD-HHMMSS), with tt(YYMMDD-HHMMSS) the
 (UTC) datetime-stamp at the time s() was run.
 
     Note that eventually many tt(logfile.YYMMDD-HHMMSS) files could be
-created: It is up to the controller's systems manager to decide what to do
+created: It is up to the monitor's systems manager to decide what to do
 with old datetime-stamped logfiles.
 
     The tt(logfile) specifications may use relative and absolute paths. When
@@ -402,7 +423,7 @@ resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
 succeed (i.e., tt(sha1sum) must return a zero exit-value).
 
     it() bf(LOCAL NOTEST CHECK) tt(<logfile>  [pathOffset] <command>)nl()
-        Execute tt(command) on the controller, using the bf(SH) command
+        Execute tt(command) on the monitor, using the bf(SH) command
 shell. The command may or may not succeed. Otherwise, the command performs
 exactly like the bf(LOCAL CHECK ...) command, discussed above.
 
@@ -414,20 +435,12 @@ succeed (i.e., tt(sha1sum) must return a zero exit-value).
     )
 
     Note that the bf(scp)(1) command can be used to copy files between the
-client and the controller, using a local command. This, however, is
+client and the monitor, using a local command. This, however, is
 discouraged, as a separate bf(ssh)(1)-connection is required for each separate
 bf(scp)(1) command. This subtlety was brought to the author's attention by
 Hopko Meijerink (tt(h.meijering@rug.nl)). 
 
-    New bf(ssh)(1) connections may be difficult to establish if the used
-ssh-key is passphrase-protected (but it is not impossible to do so, see e.g.,
-bf(ssh-cron)(1)), and using an ssh-key without a passphrase is discouraged as
-client computers are immediagely compromised too, once the controller is
-compromised. Furthermore, using bf(scp)(1) results in several additional
-entries showing bf(sshd)(1) connections in the client's logfiles, which in
-turn may disclose information that the client is intensively monitored. 
-
-    To copy files between the client and the controller, the tt(GET) and
+    To copy files between the client and the monitor, the tt(GET) and
 tt(PUT) commands (described below) should be used instead, as these commands
 use the existing bf(ssh)(1) connection. In general, tt(LOCAL) commands should
 not be used to establish additional bf(ssh)(1) connections to a client.
@@ -442,7 +455,7 @@ is installed in an `earlier' directory of the tt(PATH)-specification than the
 intended program.
 
     Two special remote commands are tt(GET) and tt(PUT), which can be used to
-copy files between the client and the controller.  Internally, tt(GET) and
+copy files between the client and the monitor.  Internally, tt(GET) and
 tt(PUT) use the tt(DD) specification. If a non-default specification is
 used, one should ensure that the alternate program accepts bf(dd)(1)'s tt(if=,
 of=, bs=) and tt(count=) options. With tt(GET) the options tt(bs=, count=) and
@@ -454,7 +467,7 @@ specification.
     itemization(    
     it() bf(GET) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
-at the controller. tt(client-path) must be the full path of an existing file
+at the monitor. tt(client-path) must be the full path of an existing file
 on the client, tt(local-path) may either be a local directory, in which case
 the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
@@ -463,12 +476,12 @@ local file already exists, it is overwritten by the copy-procedure.
     Example:nl()
     tt(GET /usr/bin/sha1sum /tmp)nl()
     The program tt(/usr/bin/sha1sum), available at the client, is copied to the
-controller's tt(/tmp) directory. If, for whatever reason, copying fails, then
+monitor's tt(/tmp) directory. If, for whatever reason, copying fails, then
 s() terminates.
 
     it() bf(GET NOTEST) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
-at the controller. tt(client-path) must be the full path of an existing file
+at the monitor. tt(client-path) must be the full path of an existing file
 on the client, tt(local-path) may either be a local directory, in which case
 the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
@@ -477,36 +490,36 @@ local file already exists, it is overwritten by the copy-procedure.
     Example:nl()
     tt(GET NOTEST /usr/bin/sha1sum /tmp)nl()
     The program tt(/usr/bin/sha1sum), available at the client, is copied to the
-controller's tt(/tmp) directory. Remaining commands in the policy file are
+monitor's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
     )
 
     The tt(PUT) command may be used as follows:
     itemization(    
     it() bf(PUT) tt(<local-path> <remote-path>)nl()
-    Copy the file indicated by tt(local-path) at the controller to
+    Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the
-full path of an existing file on the controller. The argument tt(remote-path)
+full path of an existing file on the monitor. The argument tt(remote-path)
 must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:nl()
     tt(PUT /tmp/sha1sum /usr/bin/sha1sum)nl()
-    The program tt(/tmp/sha1sum), available at the controller, is copied to the
+    The program tt(/tmp/sha1sum), available at the monitor, is copied to the
 client as tt(usr/bin/sha1sum). If the copying fails, bf(stealth) terminates.
 
     it() bf(PUT NOTEST) tt(<local-path> <remote-path>)nl()
-    Copy the file indicated by tt(local-path) at the controller to
+    Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the
-full path of an existing file on the controller. The argument tt(remote-path)
+full path of an existing file on the monitor. The argument tt(remote-path)
 must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:nl()
     tt(PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum)nl()
-    Copy the file indicated by tt(local-path) at the controller to
+    Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the full
-path of an existing file on the controller. The argument tt(remote-path) must
+path of an existing file on the monitor. The argument tt(remote-path) must
 be the full path to a file on the client. If the remote file already exists,
 it is overwritten by tt(PUT). Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
@@ -548,7 +561,7 @@ existing tt(logfile) name is renamed to tt(logfile.YYMMDD-HHMMSS), with
 tt(YYMMDD-HHMMSS) the datetime-stamp at the time s() was run.
 
     Note that the command is executed on the client, but the logfile is kept
-on the controller. This command represents the core of the method implemented
+on the monitor. This command represents the core of the method implemented
 by s(): there will be no residues of the actions performed by s() on
 the client computers.
 
@@ -603,48 +616,51 @@ desirable. It is of course possible to issue a tt(--terminate) command, rotate
 the logfiles, and restart s(), but s() also offers a facility to temporarily
 suspend integrity scans performed by a s() daemon process:
     itemization(
-    it() Calling s() with the option tt(--suspend <<uds-name>>) suspends the
+    it() Calling s() with the option tt(--suspend <<uds>>) suspends the
             daemon's integrity scans. If s() is
             actually performing a series of integrity scans when
             tt(--suspend) is issued, the currently executing command is first
             completed after which the tt(--suspend) command completes. Once
             the s() daemon has been suspended, automatic or explicit
             integrity scan requests are denied, and the daemon can only be
-            instructed to resume its scanning tasks (s() --resume <<uds-name>>)
-            or to terminate (s() --terminate <<uds-name>>).
+            instructed to resume its scanning tasks (s() --resume <<uds>>)
+            or to terminate (s() --terminate <<uds>>).
 
-    it() Once `s() tt(--suspend <<uds-name>>)' has returned, the report file
+    it() Once `s() tt(--suspend <<uds>>)' has returned, the report file
             may safely be rotated (using, e.g., bf(logrotate)(1)), and a new
             (empty) report file may optionally be created by the logrotation
             process.
 
     it() Once the log-rotation has been completed, the log-rotation process
-            should issue the command `s() tt(--resume <<uds-name>>)'. This
+            should issue the command `s() tt(--resume <<uds>>)'. This
             resumes the activities of a suspended s() daemon process,
             immediately performing the next integrity scan. Following this the
             s() daemon is back to its original integrity scanning mode.
     )
     Here is an example of bf(logrotate)(1) specification rotating s()
 log-files:
-        verb(/root/stealth/host/report {
-    weekly
-    rotate 12
+        verb(
+/root/stealth/clienthost/small/report /var/log/stealth/clienthost-small.log {
+    daily
+    rotate 4
     compress
     missingok
     copytruncate
+    sharedscripts
     prerotate
-        /usr/bin/stealth --suppress /run/stealth.host
+        /usr/bin/stealth.4 --suspend /root/stealth/clienthost/small.uds
     endscript
-    postrotate
-        /usr/bin/stealth --resume /run/stealth.host
+    postrotate 
+        /usr/bin/stealth.4 --resume /root/stealth/clienthost/small.uds
     endscript 
-})
+}
+    )
 
 manpagesection(RELOAD, RERUN AND TERMINATE)
 
     Here is what happens when s() is run using the third synopsis:
     itemization(
-    it() When started as s() tt(--reload <<uds-name>>), the s() daemon process
+    it() When started as s() tt(--reload <<uds>>), the s() daemon process
         reloads its policy file and (if specified) tt(--skip-files)
         specification file. Next the s() daemon process performs a file
         integrity scan using the information in the re-read policy and
@@ -653,11 +669,11 @@ manpagesection(RELOAD, RERUN AND TERMINATE)
         and/or skip-files files must be used another s() process must be
         started, for which these new filenames are specified.
 
-    it() When started as s() tt(--rerun <<uds-name>>), the s() daemon performs
+    it() When started as s() tt(--rerun <<uds>>), the s() daemon performs
         another scan (unless it has been suspended using s() tt(--suspend
-        <<uds-name>>)).
+        <<uds>>)).
 
-    it() When started as s() tt(--terminate <uds-name>), the s() daemon is
+    it() When started as s() tt(--terminate <uds>), the s() daemon is
         terminated.
     )
 

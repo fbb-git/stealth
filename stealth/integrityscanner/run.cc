@@ -35,20 +35,6 @@ void IntegrityScanner::run()
         }
     }
 
-// For internal testing use only:
-//
-//    for (size_t idx = 0; idx != 5; ++idx)
-//    {
-//        if (d_pending.hasMode(SUSPEND | RELOAD | TERMINATE))
-//        {
-//            m2 << "TMP: ENDING SCAN BY SUSPEND OR TERMINATE" << endl;
-//            break;
-//        }
-//
-//        m2 << "SLEEP SCAN: for 10 secs." << endl;
-//        this_thread::sleep_for(chrono::seconds(10));
-//    }
-    
     m3 << "policy file processed" << endl;
     d_active = false;
 }

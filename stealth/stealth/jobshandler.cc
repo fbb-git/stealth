@@ -1,17 +1,22 @@
 #include "stealth.ih"
 
-// requests are received through the LocalServerSocket unix domain socket.
-
 void Stealth::jobsHandler()
 {
+    bool prompt =  not d_options.daemon() && d_options.repeat();
+
+    if (prompt)
+    {
+        thread(startThread, &Stealth::waitForKey, this).detach();
+        cout << "? " << flush;
+    }
+
     while (true)
     {
-         nextJob();
+        nextJob();
 
         m1 << "MODE REQUEST: " << d_task << endl;
     
         d_stealthReport.refresh();
-
                                             // process the current request
         (this->*(s_task.find(d_task.mode())->second))();
 
@@ -28,7 +33,7 @@ void Stealth::jobsHandler()
             d_autoJob = false;
             continue;
         }
-
         d_ipc.notify();
     }
 }
+

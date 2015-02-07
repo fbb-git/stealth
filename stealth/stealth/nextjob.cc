@@ -32,7 +32,7 @@ void Stealth::nextJob()
                 m2 << "SUSPEND or actively scanning: wait some more" << endl;
                 continue;                       // then wait some more
             }
-                                    
+                             
             d_task.setMode(INTEGRITY_SCAN);
             m2 << "Next mode: INTEGRITY_SCAN" << endl;
             d_autoJob = true;
