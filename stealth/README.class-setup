@@ -1,29 +1,45 @@
-Stealth:    handles the integrity scan or handles the communication with a
-            running stealth daemon.
-    
-Options:    singleton, prepares all options received either on the command
-            line or found in the policy file. Ends the program if incompatible
-            options were specified. Initialized by Stealth::Stealth()
-
-PolicyFile: analyzes and stores the information found in the first section of
-            the policy file (through its member 'reload').
-
-RunMode:    keeps track of the currently active Stealth mode. A mode may also
-            be queried, and the name of a mode can be requested. When a mode
-            is changed, setMode is used to update RunMode's mode.
-
-StealthReport: Handles all logs. d_stealthReport in the Stealth object is a
-            stream into which log messages for the REPORT file are inserted.  
+SyslogStruct:   merely a struct containing the values of --syslog* options. It
+            is filled by Options and used by LogUnit
 
 Msg:        m1..m3 insert messages, depending on verbosity level, into imsg,
             mp writes to cout is used for messages related to parsing the
-            policy file. These are global objects. Other than the m-objects
-            imsg, wmsg and fmsg can also be used.
+            policy file. M1..m3 are global objects, inserting into imsg.
+            The Mstream objects imsg, wmsg and fmsg can also be used, the
+            latter two inserting into cout.
 
-StealthEnums: struct StealthEnums is empty, defining the enum Mode and the
-            Mode | Mode operator.
+Util:       Utility class offering members for making directories and
+            determining absolute file names from relative file specifications
 
-Util:
+StealthEnums: an otherwise empty struct, defining the enum Mode and the `Mode |
+            Mode' operator.
 
-IntegrityScanner:
+PolicyFile: analyzes and stores the information found in the first section of
+            the policy file (through its member 'reload'). The second section
+            (option specifications) are read by Options::loadPolicyOptions
+
+Options:    singleton, determines and validates all options received either on
+            the command line or found in the policy file. Ends the program if
+            incompatible options were specified. Initialized by Stealth's
+            constructor.
+
+RunMode:    keeps track of the currently active Stealth mode. A mode may also
+            be queried, and the name of a mode can be requested. When a mode
+            is changed, setMode is used to update RunMode's mode. RunMode
+            objects are defined in Stealth, defining d_task for the currently
+            active mode, and d_pending for a requested (next) mode.
+
+StealthReport: ostream responsible for inserting information into the REPORT
+            file. The object d_stealthReport is defined by the Stealth object.
+
+IntegrityScanner: performs the actual integrity scans. Called from
+            Stealth::integrityScan. Main public interface member: run().
+
+LogUnit:    handles all logged messages. Redefinable singleton, with no public
+            members other than LogUnit::init. See REAME.messages for
+            information about the way it operates.
+
+Stealth:    handles the integrity scan or handles the communication with a
+            running stealth daemon.
+    
+
 

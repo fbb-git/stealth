@@ -56,6 +56,31 @@ client, and whether you have permissions to execute the specified command.
 its option value is not a valid integral number) is not supported
     )
 
+    tt(LocalClientSocket::connect(): ...)
+    quote(When running in IPC-mode s() could not connect to the unix domain
+socket specified for the IPC-mode. Check whether the matching s() daemon
+exists, and whether the location of the uds-file was correctly specified
+    )
+
+    tt(LocalServerSocket::accept(): ...)
+    quote(When running in daemon mode incoming connections could not be
+accepted. This may have many causes, and a probably cause is mentioned with
+the error message
+    )
+
+    tt(LocalServerSocket::listen(): ...)
+    quote(When running in daemon mode the unix domain socket failed to
+listen for incoming connections. This may have many causes, and a probably
+cause is mentioned with the error message
+    )
+
+    tt(LocalServerSocket::open(<uds>): ...)
+    quote(When running in daemon mode the unix domain socket could not be
+opened. A possible reason is that an entry in the file system having the same
+name already exists. The error message will mention a probably cause of the
+failure
+    )
+
     tt(--max-size incompatible with IPC calls)
     quote(The tt(--max-size) option can can only be used when s() is also
 receiving a policy file. It cannot be used in combination with the Inter

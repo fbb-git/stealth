@@ -43,6 +43,10 @@ several variables used by s().
 runs as a daemon process, using the Unix Domain Socket (tt(<uds>)) for
 communication with s() processes running in IPC mode.
 
+If access to the Unix Domain Socket defined by Stealth running in daemon mode
+should be restricted, it can be defined in a directory with is only accessible
+to the user running Stealth (this will often be the root-user).
+
 When running in daemon mode, tt(--repeat <seconds>) may be specified to rerun
 the integrity scan every tt(<seconds>) seconds. If an integrity scan is being
 performed when, according to the repeat interval the next integrity scan is
@@ -79,14 +83,24 @@ approach in the sense that no mail is sent when no changes were detected.
 
     it() Report and other log-files may safely be rotated between a pair of
 tt(--suspend) and tt(--resume) commands (see below at the section
-ref(ROTATE).
+ref(ROTATE)).
     )
 
+    Instead of running in daemon mode, s() may also run in `foreground' mode.
+In foreground mode the option tt(--daemon) is not specified. When running in
+foreground mode s() either performs one integrity scan (and terminates) or, if
+the tt(--repeat) option has been specified, it repeatedly performs integrity
+scans, at intervals determined by the tt(--repeat) and tt(--random-interval)
+options. When tt(--repeat) is specified with s() running in foreground mode a
+prompt is shown (i.e., `tt(? )') with  s() terminating after pressing the
+tt(Enter)-key.
 
-    Alternatively, the command-line options tt(--reload, --rerun, --suspend,
---resume) and tt(--terminate) may be provided to communicate with an existing
-s() daemon. These options require but one argument: the location of the Unix
-Domain Socket used by  a running s() daemon.
+    Alternatively, s() may run in `inter process communication' mode (IPC
+mode). IPC mode is characterized by using one of the command-line options
+tt(--reload, --rerun, --suspend, --resume) or tt(--terminate). In IPC-mode s()
+communicates with an existing s() daemon, using the Unix Domain Socket defined
+by the s() daemon. These options require but one argument: the location of the
+Unix Domain Socket defined by a running s() daemon.
     itemization(
     it() When started using the tt(--reload <uds>) command-line option, the
 stealth daemon that created the Unix Domain Socket reloads its policy file

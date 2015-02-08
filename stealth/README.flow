@@ -27,7 +27,7 @@ Figure documentation/images/communication.jpg shows the organization:
         JobsHandler runs the current task, which may be an integrity
         scan. 
 
-    * The ipcInterface is a separate thread preparing the next task for
+    * IpcInterface is a separate thread preparing the next task for
         jobsHandler. It creates the Unix domain server socket, and waits for
         incoming request. Incoming requests are verified, and if OK they are
         forwarded to jobsHandler. IpcInterface's mode of operation is
@@ -40,7 +40,7 @@ Figure documentation/images/communication.jpg shows the organization:
         ipc mode terminates with exit value 1. Otherwise exit value 0 is
         returned and no additional output is shown.
 
-Figure documentation/images/ipcInterface.jpg shows the inner workings of
+Figure documentation/images/ipcinterface.jpg shows the inner workings of
 the ipcInterface function.
 
     * Each cycle of ipcInterface's main loop handles one incoming
@@ -48,10 +48,10 @@ the ipcInterface function.
         thread ends. A TERMINATE request also ends the main (jobsHandler)
         thread. Once both threads have terminated the stealth daemon ends.
 
-    * Incoming requests are validated, and initially stored in  arrives, processing may be suspended until
-        processRequests is ready to accept the next command (see below at
-        nextTask's description). There will be at most a short delay, if ever
-        there is one. 
+    * Incoming requests are validated (by Stealth::incomingRequest), and (if
+        valid) initially stored in the local Runmode incoming, processing may
+        be suspended until processRequests is ready to accept the next command
+        (see below at nextTask's description).
 
     * Incoming requests are validated. For each possible request a matching
         ...request function handles the valiadation. If a request cannot be
@@ -81,8 +81,8 @@ the ipcInterface function.
         completing the command currently being processed)
 
     * Next, ipcInterface waits until jobsHandler is ready for the next task.
-        When ready, the next task is set in d_task, and d_pending is reset,
-        after which jobsHandler is notified that it has another task to
+        When ready, notifyTask sets the next task in d_task, and d_pending is
+        reset, after which jobsHandler is notified that it has another task to
         handle.
 
     * The next task may be TERMINATE. If so, ipcInterface ands (and
@@ -90,17 +90,17 @@ the ipcInterface function.
 
 
 
-The processRequests function handles the incoming requests. This function also
-loops until (at the end of the loop) the task (mode) TERMINATE has been
-set. At the top of the loop the next task is determined. Once determined, the
+The Stealth::jobsHandler function handles incoming requests. This function
+loops until (at the end of the loop) the d_task has been set to TERMINATE. At
+the top of the loop the next job is determined. Once determined, the
 requested task starts.
 
-Figure documentation/images/nexttask.jpg shows the inner workings of the
-nextTask function.
+Figure documentation/images/nextjob.jpg shows the inner workings of
+Stealth::nextJob.
 
-When returning from nextTask the d_processor binary Semaphore has decayed to
-zero. It is incremented again by ipcInterface once a command is requested by
-an ipc-stealth process and by some of the task-handling functions (reload,
+When returning from nextJob the d_job binary Semaphore has decayed to zero. It
+is incremented again by ipcInterface once a command is requested by an
+ipc-stealth process and by some of the task-handling functions (reload,
 resume, rerun).
 
 Since ipcInterface and some of the task-handling functions may set the next
@@ -109,28 +109,28 @@ semaphore. Once ipcInterface returns from d_ipc.wait() d_ipc blocks until it
 is incremented by d_ipc.notify(). Initially d_ipc blocks, but it is
 incremented by startScan and suspend.
 
-When nextTask returns the next task has been set. This is realized as follows:
+When nextJob returns the next task has been set. This is realized as follows:
 
-    * If at daemon startup --repeat was not specified then nextTask simply
+    * If at daemon startup --repeat was not specified then nextJob simply
 waits for a command which is received from an ipc-stealth process through
 ipcInterface (alternatively, the command may be set by the mentioned
 request-processing functions). 
 
-    * time-limited wait: otherwise, nextTasks waits until either a command was
+    * time-limited wait: otherwise, nextJobs waits until either a command was
         set (as with the plain wait), or until a (random) delay has passed.
     
-    * If no timeout occurred, then a command was specified and nextTask
+    * If no timeout occurred, then a command was specified and nextJob
         returns with the next command.
 
     * Otherwise, in suspend mode or while an integrity scan is still active,
-        nextTask loops back to the time-limited wait step.
+        nextJob loops back to the time-limited wait step.
 
     * Otherwise, --repeat was specified, and the waiting time has passed, so
-        the next task automatically becomes INTEGRITY_SCAN (and nextTask
+        the next task automatically becomes INTEGRITY_SCAN (and nextJob
         returns)
 
 
-Integrity scans are handled by startScan. 
+Integrity scans are performed by Stealth::integrityScan.
 
     
 

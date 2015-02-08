@@ -1,6 +1,5 @@
-
     Next, at the client's account where s()'s tt(ssh) command connects to (see
-also the tt(USE SSH) specification in section ref(USE) ssh-access must be
+also the tt(USE SSH) specification in section ref(USE)) ssh-access must be
 granted to the monitor's user. To do so, the monitor user's file
 tt(~/.ssh/id_rsa.pub) is added to the client account user's file
 tt(~/.ssh/authorized_keys):

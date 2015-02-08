@@ -125,7 +125,8 @@ includefile(running/intro)
             subsubsect(Checking the client's setuid/setgid files)
             includefile(running/checkingsetuid)
 
-            subsubsect(Checking the configuration files in the client's /etc/ directory)
+            subsubsect(Checking the configuration files in the 
+                                                client's /etc/ directory)
             includefile(running/checkingconfig)
 
         subsect(The complete `policy' file)

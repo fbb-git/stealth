@@ -2,7 +2,7 @@
 has developed. In that case, further actions by s() would be suspect, as their
 results might easily be currupted. Additional checks em(will) be performed,
 but a warning is generated on the tt(report) file (and in the mail sent to
-tt(admin@elsewhere):
+tt(admin@elsewhere)):
         verb(
     STEALTH (4.00.00) started at Sat, 07 Feb 2015 22:27:15 +0100
 

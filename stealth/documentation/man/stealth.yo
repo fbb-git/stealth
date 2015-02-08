@@ -110,6 +110,10 @@ several variables used by s().
 runs as a daemon process, using the Unix Domain Socket (tt(<uds>)) for
 communication with s() processes running in IPC mode.
 
+If access to the Unix Domain Socket defined by Stealth running in daemon mode
+should be restricted, it can be defined in a directory with is only accessible
+to the user running Stealth (this will often be the root-user).
+
 When running in daemon mode, tt(--repeat <seconds>) may be specified to rerun
 the integrity scan every tt(<seconds>) seconds. If an integrity scan is being
 performed when, according to the repeat interval the next integrity scan is

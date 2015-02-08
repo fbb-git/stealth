@@ -1,7 +1,6 @@
 Messages sent to m1, m2, and m3 (see ../msg) are sent to imsg.
 
-imsg receives its info from this class's d_msg stream, through
-imsg.reset(d_msg) 
+imsg receives its info from LogUnit's d_msg stream, through imsg.reset(d_msg)
 
 d_msg uses d_multiStreambuf as its streambuffer
 
@@ -17,7 +16,7 @@ LogUnit:
 
     SyslogStream         --+                
                            |
-    Log                  --+--- MultiStreambuf
+    Log                  --+--> MultiStreambuf
                            |          |
     cout (with --stdout) --+          |
                                       |

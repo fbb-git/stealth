@@ -1,5 +1,7 @@
 #include "stealth.ih"
 
+// see also documentation/images/ipcinterface.jpg
+
 void Stealth::ipcInterface()
 try
 {

@@ -1,0 +1,15 @@
+With Stealth 4.00.00 existing policy files used with Stealth 3.00.00 can
+remain as-is, although a run- or pid-file is no longer used. Instead, a Unix
+Domain Socket is used for communication between a Stealth daemon and Stealth
+running in IPC mode. 
+
+For cosmetic reasons consider using xxx.uds instead of xxx.run or xxx.pid.
+
+Logrotate.d scripts should use the 'copytruncate' and 'sharedscripts' options
+(see the man-page for an example). These options should have been used with
+earlier Stealth versions too, but were overlooked until now (sorry about
+that). 
+
+If access to the Unix Domain Socket defined by Stealth running in daemon mode
+should be restricted, it can be defined in a directory with is only accessible
+to the user running Stealth (this will often be the root-user).
