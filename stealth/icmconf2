@@ -1,3 +1,6 @@
+# This icmconf file is used for compiling class-specific libraries in
+# sub-directories. 
+
 #define USE_ECHO            ON
 #define CLS
 
@@ -6,7 +9,7 @@
 #endif
 
 #define CXX                 "g++"
-#define CXXFLAGS            "--std=c++11 " ${THREAD} " -Wall -O2"
+#define CXXFLAGS            "--std=c++14 " ${THREAD} " -Wall -O2"
 #define SOURCES             "*.cc"
 #define TMP_DIR             "tmp"
 #define OBJ_EXT             ".o"
