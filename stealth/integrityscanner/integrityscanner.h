@@ -37,6 +37,7 @@ class IntegrityScanner: public StealthEnums
     off_t           d_maxSize;
     StringVector    d_skipFiles;
     std::string     d_skipFile;
+    bool            d_run = true;
     size_t          d_diffPrefix;
     size_t          d_pathOffset;       // begin of the abs path if not
                                         // at the first / on a line
@@ -62,7 +63,7 @@ class IntegrityScanner: public StealthEnums
         void loadSkipFiles();
         void nScansReset();
                                     // run one series of tests
-        void        run();    
+        bool run();    
 
         void killChildren();
 

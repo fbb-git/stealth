@@ -12,8 +12,14 @@
 
 class PolicyFile;
 
-struct Options: public StealthEnums
+class Options: public StealthEnums
 {
+    enum FileArgs
+    {
+        LOG         = 1 << 0,
+        SKIP_FILE   = 1 << 1
+    };
+            
     FBB::ArgConfig &d_arg;
 
     std::shared_ptr<PolicyFile>         d_policyFile;
@@ -21,10 +27,14 @@ struct Options: public StealthEnums
     
     Mode d_mode = INTEGRITY_SCAN;
 
+    std::string d_base;
+
     std::string d_skipFile;
+    std::string d_logName;
+    int d_cmdLineOption = 0;
+
     std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
-    std::string d_logName;
 
     bool d_reload;
     bool d_rerun;
@@ -126,6 +136,8 @@ struct Options: public StealthEnums
     private:
         Options();
 
+        static std::string getCwd();
+
         void requireSomeArgument();
 
         void setPolicyOptions();
@@ -138,7 +150,10 @@ struct Options: public StealthEnums
 
         void setStdout();
 
-        void setLog();
+        int setLog();               // initially using cmd-line options
+        int setSkipFile();          // when set in the policy file use the 
+                                    // policy file's base
+
         void setTimestamp();
 
         void setRepeat();
@@ -149,7 +164,6 @@ struct Options: public StealthEnums
         size_t repeatInterval() const;
 
         void setMail();
-        void setSkipFile();
         void setDownloadSize();
 
         void setVerbosity();

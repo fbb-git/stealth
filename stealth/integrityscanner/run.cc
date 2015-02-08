@@ -1,10 +1,10 @@
 #include "integrityscanner.ih"
 
-// #include <chrono>                   // IUO, see below
-// #include <thread>
-
-void IntegrityScanner::run()
+bool IntegrityScanner::run()
 {
+    if (not d_run)
+        return false;
+
     d_active = true;
 
     ++d_nScans;
@@ -29,7 +29,6 @@ void IntegrityScanner::run()
                 m1 << "integrity scan interrupted by " << 
                             d_pending << " request" << endl;
                 d_active = false;
-                return;
             }
             execute(cmd);
         }
@@ -37,15 +36,6 @@ void IntegrityScanner::run()
 
     m3 << "policy file processed" << endl;
     d_active = false;
+
+    return true;
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -5,14 +5,11 @@ void Options::loadPolicy()
     if (d_ipc)
         return;
     
-    char buffer[PATH_MAX];
-
     d_policyFilePath = d_arg[0];
-
-    string base(getcwd(buffer, PATH_MAX));
-    base += '/';
     
-    Util::absPath(base, d_policyFilePath);
+    Util::absPath(d_base, d_policyFilePath);
+
+    d_base = d_policyFilePath.substr(0, d_policyFilePath.rfind('/') + 1);
 
     d_policyFile = make_shared<PolicyFile>(d_policyFilePath, d_parsePolicy);
 

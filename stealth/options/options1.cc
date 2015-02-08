@@ -3,9 +3,11 @@
 Options::Options()
 :
     d_arg(ArgConfig::instance()),
+    d_base(getCwd()),
     d_maxSizeStr("10M"),
     d_repeatInterval(numeric_limits<int>::max())
 {
+    
     requireSomeArgument();      // no args/options, then usage and ends.
 
     oldOptions();               // ends if --keep-alive or --suppress was 
@@ -17,6 +19,10 @@ Options::Options()
 
     d_dryrun = d_arg.option(0, "dry-run");
 
+                                // preset file name options when defined as
+                                // command-line options, using base = cwd
+    d_cmdLineOption = setLog() | setSkipFile();
+
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)
 
@@ -25,7 +31,7 @@ Options::Options()
 
     if (d_daemon)
     {
-        Util::absPath((*d_policyFile)["BASE"], d_unixDomainSocket);
+        Util::absPath(d_base, d_unixDomainSocket);
 
         if (access(d_unixDomainSocket.c_str(), F_OK) == 0)
             fmsg << "Unix Domain Socket `" << d_unixDomainSocket << 
@@ -33,6 +39,16 @@ Options::Options()
     }
 
     setPolicyOptions();
+
+    if 
+    (
+        not d_skipFile.empty()
+        and 
+        access(d_skipFile.c_str(), R_OK) != 0
+    )
+        fmsg << "Can't read skip-file `" << d_skipFile << '\'' << endl;
+
+
 }       
 
 
