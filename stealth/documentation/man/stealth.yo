@@ -365,7 +365,7 @@ transformed to a newline character.
     tt(LABEL Inspecting files in /etc\nIncluding subdirectories)nl()
     tt(LABEL) nl()
         (In this example the former bf(LABEL) specification is erased by the
-        latterbf(LABEL) command).
+        latter bf(LABEL) command).
     )
 
 nsect(LOCAL COMMANDS)

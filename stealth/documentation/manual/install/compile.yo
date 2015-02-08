@@ -7,7 +7,7 @@ Required, non-standard software, for compiling s() is summarized in the file
 tt(required), which is included in the source file distribution. Currently,
 its contents are:
 
-    verbinclude(../../required)
+    verbinclude(../../../required)
 
     itemization(
     it() S() compilation is controlled by bf(icmake)(1). The program

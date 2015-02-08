@@ -124,7 +124,7 @@ directory.
     )
 
     Only one of the options tt(--daemon, --reload, --resume,
---suspend,) or tt(--terminate) can be specified. The options tt(--reload,
+--suspend) or tt(--terminate) can be specified. The options tt(--reload,
 --rerun, --resume, --suspend,) and tt(--terminate) ignore any other options.
 
 The following options are still recognized for backward compatibility with s()
