@@ -5,17 +5,17 @@ the absolute paths of entries to be skipped. Each entry should appear on a
 line of its own without any additional information.
 
 S() can be informed about this file using the tt(--skip-files <file-spec>)
-option. When a relative file specification is used at tt(--skip-files) it is
-interpreted a location relative to the tt(USE BASE) specification.  The
+option. When a relative file specification is used with tt(--skip-files) it is
+interpreted a location relative to the current working directory.  The
 skip-files file itself must contain the paths of the entries to be skipped
 during file integrity scans. If an entry is already present in a log file then
 s() once generates an tt(IGNORING) message in the mail sent to the address
-specified at tt(EMAIL) in the policy file. Each entry in a skip-file
-must be on a line of its own and must be specified using absolute file
-paths. Entries ending in a slash are assumed to be directories whose full
-contents must be skipped. Other entries are interpreted as the names of
-files to skip. Initial and trailing blanks, empty lines and lines having a
-tt(#) as their 1st non blank character are ignored.
+specified at tt(EMAIL) in the policy file. Each entry in a skip-file must be
+on a line of its own and must be specified using absolute file paths. Entries
+ending in a slash are assumed to be directories whose full contents must be
+skipped. Other entries are interpreted as the names of files to skip. Initial
+and trailing blanks, empty lines and lines having a tt(#) as their 1st non
+blank character are ignored.
 
 Here is an example:
         verb(

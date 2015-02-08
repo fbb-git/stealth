@@ -15,6 +15,13 @@ be entered (cf. section ref(OPTIONS)). Options
 specified on the command-line take priority over options specified 
 in the policy file. Although the tt(--reload) option reloads the policy file,
 it will not change option values originally specified as command-line options.
+
+This section may contain specifications of the tt(skip-files) and tt(log)
+options.  Relative file locations specified for these options are interpreted
+relative to the location of the policy file. E.g., if the policy file argument
+is specified as tt(/root/client/policy) then the specification tt(log:
+client.log) results in s() writing its logs into the file
+tt(/root/client/client.log).
     )
 
 
@@ -29,4 +36,5 @@ below.
 following lines terminating in backslashes (\ ) will be concatenated (em(en
 passant) removing these backslashes). Leading white space on lines of the
 policy file is ignored.
+
 

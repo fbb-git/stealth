@@ -5,12 +5,14 @@
         using signals never ran smoothly. Version 4.00.00 re-implements s()'s
         inter-process communication using Unix Domain Sockets.
     it() Previously required absolute file paths are no longer required. When
-        relative file paths are used with the s() daemon or with s() doing an
-        integrity scan as foreground process they are interpreted relatively
-        to the tt(USE BASE) location specified in the policy file. With s()
-        running in inter-process communication (IPC) mode relative file paths
-        are interpreted relative to the directory in which Stealth running in
-        IPC mode was started.
+        relative file paths are used with the s() daemon or with s()
+        performing an integrity scan as foreground process they are
+        interpreted relatively to the current working directory.  Relative
+        file locations for options specified in the second section of the
+        policy file are interpreted relative to the location of the policy
+        file, and relative path specifications used in the first section of
+        the policy file are interpreted relative to the policy file's tt(USE
+        BASE). 
     it() The README.flow file is provided with several separately provided
         illustrative images in the distribution-provided directory
         tt(documentation/images).

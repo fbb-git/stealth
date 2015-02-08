@@ -4,9 +4,10 @@ are supported:
     itemization(
     it() bf(USE BASE) tt(basedirectory)
 
-        bf(BASE) defines the directory from where s() operates. All
-relative path specifications are interpreted relative to bf(BASE). em(By
-default) this is the directory where s() was started. 
+        bf(BASE) defines the directory from where s() operates. All relative
+path specifications in this section of the policy file are interpreted
+relative to bf(BASE). em(By default) this is the directory where s() was
+started.
 
     If necessary, s() creates all bf(BASE) and other directories below
 tt(BASE). 

@@ -190,10 +190,16 @@ ignored.
 
     The (optional) second section starts at a line merely containing
 tt(%%). Following this separating line several long option specifications can
-be entered (see below at section bf(OPTIONS)). Options
-specified on the command-line take priority over options specified 
-in the policy file. Although the tt(--reload) option reloads the policy file,
-it will not change option values originally specified as command-line options.
+be entered (see below at section bf(OPTIONS)). Options specified on the
+command-line take priority over options specified in the policy file. Although
+the tt(--reload) option reloads the policy file, it will not change option
+values originally specified as command-line options. This section may contain
+specifications of the tt(skip-files) and tt(log) options.  Relative file
+locations specified for these options are interpreted relative to the location
+of the policy file. E.g., if the policy file argument is specified as
+tt(/root/client/policy) then the specification tt(log: client.log) results in
+s() writing its logs into the file tt(/root/client/client.log).
+
 
 nsect(DEFINE DIRECTIVES)
 
@@ -217,8 +223,9 @@ specifications to be provided  by s()'s users:
     itemization(
     it() bf(USE BASE) tt(<base-irectory>)nl()
         bf(BASE) defines the directory from where s() operates. All subsequent
-relative path specifications are interpreted relative to bf(BASE). em(By
-default) this is the directory where s() was started. nl()
+relative path specifications in the policy file (including relative path
+specifications in the policy's second part) are interpreted relative to
+bf(BASE). em(By default) this is the directory where s() was started. nl()
     bf(BASE) and other non-existing paths are created automatically by
 s() if not yet existing.nl()
     Example:nl()

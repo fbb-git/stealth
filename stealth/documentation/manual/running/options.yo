@@ -10,18 +10,14 @@ absolute) specification of a file location.
 
     With the first and second synopses relative locations (of the Unix Domain
 Socket and of other file-specifications) are interpreted relative to the
-tt(USE BASE) specification in the policy file; with the third (IPC) synopsis
-relative file locations are interpreted relative to the current working
-directory.
+current working directory.
 
     Command-line options overrule options defined in the policy-file.
 
     itemization(
     it() tt(--daemon (-d) <uds>): (C) run as background (daemon)
         process. When the Stealth daemon process is started, the Unix Domain
-        Socket (tt<uds>) may not already exist. When specifying a relative
-        path, it is interpreted relative to the tt(USE BASE) location defined
-        in the policy file.
+        Socket (tt<uds>) may not already exist. 
     it() tt(--dry-run): (C) no integrity scans or reloads are performed, but
         are assumed OK. Remaining tasks are normally performed;
     it() tt(--help (-h)): (C) Display help information and exit;
