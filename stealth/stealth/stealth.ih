@@ -21,5 +21,19 @@
 #include "../logunit/logunit.h"
 #include "../util/util.h"
 
+struct FatalBuffer: public std::streambuf
+{
+    Stealth &d_stealth;
+    std::string d_msg;
+
+    FatalBuffer(Stealth *obj);
+
+    private:
+        int overflow(int ch) override;
+        int sync() override;
+};
+
+std::ostream &leave(std::ostream &out);
+
 using namespace std;
 using namespace FBB;

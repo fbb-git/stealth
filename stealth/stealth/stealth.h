@@ -15,9 +15,12 @@
 class PolicyFile;
 class IntegrityScanner;
 class Options;
+class FatalBuffer;
 
 class Stealth: public StealthEnums, public FBB::Fork
 {
+    friend class FatalBuffer;
+
     Options &d_options;
 
     RunMode d_task;                 // the current run-mode.
@@ -34,6 +37,8 @@ class Stealth: public StealthEnums, public FBB::Fork
     PolicyFile  *d_policyFile;
 
     std::shared_ptr<IntegrityScanner>   d_integrityScanner;
+
+    std::ostream d_fatal;
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();

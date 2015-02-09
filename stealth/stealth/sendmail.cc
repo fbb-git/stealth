@@ -11,7 +11,7 @@ void Stealth::sendMail()
 
     // mailcommand subject and email are called as separate arguments
     // If subject contains blanks, they will be interpreted as separate
-    // arguments by the `mail' IOFork. Ususally d_policyFile["MAILER"] will
+    // arguments by the `mail' IOFork. Usually d_policyFile["MAILER"] will
     // call a script.
 
     Process mail(
@@ -32,3 +32,4 @@ void Stealth::sendMail()
     mail.close();
     mail.waitForChild();
 }
+

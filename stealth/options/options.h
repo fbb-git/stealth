@@ -101,7 +101,10 @@ class Options: public StealthEnums
         bool daemon() const;
         bool repeat() const;
         bool sendMail() const;
+
         bool logMail() const;
+        void setLogMail();
+
         bool stdout() const;
         bool dryrun() const;
 
@@ -211,6 +214,11 @@ inline bool Options::sendMail() const
 inline bool Options::logMail() const
 {
     return d_logMail;
+}
+
+inline void Options::setLogMail() 
+{
+    d_logMail = true;
 }
 
 inline bool Options::reload() const
