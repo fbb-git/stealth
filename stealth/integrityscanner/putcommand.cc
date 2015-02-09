@@ -6,7 +6,7 @@ string IntegrityScanner::putCommand(string const &source,
     struct stat statbuf;
 
     if (stat(source.c_str(), &statbuf))
-        d_stealthLog << "PUT " << source << ": can't stat it" << StealthEnums::leave;
+        d_fatal << "PUT " << source << ": can't stat it" << leave;
 
     ostringstream command;
 

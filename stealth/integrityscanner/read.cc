@@ -7,8 +7,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        d_stealthLog << "Can't open `" << fname << "' to write" <<
-                                                        StealthEnums::leave; 
+        d_fatal << "can't write `" << fname << '\'' << leave; 
 
     char c;
     string partialSentinel;
@@ -18,10 +17,8 @@ void IntegrityScanner::read(Process &src, string const &fname)
 
     while (true)
     {
-        if (!src.read(&c, 1))               // read char by char
-            d_stealthLog <<                 // throws exception on failure
-                "Incomplete read from `" << 
-                fname << "'" << StealthEnums::leave; 
+        if (not src.read(&c, 1))            // read char by char
+            d_fatal << "Incomplete read from `" << fname << "'" << leave; 
 
         checkSize(fname, ++size);           // throws if not OK
 

@@ -25,6 +25,7 @@ class IntegrityScanner: public StealthEnums
     RunMode const  &d_pending;
     PolicyFile     &d_policyFile;
     std::ostream   &d_stealthLog;
+    std::ostream   &d_fatal;
     FBB::Pattern    d_firstWord;
     FBB::Process    d_sshFork;
     FBB::Process    d_shFork;
@@ -37,7 +38,6 @@ class IntegrityScanner: public StealthEnums
     off_t           d_maxSize;
     StringVector    d_skipFiles;
     std::string     d_skipFile;
-    bool            d_run = true;
     size_t          d_diffPrefix;
     size_t          d_pathOffset;       // begin of the abs path if not
                                         // at the first / on a line
@@ -53,7 +53,7 @@ class IntegrityScanner: public StealthEnums
 
     public:
         IntegrityScanner(RunMode const &pending, PolicyFile &sorter, 
-                         std::ostream &stealthlog);
+                         std::ostream &fatal, std::ostream &stealthlog);
 
         size_t nScans() const
         {
@@ -63,7 +63,7 @@ class IntegrityScanner: public StealthEnums
         void loadSkipFiles();
         void nScansReset();
                                     // run one series of tests
-        bool run();    
+        void run();    
 
         void killChildren();
 

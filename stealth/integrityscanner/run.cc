@@ -1,10 +1,7 @@
 #include "integrityscanner.ih"
 
-bool IntegrityScanner::run()
+void IntegrityScanner::run()
 {
-    if (not d_run)
-        return false;
-
     d_active = true;
 
     ++d_nScans;
@@ -36,6 +33,4 @@ bool IntegrityScanner::run()
 
     m3 << "policy file processed" << endl;
     d_active = false;
-
-    return true;
 }

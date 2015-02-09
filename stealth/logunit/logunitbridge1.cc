@@ -1,6 +1,6 @@
 #include "logunit.ih"
 
-LogUnitBridge::LogUnitBridge(SyslogStruct const &syslogStruct,
+LogUnitBridge::LogUnitBridge(ostream &fatal, SyslogStruct const &syslogStruct,
                              string const &logName, TimeStamps timestamp,
                              bool stdout)
 :
@@ -24,7 +24,7 @@ LogUnitBridge::LogUnitBridge(SyslogStruct const &syslogStruct,
 
     if (not logName.empty())
     {
-        initLog(logName, timestamp);
+        initLog(fatal, logName, timestamp);
         useImsg = true;
     }
 

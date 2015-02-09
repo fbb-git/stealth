@@ -1,7 +1,7 @@
 #include "stealthenums.ih"
 
-ostream &StealthEnums::leave(ostream &out)
+ostream &leave(ostream &out)
 {
     out << endl;
-    throw Leave();
+    throw StealthEnums::Leave();
 }

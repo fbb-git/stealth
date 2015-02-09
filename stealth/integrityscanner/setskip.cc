@@ -1,10 +1,10 @@
 #include "integrityscanner.ih"
 
 void IntegrityScanner::setSkip()
-try
 {
-    ifstream in;
-    Exception::open(in, d_skipFile);
+    ifstream in(d_skipFile);
+    if (not in)
+        d_fatal << "cannot read skip-file `" << d_skipFile << '\'' << leave;
 
     for_each(
         istream_iterator<StringLine>(in), istream_iterator<StringLine>(), 
@@ -16,12 +16,7 @@ try
 
     d_skip = &IntegrityScanner::skip;
 }
-catch (...)
-{
-    imsg << "Cannot read skip-file `" << d_skipFile << 
-                                                    "': terminating" << endl;
-    d_run = false;
-}
+
 
 
 

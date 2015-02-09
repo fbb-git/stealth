@@ -11,7 +11,7 @@ class StealthReport: public std::ostream
 
     std::fstream d_stealthreport;
     std::string  d_name;
-    std::string d_headerLine;
+    std::string  d_headerLine;
 
     public:
         StealthReport() = default;

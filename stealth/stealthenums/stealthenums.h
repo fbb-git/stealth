@@ -24,8 +24,6 @@ struct StealthEnums
 
         UNKNOWN         = 1 << 8,   
     };
-
-    static std::ostream &leave(std::ostream &out);
 };
 
 inline constexpr StealthEnums::Mode operator|(
@@ -36,5 +34,6 @@ inline constexpr StealthEnums::Mode operator|(
             );
 }
 
-        
+std::ostream &leave(std::ostream &out);
+
 #endif

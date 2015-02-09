@@ -4,8 +4,10 @@
 #include <ostream>
 #include <string>
 
-#include <bobcat/mstream>
 #include <bobcat/multistreambuf>
+#include <bobcat/mstream>
+
+#include "../stealthenums/stealthenums.h"
 
 class LogUnitBridge
 {
@@ -19,12 +21,13 @@ class LogUnitBridge
                                             // syslog and/or d_log
 
     public:
-        LogUnitBridge(SyslogStruct const &syslogStruct,
+        LogUnitBridge(std::ostream &fatal, SyslogStruct const &syslogStruct,
                       std::string const &logName, FBB::TimeStamps timestamp,
                       bool stdout);
 
     private:
-        void initLog(std::string const &logName, FBB::TimeStamps timestamp);
+        void initLog(std::ostream &fatal, 
+                     std::string const &logName, FBB::TimeStamps timestamp);
 
 };
 

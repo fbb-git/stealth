@@ -1,10 +1,11 @@
 #include "integrityscanner.h"
 
+#include <sstream>
+
 #include <bobcat/mstream>
 #include <bobcat/stat>
 #include <bobcat/datetime>
 #include <bobcat/stringline>
-#include <bobcat/exception>
 #include <bobcat/ranger>
 
 #include "../util/util.h"

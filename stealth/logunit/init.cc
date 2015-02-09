@@ -1,7 +1,7 @@
 #include "logunit.ih"
 
-void LogUnit::init(SyslogStruct const &syslogStruct,
-                   std::string const &logName, FBB::TimeStamps timestamp,
+void LogUnit::init(ostream &fatal, SyslogStruct const &syslogStruct,
+                   string const &logName, TimeStamps timestamp,
                    bool stdout)
 {
     if (s_logUnit != 0)
@@ -12,5 +12,6 @@ void LogUnit::init(SyslogStruct const &syslogStruct,
 
                                 // define a new LogUnit(Bridge)
                                 //
-    s_logUnit = new LogUnitBridge(syslogStruct, logName, timestamp, stdout);
+    s_logUnit = new LogUnitBridge(fatal, syslogStruct, logName, timestamp,
+                                  stdout); 
 }

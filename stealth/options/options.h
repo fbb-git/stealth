@@ -123,6 +123,7 @@ class Options: public StealthEnums
         std::string const &unixDomainSocket() const;
         std::string const &skipFile() const;
         std::string const &logName() const;
+        std::string const &policyFilePath() const;
 
         std::string rfc2822() const;
 
@@ -279,6 +280,11 @@ inline bool Options::dryrun() const
 inline PolicyFile *Options::policyFile()
 {   
     return d_policyFile.get();
+}
+
+inline std::string const &Options::policyFilePath() const
+{   
+    return d_policyFilePath;
 }
 
 inline std::string const &Options::skipFile() const

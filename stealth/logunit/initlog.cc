@@ -1,10 +1,16 @@
 #include "logunit.ih"
 
-void LogUnitBridge::initLog(string const &logName, TimeStamps timestamp)
+void LogUnitBridge::initLog(ostream &fatal, 
+                            string const &logName, TimeStamps timestamp)
 {
-    d_log.open(logName);
-    if (not d_log)
-        fmsg << "could not open " << logName << endl;
+    try
+    {
+        d_log.open(logName);
+    }
+    catch (exception const &exc)
+    {
+        fatal << exc.what() << leave;
+    }
 
     d_log.setTimestamp(timestamp);
 

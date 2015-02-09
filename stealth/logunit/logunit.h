@@ -27,7 +27,8 @@ class LogUnit
     static LogUnitBridge *s_logUnit;
 
     public:
-        static void init(SyslogStruct const &syslogStruct,
+        static void init(std::ostream &fatal, 
+                         SyslogStruct const &syslogStruct,
                          std::string const &logName, FBB::TimeStamps stamp,
                          bool stdout);
 };

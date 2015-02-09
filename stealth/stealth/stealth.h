@@ -57,6 +57,8 @@ class Stealth: public StealthEnums, public FBB::Fork
         void parentProcess() override;  // no actions here
         void childProcess() override;
 
+        void openStealthReport();
+
         std::string rerunRequest();
         std::string suspendRequest();
         std::string resumeRequest();

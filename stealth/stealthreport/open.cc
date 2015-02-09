@@ -2,14 +2,18 @@
 
 void StealthReport::open(string const &name)
 {
-    d_name = name;
     d_stealthreport.open(name, ios::out | ios::ate | ios::in);
 
     if (not d_stealthreport)
     {
         d_stealthreport.clear();
-        Exception::open(d_stealthreport, name, ios::out | ios::in | ios::trunc);
+        d_stealthreport.open(name, ios::out | ios::in | ios::trunc);
     }
+
+    if (not d_stealthreport)
+        throw Exception() << "cannot write report file `" << name << '\'';
+
+    d_name = name;
 
     ostringstream headerTxt;
     headerTxt << "\n"

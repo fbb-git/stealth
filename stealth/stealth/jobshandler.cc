@@ -36,4 +36,3 @@ void Stealth::jobsHandler()
         d_ipc.notify();
     }
 }
-
