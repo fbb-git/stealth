@@ -2,6 +2,8 @@
 
 #include <bobcat/pattern>
 #include <bobcat/mstream>
+#include <bobcat/argconfig>
+#include <bobcat/tempstream>
 
 #include "../util/util.h"
 #include "../msg/msg.h"

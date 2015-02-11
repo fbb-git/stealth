@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <bobcat/linearmap>
-#include <bobcat/configfile>
 
 namespace FBB
 {
@@ -13,30 +12,32 @@ namespace FBB
 
 class PolicyFile
 {
-        typedef FBB::LinearMap<std::string, std::string> LinearMap;
+    typedef FBB::LinearMap<std::string, std::string> LinearMap;
 
-        std::string                     d_policyPath;
-        size_t                          d_parseOnly;
+    std::string                     d_policyPath;
+    size_t                          d_parseOnly;
 
-        FBB::ConfigFile                 d_configfile;
-        std::vector<std::string>        d_command;
+    std::vector<std::string>        d_command;
 
-        LinearMap   d_use;
-        LinearMap   d_define;
-    
-        static std::pair<std::string, std::string> const s_defaultKeyword[];
-        static size_t s_nDefaultKeywords;
-        static FBB::Pattern              s_firstWord;
-        static FBB::Pattern              s_comment;
-        static FBB::Pattern              s_define;   // [0]: all text,
-                                                // [1]: all ${NAME} text
-                                                // [2]: NAME itself
-        static FBB::Pattern              s_log; // [4]: name of the logfile
+    LinearMap   d_use;
+    LinearMap   d_define;
+
+    static char const               s_configFileBase[];
+
+    static std::pair<std::string, std::string> const s_defaultKeyword[];
+    static size_t s_nDefaultKeywords;
+
+    static FBB::Pattern              s_firstWord;
+    static FBB::Pattern              s_comment;
+    static FBB::Pattern              s_define;   // [0]: all text,
+                                            // [1]: all ${NAME} text
+                                            // [2]: NAME itself
+    static FBB::Pattern              s_log; // [4]: name of the logfile
 
     public:
         PolicyFile(std::string const &policyPath, size_t parseOnly);
 
-        void reload();
+//        void reload();
 
         size_t size() const;    
         std::vector<std::string>::const_iterator firstCmd() const;
@@ -44,11 +45,14 @@ class PolicyFile
 
         std::string const &operator[](std::string const &key) const;
 
-        void pathMsg() const;
+//        void pathMsg() const;
         void chdirBase() const;
+
+        std::string const &reportFile() const;
     
     private:
         void load();
+        void loadOptions(std::istream &configFile);
 
         std::string const &getDEFINE(std::string const &key) const;
         bool  hasDEFINE(std::string const &key) const;
@@ -85,6 +89,14 @@ inline std::string const &PolicyFile::operator[](
 {
     return d_use.find(key)->second;
 }
+
+#include "policyfile.ih"
+
+std::string const &PolicyFile::reportFile() const
+{
+    return d_use["REPORT"];
+}
+
 
 #endif
 

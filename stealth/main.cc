@@ -73,9 +73,7 @@ try
 
     arg.versionHelp(Options::usage, Icmbuild::version, 1);
 
-    Options options;
-
-    Stealth stealth(options);
+     Stealth stealth;
 
     if (stealth.ipcMode())
         return;
@@ -98,7 +96,7 @@ catch (StealthEnums::Leave)
 }
 catch (...)
 {
-    cerr << "\n"
+    cout << "\n"
             "Stealth terminated with an UNEXPECTED EXCEPTION.\n" <<
             "This should not have happened, please report this error and the "
                                                             "circumstances\n" 

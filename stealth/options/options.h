@@ -68,7 +68,6 @@ class Options: public StealthEnums
 
     static Options *s_options;
 
-    static char const       s_configFileBase[];
     static FBB::Facility    s_defaultSyslogFacility;
     static FBB::Priority    s_defaultSyslogPriority;
     static char const       s_defaultSyslogIdent[];

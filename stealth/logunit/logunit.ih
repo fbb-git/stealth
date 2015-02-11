@@ -1,35 +1,13 @@
 #include "logunit.h"
 
 #include <iostream>
-#include <ostream>
-#include <string>
 
+#include <bobcat/logbuf>
+#include <bobcat/syslogbuf>
 #include <bobcat/multistreambuf>
 #include <bobcat/mstream>
 
-#include "../stealthenums/stealthenums.h"
-
-class LogUnitBridge
-{
-    FBB::SyslogStream d_syslogStream;
-    FBB::Log d_log;
-
-    FBB::MultiStreambuf d_multiStreambuf;
-
-
-    std::ostream d_msg;                     // d_msg handles all messages to
-                                            // syslog and/or d_log
-
-    public:
-        LogUnitBridge(std::ostream &fatal, SyslogStruct const &syslogStruct,
-                      std::string const &logName, FBB::TimeStamps timestamp,
-                      bool stdout);
-
-    private:
-        void initLog(std::ostream &fatal, 
-                     std::string const &logName, FBB::TimeStamps timestamp);
-
-};
+#include "../options/options.h"
 
 using namespace std;
 using namespace FBB;

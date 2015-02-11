@@ -2,8 +2,6 @@
 
 void PolicyFile::load()
 {
-    d_configfile.open(d_policyPath);
-
     d_use = LinearMap(
                 &s_defaultKeyword[0], &s_defaultKeyword[s_nDefaultKeywords]
             );
@@ -20,7 +18,7 @@ void PolicyFile::load()
     Util::mkdir(cp);
     base.pop_back();                    // cut off the . again
 
-    chdirBase();
+    chdirBase();                        // change to the base directory
 }
 
 

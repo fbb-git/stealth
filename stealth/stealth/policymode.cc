@@ -4,6 +4,8 @@
 
 void Stealth::policyMode()
 {
+    d_logUnit.setupLogs();
+
     if (d_options.daemon())
         fork();                 // creates the daemon. Its childProcess
     else                        // does the tasks.

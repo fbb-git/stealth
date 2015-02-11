@@ -17,13 +17,10 @@ class PolicyFile;
 class IntegrityScanner;
 class Options;
 
-//class FatalBuffer;
-
 class Stealth: public StealthEnums, public FBB::Fork
 {
-    friend class FatalBuffer;
-
-    Options &d_options;
+    Options d_options;
+    LogUnit d_logUnit;
 
     RunMode d_task;                 // the current run-mode.
     RunMode d_pending;              // a pending run-mode.
@@ -40,7 +37,7 @@ class Stealth: public StealthEnums, public FBB::Fork
 
 
     std::unique_ptr<PolicyFile>         d_policyFile;
-    std::unique_pre<IntegrityScanner>   d_integrityScanner;
+    std::unique_ptr<IntegrityScanner>   d_integrityScanner;
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();
@@ -77,7 +74,7 @@ class Stealth: public StealthEnums, public FBB::Fork
 //                void sendMail();
 
         void doTasks();            // run all scanning (related) tasks 
-//            void policyDepDataMembers();
+        void resetUniquePtrs();     // initialize or redefine the unique_ptrs
 
             void jobsHandler();
                 void nextJob();

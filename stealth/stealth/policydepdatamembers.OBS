@@ -2,9 +2,9 @@
 
 void Stealth::policyDepDataMembers()
 {
-    d_policyFile = d_options.policyFile();
-
-    d_policyFile->chdirBase();        
+//    d_policyFile = d_options.policyFile();
+//
+//    d_policyFile->chdirBase();        
 
     openStealthReport();
 

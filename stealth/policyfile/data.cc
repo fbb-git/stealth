@@ -1,5 +1,7 @@
 #include "policyfile.ih"
 
+char const PolicyFile::s_configFileBase[]   = ".stealth";  // in $HOME
+
 pair<string, string> const
     PolicyFile::s_defaultKeyword[] =
     {

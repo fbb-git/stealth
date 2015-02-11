@@ -2,17 +2,16 @@
 
 void Stealth::doTasks()
 {
-    policyDepDataMembers();
+    resetUniquePtrs();
 
     if (not d_options.ipc())
     {
         m1 << "timestamps use " << 
             (d_options.timestamp() == TIMESTAMPS ? 
-                    "local time" 
-                : 
+                "local time" 
+            : 
                 "UTC"
             ) << endl;
-        d_policyFile->pathMsg();
     }
 
     if (d_options.dryrun())

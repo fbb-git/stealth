@@ -1,15 +1,17 @@
 #include "policyfile.ih"
 
 void PolicyFile::directivesAndCommands()
+try
 {
-    for (int idx = 0, size = d_configfile.size(); idx != size; ++idx)
-    {
-        string line = d_configfile[idx];
+    ConfigFile configfile(d_policyPath);
 
-        if (line == "%%")                   // stop at section 2
+    for (int idx = 0, size = configfile.size(); idx != size; ++idx)
+    {
+        string line = configfile[idx];
+
+        if (line == "%%")
         {
-            mp << "Policy file processing ends at section 2, line " <<
-                (idx + 1) << endl;
+            loadOptions(configfile);
             return;
         }
 
@@ -30,5 +32,9 @@ void PolicyFile::directivesAndCommands()
             d_command.push_back(line);
         }
     }
+}
+catch (exception const &exc)
+{
+    fmsg << exc.what() << endl;
 }
 

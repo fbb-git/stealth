@@ -1,8 +1,7 @@
 #include "stealth.ih"
 
-Stealth::Stealth(Options &options)
+Stealth::Stealth()
 :
-    d_options(options),                     // determine all options / runmode
     d_ipc(0),                               // Semaphores
     d_job(1),
 {

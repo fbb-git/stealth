@@ -25,7 +25,7 @@ class IntegrityScanner: public StealthEnums
     RunMode const  &d_pending;
     PolicyFile     &d_policyFile;
     std::ostream   &d_stealthLog;
-    std::ostream   &d_fatal;
+
     FBB::Pattern    d_firstWord;
     FBB::Process    d_sshFork;
     FBB::Process    d_shFork;
@@ -53,7 +53,7 @@ class IntegrityScanner: public StealthEnums
 
     public:
         IntegrityScanner(RunMode const &pending, PolicyFile &sorter, 
-                         std::ostream &fatal, std::ostream &stealthlog);
+                         std::ostream &stealthlog);
 
         size_t nScans() const
         {
