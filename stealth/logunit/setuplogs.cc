@@ -11,24 +11,22 @@
 // fmsg, after setuplogs also inserts into the mail, and pending mail is
 // delivered when the mail object is destroyed.
 
-LogUnit::setupLogs()
+void LogUnit::setupLogs()
 {
-    unique_ptr<streambuf> logbuf(newLogBuf());
-    unique_ptr<streambuf> syslogbuf(newSysLogBuf());
+    unique_ptr<ostream> log(newLog());
+    unique_ptr<ostream> syslog(newSysLogStream());
 
     unique_ptr<MultiStreambuf> imsgBuf(new MultiStreambuf);
     
-    if (logbuf.get() != 0)
+    if (logstream.get() != 0)
     {
-        d_logbuf.swap(logbuf);          // install the new logbuf
-        d_log.rdbuf(d_logbuf.get());
-        imsgBuf->insert(d_log);
+        d_log.swap(log);            // install the new Log
+        imsgBuf->insert(*d_log);
     }
 
-    if (syslogbuf.get() != 0)
+    if (syslog.get() != 0)
     {
-        d_syslogbuf.swap(syslogbuf);    // install the new syslogbuf
-        d_syslog.rdbuf(d_syslogbuf.get());
+        d_syslog.swap(syslog);      // install the new syslogbuf
         imsgBuf->insert(d_syslog);
     }
 
@@ -45,7 +43,6 @@ LogUnit::setupLogs()
     fmsgbuf->insert(imsg);
     d_fmsgbuf.swap(fmsgbuf);
 
-    fmsg.reset(d_fmsg.get(), 
-               std::numeric_limits<size_t>::max(), "Fatal", true);
-
+    fmsg.reset(d_fmsg.get(), std::numeric_limits<size_t>::max(), 
+               "Fatal", true);
 }

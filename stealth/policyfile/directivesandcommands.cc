@@ -37,4 +37,3 @@ catch (exception const &exc)
 {
     fmsg << exc.what() << endl;
 }
-

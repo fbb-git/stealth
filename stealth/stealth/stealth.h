@@ -32,12 +32,9 @@ class Stealth: public StealthEnums, public FBB::Fork
                                     
     bool d_autoJob = false;
 
-//    StealthReport  d_stealthReport;
-//    std::ostream d_fatal;
-
-
     std::unique_ptr<PolicyFile>         d_policyFile;
     std::unique_ptr<IntegrityScanner>   d_integrityScanner;
+    std::unique_ptr<StealthReport>      d_report;    // and sends mail
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();
@@ -56,8 +53,6 @@ class Stealth: public StealthEnums, public FBB::Fork
         void parentProcess() override;  // no actions here
         void childProcess() override;
 
-//        void openStealthReport();
-
         std::string rerunRequest();
         std::string suspendRequest();
         std::string resumeRequest();
@@ -66,12 +61,6 @@ class Stealth: public StealthEnums, public FBB::Fork
         std::string unknownRequest();
             std::string acceptMode(Mode mode);
             std::string deniedMode(char const *request);
-
-//        void logMsg(char const *label);
-
-//        void mailLogs();        // mail the logs or write them to cout
-//            void processMail();
-//                void sendMail();
 
         void doTasks();            // run all scanning (related) tasks 
         void resetUniquePtrs();     // initialize or redefine the unique_ptrs

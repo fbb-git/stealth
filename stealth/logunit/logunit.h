@@ -19,11 +19,8 @@ class LogUnit
 {
     Options &d_options;
 
-    std::unique_ptr<std::streambuf> d_logbuf;
-    std::ostream d_log;
-
-    std::unique_ptr<std::streambuf> d_syslogbuf;
-    std::ostream d_syslog;
+    std::unique_ptr<std::ostream> d_log;
+    std::unique_ptr<std::ostream> d_syslog;
 
     std::unique_ptr<FBB::MultiStreambuf> d_imsgBuf;
     std::unique_ptr<FBB::MultiStreambuf> d_fmsgBuf;
@@ -32,6 +29,14 @@ class LogUnit
         LogUnit(Options &options);
 
         void setupLogs();
+        void setupLogs(std::ostream &report);
+
+        std::ostream *newSyslogStream();
+        std::ostream *newLog();
 };
         
 #endif
+
+
+
+

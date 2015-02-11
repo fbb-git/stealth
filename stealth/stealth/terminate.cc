@@ -2,5 +2,5 @@
 
 void Stealth::terminate()
 {
-    logMsg("terminates");
+    d_report->timestamp("terminates");
 }

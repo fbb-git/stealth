@@ -2,7 +2,7 @@
 
 void StealthReport::rewind()
 {
-    d_stealthreport.clear();
-    d_stealthreport.seekg(d_startSize).tellg();
+    clear();
+    seekg(d_startSize).tellg();
 }
 

@@ -2,10 +2,10 @@
 
 void Stealth::integrityScan()
 {
-    d_stealthReport.scanHeader();
+    d_report->scanHeader();
 
     if (d_options.dryrun())
-        d_stealthReport << "--dry-run: integrity scan suppressed" << endl;
+        d_report << "--dry-run: integrity scan suppressed" << endl;
     else 
         d_integrityScanner->run();
 

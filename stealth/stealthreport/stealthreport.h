@@ -4,45 +4,40 @@
 #include <string>
 #include <fstream>
 
-class StealthReport: public std::ostream
+class Options;
+class PolicyFile;
+
+class StealthReport: public std::fstream
 {
+    Options &d_options;
+    PolicyFile const &d_policyFile;
+
     std::ios::pos_type   d_startSize = 0;
     std::ios::pos_type   d_beginMail = 0;
 
-    std::fstream d_stealthreport;
     std::string  d_name;
     std::string  d_headerLine;
 
     public:
-        StealthReport() = default;
+        StealthReport(Options &options, PolicyFile const &policyFile);
+        ~StealthReport();
         
         StealthReport(StealthReport const &other) = delete;
         StealthReport &operator=(StealthReport const &other) = delete;
 
-        void refresh();             // set d_beginMail to the log's EOF pos.
+        void rewind();              // prepare for reading
+        void timestamp(char const *label, size_t nScans);
+        void mail();
         void scanHeader();          // writes the integrity scan header,
                                     // initializes d_beginMail
 
-        std::string const &headerLine() const;  // returns info about the
-                                    // starting date/time of this stealth run
 
-        std::istream &in();
+    private:
+
+        void refresh();             // set d_beginMail to the log's EOF pos.
+
         bool hasMail();             // true if there is info beyond d_beginMail
 
-        void open(std::string const &name);
-        void close();
-
-        void rewind();              // prepare for reading
 };
-
-inline std::istream &StealthReport::in()
-{
-    return d_stealthreport;
-}
-
-inline void StealthReport::close()
-{
-    d_stealthreport.close();
-}
 
 #endif
