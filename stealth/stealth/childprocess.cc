@@ -9,7 +9,7 @@ void Stealth::childProcess()
                                     // start the ipc interface thread
     thread(startThread, &Stealth::ipcInterface, this).detach();
 
-    doChores();    
+    doTasks();    
 
     m1 << d_options.basename() << " (process " << getpid() << 
                                                     ") terminates" << endl;

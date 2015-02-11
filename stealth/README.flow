@@ -19,7 +19,7 @@ Figure documentation/images/communication.jpg shows the organization:
         stealth/ipcinterface function.
 
     * ChildProcess is the main thread of the running stealth daemon. It
-        performs all the chores (through stealth/doChores). 
+        performs all the tasks (through stealth/doTasks). 
 
         DoChores performs some bookkeeping tasks, eventually passing control
         to stealth/processrequests. 
@@ -166,17 +166,17 @@ Requests are passed to the daemon from the function Stealth::contactPeer.
 Stealth uses a RunMode object to keep track of its current mode of operation
 | now OBS? and an IPC object to handle the inter process communication.
 
-The member Stealth::processPolicy handles the actual commands.
+The member Stealth::policyMode handles the actual commands.
 
-processPolicy:
+policyMode:
 ==============
-processPolicy forks if a Stealth should run as a daemon, in which case the
+policyMode forks if a Stealth should run as a daemon, in which case the
 fork's child process performs the daemon's tasks, and the parent process
 immediately finishes. 
 
 When a daemon starts its childProcess prepares the daemon (using
 Fork::prepareDaemon), and the communication thread starts, defining the
-unix domain server socket. Hereafter 'doChores' starts.
+unix domain server socket. Hereafter 'doTasks' starts.
 
 communicator:
 =============
@@ -193,13 +193,13 @@ handled. When d_communicate.wait() returns the contents of d_result is
 returned to the requestor. Again: an empty string indicates that the request
 was successfully processed.
 
-doChores:
+doTasks:
 =========
 
-With foreground runs 'doChores' is directly started.
+With foreground runs 'doTasks' is directly started.
 
 The flow of control handling requests is defined in processRequests,
-called from doChores. ProcessRequests defines a loop basically processing a
+called from doTasks. ProcessRequests defines a loop basically processing a
 request and waiting for the next request ((waitForRequest)
 
 The file integrity scan itself is handled by an IntegrityScanner object.

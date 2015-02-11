@@ -1,5 +1,5 @@
-# This icmconf file is used for compiling class-specific libraries in
-# sub-directories. 
+// This icmconf file is used for compiling class-specific libraries in
+// sub-directories. 
 
 #define USE_ECHO            ON
 #define CLS

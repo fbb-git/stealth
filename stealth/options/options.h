@@ -1,16 +1,15 @@
 #ifndef INCLUDED_OPTIONS_
 #define INCLUDED_OPTIONS_
 
-#include <memory>
+#include <string>
 
 #include <bobcat/argconfig>
 #include <bobcat/linearmap>
+
 #include <bobcat/log>
 
 #include "../stealthenums/stealthenums.h"
 #include "../syslogstruct/syslogstruct.h"
-
-class PolicyFile;
 
 class Options: public StealthEnums
 {
@@ -22,7 +21,6 @@ class Options: public StealthEnums
             
     FBB::ArgConfig &d_arg;
 
-    std::shared_ptr<PolicyFile>         d_policyFile;
     std::string d_policyFilePath;
     
     Mode d_mode = INTEGRITY_SCAN;
@@ -44,16 +42,16 @@ class Options: public StealthEnums
     bool d_daemon;
     bool d_randomDelay;
     bool d_sendMail = true;
-    bool d_logMail = false;
-    bool d_stdout = false;
+    bool d_logMail  = false;
+    bool d_stdout   = false;
     bool d_repeat;
     bool d_foreground;
     bool d_ipc;
     bool d_dryrun;
     size_t d_repeatInterval;
-    size_t d_delayInterval = 0;
-    size_t d_commandNr = 0;
-    size_t d_parsePolicy = 0;
+    size_t d_delayInterval  = 0;
+    size_t d_commandNr      = 0;
+    size_t d_parsePolicy    = 0;
     size_t d_verbosity;
 
     SyslogStruct d_syslogStruct;
@@ -85,7 +83,7 @@ class Options: public StealthEnums
     static FBB::LinearMap<Mode, char const *> const         s_modeName;
 
     public:
-        static Options &instance();
+        Options();
 
         Options(Options const &other) = delete;
 
@@ -131,20 +129,21 @@ class Options: public StealthEnums
 
         FBB::TimeStamps timestamp() const;
 
-        PolicyFile *policyFile();
+//        PolicyFile *policyFile();
+//
+//        void reloadPolicy();
 
-        void reloadPolicy();
+        void setConfigOptions();    // set options which may be (re)defined by
+                                    // config-files (e.g. the 2nd part of
+                                    // policy files 
+
 
         static void usage(std::string const &progname);
 
     private:
-        Options();
-
         static std::string getCwd();
 
         void requireSomeArgument();
-
-        void setPolicyOptions();
 
         void setMode();
         void checkMode() const;
@@ -176,8 +175,10 @@ class Options: public StealthEnums
         void setSyslogPriority();
         void setSyslogFacility();
 
-        void loadPolicy();
-        void loadPolicyOptions();
+        void setPolicyPath();
+
+//        void loadPolicy();
+//        void loadPolicyOptions();
 
         void foregroundOnly(char const *optionName) const;
 };
@@ -277,10 +278,10 @@ inline bool Options::dryrun() const
     return d_dryrun;
 }
 
-inline PolicyFile *Options::policyFile()
-{   
-    return d_policyFile.get();
-}
+//inline PolicyFile *Options::policyFile()
+//{   
+//    return d_policyFile.get();
+//}
 
 inline std::string const &Options::policyFilePath() const
 {   

@@ -1,6 +1,6 @@
 #include "options.ih"
 
-void Options::setPolicyOptions()
+void Options::setConfigOptions()
 {
     setMail();                  // sets log-mail and no-mail
     setSkipFile();

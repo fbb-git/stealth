@@ -73,10 +73,14 @@ try
 
     arg.versionHelp(Options::usage, Icmbuild::version, 1);
 
-    Stealth stealth;
+    Options options;
 
-    if (not stealth.contactPeer())
-        stealth.processPolicy(); // do all policy-file related tasks
+    Stealth stealth(options);
+
+    if (stealth.ipcMode())
+        return;
+
+    stealth.policyMode();       // do all policy-file related tasks
 }
 catch (exception const &err)
 {

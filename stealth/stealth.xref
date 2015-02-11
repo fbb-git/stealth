@@ -106,12 +106,12 @@ doCHECKcommand(FBB::Process&)
     local.cc: IntegrityScanner::local(std::string const&)
     remote.cc: IntegrityScanner::remote(std::string const&)
 
-doChores()
-  Full name: Stealth::doChores()
+doTasks()
+  Full name: Stealth::doTasks()
   Source:    dochores.cc 
   Used By:
     childprocess.cc: Stealth::childProcess()
-    processpolicy.cc: Stealth::processPolicy()
+    processpolicy.cc: Stealth::policyMode()
 
 doPlainCommand(FBB::Process&)
   Full name: IntegrityScanner::doPlainCommand(FBB::Process&)
@@ -253,7 +253,7 @@ jobsHandler()
   Full name: Stealth::jobsHandler()
   Source:    jobshandler.cc 
   Used By:
-    dochores.cc: Stealth::doChores()
+    dochores.cc: Stealth::doTasks()
 
 leave(std::ostream&)
   Full name: leave(std::ostream&)
@@ -326,7 +326,7 @@ m1
   Source:    data.cc 
   Used By:
     childprocess.cc: Stealth::childProcess()
-    dochores.cc: Stealth::doChores()
+    dochores.cc: Stealth::doTasks()
     jobshandler.cc: Stealth::jobsHandler()
     setverbosity.cc: Msg::setVerbosity(unsigned int)
     execute.cc: IntegrityScanner::execute(std::string const&)
@@ -467,14 +467,14 @@ pathMsg() const
   Full name: PolicyFile::pathMsg() const
   Source:    pathmsg.cc 
   Used By:
-    dochores.cc: Stealth::doChores()
+    dochores.cc: Stealth::doTasks()
     reload.cc: PolicyFile::reload()
 
 policyDepDataMembers()
   Full name: Stealth::policyDepDataMembers()
   Source:    policydepdatamembers.cc 
   Used By:
-    dochores.cc: Stealth::doChores()
+    dochores.cc: Stealth::doTasks()
 
 PolicyFile(std::string const&, unsigned int)
   Full name: PolicyFile::PolicyFile(std::string const&, unsigned int)
@@ -935,7 +935,7 @@ startCommandShells()
   Full name: IntegrityScanner::startCommandShells()
   Source:    startcommandshells.cc 
   Used By:
-    dochores.cc: Stealth::doChores()
+    dochores.cc: Stealth::doTasks()
     reload.cc: Stealth::reload()
 
 suspend()

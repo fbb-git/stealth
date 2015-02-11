@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::doChores()
+void Stealth::doTasks()
 {
     policyDepDataMembers();
 

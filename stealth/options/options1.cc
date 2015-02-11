@@ -1,5 +1,8 @@
 #include "options.ih"
 
+// No log-files are available yet. But since Options is constructed while
+// stealth runs in the foreground, error messages can be sent to cerr.
+
 Options::Options()
 :
     d_arg(ArgConfig::instance()),
@@ -26,8 +29,10 @@ Options::Options()
     setCommandNr();             // sets run-command, (requires foreground).
     setParsePolicy();           // sets the policy file (requires foreground)
 
-    loadPolicy();               // load the policy file and load configuration 
-                                // options from the policy file into ArgConfig
+    setPolicyPath();
+
+//  loadPolicy();               // load the policy file and load configuration 
+//                              // options from the policy file into ArgConfig
 
     if (d_daemon)
     {
@@ -38,7 +43,7 @@ Options::Options()
                     "': already in use, remove it first" << endl;
     }
 
-    setPolicyOptions();
+    setConfigOptions();
 
     if 
     (

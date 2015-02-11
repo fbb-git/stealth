@@ -10,12 +10,14 @@
 #include <bobcat/semaphore>
 
 #include "../runmode/runmode.h"     // includes LinearMap, StealthEnums
-#include "../stealthreport/stealthreport.h"
+
+//#include "../stealthreport/stealthreport.h"
 
 class PolicyFile;
 class IntegrityScanner;
 class Options;
-class FatalBuffer;
+
+//class FatalBuffer;
 
 class Stealth: public StealthEnums, public FBB::Fork
 {
@@ -33,12 +35,12 @@ class Stealth: public StealthEnums, public FBB::Fork
                                     
     bool d_autoJob = false;
 
-    StealthReport  d_stealthReport;
-    PolicyFile  *d_policyFile;
+//    StealthReport  d_stealthReport;
+//    std::ostream d_fatal;
 
-    std::shared_ptr<IntegrityScanner>   d_integrityScanner;
 
-    std::ostream d_fatal;
+    std::unique_ptr<PolicyFile>         d_policyFile;
+    std::unique_pre<IntegrityScanner>   d_integrityScanner;
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();
@@ -47,17 +49,17 @@ class Stealth: public StealthEnums, public FBB::Fork
     static FBB::LinearMap<Mode, Action> s_request;
 
     public:
-        Stealth();
+        Stealth(Options &options);
         ~Stealth() override;
 
-        bool contactPeer();         // contact a stealth daemon
-        void processPolicy();       // do all policy-file related tasks
+        bool ipcMode();             // contact a stealth daemon
+        void policyMode();       // do all policy-file related tasks
 
     private:
         void parentProcess() override;  // no actions here
         void childProcess() override;
 
-        void openStealthReport();
+//        void openStealthReport();
 
         std::string rerunRequest();
         std::string suspendRequest();
@@ -68,31 +70,31 @@ class Stealth: public StealthEnums, public FBB::Fork
             std::string acceptMode(Mode mode);
             std::string deniedMode(char const *request);
 
-        void logMsg(char const *label);
+//        void logMsg(char const *label);
 
-        void mailLogs();        // mail the logs or write them to cout
-            void processMail();
-                void sendMail();
+//        void mailLogs();        // mail the logs or write them to cout
+//            void processMail();
+//                void sendMail();
 
-        void doChores();            // run all scanning (related) tasks 
-            void policyDepDataMembers();
+        void doTasks();            // run all scanning (related) tasks 
+//            void policyDepDataMembers();
 
             void jobsHandler();
                 void nextJob();
-                    void reload();          // reload the configuration files.
-                    void terminate();
-                    void suspend();
-                    void resume();
-                    void rerun();
-                    void integrityScan();
+                void reload();          // reload the configuration files.
+                void terminate();
+                void suspend();
+                void resume();
+                void rerun();
+                void integrityScan();
 
         void autoScan(char const *label);
 
-        void ipcInterface();
-        bool incomingRequest(std::istream &in, std::ostream &out);
-        void notifyTask();
+        void ipcInterface();            // thread
+            bool incomingRequest(std::istream &in, std::ostream &out);
+            void notifyTask();
 
-        void waitForKey();
+        void waitForKey();              // thread
 
         static void startThread(void (Stealth::*member)(), Stealth *obj);
 };
