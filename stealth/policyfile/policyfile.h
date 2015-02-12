@@ -8,6 +8,7 @@
 namespace FBB
 {
     class Pattern;
+    class ConfigFile;
 }
 
 class PolicyFile
@@ -52,7 +53,7 @@ class PolicyFile
     
     private:
         void load();
-        void loadOptions(std::istream &configFile);
+        void loadOptions(FBB::ConfigFile &configFile, size_t from);
 
         std::string const &getDEFINE(std::string const &key) const;
         bool  hasDEFINE(std::string const &key) const;
@@ -90,11 +91,9 @@ inline std::string const &PolicyFile::operator[](
     return d_use.find(key)->second;
 }
 
-#include "policyfile.ih"
-
-std::string const &PolicyFile::reportFile() const
+inline std::string const &PolicyFile::reportFile() const
 {
-    return d_use["REPORT"];
+    return d_use.find("REPORT")->second;
 }
 
 

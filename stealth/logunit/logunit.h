@@ -13,8 +13,6 @@ namespace FBB
     class MultiStreambuf;
 }
 
-#include "../options/options.h"
-
 class LogUnit
 {
     Options &d_options;

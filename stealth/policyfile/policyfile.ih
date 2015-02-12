@@ -4,7 +4,8 @@
 #include <bobcat/mstream>
 #include <bobcat/argconfig>
 #include <bobcat/tempstream>
-
+#include <bobcat/user>
+    
 #include "../util/util.h"
 #include "../msg/msg.h"
 

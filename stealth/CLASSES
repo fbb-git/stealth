@@ -9,11 +9,13 @@ options             stealthenums syslogstruct policyfile
 
 runmode             stealthenums
 
+#
+
 stealthreport       options
 
 integrityscanner    policyfile runmode options
 
-logunit             syslogstruct
+logunit             options
 
 stealth             runmode stealthreport integrityscanner  logunit
 

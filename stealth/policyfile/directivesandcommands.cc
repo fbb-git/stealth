@@ -5,13 +5,13 @@ try
 {
     ConfigFile configfile(d_policyPath);
 
-    for (int idx = 0, size = configfile.size(); idx != size; ++idx)
+    for (size_t idx = 0, size = configfile.size(); idx != size; ++idx)
     {
         string line = configfile[idx];
 
         if (line == "%%")
         {
-            loadOptions(configfile);
+            loadOptions(configfile, idx + 1);
             return;
         }
 

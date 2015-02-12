@@ -2,14 +2,14 @@
 #define PROJECT             "stealth"
 
     // Compiler to use:
-#define CXX                 "g++"
+//#define CXX                 "g++"
+#define CXX                 "g++-5"
 
     // The compiler options to use:
 #define CXXFLAGS            "--std=c++14 -Wall -O2 -pthread"
 
     // Flags passed to the linker:
 #define LDFLAGS             "-lpthread"
-
 
 // The following locations can be overruled by `build install' arguments
 

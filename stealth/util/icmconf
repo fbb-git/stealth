@@ -1,0 +1,3 @@
+#define LIBRARY             "util"
+
+#include "../icmconf2"

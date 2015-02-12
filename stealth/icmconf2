@@ -8,7 +8,9 @@
 #define THREAD              ""
 #endif
 
-#define CXX                 "g++"
+//#define CXX                 "g++"
+#define CXX                 "g++-5"
+
 #define CXXFLAGS            "--std=c++14 " ${THREAD} " -Wall -O2"
 #define SOURCES             "*.cc"
 #define TMP_DIR             "tmp"
