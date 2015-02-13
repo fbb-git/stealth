@@ -5,8 +5,8 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
     string current = logfile + ".cur";      // create current logfile
 
     if (!Util::mkdir(current))              // make sure directory exists
-        d_fatal << "unable to create the logfile `" << current << '\'' << 
-                                                                        leave;
+        fmsg << "unable to create the logfile `" << current << '\'' << 
+                                                                        endl;
  
     m3 << "logs to " << current << endl;
    

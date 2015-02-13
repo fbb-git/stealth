@@ -39,9 +39,8 @@ catch (exception const &exc)
                        "    TERMINATING: exception in ipcInterface:\n";
 
     imsg << msg.str() << endl;
-    d_stealthReport << msg.str() << endl;
-
-    processMail();
+    *d_report << msg.str() << endl;
+    d_report->mail();
     
     d_pending.setMode(TERMINATE);
     d_ipc.wait();

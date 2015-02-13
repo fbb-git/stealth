@@ -4,13 +4,14 @@
 #include <memory>
 #include <ostream>
 
+#include <bobcat/multistreambuf>
+
 class Options;
 
 namespace FBB
 {
     class LogBuffer;
     class Syslogbuf;
-    class MultiStreambuf;
 }
 
 class LogUnit
@@ -20,8 +21,8 @@ class LogUnit
     std::unique_ptr<std::ostream> d_log;
     std::unique_ptr<std::ostream> d_syslog;
 
-    std::unique_ptr<FBB::MultiStreambuf> d_imsgBuf;
-    std::unique_ptr<FBB::MultiStreambuf> d_fmsgBuf;
+    std::unique_ptr<FBB::MultiStreambuf> d_imsgbuf;
+    std::unique_ptr<FBB::MultiStreambuf> d_fmsgbuf;
 
     public:
         LogUnit(Options &options);

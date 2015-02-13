@@ -5,8 +5,11 @@
 
 #include <bobcat/exception>
 #include <bobcat/mstream>
+#include <bobcat/process>
 
 #include "../options/options.h"
+#include "../msg/msg.h"
+#include "../policyfile/policyfile.h"
 
 namespace Icmbuild
 {

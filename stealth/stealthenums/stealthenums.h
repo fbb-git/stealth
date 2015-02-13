@@ -34,6 +34,6 @@ inline constexpr StealthEnums::Mode operator|(
             );
 }
 
-std::ostream &leave(std::ostream &out);
+//std::ostream &leave(std::ostream &out);
 
 #endif

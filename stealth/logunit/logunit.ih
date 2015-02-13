@@ -2,9 +2,8 @@
 
 #include <iostream>
 
-#include <bobcat/logbuf>
+#include <bobcat/logbuffer>
 #include <bobcat/syslogbuf>
-#include <bobcat/multistreambuf>
 #include <bobcat/mstream>
 
 #include "../options/options.h"

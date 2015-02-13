@@ -16,11 +16,11 @@ void Stealth::jobsHandler()
 
         m1 << "MODE REQUEST: " << d_task << endl;
     
-//        d_stealthReport.refresh();
+//        *d_report.refresh();
                                             // process the current request
         (this->*(s_task.find(d_task.mode())->second))();
 
-        d_stealthReport->mail();
+        d_report->mail();
 
         if (d_task.hasMode(TERMINATE))
         {

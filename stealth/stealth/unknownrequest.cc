@@ -3,11 +3,12 @@
 string Stealth::unknownRequest()
 {
     ostringstream msg;
+
     string ret("unknown request");
     msg << "received " << ret;
 
-    m2 << msg << endl;
-    d_stealthReport << msg << endl;
+    m2 << msg.str() << endl;
+    *d_report << msg.str() << endl;
 
     return ret;
 }

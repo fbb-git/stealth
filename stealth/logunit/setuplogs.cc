@@ -14,35 +14,34 @@
 void LogUnit::setupLogs()
 {
     unique_ptr<ostream> log(newLog());
-    unique_ptr<ostream> syslog(newSysLogStream());
+    unique_ptr<ostream> syslog(newSyslogStream());
 
-    unique_ptr<MultiStreambuf> imsgBuf(new MultiStreambuf);
+    unique_ptr<MultiStreambuf> imsgbuf(new MultiStreambuf);
     
-    if (logstream.get() != 0)
+    if (log.get() != 0)
     {
         d_log.swap(log);            // install the new Log
-        imsgBuf->insert(*d_log);
+        imsgbuf->insert(*d_log);
     }
 
     if (syslog.get() != 0)
     {
         d_syslog.swap(syslog);      // install the new syslogbuf
-        imsgBuf->insert(d_syslog);
+        imsgbuf->insert(*d_syslog);
     }
 
     if (d_options.stdout())
-        imsgBuf->insert(cout);
+        imsgbuf->insert(cout);
 
-    if (imsgBuf.begin() != imsgBuf.end())
+    if (imsgbuf->begin() != imsgbuf->end())
     {
-        d_imsgBuf.swap(imsgBuf);
-        imsg.reset(d_imsgBuf.get());
+        d_imsgbuf.swap(imsgbuf);
+        imsg.reset(d_imsgbuf.get());
     }
 
     unique_ptr<MultiStreambuf> fmsgbuf(new MultiStreambuf);
     fmsgbuf->insert(imsg);
     d_fmsgbuf.swap(fmsgbuf);
 
-    fmsg.reset(d_fmsg.get(), std::numeric_limits<size_t>::max(), 
-               "Fatal", true);
+    fmsg.reset(d_fmsgbuf.get());
 }

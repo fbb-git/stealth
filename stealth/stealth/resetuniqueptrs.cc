@@ -6,11 +6,12 @@ void Stealth::resetUniquePtrs()
 
     d_policyFile.reset(new PolicyFile(path, d_options.parsePolicy()));
 
-    d_report.reset(new StealthReport(d_options, d_policyFile));
+    d_report.reset(new StealthReport(d_options, *d_policyFile));
 
-    d_logUnit.setupLogs(*d_stealthReport);
+    d_logUnit.setupLogs(*d_report);
 
     d_integrityScanner.reset(
-            new IntegrityScanner(d_task, *d_policyFile, *d_stealthReport);
-
+        new IntegrityScanner(d_pending, d_options, 
+                             *d_policyFile, *d_report)
+    );
 }

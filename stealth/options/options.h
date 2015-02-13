@@ -111,6 +111,7 @@ class Options: public StealthEnums
         size_t commandNr() const;
         size_t nextIntegrityScan() const;
 
+        size_t parsePolicy() const;
         size_t verbosity() const;
 
         std::streamsize maxDownloadSize() const;
@@ -197,6 +198,11 @@ inline size_t Options::verbosity() const
     return d_verbosity;
 }
 
+inline size_t Options::parsePolicy() const
+{
+    return d_parsePolicy;
+}
+
 inline Options::Mode Options::mode() const
 {
     return d_mode;
@@ -276,11 +282,6 @@ inline bool Options::dryrun() const
 {   
     return d_dryrun;
 }
-
-//inline PolicyFile *Options::policyFile()
-//{   
-//    return d_policyFile.get();
-//}
 
 inline std::string const &Options::policyFilePath() const
 {   

@@ -10,7 +10,7 @@ void Stealth::policyDepDataMembers()
 
     d_integrityScanner = make_shared<IntegrityScanner>(
                                 d_task, *d_policyFile, 
-                                d_fatal, d_stealthReport
+                                d_fatal, *d_report
                             );
 }
 

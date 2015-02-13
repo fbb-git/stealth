@@ -4,7 +4,7 @@ void IntegrityScanner::setSkip()
 {
     ifstream in(d_skipFile);
     if (not in)
-        d_fatal << "cannot read skip-file `" << d_skipFile << '\'' << leave;
+        fmsg << "cannot read skip-file `" << d_skipFile << '\'' << endl;
 
     for_each(
         istream_iterator<StringLine>(in), istream_iterator<StringLine>(), 

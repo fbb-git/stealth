@@ -25,19 +25,17 @@ class StealthReport: public std::fstream
         StealthReport(StealthReport const &other) = delete;
         StealthReport &operator=(StealthReport const &other) = delete;
 
-        void rewind();              // prepare for reading
         void timestamp(char const *label, size_t nScans);
         void mail();
         void scanHeader();          // writes the integrity scan header,
                                     // initializes d_beginMail
-
-
     private:
-
+        void rewind();              // prepare for reading
+        void processMail();
+        void sendMail();
         void refresh();             // set d_beginMail to the log's EOF pos.
-
-        bool hasMail();             // true if there is info beyond d_beginMail
-
+        bool hasMail();             // true if there is info beyond
+                                    // d_beginMail
 };
 
 #endif

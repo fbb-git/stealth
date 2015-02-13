@@ -9,15 +9,13 @@ is used.
 
 */
 
-IntegrityScanner::IntegrityScanner(RunMode const &pending, 
-                                PolicyFile &policyFile, 
-                                ostream &fatal, ostream &stealthLog)
+IntegrityScanner::IntegrityScanner(RunMode const &pending, Options &options,
+                                PolicyFile &policyFile, ostream &stealthLog)
 :
-    d_options(Options::instance()),
+    d_options(options),
     d_pending(pending),
     d_policyFile(policyFile),
     d_stealthLog(stealthLog),
-    d_fatal(fatal),
     d_firstWord("(\\S+)(\\s+(.*))?"),           // firstword ([1]) and the
                                                 // rest ([3]) of a text
     d_sshFork

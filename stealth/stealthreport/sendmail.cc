@@ -2,8 +2,6 @@
 
 void StealthReport::sendMail()
 {
-    rewind();
-
     m3 << "Mailing new logs using: " << 
             d_policyFile["MAILER"] << ' ' <<
             d_policyFile["MAILARGS"] << " " << 
@@ -25,8 +23,10 @@ void StealthReport::sendMail()
 
     mail << d_headerLine << '\n';
 
+    rewind();
+
     string line;
-    while (getline(*this, line))
+    while (std::getline(*this, line))
         mail << line << '\n';
 
     mail.close();

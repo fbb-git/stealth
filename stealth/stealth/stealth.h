@@ -10,12 +10,12 @@
 #include <bobcat/semaphore>
 
 #include "../runmode/runmode.h"     // includes LinearMap, StealthEnums
-
-//#include "../stealthreport/stealthreport.h"
+#include "../options/options.h"
+#include "../logunit/logunit.h"
 
 class PolicyFile;
 class IntegrityScanner;
-class Options;
+class StealthReport;
 
 class Stealth: public StealthEnums, public FBB::Fork
 {
@@ -43,7 +43,7 @@ class Stealth: public StealthEnums, public FBB::Fork
     static FBB::LinearMap<Mode, Action> s_request;
 
     public:
-        Stealth(Options &options);
+        Stealth();
         ~Stealth() override;
 
         bool ipcMode();             // contact a stealth daemon
@@ -65,6 +65,8 @@ class Stealth: public StealthEnums, public FBB::Fork
         void doTasks();            // run all scanning (related) tasks 
         void resetUniquePtrs();     // initialize or redefine the unique_ptrs
 
+        void timestamp(char const *label);
+
             void jobsHandler();
                 void nextJob();
                 void reload();          // reload the configuration files.
@@ -84,10 +86,5 @@ class Stealth: public StealthEnums, public FBB::Fork
 
         static void startThread(void (Stealth::*member)(), Stealth *obj);
 };
-
-inline void Stealth::startThread(void (Stealth::*member)(), Stealth *obj)
-{
-    (obj->*member)();
-}
 
 #endif

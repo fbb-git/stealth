@@ -1,0 +1,3 @@
+#define LIBRARY             "logunit"
+
+#include "../icmconf2"

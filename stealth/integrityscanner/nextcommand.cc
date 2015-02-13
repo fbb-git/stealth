@@ -11,6 +11,6 @@ void IntegrityScanner::nextCommand(ostream &out, string const &command)
            "/bin/echo \"" << d_sentinel << " $?\""  << endl;
 
     if (!out)
-        d_fatal << "Inserting command `" << s_firstWord[0] << "' failed." << 
-                                                                        leave;
+        fmsg << "Inserting command `" << s_firstWord[0] << "' failed." << 
+                                                                        endl;
 }

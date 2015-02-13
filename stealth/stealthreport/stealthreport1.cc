@@ -1,20 +1,21 @@
 #include "stealthreport.ih"
 
-void StealthReport::StealthReport(Options &options, string const &name)
+StealthReport::StealthReport(Options &options, PolicyFile const &policyFile)
 :
-    fstream(name, ios::out | ios::ate | ios::in),
-    d_options(options)
+    fstream(options.policyFilePath(), ios::out | ios::ate | ios::in),
+    d_options(options),
+    d_policyFile(policyFile)
 {
+    d_name =options.policyFilePath();
+
     if (not good())
     {
         clear();
-        open(name, ios::out | ios::in | ios::trunc);
+        open(d_name, ios::out | ios::in | ios::trunc);
     }
 
-    if (not good)
-        fmsg << "cannot write report file `" << name << '\'';
-
-    d_name = name;
+    if (not good())
+        fmsg << "cannot write report file `" << d_name << '\'';
 
     ostringstream headerTxt;
     headerTxt << "\n"

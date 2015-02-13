@@ -16,24 +16,34 @@
 
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"
-#include "../options/options.h"
+#include "../stealthreport/stealthreport.h"
 #include "../msg/msg.h"
-#include "../logunit/logunit.h"
 #include "../util/util.h"
 
-struct FatalBuffer: public std::streambuf
+//struct FatalBuffer: public std::streambuf
+//{
+//    Stealth &d_stealth;
+//    std::string d_msg;
+//
+//    FatalBuffer(Stealth *obj);
+//
+//    private:
+//        int overflow(int ch) override;
+//        int sync() override;
+//};
+//
+//
+//std::ostream &leave(std::ostream &out);
+
+inline void Stealth::timestamp(char const *label)
 {
-    Stealth &d_stealth;
-    std::string d_msg;
+    d_report->timestamp(label, d_integrityScanner->nScans());
+}
 
-    FatalBuffer(Stealth *obj);
-
-    private:
-        int overflow(int ch) override;
-        int sync() override;
-};
-
-std::ostream &leave(std::ostream &out);
+inline void Stealth::startThread(void (Stealth::*member)(), Stealth *obj)
+{
+    (obj->*member)();
+}
 
 using namespace std;
 using namespace FBB;

@@ -2,5 +2,5 @@
 
 void Stealth::terminate()
 {
-    d_report->timestamp("terminates");
+    timestamp("terminates");
 }

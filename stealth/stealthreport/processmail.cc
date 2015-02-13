@@ -7,7 +7,7 @@ void StealthReport::processMail()
         rewind();
 
         string line;
-        while (getline(*this, line))
+        while (std::getline(*this, line))
             imsg << "Mail: " << line << endl;
     }
     

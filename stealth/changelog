@@ -16,6 +16,9 @@ stealth (4.00.00)
   * Specifications for the logrotate specifications should use 'copytruncate'
     and 'sharedscripts' (see the man-page for an example)
 
+  * Fixed compilation errors that emerged with g++-5, reported by Matthias
+    Klose. 
+
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 07 Feb 2015 21:14:30 +0100
 
 stealth (3.00.00)

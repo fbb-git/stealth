@@ -52,8 +52,8 @@ class IntegrityScanner: public StealthEnums
     static FBB::Pattern  s_exitValue;
 
     public:
-        IntegrityScanner(RunMode const &pending, PolicyFile &sorter, 
-                         std::ostream &stealthlog);
+        IntegrityScanner(RunMode const &pending, Options &options, 
+                        PolicyFile &policyFile, std::ostream &stealthlog);
 
         size_t nScans() const
         {

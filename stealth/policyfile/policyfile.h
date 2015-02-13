@@ -46,11 +46,10 @@ class PolicyFile
 
         std::string const &operator[](std::string const &key) const;
 
-//        void pathMsg() const;
         void chdirBase() const;
 
-        std::string const &reportFile() const;
-    
+//        void pathMsg() const;
+
     private:
         void load();
         void loadOptions(FBB::ConfigFile &configFile, size_t from);
@@ -90,12 +89,6 @@ inline std::string const &PolicyFile::operator[](
 {
     return d_use.find(key)->second;
 }
-
-inline std::string const &PolicyFile::reportFile() const
-{
-    return d_use.find("REPORT")->second;
-}
-
 
 #endif
 

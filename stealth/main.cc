@@ -73,7 +73,7 @@ try
 
     arg.versionHelp(Options::usage, Icmbuild::version, 1);
 
-     Stealth stealth;
+    Stealth stealth;
 
     if (stealth.ipcMode())
         return;
@@ -82,17 +82,13 @@ try
 }
 catch (exception const &err)
 {
-    if (err.what() != to_string(fmsg.id()))
-        cout << err.what() << '\n';
+//    if (err.what() != to_string(fmsg.id()))
+    cout << err.what() << '\n';
     return 1;
 }
 catch (int ret)
 {
     return ArgConfig::instance().option("hv") ? 0 : ret;
-}
-catch (StealthEnums::Leave)
-{
-    return 1;
 }
 catch (...)
 {

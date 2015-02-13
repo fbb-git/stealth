@@ -2,7 +2,7 @@
 
 int FatalBuffer::sync()
 {
-    d_stealth.d_stealthReport << d_msg << flush;
+    d_stealth.*d_report << d_msg << flush;
     d_stealth.d_options.setLogMail();
     d_stealth.processMail();
 

@@ -2,11 +2,10 @@
 
 void Stealth::reload()
 {
-    d_report->timestamp("reloads its policy file", 
-                        d_integrityScanner->nScans());
+    timestamp("reloads its policy file");
 
     if (d_options.dryrun())
-        d_report << "--dry-run: reload suppressed" << endl;
+        *d_report << "--dry-run: reload suppressed" << endl;
     else
     {
         resetUniquePtrs();

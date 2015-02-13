@@ -1,6 +1,6 @@
 #include "stealthreport.ih"
 
-void StealthReport::~StealthReport()
+StealthReport::~StealthReport()
 {
     mail();
 }

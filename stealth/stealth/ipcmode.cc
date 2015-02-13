@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-bool Stealth::contactPeer()
+bool Stealth::ipcMode()
 {
     if (not d_options.ipc())
         return false;
