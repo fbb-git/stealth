@@ -4,7 +4,7 @@ void Report::refresh()
 {
     clear();
 
-    d_startSize = seekp(0, ios::end).tellp();  
+    d_startSize = endpos();
 
     d_beginMail = d_startSize;
 }

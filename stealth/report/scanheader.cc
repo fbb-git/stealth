@@ -2,7 +2,7 @@
 
 void Report::scanHeader()
 {
-    d_startSize = seekp(0, ios::end).tellp();  
+    d_startSize = endpos();
 
     *this << "STEALTH integrity scan at " << d_options.rfc2822() << endl;
 

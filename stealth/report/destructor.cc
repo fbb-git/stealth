@@ -2,5 +2,6 @@
 
 Report::~Report()
 {
-    mail();
+    if (hasMail())
+        processMail();
 }

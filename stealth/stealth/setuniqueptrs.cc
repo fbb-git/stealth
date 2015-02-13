@@ -1,6 +1,6 @@
 #include "stealth.ih"
 
-void Stealth::resetUniquePtrs()
+void Stealth::setUniquePtrs()
 {
     d_policyFile.reset(new PolicyFile(d_options));
 
@@ -12,4 +12,5 @@ void Stealth::resetUniquePtrs()
         new IntegrityScanner(d_pending, d_options, 
                              *d_policyFile, *d_report)
     );
+
 }

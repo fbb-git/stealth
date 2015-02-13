@@ -3,6 +3,7 @@
 void Stealth::jobsHandler()
 {
     bool prompt =  not d_options.daemon() && d_options.repeat();
+    bool runOnce = not d_options.daemon() && not d_options.repeat();
 
     if (prompt)
     {
@@ -22,6 +23,9 @@ void Stealth::jobsHandler()
 
         d_report->mail();
 
+        if (runOnce)
+            break;
+        
         if (d_task.hasMode(TERMINATE))
         {
             d_ipc.notify();

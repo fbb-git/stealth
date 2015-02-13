@@ -43,5 +43,5 @@ void LogUnit::setupLogs()
     fmsgbuf->insert(imsg);
     d_fmsgbuf.swap(fmsgbuf);
 
-    fmsg.reset(d_fmsgbuf.get());
+    fmsg.reset(d_fmsgbuf.get(), numeric_limits<size_t>::max(), "Fatal", true);
 }

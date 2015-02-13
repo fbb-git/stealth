@@ -2,7 +2,7 @@
 
 void Stealth::doTasks()
 {
-    resetUniquePtrs();
+    setUniquePtrs();
 
     if (not d_options.ipc())
     {

@@ -62,8 +62,8 @@ class Stealth: public StealthEnums, public FBB::Fork
             std::string acceptMode(Mode mode);
             std::string deniedMode(char const *request);
 
-        void doTasks();            // run all scanning (related) tasks 
-        void resetUniquePtrs();     // initialize or redefine the unique_ptrs
+        void doTasks();             // run all scanning (related) tasks 
+        void setUniquePtrs();       // initialize the unique_ptrs
 
         void timestamp(char const *label);
 
