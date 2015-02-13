@@ -1,7 +1,7 @@
 oxref by Frank B. Brokken (f.b.brokken@rug.nl)
-oxref V1.00.01 2012-2013
+oxref V1.00.02 2012-2015
 
-CREATED Mon, 09 Feb 2015 19:41:30 +0000
+CREATED Fri, 13 Feb 2015 21:46:33 +0000
 CROSS REFERENCE FOR: -fxs tmp/libmodules.a 
 ----------------------------------------------------------------------
 
@@ -9,11 +9,11 @@ absPath(std::string const&, std::string&)
   Full name: Util::absPath(std::string const&, std::string&)
   Source:    abspath.cc 
   Used By:
-    fixrelativelocations.cc: PolicyFile::fixRelativeLocations()
-    loadpolicy.cc: Options::loadPolicy()
     options1.cc: Options::Options()
     setlog.cc: Options::setLog()
+    setpolicypath.cc: Options::setPolicyPath()
     setskipfile.cc: Options::setSkipFile()
+    fixrelativelocations.cc: PolicyFile::fixRelativeLocations()
 
 acceptMode(StealthEnums::Mode)
   Full name: Stealth::acceptMode(StealthEnums::Mode)
@@ -43,7 +43,6 @@ chdirBase() const
   Full name: PolicyFile::chdirBase() const
   Source:    chdirbase.cc 
   Used By:
-    policydepdatamembers.cc: Stealth::policyDepDataMembers()
     load.cc: PolicyFile::load()
 
 checkM(std::string const&, char const*) const
@@ -106,13 +105,6 @@ doCHECKcommand(FBB::Process&)
     local.cc: IntegrityScanner::local(std::string const&)
     remote.cc: IntegrityScanner::remote(std::string const&)
 
-doTasks()
-  Full name: Stealth::doTasks()
-  Source:    dochores.cc 
-  Used By:
-    childprocess.cc: Stealth::childProcess()
-    processpolicy.cc: Stealth::policyMode()
-
 doPlainCommand(FBB::Process&)
   Full name: IntegrityScanner::doPlainCommand(FBB::Process&)
   Source:    doplaincommand.cc 
@@ -120,18 +112,19 @@ doPlainCommand(FBB::Process&)
     local.cc: IntegrityScanner::local(std::string const&)
     remote.cc: IntegrityScanner::remote(std::string const&)
 
+doTasks()
+  Full name: Stealth::doTasks()
+  Source:    dotasks.cc 
+  Used By:
+    childprocess.cc: Stealth::childProcess()
+    policymode.cc: Stealth::policyMode()
+
 execute(std::string const&)
   Full name: IntegrityScanner::execute(std::string const&)
   Source:    execute.cc 
   Used By:
     foreground.cc: IntegrityScanner::foreground(unsigned int)
     run.cc: IntegrityScanner::run()
-
-FatalBuffer(Stealth*)
-  Full name: FatalBuffer::FatalBuffer(Stealth*)
-  Source:    fatalbuffer1.cc 
-  Used By:
-    stealth1.cc: Stealth::Stealth()
 
 fetchCommands()
   Full name: PolicyFile::fetchCommands()
@@ -188,13 +181,8 @@ hasMail()
   Full name: Report::hasMail()
   Source:    hasmail.cc 
   Used By:
-    maillogs.cc: Stealth::mailLogs()
-
-headerLine() const
-  Full name: Report::headerLine() const
-  Source:    headerline.cc 
-  Used By:
-    sendmail.cc: Stealth::sendMail()
+    destructor.cc: Report::~Report()
+    mail.cc: Report::mail()
 
 incomingRequest(std::istream&, std::ostream&)
   Full name: Stealth::incomingRequest(std::istream&, std::ostream&)
@@ -202,33 +190,11 @@ incomingRequest(std::istream&, std::ostream&)
   Used By:
     ipcinterface.cc: Stealth::ipcInterface()
 
-init(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
-  Full name: LogUnit::init(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
-  Source:    init.cc 
-  Used By:
-    reload.cc: Stealth::reload()
-    stealth1.cc: Stealth::Stealth()
-
-initLog(std::ostream&, std::string const&, FBB::TimeStamps)
-  Full name: LogUnitBridge::initLog(std::ostream&, std::string const&, FBB::TimeStamps)
-  Source:    initlog.cc 
-  Used By:
-    logunitbridge1.cc: LogUnitBridge::LogUnitBridge(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
-
 insert(FBB::LinearMap<std::string, std::string, std::allocator<std::pair<std::string const, std::string> > >&, std::string const&)
   Full name: PolicyFile::insert(FBB::LinearMap<std::string, std::string, std::allocator<std::pair<std::string const, std::string> > >&, std::string const&)
   Source:    insert.cc 
   Used By:
     directivesandcommands.cc: PolicyFile::directivesAndCommands()
-
-instance()
-  Full name: Options::instance()
-  Source:    instance.cc 
-  Used By:
-    stealth1.cc: Stealth::Stealth()
-    open.cc: Report::open(std::string const&)
-    scanheader.cc: Report::scanHeader()
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
 
 integrityScan()
   Full name: Stealth::integrityScan()
@@ -236,12 +202,12 @@ integrityScan()
   Used By:
     data.cc: GLOBALS data.cc 11data.o
 
-IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
-  Full name: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
+IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
+  Full name: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
   Source:    integrityscanner1.cc 
   Used By:
-    policydepdatamembers.cc: Stealth::policyDepDataMembers()
     reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
 
 ipcInterface()
   Full name: Stealth::ipcInterface()
@@ -253,53 +219,25 @@ jobsHandler()
   Full name: Stealth::jobsHandler()
   Source:    jobshandler.cc 
   Used By:
-    dochores.cc: Stealth::doTasks()
-
-leave(std::ostream&)
-  Full name: leave(std::ostream&)
-  Source:    leave.cc 
-  Used By:
-    initlog.cc: LogUnitBridge::initLog(std::ostream&, std::string const&, FBB::TimeStamps)
-    reload.cc: Stealth::reload()
-    checksize.cc: IntegrityScanner::checkSize(std::string const&, long)
-    copy.cc: IntegrityScanner::copy(FBB::Process&, std::string const&)
-    execute.cc: IntegrityScanner::execute(std::string const&)
-    get.cc: IntegrityScanner::get(std::string const&)
-    nextcommand.cc: IntegrityScanner::nextCommand(std::ostream&, std::string const&)
-    put.cc: IntegrityScanner::put(std::string const&)
-    putcommand.cc: IntegrityScanner::putCommand(std::string const&, std::string const&) const
-    read.cc: IntegrityScanner::read(FBB::Process&, std::string const&)
-    sameoutput.cc: IntegrityScanner::sameOutput(std::string const&, FBB::Process&)
-    setskip.cc: IntegrityScanner::setSkip()
-    testexitvalue.cc: IntegrityScanner::testExitValue(std::string const&, std::string const&)
-    write.cc: IntegrityScanner::write(std::string const&)
-    openstealthreport.cc: Stealth::openReport()
+    dotasks.cc: Stealth::doTasks()
 
 load()
   Full name: PolicyFile::load()
   Source:    load.cc 
   Used By:
-    policyfile1.cc: PolicyFile::PolicyFile(std::string const&, unsigned int)
-    reload.cc: PolicyFile::reload()
+    policyfile1.cc: PolicyFile::PolicyFile(Options&)
 
-loadPolicy()
-  Full name: Options::loadPolicy()
-  Source:    loadpolicy.cc 
+loadOptions(FBB::ConfigFile&, unsigned int)
+  Full name: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned int)
+  Source:    loadoptions.cc 
   Used By:
-    options1.cc: Options::Options()
-
-loadPolicyOptions()
-  Full name: Options::loadPolicyOptions()
-  Source:    loadpolicyoptions.cc 
-  Used By:
-    loadpolicy.cc: Options::loadPolicy()
-    reloadpolicy.cc: Options::reloadPolicy()
+    directivesandcommands.cc: PolicyFile::directivesAndCommands()
 
 loadSkipFiles()
   Full name: IntegrityScanner::loadSkipFiles()
   Source:    loadskipfiles.cc 
   Used By:
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
+    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
 
 local(std::string const&)
   Full name: IntegrityScanner::local(std::string const&)
@@ -307,26 +245,18 @@ local(std::string const&)
   Used By:
     execute.cc: IntegrityScanner::execute(std::string const&)
 
-logMsg(char const*)
-  Full name: Stealth::logMsg(char const*)
-  Source:    logmsg.cc 
+LogUnit(Options&)
+  Full name: LogUnit::LogUnit(Options&)
+  Source:    logunit1.cc 
   Used By:
-    reload.cc: Stealth::reload()
-    suspend.cc: Stealth::suspend()
-    terminate.cc: Stealth::terminate()
-
-LogUnitBridge(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
-  Full name: LogUnitBridge::LogUnitBridge(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
-  Source:    logunitbridge1.cc 
-  Used By:
-    init.cc: LogUnit::init(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
+    stealth1.cc: Stealth::Stealth()
 
 m1
   Full name: m1
   Source:    data.cc 
   Used By:
     childprocess.cc: Stealth::childProcess()
-    dochores.cc: Stealth::doTasks()
+    dotasks.cc: Stealth::doTasks()
     jobshandler.cc: Stealth::jobsHandler()
     setverbosity.cc: Msg::setVerbosity(unsigned int)
     execute.cc: IntegrityScanner::execute(std::string const&)
@@ -342,22 +272,22 @@ m2
     integrityscan.cc: Stealth::integrityScan()
     ipcinterface.cc: Stealth::ipcInterface()
     nextjob.cc: Stealth::nextJob()
+    reload.cc: Stealth::reload()
     suspend.cc: Stealth::suspend()
     unknownrequest.cc: Stealth::unknownRequest()
     setverbosity.cc: Msg::setVerbosity(unsigned int)
-    pathmsg.cc: PolicyFile::pathMsg() const
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
+    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
     startcommandshells.cc: IntegrityScanner::startCommandShells()
 
 m3
   Full name: m3
   Source:    data.cc 
   Used By:
-    maillogs.cc: Stealth::mailLogs()
-    sendmail.cc: Stealth::sendMail()
     setverbosity.cc: Msg::setVerbosity(unsigned int)
+    mail.cc: Report::mail()
+    sendmail.cc: Report::sendMail()
     copy.cc: IntegrityScanner::copy(FBB::Process&, std::string const&)
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
+    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
     loadskipfiles.cc: IntegrityScanner::loadSkipFiles()
     nextcommand.cc: IntegrityScanner::nextCommand(std::ostream&, std::string const&)
     nodifferences.cc: IntegrityScanner::noDifferences(std::string const&, std::string const&)
@@ -369,13 +299,13 @@ m3
     waitforsentinel.cc: IntegrityScanner::waitForSentinel(FBB::Process&)
     write.cc: IntegrityScanner::write(std::string const&)
 
-mailLogs()
-  Full name: Stealth::mailLogs()
-  Source:    maillogs.cc 
+mail()
+  Full name: Report::mail()
+  Source:    mail.cc 
   Used By:
+    ipcinterface.cc: Stealth::ipcInterface()
     jobshandler.cc: Stealth::jobsHandler()
-    reload.cc: Stealth::reload()
-    suspend.cc: Stealth::suspend()
+    timestamp.cc: Report::timestamp(char const*, unsigned int)
 
 mkdir(std::string const&)
   Full name: Util::mkdir(std::string const&)
@@ -388,11 +318,11 @@ mp
   Full name: mp
   Source:    data.cc 
   Used By:
+    setparsepolicy.cc: Options::setParsePolicy()
     directivesandcommands.cc: PolicyFile::directivesAndCommands()
     fetchcommands.cc: PolicyFile::fetchCommands()
     insert.cc: PolicyFile::insert(FBB::LinearMap<std::string, std::string, std::allocator<std::pair<std::string const, std::string> > >&, std::string const&)
     replacedefines.cc: PolicyFile::replaceDefines(std::string&)
-    setparsepolicy.cc: Options::setParsePolicy()
 
 Msg()
   Full name: Msg::Msg()
@@ -405,6 +335,18 @@ Msg(std::ostream&)
   Source:    msg2.cc 
   Used By:
     data.cc: GLOBALS data.cc 2data.o
+
+newLog()
+  Full name: LogUnit::newLog()
+  Source:    newlog.cc 
+  Used By:
+    setuplogs.cc: LogUnit::setupLogs()
+
+newSyslogStream()
+  Full name: LogUnit::newSyslogStream()
+  Source:    newsyslogstream.cc 
+  Used By:
+    setuplogs.cc: LogUnit::setupLogs()
 
 nextCommand(std::ostream&, std::string const&)
   Full name: IntegrityScanner::nextCommand(std::ostream&, std::string const&)
@@ -438,24 +380,11 @@ oldOptions() const
   Used By:
     options1.cc: Options::Options()
 
-open(std::string const&)
-  Full name: Report::open(std::string const&)
-  Source:    open.cc 
-  Used By:
-    openstealthreport.cc: Stealth::openReport()
-
-openReport()
-  Full name: Stealth::openReport()
-  Source:    openstealthreport.cc 
-  Used By:
-    policydepdatamembers.cc: Stealth::policyDepDataMembers()
-    reload.cc: Stealth::reload()
-
 Options()
   Full name: Options::Options()
   Source:    options1.cc 
   Used By:
-    instance.cc: Options::instance()
+    stealth1.cc: Stealth::Stealth()
 
 parentProcess()
   Full name: Stealth::parentProcess()
@@ -463,32 +392,19 @@ parentProcess()
   Used By:
     destructor.cc: Stealth::~Stealth()
 
-pathMsg() const
-  Full name: PolicyFile::pathMsg() const
-  Source:    pathmsg.cc 
-  Used By:
-    dochores.cc: Stealth::doTasks()
-    reload.cc: PolicyFile::reload()
-
-policyDepDataMembers()
-  Full name: Stealth::policyDepDataMembers()
-  Source:    policydepdatamembers.cc 
-  Used By:
-    dochores.cc: Stealth::doTasks()
-
-PolicyFile(std::string const&, unsigned int)
-  Full name: PolicyFile::PolicyFile(std::string const&, unsigned int)
+PolicyFile(Options&)
+  Full name: PolicyFile::PolicyFile(Options&)
   Source:    policyfile1.cc 
   Used By:
-    loadpolicy.cc: Options::loadPolicy()
+    reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
 
 processMail()
-  Full name: Stealth::processMail()
+  Full name: Report::processMail()
   Source:    processmail.cc 
   Used By:
-    ipcinterface.cc: Stealth::ipcInterface()
-    maillogs.cc: Stealth::mailLogs()
-    sync.cc: FatalBuffer::sync()
+    destructor.cc: Report::~Report()
+    mail.cc: Report::mail()
 
 put(std::string const&)
   Full name: IntegrityScanner::put(std::string const&)
@@ -524,26 +440,14 @@ refresh()
   Full name: Report::refresh()
   Source:    refresh.cc 
   Used By:
-    jobshandler.cc: Stealth::jobsHandler()
-    suspend.cc: Stealth::suspend()
+    processmail.cc: Report::processMail()
+    report1.cc: Report::Report(Options&, PolicyFile const&)
 
 reload()
   Full name: Stealth::reload()
   Source:    reload.cc 
   Used By:
     data.cc: GLOBALS data.cc 11data.o
-
-reload()
-  Full name: PolicyFile::reload()
-  Source:    reload.cc 
-  Used By:
-    reloadpolicy.cc: Options::reloadPolicy()
-
-reloadPolicy()
-  Full name: Options::reloadPolicy()
-  Source:    reloadpolicy.cc 
-  Used By:
-    reload.cc: Stealth::reload()
 
 reloadRequest()
   Full name: Stealth::reloadRequest()
@@ -584,6 +488,13 @@ replaceDefines(std::string&)
   Used By:
     fetchcommands.cc: PolicyFile::fetchCommands()
 
+Report(Options&, PolicyFile const&)
+  Full name: Report::Report(Options&, PolicyFile const&)
+  Source:    report1.cc 
+  Used By:
+    reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
+
 requireSomeArgument()
   Full name: Options::requireSomeArgument()
   Source:    requiresomeargument.cc 
@@ -618,18 +529,18 @@ rewind()
   Full name: Report::rewind()
   Source:    rewind.cc 
   Used By:
-    processmail.cc: Stealth::processMail()
-    sendmail.cc: Stealth::sendMail()
+    processmail.cc: Report::processMail()
+    sendmail.cc: Report::sendMail()
 
 rfc2822() const
   Full name: Options::rfc2822() const
   Source:    rfc2822.cc 
   Used By:
-    logmsg.cc: Stealth::logMsg(char const*)
     rerun.cc: Stealth::rerun()
     resume.cc: Stealth::resume()
-    open.cc: Report::open(std::string const&)
+    report1.cc: Report::Report(Options&, PolicyFile const&)
     scanheader.cc: Report::scanHeader()
+    timestamp.cc: Report::timestamp(char const*, unsigned int)
 
 run()
   Full name: IntegrityScanner::run()
@@ -644,10 +555,10 @@ s_comment
     directivesandcommands.cc: PolicyFile::directivesAndCommands()
 
 s_configFileBase
-  Full name: Options::s_configFileBase
+  Full name: PolicyFile::s_configFileBase
   Source:    data.cc 
   Used By:
-    loadpolicyoptions.cc: Options::loadPolicyOptions()
+    loadoptions.cc: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned int)
 
 s_defaultKeyword
   Full name: PolicyFile::s_defaultKeyword
@@ -719,12 +630,6 @@ s_log
   Used By:
     fixrelativelocations.cc: PolicyFile::fixRelativeLocations()
 
-s_logUnit
-  Full name: LogUnit::s_logUnit
-  Source:    data.cc 
-  Used By:
-    init.cc: LogUnit::init(std::ostream&, SyslogStruct const&, std::string const&, FBB::TimeStamps, bool)
-
 s_modeName
   Full name: RunMode::s_modeName
   Source:    data.cc 
@@ -739,12 +644,6 @@ s_nDefaultKeywords
   Source:    data.cc 
   Used By:
     load.cc: PolicyFile::load()
-
-s_options
-  Full name: Options::s_options
-  Source:    data.cc 
-  Used By:
-    instance.cc: Options::instance()
 
 s_request
   Full name: Stealth::s_request
@@ -783,10 +682,10 @@ scanHeader()
     integrityscan.cc: Stealth::integrityScan()
 
 sendMail()
-  Full name: Stealth::sendMail()
+  Full name: Report::sendMail()
   Source:    sendmail.cc 
   Used By:
-    processmail.cc: Stealth::processMail()
+    processmail.cc: Report::processMail()
 
 setCommandNr()
   Full name: Options::setCommandNr()
@@ -794,24 +693,31 @@ setCommandNr()
   Used By:
     options1.cc: Options::Options()
 
+setConfigOptions()
+  Full name: Options::setConfigOptions()
+  Source:    setconfigoptions.cc 
+  Used By:
+    options1.cc: Options::Options()
+    loadoptions.cc: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned int)
+
 setDownloadSize()
   Full name: Options::setDownloadSize()
   Source:    setdownloadsize.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setLog()
   Full name: Options::setLog()
   Source:    setlog.cc 
   Used By:
     options1.cc: Options::Options()
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setMail()
   Full name: Options::setMail()
   Source:    setmail.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setMode()
   Full name: Options::setMode()
@@ -838,30 +744,29 @@ setParsePolicy()
   Used By:
     options1.cc: Options::Options()
 
-setPolicyOptions()
-  Full name: Options::setPolicyOptions()
-  Source:    setpolicyoptions.cc 
+setPolicyPath()
+  Full name: Options::setPolicyPath()
+  Source:    setpolicypath.cc 
   Used By:
     options1.cc: Options::Options()
-    reloadpolicy.cc: Options::reloadPolicy()
 
 setRandomDelay()
   Full name: Options::setRandomDelay()
   Source:    setrandomdelay.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setRepeat()
   Full name: Options::setRepeat()
   Source:    setrepeat.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setSentinel()
   Full name: IntegrityScanner::setSentinel()
   Source:    setsentinel.cc 
   Used By:
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
+    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
     run.cc: IntegrityScanner::run()
 
 setSkip()
@@ -875,19 +780,19 @@ setSkipFile()
   Source:    setskipfile.cc 
   Used By:
     options1.cc: Options::Options()
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setStdout()
   Full name: Options::setStdout()
   Source:    setstdout.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setSyslog()
   Full name: Options::setSyslog()
   Source:    setsyslog.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setSyslogFacility()
   Full name: Options::setSyslogFacility()
@@ -905,13 +810,33 @@ setTimestamp()
   Full name: Options::setTimestamp()
   Source:    settimestamp.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
+
+setUniquePtrs()
+  Full name: Stealth::setUniquePtrs()
+  Source:    setuniqueptrs.cc 
+  Used By:
+    dotasks.cc: Stealth::doTasks()
+
+setupLogs()
+  Full name: LogUnit::setupLogs()
+  Source:    setuplogs.cc 
+  Used By:
+    setuplogs2.cc: LogUnit::setupLogs(std::ostream&)
+    policymode.cc: Stealth::policyMode()
+
+setupLogs(std::ostream&)
+  Full name: LogUnit::setupLogs(std::ostream&)
+  Source:    setuplogs2.cc 
+  Used By:
+    reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
 
 setVerbosity()
   Full name: Options::setVerbosity()
   Source:    setverbosity.cc 
   Used By:
-    setpolicyoptions.cc: Options::setPolicyOptions()
+    setconfigoptions.cc: Options::setConfigOptions()
 
 setVerbosity(unsigned int)
   Full name: Msg::setVerbosity(unsigned int)
@@ -935,7 +860,7 @@ startCommandShells()
   Full name: IntegrityScanner::startCommandShells()
   Source:    startcommandshells.cc 
   Used By:
-    dochores.cc: Stealth::doTasks()
+    dotasks.cc: Stealth::doTasks()
     reload.cc: Stealth::reload()
 
 suspend()
@@ -949,12 +874,6 @@ suspendRequest()
   Source:    suspendrequest.cc 
   Used By:
     data.cc: GLOBALS data.cc 11data.o
-
-sync()
-  Full name: FatalBuffer::sync()
-  Source:    sync.cc 
-  Used By:
-    overflow.cc: FatalBuffer::overflow(int)
 
 terminate()
   Full name: Stealth::terminate()
@@ -976,6 +895,14 @@ testExitValue(std::string const&, std::string const&)
     read.cc: IntegrityScanner::read(FBB::Process&, std::string const&)
     waitforsentinel.cc: IntegrityScanner::waitForSentinel(FBB::Process&)
 
+timestamp(char const*, unsigned int)
+  Full name: Report::timestamp(char const*, unsigned int)
+  Source:    timestamp.cc 
+  Used By:
+    reload.cc: Stealth::reload()
+    suspend.cc: Stealth::suspend()
+    terminate.cc: Stealth::terminate()
+
 unknownRequest()
   Full name: Stealth::unknownRequest()
   Source:    unknownrequest.cc 
@@ -994,7 +921,7 @@ version
   Used By:
     oldoptions.cc: Options::oldOptions() const
     usage.cc: Options::usage(std::string const&)
-    open.cc: Report::open(std::string const&)
+    report1.cc: Report::Report(Options&, PolicyFile const&)
 
 waitForKey()
   Full name: Stealth::waitForKey()
