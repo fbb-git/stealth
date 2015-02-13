@@ -8,6 +8,6 @@ try
 }
 catch (exception const &exc)
 {
-    fmsg << "cannot write log file `" << d_options.logName() << '\'' << endl;
+    fmsg << "cannot write log file `" << d_options.logName() << '\'' << noidl;
     return 0;       // to make the compiler happy
 }

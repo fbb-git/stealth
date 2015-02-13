@@ -4,7 +4,7 @@
 void IntegrityScanner::execute(string const &cmd)
 {
     if (!(s_firstWord << cmd))          // determine first word and the rest
-        fmsg << "Corrupt line in policy file: " << cmd << endl; 
+        fmsg << "Corrupt line in policy file: " << cmd << noidl; 
     else
         m1 << cmd << endl;
     

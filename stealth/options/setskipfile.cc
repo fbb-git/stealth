@@ -6,10 +6,10 @@ int Options::setSkipFile()
         return 0;
 
     if (d_arg.nArgs() == 0)
-        fmsg << "--skip-files: missing skip-file or policy file" << endl;
+        fmsg << "--skip-files: missing skip-file or policy file" << noidl;
 
     if (d_ipc)
-        fmsg << "--skip-files incompatible with IPC calls" << endl;
+        fmsg << "--skip-files incompatible with IPC calls" << noidl;
 
     Util::absPath(d_base, d_skipFile);
 

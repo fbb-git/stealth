@@ -3,7 +3,7 @@
 void PolicyFile::directivesAndCommands()
 try
 {
-    ConfigFile configfile(d_policyPath);
+    ConfigFile configfile(d_options.policyFilePath());
 
     for (size_t idx = 0, size = configfile.size(); idx != size; ++idx)
     {
@@ -35,5 +35,5 @@ try
 }
 catch (exception const &exc)
 {
-    fmsg << exc.what() << endl;
+    fmsg << exc.what() << noidl;
 }

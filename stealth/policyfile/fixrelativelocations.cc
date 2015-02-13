@@ -18,10 +18,13 @@ void PolicyFile::fixRelativeLocations()
             Pattern::Position pos = s_log.position(4);
 
             Util::absPath(base, logName);
+
             line.replace(pos.first, pos.second - pos.first, logName);
         }
     }
 }
+
+
 
 
 

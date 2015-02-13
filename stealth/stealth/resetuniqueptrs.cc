@@ -2,9 +2,7 @@
 
 void Stealth::resetUniquePtrs()
 {
-    string const &path = d_options.policyFilePath();
-
-    d_policyFile.reset(new PolicyFile(path, d_options.parsePolicy()));
+    d_policyFile.reset(new PolicyFile(d_options));
 
     d_report.reset(new StealthReport(d_options, *d_policyFile));
 

@@ -103,7 +103,7 @@ current working directory.
         information. Requires options tt(--log) or tt(--syslog). Possible
         values are:nl()
                          0: nothing is logged+nl()
-                         1: mode reports and policy commands+nl()
+                         1: (default) mode reports and policy commands+nl()
                          2: also: ipc commands and actions+nl()
                          3: also: integrity scan informative messages
     it() tt(--version (-v)): (C) Display s()'s version information and

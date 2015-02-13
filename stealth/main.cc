@@ -76,14 +76,13 @@ try
     Stealth stealth;
 
     if (stealth.ipcMode())
-        return;
+        return 0;
 
     stealth.policyMode();       // do all policy-file related tasks
 }
 catch (exception const &err)
 {
-//    if (err.what() != to_string(fmsg.id()))
-    cout << err.what() << '\n';
+    cout << err.what() << endl;
     return 1;
 }
 catch (int ret)

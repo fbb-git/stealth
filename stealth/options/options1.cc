@@ -31,16 +31,13 @@ Options::Options()
 
     setPolicyPath();
 
-//  loadPolicy();               // load the policy file and load configuration 
-//                              // options from the policy file into ArgConfig
-
     if (d_daemon)
     {
         Util::absPath(d_base, d_unixDomainSocket);
 
         if (access(d_unixDomainSocket.c_str(), F_OK) == 0)
             fmsg << "Unix Domain Socket `" << d_unixDomainSocket << 
-                    "': already in use, remove it first" << endl;
+                    "': already in use, remove it first" << noidl;
     }
 
     setConfigOptions();
@@ -51,7 +48,7 @@ Options::Options()
         and 
         access(d_skipFile.c_str(), R_OK) != 0
     )
-        fmsg << "Can't read skip-file `" << d_skipFile << '\'' << endl;
+        fmsg << "Can't read skip-file `" << d_skipFile << '\'' << noidl;
 
 
 }       

@@ -11,7 +11,7 @@ void Options::setSyslogPriority()
             iter = s_syslogPriorities.find(option);
     
         if (iter == s_syslogPriorities.end())
-            fmsg << "syslog priority " << option << " not supported" << endl;
+            fmsg << "syslog priority " << option << " not supported" << noidl;
     
         d_syslogStruct.priority = iter->second;
     }

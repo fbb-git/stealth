@@ -12,5 +12,5 @@ void IntegrityScanner::nextCommand(ostream &out, string const &command)
 
     if (!out)
         fmsg << "Inserting command `" << s_firstWord[0] << "' failed." << 
-                                                                        endl;
+                                                                        noidl;
 }

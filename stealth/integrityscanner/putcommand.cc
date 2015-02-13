@@ -6,7 +6,7 @@ string IntegrityScanner::putCommand(string const &source,
     struct stat statbuf;
 
     if (stat(source.c_str(), &statbuf))
-        fmsg << "PUT " << source << ": can't stat it" << endl;
+        fmsg << "PUT " << source << ": can't stat it" << noidl;
 
     ostringstream command;
 

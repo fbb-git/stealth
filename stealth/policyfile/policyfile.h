@@ -5,6 +5,8 @@
 #include <vector>
 #include <bobcat/linearmap>
 
+class Options;
+
 namespace FBB
 {
     class Pattern;
@@ -15,8 +17,7 @@ class PolicyFile
 {
     typedef FBB::LinearMap<std::string, std::string> LinearMap;
 
-    std::string                     d_policyPath;
-    size_t                          d_parseOnly;
+    Options &d_options;
 
     std::vector<std::string>        d_command;
 
@@ -36,9 +37,7 @@ class PolicyFile
     static FBB::Pattern              s_log; // [4]: name of the logfile
 
     public:
-        PolicyFile(std::string const &policyPath, size_t parseOnly);
-
-//        void reload();
+        PolicyFile(Options &options);
 
         size_t size() const;    
         std::vector<std::string>::const_iterator firstCmd() const;

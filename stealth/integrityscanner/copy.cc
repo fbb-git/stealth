@@ -7,7 +7,7 @@ void IntegrityScanner::copy(Process &src, string const &fname)
     ofstream currentReport(fname.c_str());
 
     if (!currentReport)
-        fmsg << "Can't open `" << fname << "' to write" << endl;
+        fmsg << "Can't open `" << fname << "' to write" << noidl;
 
     m3 << "copy: about to read child input" << endl;
 

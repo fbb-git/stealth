@@ -17,7 +17,7 @@ try
 }
 catch (...)
 {
-    fmsg << "Invalid --" << option << " specified" << endl;
+    fmsg << "Invalid --" << option << " specified" << noidl;
     return 0;                   
 }
 

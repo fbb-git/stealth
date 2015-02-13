@@ -62,7 +62,7 @@ void Options::oldOptions() const
 
         if (usedKeepAlive or usedSuppress)
             fmsg << basename() << " V. " << Icmbuild::version << 
-                                                        " terminated" << endl;
+                                                    " terminated" << noidl;
         else
             wmsg << flush;
     }

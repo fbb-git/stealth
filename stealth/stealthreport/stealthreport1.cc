@@ -15,7 +15,7 @@ StealthReport::StealthReport(Options &options, PolicyFile const &policyFile)
     }
 
     if (not good())
-        fmsg << "cannot write report file `" << d_name << '\'';
+        fmsg << "cannot write report file `" << d_name << '\'' << noidl;
 
     ostringstream headerTxt;
     headerTxt << "\n"

@@ -10,7 +10,7 @@ void IntegrityScanner::checkSize(std::string const &fname, off_t length)
                                                             "THE CLIENT\n"
             "STEALTH - THIS CONDITION MAY HAVE INVALIDATED THE CLIENT'S LOG "
                                                             "FILES\n" 
-            "STEALTH - *** INVESTIGATE ***" << endl;
+            "STEALTH - *** INVESTIGATE ***" << noidl;
 }
 
 

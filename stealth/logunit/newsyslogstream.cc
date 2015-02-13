@@ -12,6 +12,6 @@ try
 }
 catch (exception const &exc)
 {
-    fmsg << "cannot write syslog messages" << endl;
+    fmsg << "cannot write syslog messages" << noidl;
     return 0;       // to make the compiler happy
 }

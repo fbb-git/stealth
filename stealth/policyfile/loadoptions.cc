@@ -17,5 +17,7 @@ void PolicyFile::loadOptions(ConfigFile &configFile, size_t from)
 
                                         // read the config file's options
     ArgConfig::instance().open(tmpStream.fileName());
+
+    d_options.setConfigOptions();
 }
 

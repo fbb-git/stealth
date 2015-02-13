@@ -24,9 +24,9 @@ void PolicyFile::fetchCommands()
 
     fixRelativeLocations();
 
-    if (d_parseOnly != 0)
+    if (size_t parseOnly = d_options.parsePolicy())
     {
-        if (d_parseOnly > 1)
+        if (parseOnly > 1)
         {
             for(auto &value: d_use)
                 mp << "USE " << value.first << ": " << value.second << endl;
@@ -43,6 +43,11 @@ void PolicyFile::fetchCommands()
     }
 
     if (!ok)
-        fmsg << "USE SSH ... entry missing in the policy file" << endl;
+        fmsg << "USE SSH ... entry missing in the policy file" << noidl;
 }
+
+
+
+
+
 

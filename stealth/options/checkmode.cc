@@ -26,7 +26,7 @@ void Options::checkMode() const
         if (d_terminate)
             fmsg << " --terminate";
         
-        fmsg << endl;
+        fmsg << noidl;
     }
 }
 

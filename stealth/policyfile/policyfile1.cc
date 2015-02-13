@@ -1,13 +1,13 @@
 #include "policyfile.ih"
 
-PolicyFile::PolicyFile(string const &policyPath, size_t parseOnly)
+PolicyFile::PolicyFile(Options &options)
 :
-    d_policyPath(policyPath),
-    d_parseOnly(parseOnly)
+    d_options(options)
 {
     load();
 
-    m2 << "(re)loaded the policy file `" << d_policyPath << '\'' << endl;
+    m2 << "(re)loaded policy file `" << d_options.policyFilePath() << '\'' << 
+                                                                        endl;
 }
 
 

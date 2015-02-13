@@ -11,7 +11,7 @@ void Options::setSyslogFacility()
             iter = s_syslogFacilities.find(option);
     
         if (iter == s_syslogFacilities.end())
-            fmsg << "syslog facility " << option << " not supported" << endl;
+            fmsg << "syslog facility " << option << " not supported" << noidl;
     
         d_syslogStruct.facility = iter->second;
     }

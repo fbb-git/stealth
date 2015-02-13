@@ -9,7 +9,7 @@ void Options::setRandomDelay()
         return;
 
     if (not d_repeat)
-        fmsg << "--random-interval requires --repeat" << endl;
+        fmsg << "--random-interval requires --repeat" << noidl;
 
     d_delayInterval = checkM(delay, "random-interval");
 

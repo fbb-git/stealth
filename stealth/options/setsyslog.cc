@@ -8,7 +8,7 @@ void Options::setSyslog()
         return;
 
     if (d_ipc)
-        fmsg << "--syslog* options incompatible with IPC calls" << endl;
+        fmsg << "--syslog* options incompatible with IPC calls" << noidl;
 
 
     if (not d_arg.option(&d_syslogStruct.tag, "syslog-tag"))

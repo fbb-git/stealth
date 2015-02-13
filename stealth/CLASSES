@@ -3,15 +3,15 @@ msg
 util 
 stealthenums
 
-policyfile          util msg
+options             stealthenums syslogstruct
 
-options             stealthenums syslogstruct policyfile
+policyfile          util msg options
 
 runmode             stealthenums
 
-stealthreport       options msg policyfile
+stealthreport       policyfile
 
-integrityscanner    policyfile runmode options
+integrityscanner    policyfile runmode
 
 logunit             options
 

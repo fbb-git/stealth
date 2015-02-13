@@ -6,7 +6,7 @@ void Options::setDownloadSize()
         return;
 
     if (d_ipc)
-        fmsg << "--max-size incompatible with IPC calls" << endl;
+        fmsg << "--max-size incompatible with IPC calls" << noidl;
 
     size_t pos;
     try
@@ -36,7 +36,8 @@ void Options::setDownloadSize()
     catch (...)
     {}
 
-    fmsg << "--max-size " << d_maxSizeStr << ": invalid option value" << endl;
+    fmsg << "--max-size " << d_maxSizeStr << ": invalid option value" << 
+                                                                        noidl;
 }
 
 

@@ -17,14 +17,14 @@ void IntegrityScanner::get(string const &cmd)
     string source = s_firstWord[1];                 // get the (remote) source
 
     if (!source.length())
-        fmsg << "GET command requires source and destination" << endl;
+        fmsg << "GET command requires source and destination" << noidl;
             
     s_firstWord.match(s_firstWord[3]);              // strip off source
     string destination = s_firstWord[1];            // get the local dest.
 
     if (!destination.length())
         fmsg << "GET " << source << 
-                    " <destination>': destination missing" << endl;
+                    " <destination>': destination missing" << noidl;
             
     if (Stat(destination).isType(Stat::DIRECTORY))  // is the dest. a dir. ?
         destination += "/" + fileName(source); 

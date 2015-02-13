@@ -7,7 +7,7 @@ void IntegrityScanner::write(string const &fname)
     ifstream source(fname.c_str());
 
     if (!source)
-       fmsg << "can't read `" << fname << '\'' << endl; 
+       fmsg << "can't read `" << fname << '\'' << noidl; 
 
     m3 << "about to read local `" << fname << '\'' << endl;
 
@@ -22,7 +22,7 @@ void IntegrityScanner::write(string const &fname)
             break;
 
         if (!d_sshFork.write(buffer, nRead))
-            fmsg << "PUT failed." << endl;
+            fmsg << "PUT failed." << noidl;
     }
 
     d_sshFork.flush();

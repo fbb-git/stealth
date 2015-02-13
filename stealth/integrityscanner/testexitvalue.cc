@@ -7,12 +7,12 @@ void IntegrityScanner::testExitValue(std::string const &cmd,
         fmsg << "No exit value for\n" <<
             cmd << "\n"
             "ADVICE: this is the literal text of the executed command. "
-                                                     "Maybe a typo?" << endl;
+                                                     "Maybe a typo?" << noidl;
 
     if (d_testExitValue && stoul(s_exitValue[1]) != 0)
         fmsg << d_options.basename() << 
                                 " terminated: non-zero exit value for\n" <<
-                *d_cmdIterator << " (" << exitStr << ")" << endl;
+                *d_cmdIterator << " (" << exitStr << ")" << noidl;
 }
 
 

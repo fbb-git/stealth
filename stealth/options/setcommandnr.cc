@@ -13,7 +13,7 @@ void Options::setCommandNr()
         d_commandNr = stoul(value);
         if (d_commandNr == 0)
             fmsg << "--run-command 0: not a valid (natural) command number" << 
-                                                                        endl;
+                                                                        noidl;
         if (not d_stdout)
             d_stdout = true;
     }
@@ -21,7 +21,7 @@ void Options::setCommandNr()
     {
         d_commandNr = 0;
         fmsg << "--run-command " << value << ": invalid command number" <<
-                                                                        endl;
+                                                                        noidl;
     }
 }
 

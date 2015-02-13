@@ -8,7 +8,7 @@ void Options::setRepeat()
         return;
 
     if (d_ipc)
-        fmsg << "--repeat not available in IPC modes" << endl;
+        fmsg << "--repeat not available in IPC modes" << noidl;
 
     d_repeatInterval = checkM(value, "repeat");  
 

@@ -7,7 +7,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     ofstream target(fname.c_str());
 
     if (!target)
-        fmsg << "can't write `" << fname << '\'' << endl; 
+        fmsg << "can't write `" << fname << '\'' << noidl; 
 
     char c;
     string partialSentinel;
@@ -18,7 +18,7 @@ void IntegrityScanner::read(Process &src, string const &fname)
     while (true)
     {
         if (not src.read(&c, 1))            // read char by char
-            fmsg << "Incomplete read from `" << fname << "'" << endl; 
+            fmsg << "Incomplete read from `" << fname << "'" << noidl; 
 
         checkSize(fname, ++size);           // throws if not OK
 
