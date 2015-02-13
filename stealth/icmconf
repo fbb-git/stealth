@@ -11,7 +11,6 @@
 #define REFRESH
 #define LIBRARY             "modules"
 #define SHAREDREQ           ""
-#define CLS
 #define USE_ALL             "a"
 #define SOURCES             "*.cc"
 #define SCANGEN             ""

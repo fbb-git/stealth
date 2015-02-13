@@ -51,6 +51,13 @@ void main(int argc, list argv)
     if (argv[2] == "strip")
         strip = "strip";
     
+    if (option == "p")
+    {
+        system("tput clear");
+        system("icmbuild program strip");
+        exit(0);
+    }
+
     if (option == "program")
     {
         system("icmbuild program " + strip);
@@ -64,7 +71,7 @@ void main(int argc, list argv)
         exit(0);
     }
 
-    printf("Usage: build [-p] what\n"
+    printf("Usage: build what\n"
         "Where `what' is one of:\n"
         "   clean                - clean up remnants of previous "
                                                             "compilations\n"
@@ -72,6 +79,8 @@ void main(int argc, list argv)
         "   library              - build " PROJECT "'s library\n"
         "   man                  - build the man-page (requires Yodl)\n"
         "   manual               - build the manual (requires Yodl)\n"
+        "   p                    - build " PROJECT " after `tput clear' and\n"
+        "                          strip the executable)\n"
         "   program [strip]      - build " PROJECT " (optionally strip the\n"
         "                          executable)\n"
         "   oxref [strip]        - same a `program', also builds xref file\n"
