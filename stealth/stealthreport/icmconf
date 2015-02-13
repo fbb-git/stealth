@@ -1,3 +1,0 @@
-#define LIBRARY             "stealthreport"
-
-#include "../icmconf2"

@@ -1,6 +1,6 @@
-#include "stealthreport.ih"
+#include "report.ih"
 
-void StealthReport::processMail()
+void Report::processMail()
 {
     if (d_options.logMail())
     {

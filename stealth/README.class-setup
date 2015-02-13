@@ -28,7 +28,7 @@ RunMode:    keeps track of the currently active Stealth mode. A mode may also
             objects are defined in Stealth, defining d_task for the currently
             active mode, and d_pending for a requested (next) mode.
 
-StealthReport: ostream responsible for inserting information into the REPORT
+Report: ostream responsible for inserting information into the REPORT
             file. The object d_stealthReport is defined by the Stealth object.
 
 IntegrityScanner: performs the actual integrity scans. Called from

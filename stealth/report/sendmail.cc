@@ -1,6 +1,6 @@
-#include "stealthreport.ih"
+#include "report.ih"
 
-void StealthReport::sendMail()
+void Report::sendMail()
 {
     m3 << "Mailing new logs using: " << 
             d_policyFile["MAILER"] << ' ' <<

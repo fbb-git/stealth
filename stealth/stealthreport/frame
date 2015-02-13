@@ -1,5 +1,0 @@
-#include "stealthreport.ih"
-
-void StealthReport::
-{
-}

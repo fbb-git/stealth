@@ -1,6 +1,6 @@
-#include "stealthreport.ih"
+#include "report.ih"
 
-void StealthReport::scanHeader()
+void Report::scanHeader()
 {
     d_startSize = seekp(0, ios::end).tellp();  
 

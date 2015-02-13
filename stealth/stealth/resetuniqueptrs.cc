@@ -4,7 +4,7 @@ void Stealth::resetUniquePtrs()
 {
     d_policyFile.reset(new PolicyFile(d_options));
 
-    d_report.reset(new StealthReport(d_options, *d_policyFile));
+    d_report.reset(new Report(d_options, *d_policyFile));
 
     d_logUnit.setupLogs(*d_report);
 

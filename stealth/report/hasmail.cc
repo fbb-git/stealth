@@ -1,6 +1,6 @@
-#include "stealthreport.ih"
+#include "report.ih"
 
-bool StealthReport::hasMail() 
+bool Report::hasMail() 
 {
     return seekp(0, ios::end).tellp() > d_beginMail;
 }

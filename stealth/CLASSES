@@ -9,13 +9,13 @@ policyfile          util msg options
 
 runmode             stealthenums
 
-stealthreport       policyfile
+report       policyfile
 
 integrityscanner    policyfile runmode
 
 logunit             options
 
-stealth             runmode stealthreport integrityscanner  logunit
+stealth             runmode report integrityscanner  logunit
 
 
 

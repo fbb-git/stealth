@@ -1,6 +1,6 @@
-#include "stealthreport.ih"
+#include "report.ih"
 
-void StealthReport::refresh()
+void Report::refresh()
 {
     clear();
 

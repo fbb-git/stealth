@@ -1,0 +1,3 @@
+#define LIBRARY             "report"
+
+#include "../icmconf2"

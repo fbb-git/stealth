@@ -16,7 +16,7 @@
 
 #include "../policyfile/policyfile.h"
 #include "../integrityscanner/integrityscanner.h"
-#include "../stealthreport/stealthreport.h"
+#include "../report/report.h"
 #include "../msg/msg.h"
 #include "../util/util.h"
 

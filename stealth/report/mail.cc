@@ -1,6 +1,6 @@
-#include "stealthreport.ih"
+#include "report.ih"
 
-void StealthReport::mail()
+void Report::mail()
 {
     if (hasMail())
         processMail();

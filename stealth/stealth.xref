@@ -185,13 +185,13 @@ getPath(std::string const&) const
     nodifferences.cc: IntegrityScanner::noDifferences(std::string const&, std::string const&)
 
 hasMail()
-  Full name: StealthReport::hasMail()
+  Full name: Report::hasMail()
   Source:    hasmail.cc 
   Used By:
     maillogs.cc: Stealth::mailLogs()
 
 headerLine() const
-  Full name: StealthReport::headerLine() const
+  Full name: Report::headerLine() const
   Source:    headerline.cc 
   Used By:
     sendmail.cc: Stealth::sendMail()
@@ -226,8 +226,8 @@ instance()
   Source:    instance.cc 
   Used By:
     stealth1.cc: Stealth::Stealth()
-    open.cc: StealthReport::open(std::string const&)
-    scanheader.cc: StealthReport::scanHeader()
+    open.cc: Report::open(std::string const&)
+    scanheader.cc: Report::scanHeader()
     integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, PolicyFile&, std::ostream&, std::ostream&)
 
 integrityScan()
@@ -273,7 +273,7 @@ leave(std::ostream&)
     setskip.cc: IntegrityScanner::setSkip()
     testexitvalue.cc: IntegrityScanner::testExitValue(std::string const&, std::string const&)
     write.cc: IntegrityScanner::write(std::string const&)
-    openstealthreport.cc: Stealth::openStealthReport()
+    openstealthreport.cc: Stealth::openReport()
 
 load()
   Full name: PolicyFile::load()
@@ -439,13 +439,13 @@ oldOptions() const
     options1.cc: Options::Options()
 
 open(std::string const&)
-  Full name: StealthReport::open(std::string const&)
+  Full name: Report::open(std::string const&)
   Source:    open.cc 
   Used By:
-    openstealthreport.cc: Stealth::openStealthReport()
+    openstealthreport.cc: Stealth::openReport()
 
-openStealthReport()
-  Full name: Stealth::openStealthReport()
+openReport()
+  Full name: Stealth::openReport()
   Source:    openstealthreport.cc 
   Used By:
     policydepdatamembers.cc: Stealth::policyDepDataMembers()
@@ -521,7 +521,7 @@ realPath(std::string const&)
     abspath.cc: Util::absPath(std::string const&, std::string&)
 
 refresh()
-  Full name: StealthReport::refresh()
+  Full name: Report::refresh()
   Source:    refresh.cc 
   Used By:
     jobshandler.cc: Stealth::jobsHandler()
@@ -615,7 +615,7 @@ resumeRequest()
     data.cc: GLOBALS data.cc 11data.o
 
 rewind()
-  Full name: StealthReport::rewind()
+  Full name: Report::rewind()
   Source:    rewind.cc 
   Used By:
     processmail.cc: Stealth::processMail()
@@ -628,8 +628,8 @@ rfc2822() const
     logmsg.cc: Stealth::logMsg(char const*)
     rerun.cc: Stealth::rerun()
     resume.cc: Stealth::resume()
-    open.cc: StealthReport::open(std::string const&)
-    scanheader.cc: StealthReport::scanHeader()
+    open.cc: Report::open(std::string const&)
+    scanheader.cc: Report::scanHeader()
 
 run()
   Full name: IntegrityScanner::run()
@@ -777,7 +777,7 @@ sameOutput(std::string const&, FBB::Process&)
     docheckcommand.cc: IntegrityScanner::doCHECKcommand(FBB::Process&)
 
 scanHeader()
-  Full name: StealthReport::scanHeader()
+  Full name: Report::scanHeader()
   Source:    scanheader.cc 
   Used By:
     integrityscan.cc: Stealth::integrityScan()
@@ -994,7 +994,7 @@ version
   Used By:
     oldoptions.cc: Options::oldOptions() const
     usage.cc: Options::usage(std::string const&)
-    open.cc: StealthReport::open(std::string const&)
+    open.cc: Report::open(std::string const&)
 
 waitForKey()
   Full name: Stealth::waitForKey()

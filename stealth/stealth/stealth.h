@@ -15,7 +15,7 @@
 
 class PolicyFile;
 class IntegrityScanner;
-class StealthReport;
+class Report;
 
 class Stealth: public StealthEnums, public FBB::Fork
 {
@@ -34,7 +34,7 @@ class Stealth: public StealthEnums, public FBB::Fork
 
     std::unique_ptr<PolicyFile>         d_policyFile;
     std::unique_ptr<IntegrityScanner>   d_integrityScanner;
-    std::unique_ptr<StealthReport>      d_report;    // and sends mail
+    std::unique_ptr<Report>      d_report;    // and sends mail
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();
