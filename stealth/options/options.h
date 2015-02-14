@@ -21,7 +21,7 @@ class Options: public StealthEnums
             
     FBB::ArgConfig &d_arg;
 
-    std::string d_policyFilePath;
+    std::string d_policyPath;
     
     Mode d_mode = INTEGRITY_SCAN;
 
@@ -285,7 +285,7 @@ inline bool Options::dryrun() const
 
 inline std::string const &Options::policyFilePath() const
 {   
-    return d_policyFilePath;
+    return d_policyPath;
 }
 
 inline std::string const &Options::skipFile() const

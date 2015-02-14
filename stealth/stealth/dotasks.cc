@@ -12,6 +12,8 @@ void Stealth::doTasks()
             ) << endl;
     }
 
+    d_policyFile->chdirBase();
+
     if (d_options.dryrun())
         *d_report << "--dry-run: SH/SSH connections not established" << endl;
     else

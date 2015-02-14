@@ -47,8 +47,6 @@ class PolicyFile
 
         void chdirBase() const;
 
-//        void pathMsg() const;
-
     private:
         void load();
         void loadOptions(FBB::ConfigFile &configFile, size_t from);
