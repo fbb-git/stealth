@@ -221,7 +221,7 @@ in capitals, and should appear exactly as written below: letter casing is
 preserved). Specifications in angular brackets (like tt(<this>)) represent
 specifications to be provided  by s()'s users:
     itemization(
-    it() bf(USE BASE) tt(<base-irectory>)nl()
+    it() bf(USE BASE) tt(<base-directory>)nl()
         bf(BASE) defines the directory from where s() operates. All subsequent
 relative path specifications in the policy file (including relative path
 specifications in the policy's second part) are interpreted relative to

@@ -1,6 +1,6 @@
     The monitor's user calling s() to scan the client must first generate
 an tt(ssh-keypair):
-        verb(    ssh-keygen -t rsh) 
+        verb(    ssh-keygen -t rsa) 
     By default this generates a public/private ssh key-pair in the directory
 tt(.ssh) in the user's home directory. The program asks for a
 em(passphrase). A passphrase can be defined (in which case it must be proviced
