@@ -26,8 +26,9 @@ void Stealth::reload()
         d_report.reset(reportPtr);
         d_policyFile.reset(policyFilePtr);
 
-        m2 << "reloaded policy file `" << d_options.policyFilePath() << 
-                                                                '\'' << endl;
+        m2 << "reloaded policy file `" << d_options.policyFilePath() << "'\n"
+              "reconstructed the Integrity Scanner" << endl;
+        m3 << "max. download size: " << d_options.maxSizeStr() << endl;
     }
     autoScan("reload");
 }

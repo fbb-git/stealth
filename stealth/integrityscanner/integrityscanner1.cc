@@ -39,7 +39,4 @@ IntegrityScanner::IntegrityScanner(RunMode const &pending, Options &options,
 {
     setSentinel();
     loadSkipFiles();                    
-
-    m2 << "(re)constructed the Integrity Scanner" << endl;
-    m3 << "max. download size: " << d_options.maxSizeStr() << endl;
 }
