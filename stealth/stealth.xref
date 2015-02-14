@@ -1,7 +1,7 @@
 oxref by Frank B. Brokken (f.b.brokken@rug.nl)
 oxref V1.00.02 2012-2015
 
-CREATED Fri, 13 Feb 2015 21:46:33 +0000
+CREATED Sat, 14 Feb 2015 15:43:45 +0000
 CROSS REFERENCE FOR: -fxs tmp/libmodules.a 
 ----------------------------------------------------------------------
 
@@ -245,6 +245,12 @@ local(std::string const&)
   Used By:
     execute.cc: IntegrityScanner::execute(std::string const&)
 
+LogReportbuf(Report&)
+  Full name: LogReportbuf::LogReportbuf(Report&)
+  Source:    logreportbuf1.cc 
+  Used By:
+    setupfatalreport.cc: Stealth::setupFatalReport()
+
 LogUnit(Options&)
   Full name: LogUnit::LogUnit(Options&)
   Source:    logunit1.cc 
@@ -273,21 +279,22 @@ m2
     ipcinterface.cc: Stealth::ipcInterface()
     nextjob.cc: Stealth::nextJob()
     reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
     suspend.cc: Stealth::suspend()
     unknownrequest.cc: Stealth::unknownRequest()
     setverbosity.cc: Msg::setVerbosity(unsigned int)
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
     startcommandshells.cc: IntegrityScanner::startCommandShells()
 
 m3
   Full name: m3
   Source:    data.cc 
   Used By:
+    reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
     setverbosity.cc: Msg::setVerbosity(unsigned int)
     mail.cc: Report::mail()
     sendmail.cc: Report::sendMail()
     copy.cc: IntegrityScanner::copy(FBB::Process&, std::string const&)
-    integrityscanner1.cc: IntegrityScanner::IntegrityScanner(RunMode const&, Options&, PolicyFile&, std::ostream&)
     loadskipfiles.cc: IntegrityScanner::loadSkipFiles()
     nextcommand.cc: IntegrityScanner::nextCommand(std::ostream&, std::string const&)
     nodifferences.cc: IntegrityScanner::noDifferences(std::string const&, std::string const&)
@@ -306,6 +313,7 @@ mail()
     ipcinterface.cc: Stealth::ipcInterface()
     jobshandler.cc: Stealth::jobsHandler()
     timestamp.cc: Report::timestamp(char const*, unsigned int)
+    sync.cc: LogReportbuf::sync()
 
 mkdir(std::string const&)
   Full name: Util::mkdir(std::string const&)
@@ -636,7 +644,6 @@ s_modeName
   Used By:
     deniedmode.cc: Stealth::deniedMode(char const*)
     jobshandler.cc: Stealth::jobsHandler()
-    nextjob.cc: Stealth::nextJob()
     run.cc: IntegrityScanner::run()
 
 s_nDefaultKeywords
@@ -816,7 +823,14 @@ setUniquePtrs()
   Full name: Stealth::setUniquePtrs()
   Source:    setuniqueptrs.cc 
   Used By:
-    dotasks.cc: Stealth::doTasks()
+    policymode.cc: Stealth::policyMode()
+
+setupFatalReport()
+  Full name: Stealth::setupFatalReport()
+  Source:    setupfatalreport.cc 
+  Used By:
+    reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
 
 setupLogs()
   Full name: LogUnit::setupLogs()
@@ -874,6 +888,12 @@ suspendRequest()
   Source:    suspendrequest.cc 
   Used By:
     data.cc: GLOBALS data.cc 11data.o
+
+sync()
+  Full name: LogReportbuf::sync()
+  Source:    sync.cc 
+  Used By:
+    overflow.cc: LogReportbuf::overflow(int)
 
 terminate()
   Full name: Stealth::terminate()

@@ -1,15 +1,25 @@
 Messages sent to m1, m2, and m3 (see ../msg) are sent to imsg.
 
-imsg receives its info from LogUnit's d_msg stream, through imsg.reset(d_msg)
+LogUnit::setupLogs() creates an FBB::Log and FBB::SyslogSteam if requested so
+by options. 
 
-d_msg uses d_multiStreambuf as its streambuffer
+It adds these files to an FBB::MultiStreambuf, and (if requested by --stdout)
+also adds cout. 
 
-d_multiStreambuf is configured, if applicable, with d_syslog and d_log
+If any streams are stored, the MultiStreambuf is installed in imsg. Following
+this, all messages inserted into imsg are sent to the requested log streams.
 
-LogUnit itself has no public interface elements, except for the static init
-function handling its singleton (re)construction. All information sent to the
-LogUnit's streams are received via imsg and m1..m3.
+Fatal messages, sent to fmsg, are handled similarly:
 
+A MultiStreambuf receives imsg, and optionally (when calling setupLogs(ostream
+&report)) into the ostream which inserts messages into the Report object.
+
+The stream received by setupLogs is itself a wrapper around the actual Report
+object, and its streambuf is defined in stealth/stealth.ih: all text inserted
+into fmsg is also sent to this wrapper ostream, which forwards its characters
+to its streambuffer's overflow member. This member sends all its characters to
+Stealth's d_report object. When the wrapper stream is flushed, it calls
+d_report.mail(), to process d_report's info by mail.
 
 LogUnit:
 ========
@@ -22,16 +32,20 @@ LogUnit:
                                       |
                                       |
                                       v
-                         imsg.reset(d_msg)
-                           |
-                +----------+----------+
-                m1         m2         m3
+                          imsg.reset(...)
+                            |
+                 +----------+----------+
+                 m1         m2         m3
 
 
-When doing --reload LogUnit::init is called by Stealth::reload after reloading
-de policyfile and the policyfile's options. This will delete the current
-LogUnit, and reinitialize a new one using the current set of options, which
-allows options defined in the policy file to be redefined.
+    imsg    ----+
+                |
+                +--> MultiStreambuf
+                |           |
+    report  ----+           |
+                            |
+                            v
+                fmsg.reset(...)
 
 
 

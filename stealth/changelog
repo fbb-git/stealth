@@ -6,12 +6,14 @@ stealth (4.00.00)
   * Previously required absolute file paths are no longer required. When
     relative file paths are used with the Stealth daemon or with Stealth doing
     an integrity scan as foreground process they are interpreted relatively to
-    the USE BASE location specified in the policy file. With Stealth running
-    in IPC mode relative file paths are interpreted relative to the directory
-    in which Stealth running in IPC mode was started.
+    the current working directory, or (when specified in the policy file)
+    relative to the USE BASE location. With Stealth running in IPC mode
+    relative file paths are interpreted relative to the directory in which
+    Stealth running in IPC mode was started.
  
-  * The README.flow file is provided with several separately provided 
-    illustrative images in the directory documentation/images.
+  * A README.flow file is provided with several separately provided 
+    illustrative images in the directory documentation/images. Similarly:
+    README.messages describes the organization of log/mail message handling.
 
   * Specifications for the logrotate specifications should use 'copytruncate'
     and 'sharedscripts' (see the man-page for an example)

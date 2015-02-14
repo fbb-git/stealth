@@ -2,8 +2,8 @@
 #define PROJECT             "stealth"
 
     // Compiler to use:
-//#define CXX                 "g++"
-#define CXX                 "g++-5"
+#define CXX                 "g++"
+//#define CXX                 "g++-5"
 
     // The compiler options to use:
 #define CXXFLAGS            "--std=c++14 -Wall -O2 -pthread"
