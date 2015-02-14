@@ -15,9 +15,8 @@ void Stealth::jobsHandler()
     {
         nextJob();
 
-        m1 << "MODE REQUEST: " << d_task << endl;
+        m1 << d_task << " next." << endl;
     
-//        *d_report.refresh();
                                             // process the current request
         (this->*(s_task.find(d_task.mode())->second))();
 

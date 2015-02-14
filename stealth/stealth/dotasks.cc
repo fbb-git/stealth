@@ -13,8 +13,7 @@ void Stealth::doTasks()
     }
 
     if (d_options.dryrun())
-        *d_report << "--dry-run: SH/SSH connections not established" << 
-                                                                        endl;
+        *d_report << "--dry-run: SH/SSH connections not established" << endl;
     else
         d_integrityScanner->startCommandShells(); 
 

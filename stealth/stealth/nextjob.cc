@@ -34,10 +34,8 @@ void Stealth::nextJob()
             }
                              
             d_task.setMode(INTEGRITY_SCAN);
-            m2 << "Next mode: INTEGRITY_SCAN" << endl;
             d_autoJob = true;
             break;
         }
     }
-    m2 << "nextTask returns with mode " << d_task << endl;
 }
