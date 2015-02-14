@@ -14,6 +14,7 @@
 void LogUnit::setupLogs()
 {
     unique_ptr<ostream> log(newLog());
+
     unique_ptr<ostream> syslog(newSyslogStream());
 
     unique_ptr<MultiStreambuf> imsgbuf(new MultiStreambuf);

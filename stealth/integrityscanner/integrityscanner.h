@@ -24,7 +24,7 @@ class IntegrityScanner: public StealthEnums
     Options        &d_options;
     RunMode const  &d_pending;
     PolicyFile     &d_policyFile;
-    std::ostream   &d_stealthLog;
+    std::ostream   &d_report;
 
     FBB::Pattern    d_firstWord;
     FBB::Process    d_sshFork;

@@ -10,12 +10,12 @@ is used.
 */
 
 IntegrityScanner::IntegrityScanner(RunMode const &pending, Options &options,
-                                PolicyFile &policyFile, ostream &stealthLog)
+                                PolicyFile &policyFile, ostream &report)
 :
     d_options(options),
     d_pending(pending),
     d_policyFile(policyFile),
-    d_stealthLog(stealthLog),
+    d_report(report),
     d_firstWord("(\\S+)(\\s+(.*))?"),           // firstword ([1]) and the
                                                 // rest ([3]) of a text
     d_sshFork
@@ -38,7 +38,6 @@ IntegrityScanner::IntegrityScanner(RunMode const &pending, Options &options,
     d_pathOffset(numeric_limits<size_t>::max())
 {
     setSentinel();
-
     loadSkipFiles();                    
 
     m2 << "(re)constructed the Integrity Scanner" << endl;

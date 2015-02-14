@@ -2,8 +2,6 @@
 
 void Stealth::doTasks()
 {
-    setUniquePtrs();
-
     if (not d_options.ipc())
     {
         m1 << "timestamps use " << 

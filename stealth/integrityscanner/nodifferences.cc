@@ -46,7 +46,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
     //          of the pair.
     //
     //  At the end, if the hashtable has any elements, the table is inserted
-    //  into the d_stealthLog and `false' is returned. If the hashtable contains
+    //  into the d_report and `false' is returned. If the hashtable contains
     //  no elements, 'true' is returned.
 
     string  line;
@@ -101,7 +101,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
     }
 
     if (d_label.length())
-        d_stealthLog << d_label << endl;
+        d_report << d_label << endl;
 
     for
     (
@@ -111,7 +111,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
                 begin++
     )
     {
-        d_stealthLog << begin->second.first  << ": " << begin->first << endl;
+        d_report << begin->second.first  << ": " << begin->first << endl;
 
         for
         (
@@ -121,7 +121,7 @@ bool IntegrityScanner::noDifferences(std::string const &current,
                     sbegin != send;
                         sbegin++
         )
-            d_stealthLog << "    " << *sbegin << endl;
+            d_report << "    " << *sbegin << endl;
     }
 
     string logFilename = logfile + "." + datetime();

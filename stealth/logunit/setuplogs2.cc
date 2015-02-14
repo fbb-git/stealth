@@ -1,7 +1,7 @@
 #include "logunit.ih"
 
-void LogUnit::setupLogs(ostream &stealthReport)
+void LogUnit::setupLogs(ostream &report)
 {
     setupLogs();
-    d_fmsgbuf->insert(stealthReport);    
+    d_fmsgbuf->insert(report);    
 }

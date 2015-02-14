@@ -17,6 +17,8 @@ class PolicyFile;
 class IntegrityScanner;
 class Report;
 
+class LogReportbuf;
+
 class Stealth: public StealthEnums, public FBB::Fork
 {
     Options d_options;
@@ -34,7 +36,10 @@ class Stealth: public StealthEnums, public FBB::Fork
 
     std::unique_ptr<PolicyFile>         d_policyFile;
     std::unique_ptr<IntegrityScanner>   d_integrityScanner;
-    std::unique_ptr<Report>      d_report;    // and sends mail
+    std::unique_ptr<Report>             d_report;    // and sends mail
+
+    std::ostream d_logReport;           // configured into LogUnit
+    LogReportbuf *d_logReportbuf = 0;
 
     typedef std::string (Stealth::*Action)();
     typedef void (Stealth::*Task)();
@@ -64,6 +69,8 @@ class Stealth: public StealthEnums, public FBB::Fork
 
         void doTasks();             // run all scanning (related) tasks 
         void setUniquePtrs();       // initialize the unique_ptrs
+        void setupFatalReport();    // fmsg also inserts into the report and
+                                    // into the mail
 
         void timestamp(char const *label);
 

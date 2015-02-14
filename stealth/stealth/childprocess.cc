@@ -12,6 +12,5 @@ void Stealth::childProcess()
 
     m1 << d_options.basename() << " (process " << getpid() << 
                                                     ") terminates" << endl;
-
     throw 0;
 }

@@ -20,20 +20,6 @@
 #include "../msg/msg.h"
 #include "../util/util.h"
 
-//struct FatalBuffer: public std::streambuf
-//{
-//    Stealth &d_stealth;
-//    std::string d_msg;
-//
-//    FatalBuffer(Stealth *obj);
-//
-//    private:
-//        int overflow(int ch) override;
-//        int sync() override;
-//};
-//
-//
-//std::ostream &leave(std::ostream &out);
 
 inline void Stealth::timestamp(char const *label)
 {
@@ -47,3 +33,15 @@ inline void Stealth::startThread(void (Stealth::*member)(), Stealth *obj)
 
 using namespace std;
 using namespace FBB;
+
+class LogReportbuf: public streambuf
+{
+    Report &d_report;
+
+    public:
+        LogReportbuf(Report &report);
+
+    private:
+        int overflow(int ch) override;
+        int sync() override;
+};

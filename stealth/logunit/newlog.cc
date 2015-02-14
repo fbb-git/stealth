@@ -4,6 +4,7 @@ ostream *LogUnit::newLog()
 try
 {
     string const &name = d_options.logName();
+
     return name.empty() ? 0 : new Log(name); 
 }
 catch (exception const &exc)

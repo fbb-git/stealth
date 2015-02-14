@@ -19,9 +19,9 @@ bool IntegrityScanner::sameOutput(string const &logfile, Process &extractor)
         rename(current.c_str(), logfile.c_str());   // install `logfile'
 
         if (d_label.length())
-            d_stealthLog << d_label << endl;
+            d_report << d_label << endl;
 
-        d_stealthLog << "Initialized report on " << logfile << endl;
+        d_report << "Initialized report on " << logfile << endl;
 
         m3 << "initialized  report on " << logfile << endl;
         return true;

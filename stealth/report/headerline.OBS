@@ -1,6 +1,0 @@
-#include "report.ih"
-
-string const &Report::headerLine() const
-{
-    return d_headerLine;
-}
