@@ -5,9 +5,6 @@
 
 struct StealthEnums
 {
-    enum Leave
-    {};
-
     enum Mode       // uses bit-flags values
     {
         INTEGRITY_SCAN  = 1 << 1,   // perform an integrity scan
@@ -33,7 +30,5 @@ inline constexpr StealthEnums::Mode operator|(
                 static_cast<size_t>(lhs) | static_cast<size_t>(rhs) 
             );
 }
-
-//std::ostream &leave(std::ostream &out);
 
 #endif

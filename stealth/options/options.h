@@ -129,10 +129,6 @@ class Options: public StealthEnums
 
         FBB::TimeStamps timestamp() const;
 
-//        PolicyFile *policyFile();
-//
-//        void reloadPolicy();
-
         void setConfigOptions();    // set options which may be (re)defined by
                                     // config-files (e.g. the 2nd part of
                                     // policy files 
@@ -176,9 +172,6 @@ class Options: public StealthEnums
         void setSyslogFacility();
 
         void setPolicyPath();
-
-//        void loadPolicy();
-//        void loadPolicyOptions();
 
         void foregroundOnly(char const *optionName) const;
 };
