@@ -19,6 +19,15 @@
     it() Specifications for the logrotate specifications should use
         'tt(copytruncate)' and 'tt(sharedscripts)' (see section ref(ROTATE)
         for an example)
+    it() Examples in the manual still use tt(sha1sum) when checking hash
+        values. Stronger hash functions (like tt(sha256sum)) might be
+        preferred in practice. When updating existing policy files to use
+        tt(sha256sum) rather than tt(sha1sum) realize that tt(sha256sum's)
+        hash values are longer than tt(sha1sum's) hash values, and that
+        therefore log files obtained when tt(sha1sum) was used are
+        incompatible with log files obtained when tt(sha256sum) was used. In
+        practice this means that new log files need to be generated,
+        disregarding any previously geneerated log files.
     )
 
 

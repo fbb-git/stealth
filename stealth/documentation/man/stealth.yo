@@ -134,10 +134,10 @@ report file could not be written), the message is written to the standard
 error stream.
 
     it() Very often integrity tests can be controlled using bf(find)(1),
-calling programs like bf(ls)(1), bf(sha1sum)(1) or its own tt(-printf) method
-to produce file-integrity related statistics. Most of these programs write
-file names at the end of generated lines. This characteristic is used by one
-of s()'s internal routines to detect changes in the generated output. Such
+calling programs like bf(ls)(1), bf(sha256sum)(1) or its own tt(-printf)
+method to produce file-integrity related statistics. Most of these programs
+write file names at the end of generated lines. This characteristic is used by
+one of s()'s internal routines to detect changes in the generated output. Such
 changes could indicate some harmful intent, like an installed em(root-kit).
 
     it() When changes are detected, they are logged in a em(report file), to
@@ -205,7 +205,7 @@ nsect(DEFINE DIRECTIVES)
 
     bf(DEFINE) directives are used to associate longer strings of text with
 certain symbols. E.g., after
-    tt(DEFINE FINDARGS -xdev -type f -exec /usr/bin/sha1sum {} \;)
+    tt(DEFINE FINDARGS -xdev -type f -exec /usr/bin/sha256sum {} \;)
     the specification tt(${FINDARGS}) may be used in bf(USE DIRECTIVES) and
 bf(commands) (see below) to use the text associated with the bf(FINDARGS)
 symbol.
@@ -383,8 +383,8 @@ nsect(LOCAL COMMANDS)
         Execute tt(command) on the monitor, using the bf(SH) command
 shell. The command must succeed (i.e., must return a zero exit value). nl()
     Example:nl()
-    tt(LOCAL scp rootsh@client:/usr/bin/sha1sum /tmp)nl()
-    This command copies the client's bf(sha1sum)(1) program to the
+    tt(LOCAL scp rootsh@client:/usr/bin/sha256sum /tmp)nl()
+    This command copies the client's bf(sha256sum)(1) program to the
 monitor.
 
     it() bf(LOCAL NOTEST) tt(<command>)nl()
@@ -439,10 +439,10 @@ directories implied by the tt(logfile) specifications do not yet exist, they
 are created first.
 
     Example:nl()
-    tt(LOCAL CHECK LOG = local/sha1sum sha1sum /tmp/sha1sum)nl()
-    This command checks the SHA1 sum of the tt(/tmp/sha1sum) program. The
-resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
-succeed (i.e., tt(sha1sum) must return a zero exit-value).
+    tt(LOCAL CHECK LOG = local/sha256sum sha256sum /tmp/sha256sum)nl()
+    This command checks the SHA256 sum of the tt(/tmp/sha256sum) program. The
+resulting output is saved at bf(BASE)tt(/local/sha256sum). The program must
+succeed (i.e., tt(sha256sum) must return a zero exit-value).
 
     it() bf(LOCAL NOTEST CHECK) tt(<logfile>  [pathOffset] <command>)nl()
         Execute tt(command) on the monitor, using the bf(SH) command
@@ -450,10 +450,10 @@ shell. The command may or may not succeed. Otherwise, the command performs
 exactly like the bf(LOCAL CHECK ...) command, discussed above.
 
     Example:nl()
-    tt(LOCAL NOTEST CHECK LOG=local/sha1sum sha1sum /tmp/sha1sum)nl()
-    This command checks the SHA1 sum of the tt(/tmp/sha1sum) program. The
-resulting output is saved at bf(BASE)tt(/local/sha1sum). The program must
-succeed (i.e., tt(sha1sum) must return a zero exit-value).
+    tt(LOCAL NOTEST CHECK LOG=local/sha256sum sha256sum /tmp/sha256sum)nl()
+    This command checks the SHA256 sum of the tt(/tmp/sha256sum) program. The
+resulting output is saved at bf(BASE)tt(/local/sha256sum). The program must
+succeed (i.e., tt(sha256sum) must return a zero exit-value).
     )
 
     Note that the bf(scp)(1) command can be used to copy files between the
@@ -496,8 +496,8 @@ which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
 
     Example:nl()
-    tt(GET /usr/bin/sha1sum /tmp)nl()
-    The program tt(/usr/bin/sha1sum), available at the client, is copied to the
+    tt(GET /usr/bin/sha256sum /tmp)nl()
+    The program tt(/usr/bin/sha256sum), available at the client, is copied to the
 monitor's tt(/tmp) directory. If, for whatever reason, copying fails, then
 s() terminates.
 
@@ -510,8 +510,8 @@ which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
 
     Example:nl()
-    tt(GET NOTEST /usr/bin/sha1sum /tmp)nl()
-    The program tt(/usr/bin/sha1sum), available at the client, is copied to the
+    tt(GET NOTEST /usr/bin/sha256sum /tmp)nl()
+    The program tt(/usr/bin/sha256sum), available at the client, is copied to the
 monitor's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
     )
@@ -526,9 +526,9 @@ must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:nl()
-    tt(PUT /tmp/sha1sum /usr/bin/sha1sum)nl()
-    The program tt(/tmp/sha1sum), available at the monitor, is copied to the
-client as tt(usr/bin/sha1sum). If the copying fails, bf(stealth) terminates.
+    tt(PUT /tmp/sha256sum /usr/bin/sha256sum)nl()
+    The program tt(/tmp/sha256sum), available at the monitor, is copied to the
+client as tt(usr/bin/sha256sum). If the copying fails, bf(stealth) terminates.
 
     it() bf(PUT NOTEST) tt(<local-path> <remote-path>)nl()
     Copy the file indicated by tt(local-path) at the monitor to
@@ -538,7 +538,7 @@ must be the full path to a file on the client. If the remote file already
 exists, it is overwritten by tt(PUT).
 
     Example:nl()
-    tt(PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum)nl()
+    tt(PUT NOTEST /tmp/sha256sum /usr/bin/sha256sum)nl()
     Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the full
 path of an existing file on the monitor. The argument tt(remote-path) must
@@ -608,13 +608,13 @@ information. The resulting listing is written on the file
 bf(BASE)tt(/remote/ls.root).
 
 
-tt(CHECK remote/sha1.root \)nl()
+tt(CHECK remote/sha256.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha1sum {} \;)
+tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha256sum {} \;)
 
-    The SHA1 checksums of all suid/gid/executable files on the same device as
+    The SHA256 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/sha1.root).
+listing is written on the file bf(BASE)tt(/remote/sha256.root).
 
     it() bf(NOTEST CHECK) [bf(LOG =)] tt(<file-spec> [pathOffset] 
                                                         <command-path>)nl()
@@ -631,14 +631,14 @@ succeed. Otherwise, the program acts identically as the bf(CHECK ...) command,
 described above.
 
     Example:nl()
-tt(NOTEST CHECK LOG = remote/sha1.root \)nl()
+tt(NOTEST CHECK LOG = remote/sha256.root \)nl()
 tt(    /usr/bin/find / \)nl()
-tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha1sum {} \;)
+tt(    -xdev -perm /6111 -type f -exec /usr/bin/sha256sum {} \;)
 
 
-    The SHA1 checksums of all suid/gid/executable files on the same device as
+    The SHA256 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file bf(BASE)tt(/remote/sha1.root). s() does not
+listing is written on the file bf(BASE)tt(/remote/sha256.root). s() does not
 terminate if the tt(/usr/bin/find) program returns a non-zero exit value.
     )
 
@@ -742,7 +742,7 @@ manpagefiles()
 
 manpageseealso() 
    bf(cron)(1), bf(dd)(1), bf(diff)(1), bf(dpkg)(1), bf(find)(1),
-    bf(logrotate)(1), bf(ls)(1), bf(mail)(1), bf(sha1sum)(1), bf(passwd)(5),
+    bf(logrotate)(1), bf(ls)(1), bf(mail)(1), bf(sha256sum)(1), bf(passwd)(5),
     bf(rsyslog)(1), bf(sendmail)(1), bf(sh)(1), bf(ssh)(1), bf(ssh-cron)(1)
 
 manpagesection(DIAGNOSTICS)
