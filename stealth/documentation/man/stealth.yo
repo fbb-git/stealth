@@ -726,8 +726,8 @@ manpagesection(DEPLOYMENT SUMMARY)
     itemization(
     it() Install s() (e.g., use bf(dpkg)(1) to install the bf(.deb) file);
     it() Construct one or more policy files;
-    it() Automate running s() using bf(cron)(1) (possibly calling
-        bf(stealthcron));
+    it() Automate (re)starting s() using bf(cron)(1) or bf(ssh-cron)(1)
+        (possibly calling bf(stealthcron));
     it() Set up automated log-file rotation, using, e.g., bf(stealthcleanup)
         and bf(logrotate)(1), defining one or more
         tt(/etc/logrotate.d/stealth...) configuration files.

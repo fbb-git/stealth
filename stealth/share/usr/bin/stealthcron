@@ -30,17 +30,17 @@ case $# in
     (*)
     echo "
 $PROG by Frank B. Brokken (f.b.brokken@rug.nl)
-Usage: $PROG pidfile configfile [skipfile]
+Usage: $PROG uds policyfile [skipfile]
 where:
-    pidfile:    absolute path to pidfile to be used by ${STEALTH}
-    configfile: absolute path to configuration file to be used by ${STEALTH}
-    skipfile:   absolute path to file holding files to skip (optional)
+    uds:        absolute path to the Unix Domain Socket to be used
+    policyfile: absolute path to the policyfile to be used
+    skipfile:   absolute path to the skipfile to be used (optional)
 
-    calls $STEALTH} --rerun pidfile. 
+    calls $STEALTH} --rerun uds. 
     If that fails, 
-        ${STEALTH} --daemon pidfile -q configfile
+        ${STEALTH} --daemon uds policyfile
     or (if skipfile was specified)
-        ${STEALTH} --daemon pidfile -s skipfile -q configfile
+        ${STEALTH} --daemon uds policyfile -s skipfile policyfile
     is started.
 "
     exit 1

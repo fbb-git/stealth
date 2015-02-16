@@ -3,7 +3,7 @@ syslog messages and write them to a file of your choice. E.g., to filter
 messages starting with the syslog message tag (e.g., tt(STEALTH)) use
         verb(
 :syslogtag, isequal, "STEALTH:"   /var/log/stealth.log
-:syslogtag, isequal, "STEALTH:"   ~
+:syslogtag, isequal, "STEALTH:"   stop
         )
     Note that the colon is part of the tag, but is not specified with the 
 tt(syslog-tag) option.

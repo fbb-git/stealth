@@ -31,5 +31,8 @@ as follows:
         verb(
     /usr/bin/stealthcleanup /etc/stealth/cleanup.rc)
     Note that tt(stealthcleanup) may be called whether or not there are active
-s() processes, as s() does not use status files anymore once
-they have been written.
+s() processes.
+
+
+
+

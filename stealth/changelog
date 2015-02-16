@@ -16,7 +16,10 @@ stealth (4.00.00)
     README.messages describes the organization of log/mail message handling.
 
   * Specifications for the logrotate specifications should use 'copytruncate'
-    and 'sharedscripts' (see the man-page for an example)
+    and 'sharedscripts' (see the man-page for an example).
+
+  * share/usr/bin/stealthcron now specifies a Unix Domain Socket (usage not
+    changed).
 
   * Fixed compilation errors that emerged with g++-5, reported by Matthias
     Klose. 
