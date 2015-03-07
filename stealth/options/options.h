@@ -34,6 +34,7 @@ class Options: public StealthEnums
     std::string d_unixDomainSocket;
     std::string d_maxSizeStr;
 
+    bool d_ping;
     bool d_reload;
     bool d_rerun;
     bool d_resume;

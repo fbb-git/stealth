@@ -11,6 +11,9 @@ void Options::setMode()
     if ((d_terminate = d_arg.option(0, "terminate")))
         d_mode = TERMINATE;
 
+    if ((d_ping = d_arg.option(0, "ping")))
+        d_mode = PING;
+
     if ((d_suspend = d_arg.option(0, "suspend")))
         d_mode = SUSPEND;
 
@@ -24,7 +27,8 @@ void Options::setMode()
     )
         fmsg << "--daemon: missing Unix Domain File or policy file" << noidl;
 
-    d_ipc = d_reload || d_rerun || d_terminate || d_suspend || d_resume;
+    d_ipc = d_ping || d_reload || d_rerun || d_suspend || d_resume || 
+            d_terminate;
 
     if (d_ipc)
         d_unixDomainSocket = d_arg[0];

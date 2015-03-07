@@ -22,8 +22,13 @@ case $# in
         fi
 
         if [ -x ${STEALTH} ] ; then
-            ${STEALTH} --rerun $1
-            [ $? -eq 0 ] || ${STEALTH} --daemon $1 ${SKIP} -q $2
+            ${STEALTH} --ping $1
+            if [ $? -ne 0 ] ; then
+		/usr/bin/logger -t STEALTHCRON -p daemon.warning -- \
+			restarting stealth --daemon $1 ...
+		rm -f $1
+		${STEALTH} --daemon $1 ${SKIP}  $2
+	    fi
         fi
     ;;
             
@@ -36,7 +41,7 @@ where:
     policyfile: absolute path to the policyfile to be used
     skipfile:   absolute path to the skipfile to be used (optional)
 
-    calls $STEALTH} --rerun uds. 
+    calls $STEALTH} --ping uds. 
     If that fails, 
         ${STEALTH} --daemon uds policyfile
     or (if skipfile was specified)

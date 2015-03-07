@@ -19,7 +19,9 @@ struct StealthEnums
 
         TERMINATE       = 1 << 7,   // terminate a Stealth run
 
-        UNKNOWN         = 1 << 8,   
+        PING            = 1 << 8,   // ping a daemon
+
+        UNKNOWN         = 1 << 9,   
     };
 };
 

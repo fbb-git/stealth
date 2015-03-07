@@ -32,7 +32,7 @@ manpagesynopsis()
                                                     --syslog-tag <tag>nl()
             --verbosity <value> policy
 
-    s() {--reload,--rerun,--resume,--suspend,--terminate} <uds>
+    s() {--ping,--reload,--rerun,--resume,--suspend,--terminate} <uds>
 
     s() --help --version
 
@@ -167,6 +167,12 @@ specified after the option specifying the requested command.
 manpagesection(OPTIONS)
 
     includefile(../manual/running/options.yo)
+
+manpagesection(EXIT STATUS)
+
+    When requesting an IPC command or when starting s() as a daemon 0 is
+returned if the command was successfully completed. Otherwise a non-0 value is
+returned.
 
 manpagesection(OPEN SSH LINK TO CLIENTS)
 

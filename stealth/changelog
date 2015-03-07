@@ -1,3 +1,13 @@
+stealth (4.01.00)
+
+  * Added option --ping, verifying whether a stealth daemon is still
+    available. See the man-page for details.
+
+  * Updated the /usr/bin/stealthcron script, e.g., calling logger when stealth
+    was restarted.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 07 Mar 2015 14:49:08 +0100
+
 stealth (4.00.00)
 
   * Stealth 4.00.00 uses Unix Domain Sockets instead of signals to

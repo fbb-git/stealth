@@ -15,6 +15,7 @@ FBB::LinearMap<Stealth::Mode, Stealth::Action> Stealth::s_request =
     {
         {INTEGRITY_SCAN,    &Stealth::unknownRequest},
 
+        {PING,              &Stealth::pingRequest},
         {RERUN,             &Stealth::rerunRequest},
         {SUSPEND,           &Stealth::suspendRequest},
         {RESUME,            &Stealth::resumeRequest},

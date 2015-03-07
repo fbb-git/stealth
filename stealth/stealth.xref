@@ -1,7 +1,7 @@
 oxref by Frank B. Brokken (f.b.brokken@rug.nl)
 oxref V1.00.02 2012-2015
 
-CREATED Sat, 14 Feb 2015 15:43:45 +0000
+CREATED Sat, 07 Mar 2015 13:35:29 +0000
 CROSS REFERENCE FOR: -fxs tmp/libmodules.a 
 ----------------------------------------------------------------------
 
@@ -43,6 +43,7 @@ chdirBase() const
   Full name: PolicyFile::chdirBase() const
   Source:    chdirbase.cc 
   Used By:
+    dotasks.cc: Stealth::doTasks()
     load.cc: PolicyFile::load()
 
 checkM(std::string const&, char const*) const
@@ -312,8 +313,8 @@ mail()
   Used By:
     ipcinterface.cc: Stealth::ipcInterface()
     jobshandler.cc: Stealth::jobsHandler()
-    timestamp.cc: Report::timestamp(char const*, unsigned int)
     sync.cc: LogReportbuf::sync()
+    timestamp.cc: Report::timestamp(char const*, unsigned int)
 
 mkdir(std::string const&)
   Full name: Util::mkdir(std::string const&)
@@ -348,13 +349,13 @@ newLog()
   Full name: LogUnit::newLog()
   Source:    newlog.cc 
   Used By:
-    setuplogs.cc: LogUnit::setupLogs()
+    setuplogs1.cc: LogUnit::setupLogs()
 
 newSyslogStream()
   Full name: LogUnit::newSyslogStream()
   Source:    newsyslogstream.cc 
   Used By:
-    setuplogs.cc: LogUnit::setupLogs()
+    setuplogs1.cc: LogUnit::setupLogs()
 
 nextCommand(std::ostream&, std::string const&)
   Full name: IntegrityScanner::nextCommand(std::ostream&, std::string const&)
@@ -399,6 +400,12 @@ parentProcess()
   Source:    parentprocess.cc 
   Used By:
     destructor.cc: Stealth::~Stealth()
+
+pingRequest()
+  Full name: Stealth::pingRequest()
+  Source:    pingrequest.cc 
+  Used By:
+    data.cc: GLOBALS data.cc 11data.o
 
 PolicyFile(Options&)
   Full name: PolicyFile::PolicyFile(Options&)
@@ -612,13 +619,6 @@ s_exitValue
     testexitvalue.cc: IntegrityScanner::testExitValue(std::string const&, std::string const&)
 
 s_firstWord
-  Full name: PolicyFile::s_firstWord
-  Source:    data.cc 
-  Used By:
-    directivesandcommands.cc: PolicyFile::directivesAndCommands()
-    insert.cc: PolicyFile::insert(FBB::LinearMap<std::string, std::string, std::allocator<std::pair<std::string const, std::string> > >&, std::string const&)
-
-s_firstWord
   Full name: IntegrityScanner::s_firstWord
   Source:    data.cc 
   Used By:
@@ -631,6 +631,13 @@ s_firstWord
     put.cc: IntegrityScanner::put(std::string const&)
     removefirstword.cc: IntegrityScanner::removeFirstWord(char const*)
     removelog.cc: IntegrityScanner::removeLOG()
+
+s_firstWord
+  Full name: PolicyFile::s_firstWord
+  Source:    data.cc 
+  Used By:
+    directivesandcommands.cc: PolicyFile::directivesAndCommands()
+    insert.cc: PolicyFile::insert(FBB::LinearMap<std::string, std::string, std::allocator<std::pair<std::string const, std::string> > >&, std::string const&)
 
 s_log
   Full name: PolicyFile::s_log
@@ -834,7 +841,7 @@ setupFatalReport()
 
 setupLogs()
   Full name: LogUnit::setupLogs()
-  Source:    setuplogs.cc 
+  Source:    setuplogs1.cc 
   Used By:
     setuplogs2.cc: LogUnit::setupLogs(std::ostream&)
     policymode.cc: Stealth::policyMode()

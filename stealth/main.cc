@@ -51,8 +51,9 @@ ArgConfig::LongOption longOption[] =
 
     {"dry-run", Arg::None},             // new
 
-    {"rerun", Arg::None},               // arg[0] is the runfilename
-    {"resume", Arg::None},              // also for this and the next options
+    {"ping", Arg::None},                // arg[0] is the uds filename
+    {"rerun", Arg::None},               // also for this and the next options
+    {"resume", Arg::None},
     {"suspend", Arg::None},
     {"reload", Arg::None},
     {"terminate", Arg::None},

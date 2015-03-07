@@ -13,11 +13,11 @@ tt(/etc) is verified;
     )
 
 In this manual the bf(sha1sum)(1) program is frequently used when checking
-hash values. Stronger hash functions (like bf(sha256sum)(1) might be preferred
-in practice. tt(sha256sum's) hash values are remarkably longer than
+hash values. Stronger hash functions (like bf(sha256sum)(1)) might be
+preferred in practice. tt(sha256sum's) hash values are remarkably longer than
 tt(sha1sum's) hash values. When using these longer hash values in the manual
 it often clobbers the layout of examples. Therefore in this manual
-bf(sha1sum)(1) is continued to be used. 
+bf(sha1sum)(1) is continued to be used.
 
 Realize, however, that when updating existing policy files to use
 bf(sha256sum)(1) instead of bf(sha1sum)(1), that previously generated log

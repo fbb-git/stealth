@@ -52,12 +52,13 @@ class Stealth: public StealthEnums, public FBB::Fork
         ~Stealth() override;
 
         bool ipcMode();             // contact a stealth daemon
-        void policyMode();       // do all policy-file related tasks
+        void policyMode();          // do all policy-file related tasks
 
     private:
         void parentProcess() override;  // no actions here
         void childProcess() override;
 
+        std::string pingRequest();
         std::string rerunRequest();
         std::string suspendRequest();
         std::string resumeRequest();
