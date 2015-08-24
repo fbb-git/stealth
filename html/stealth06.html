@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> <div style="text-align: center">Stealth V. 4.01.00</div> </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth05.html">Previous Chapter</a>
+    <li> <a href="stealth07.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="l44"></a>
+<h1>Chapter 6: Kick-starting `stealth'</h1>
+Here are the steps to take to kick-start <strong>stealth</strong>
+    <ul>
+    <li> Install the stealth Debian package <code>stealth_4.01.00_i386.deb</code> and
+thus accept the provided binary program (skipping the next series of steps) or
+do not accept the provided binary, and compile <strong>stealth</strong> yourself, as per the
+following steps:
+    <li> Unpack <code>stealth_4.01.00.tar.gz</code>: 
+        <code>tar xzvf tealth_4.01.00.tar.gz</code>
+    <li> <code>cd stealth</code>;
+    <li> Inspect, and where necessary modify the values of the variables in
+the files <code>INSTALL.cf</code> and <code>icmconf</code>;
+    <li> Install a recent Gnu <code>g++</code> compiler;
+    <li> Install the bobcat library (both the binary and development version)
+(<a href="https://fbb-git.github.io/bobcat/">https://fbb-git.github.io/bobcat/</a>);
+    <li> Install  the <code>icmake</code> program
+(<a href="https://fbb-git.github.io/icmake/">https://fbb-git.github.io/icmake/</a>);
+    <li> Run `<code>./build program strip</code>' to compile <strong>stealth</strong>;
+    <li> Run (probably as root) `<code>./build install program</code>' to install;
+    <li> Optionally install documentation. See section <a href="stealth02.html#COMPILING">2.1</a>.
+    </ul>
+    Following the installation the <code>stealth</code> directory tree has become
+superfluous and can safely be removed.
+<p>
+Next, do:
+    <ul>
+    <li> <code>cp share/usr/bin/stealthmail  /usr/local/bin</code>
+    <li> <code>mkdir           /root/stealth</code>
+    <li> <code>cp documentation/example-policies/localhost.pol  /root/stealth</code>
+    </ul>
+<p>
+<code>ssh</code> and <code>bash</code> (or another shell program) should be
+available. <code>root@localhost</code> should be able to login at <code>localhost</code> using
+<code>ssh root@localhost</code>, using the <code>/bin/bash</code>. Check
+(as `root') at least
+        <pre>
+    ssh root@localhost
+</pre>
+
+    as this might ask you for a confirmation that you've got the correct
+host. 
+    Now, run 
+        <pre>
+    stealth /root/stealth/localhost.pol
+</pre>
+
+    to initialize the stealth-report files for <code>localhost</code>. This initializes
+the report for
+    <ul>
+    <li> all root setuid/setgid executable files on <code>localhost</code>, 
+    <li> and for all files under <code>/etc/</code> on <code>localhost</code>. 
+    </ul>
+<p>
+The mail-report is sent to <code>root@localhost</code>.
+<p>
+Now change or add or remove one of these files, and rerun <strong>stealth</strong>. The
+file <code>/tmp/stealth-4.01.00.mail</code> should reflect these changes.
+<p>
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth05.html">Previous Chapter</a>
+    <li> <a href="stealth07.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

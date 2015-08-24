@@ -1,0 +1,141 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> <div style="text-align: center">Stealth V. 4.01.00</div> </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth01.html">Previous Chapter</a>
+    <li> <a href="stealth03.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="l3"></a>
+<h1>Chapter 2: Installation</h1>
+This chapter describes <strong>stealth</strong>'s compilation and installation. 
+<p>
+<a name="COMPILING"></a><a name="l4"></a>
+<h2>2.1: Compiling and installing Stealth</h2>
+    After downloading the <strong>stealth</strong> archive, it should be unpacked. The name of
+the archive is of the form <code>stealth-4.01.00.tar.gz</code>, where <code>4.01.00</code>
+is a version number. Below, <code>4.01.00</code> should be altered into the version
+of the archive that is actually used.
+<p>
+Required, non-standard software, for compiling <strong>stealth</strong> is summarized in the file
+<code>required</code>, which is included in the source file distribution. Currently,
+its contents are:
+<p>
+<pre>
+This file lists non-standard software only. Thus, standard utilities like cp,
+mv, sed, etc, etc, are not explicitly mentioned. Neither is the gcc compiler
+explicitly mentioned, but a fairly recent one is assumed.
+
+Required software for building Stealth 4.00.00
+----------------------------------------------
+
+libbobcat-dev (&gt;= 3.25.01),
+
+
+To use the provided build-script:
+
+    icmake (&gt;= 7.22.00)         
+
+To construct the manual and map-page:
+        
+    yodl (&gt;= 3.05.0)
+
+To construct the manual:
+
+    texlive-latex-base,
+    texlive-generic-recommended, 
+    texlive-latex-recommended,
+    texlive-fonts-recommended,
+    cm-super-minimal,
+    ghostscript
+
+
+</pre>
+
+<p>
+<ul>
+    <li> <strong>Stealth</strong> compilation is controlled by <strong>icmake</strong>(1). The program
+maintenance utility <strong>icmake</strong>(1) can be obtained at
+<a href="https://fbb-git.github.io/icmake/">https://fbb-git.github.io/icmake/</a>, and it is also available in several
+Linux distributions (e.g., Debian, Ubuntu);
+<p>
+<li> Determine a directory where the files in <strong>stealth</strong>'s archive ashould be
+stored. E.g., if the files in the archive should be stored under <code>/tmp</code>
+(and assuming the archive itself is stored in <code>/tmp</code> as well) then do:
+        <pre>
+
+    cd /tmp
+    tar xzf stealth-4.01.00.tar.gz
+        
+</pre>
+
+    This creates a subdirectory <code>stealth</code> containing <strong>stealth</strong>'s sources;
+<p>
+<li> Change-dir to that directory:
+        <pre>
+
+    chdir stealth
+        
+</pre>
+
+<p>
+<li> Check the contents of the files <code>INSTALL.im</code> and <code>icmconf</code>, and
+verify that all <code>#defines</code> match your computer's file system and
+software. 
+<p>
+When compiling <strong>stealth</strong>, the
+<a href="https://fbb-git.github.io/bobcat/">bobcat</a> header files must be
+available. When <strong>stealth</strong> is run it is dynamically linked against the bobcat
+library. <strong>Bobcat</strong> can be downloaded from 
+<a href="https://github.com/fbb-git/bobcat/">https://github.com/fbb-git/bobcat/</a> (and follow its installation
+instructions). Alternatively, bobcat may be available in your distribution,
+(e.g.,  Debian or Ubuntu). Make sure to install both the run-time
+(<strong>bobcat_...</strong>)  and the development (<strong>bobcat-dev_...</strong>) versions.
+<p>
+<li> Execute the command
+        <pre>
+
+    ./build program strip
+        
+</pre>
+
+    This command by default creates the
+program <strong>./tmp/bin/binary</strong>.
+<p>
+<li> To install <strong>stealth</strong> and its documentation, several commands are available:
+        <pre>
+
+   ./build install program [path] - installs the program as `path'
+                                (by default as `/usr/bin/stealth')
+   ./build install man [base]   - install the man pages below `base'
+                                (by default below `/usr/share/man/man1')
+   ./build install manual [base]- install the manual below `base'
+                                (by default below 
+                                    `/usr/share/doc/stealth-doc/manual')
+   ./build install std [base]   - install standard docs below `base'
+                                (by default below `/usr/share/doc/stealth')
+   ./build install extra [base] - install extra docs below `base'
+                                (by default below 
+                                    `/usr/share/doc/stealth-doc')
+        
+</pre>
+
+    </ul>
+<p>
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth01.html">Previous Chapter</a>
+    <li> <a href="stealth03.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title><div style="text-align: center">Stealth V. 4.01.00</div></title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<h1><div style="text-align: center">Stealth V. 4.01.00</div></h1>
+<h2><div style="text-align: center">Frank B. Brokken</div></h2>
+
+<h2><div style="text-align: center">Center for Information Technology, University of Groningen</div></h2><h2><div style="text-align: center">2005-2015</div></h2>
+
+<h1>Table of Contents</h1>
+<dl><dt><h2><a href="stealth01.html#l1">Chapter 1: Introduction</a></h2></dt>
+<dd><dl>
+<dt><h3><a href="stealth01.html#l2">1.1: What's new in Stealth V.4.01.00</a></h3></dt>
+</dl></dd>
+<dt><h2><a href="stealth02.html#l3">Chapter 2: Installation</a></h2></dt>
+<dd><dl>
+<dt><h3><a href="stealth02.html#l4">2.1: Compiling and installing Stealth</a></h3></dt>
+</dl></dd>
+<dt><h2><a href="stealth03.html#l5">Chapter 3: Granting access</a></h2></dt>
+<dd><dl>
+<dd><dl>
+<dt><a href="stealth03.html#l6">3.0.1: The monitor's user: creating an ssh-key</a></dt>
+<dt><a href="stealth03.html#l7">3.0.2: The client's account: accepting ssh from the monitor's user</a></dt>
+<dt><a href="stealth03.html#l8">3.0.3: Logging into the account@client account</a></dt>
+<dt><a href="stealth03.html#l9">3.0.4: Using the proper shell</a></dt>
+</dl></dd>
+</dl></dd>
+<dt><h2><a href="stealth04.html#l10">Chapter 4: The `policy' file</a></h2></dt>
+<dd><dl>
+<dt><h3><a href="stealth04.html#l11">4.1: DEFINE directives</a></h3></dt>
+<dt><h3><a href="stealth04.html#l12">4.2: USE directives</a></h3></dt>
+<dt><h3><a href="stealth04.html#l13">4.3: Commands</a></h3></dt>
+<dd><dl>
+<dt><a href="stealth04.html#l14">4.3.1: LABEL commands</a></dt>
+<dt><a href="stealth04.html#l15">4.3.2: LOCAL commands</a></dt>
+<dt><a href="stealth04.html#l16">4.3.3: REMOTE commands</a></dt>
+<dt><a href="stealth04.html#l17">4.3.4: Preventing Controller Denial of Service (--max-size)</a></dt>
+</dl></dd>
+</dl></dd>
+<dt><h2><a href="stealth05.html#l18">Chapter 5: Running `stealth'</a></h2></dt>
+<dd><dl>
+<dt><h3><a href="stealth05.html#l19">5.1: Installing `stealth'</a></h3></dt>
+<dt><h3><a href="stealth05.html#l20">5.2: Stealth command-line and policy file options</a></h3></dt>
+<dd><dl>
+<dt><a href="stealth05.html#l21">5.2.1: Rsyslog filtering</a></dt>
+</dl></dd>
+<dt><h3><a href="stealth05.html#l22">5.3: Construct one or more policy files</a></h3></dt>
+<dd><dl>
+<dt><a href="stealth05.html#l23">5.3.1: DEFINE directives</a></dt>
+<dt><a href="stealth05.html#l24">5.3.2: USE directives</a></dt>
+<dt><a href="stealth05.html#l25">5.3.3: Commands</a></dt>
+<dd><dl>
+<dt><a href="stealth05.html#l26">5.3.3.1: Obtaining the client's sha1sum program</a></dt>
+<dt><a href="stealth05.html#l27">5.3.3.2: Checking the integrity of the client's sha1sum program</a></dt>
+<dt><a href="stealth05.html#l28">5.3.3.3: Checking the client's /usr/bin/find program</a></dt>
+<dt><a href="stealth05.html#l29">5.3.3.4: Checking the client's setuid/setgid files</a></dt>
+<dt><a href="stealth05.html#l30">5.3.3.5: Checking the configuration files in the                                                  client's /etc/ directory</a></dt>
+</dl></dd>
+<dt><a href="stealth05.html#l31">5.3.4: The complete `policy' file</a></dt>
+</dl></dd>
+<dt><h3><a href="stealth05.html#l32">5.4: Running `stealth' for the first time</a></h3></dt>
+<dd><dl>
+<dt><a href="stealth05.html#l33">5.4.1: The mailed report</a></dt>
+<dt><a href="stealth05.html#l34">5.4.2: Files under /root/stealth/client</a></dt>
+</dl></dd>
+<dt><h3><a href="stealth05.html#l35">5.5: Subsequent `stealth' runs</a></h3></dt>
+<dd><dl>
+<dt><a href="stealth05.html#l36">5.5.1: All files unaltered</a></dt>
+<dt><a href="stealth05.html#l37">5.5.2: Modifications occurred</a></dt>
+<dt><a href="stealth05.html#l38">5.5.3: Failing LOCAL commands</a></dt>
+<dt><a href="stealth05.html#l39">5.5.4: Skipping (some) integrity checks</a></dt>
+</dl></dd>
+<dt><h3><a href="stealth05.html#l40">5.6: Automating repeated `stealth' runs</a></h3></dt>
+<dt><h3><a href="stealth05.html#l41">5.7: Report File Rotation</a></h3></dt>
+<dd><dl>
+<dt><a href="stealth05.html#l42">5.7.1: Status file cleanup</a></dt>
+<dt><a href="stealth05.html#l43">5.7.2: Using `logrotate' to control report- and status files</a></dt>
+</dl></dd>
+</dl></dd>
+<dt><h2><a href="stealth06.html#l44">Chapter 6: Kick-starting `stealth'</a></h2></dt>
+<dt><h2><a href="stealth07.html#l45">Chapter 7: Usage info</a></h2></dt>
+<dt><h2><a href="stealth08.html#l46">Chapter 8: Errormessages</a></h2></dt>
+</dl>
+
+<p><hr><p>
+<p>
+</body>
+</html>

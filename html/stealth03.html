@@ -1,0 +1,147 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> <div style="text-align: center">Stealth V. 4.01.00</div> </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth02.html">Previous Chapter</a>
+    <li> <a href="stealth04.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="l5"></a>
+<h1>Chapter 3: Granting access</h1>
+Access to clients should be granted using the <code>ssh</code> protocol.
+<p>
+Clients must allow the monitor to connect using <code>ssh</code>. <strong>Stealth</strong> connects to its
+clients using ssh certificates, after the monitor's public SSH-key has been
+transferred to the clients.
+<p>
+<a name="l6"></a>
+<h3>3.0.1: The monitor's user: creating an ssh-key</h3>
+        The monitor's user calling <strong>stealth</strong> to scan the client must first generate
+an <code>ssh-keypair</code>:
+        <pre>
+    ssh-keygen -t rsa
+</pre>
+ 
+    By default this generates a public/private ssh key-pair in the directory
+<code>.ssh</code> in the user's home directory. The program asks for a
+<em>passphrase</em>. A passphrase can be defined (in which case it must be proviced
+when <strong>stealth</strong> is started) or, if the security if the monitor is sufficiently
+guaranteed, it can remain empty. To generate an ssh-key without passphrase
+simply press <code>Enter</code> in response to the question
+        <pre>
+    Enter passphrase (empty for no passphrase):
+</pre>
+
+    (a confirmation is required: just press <code>Enter</code> again).
+<p>
+<code>Ssh-keygen</code> then  returns a key fingerprint, e.g.,
+        <pre>
+    03:96:49:63:8a:64:33:45:79:ab:ca:de:c8:c8:4f:e9 user@monitor
+</pre>
+
+    which may be saved for future reference.
+<p>
+In the user's <code>.ssh</code> directory the files <code>id_rsa</code> and <code>id_rsa.pub</code>
+are now created, which completes the preparations at the monitor.
+<p>
+If, instead of running <strong>stealth</strong> in deamon mode it is preferred to let <strong>stealth</strong> perform
+single, but automated integrity scans, then new <strong>ssh</strong>(1) connections may be
+difficult to establish if the used ssh-key is passphrase-protected. To
+implement this scenario (i.e., automated integrity scans using passphrase
+protected ssh-keys) the program <strong>ssh-cron</strong>(1) can profitably be used. 
+<p>
+<a name="l7"></a>
+<h3>3.0.2: The client's account: accepting ssh from the monitor's user</h3>
+        Next, at the client's account where <strong>stealth</strong>'s <code>ssh</code> command connects to (see
+also the <code>USE SSH</code> specification in section <a href="stealth04.html#USE">4.2</a>) ssh-access must be
+granted to the monitor's user. To do so, the monitor user's file
+<code>~/.ssh/id_rsa.pub</code> is added to the client account user's file
+<code>~/.ssh/authorized_keys</code>:
+        <pre>
+    # transfer user@monitor's file id_rsa.pub to the client's /tmp
+    # directory. Then do:
+
+    cat /tmp/id_rsa.pub &gt;&gt; /home/account/.ssh/authorized_keys
+</pre>
+
+<p>
+This allows the user at the monitor to login at the account at the
+client without specifying the client account's password (of course, if the
+ssh-key is passphrase protected that passphrase must still be provided at the
+monitor when starting <strong>stealth</strong>).
+<p>
+<a name="l8"></a>
+<h3>3.0.3: Logging into the account@client account</h3>
+        When user@monitor now issues, for the first time, the command
+        <pre>
+    ssh account@monitor
+</pre>
+
+    <code>Ssh</code> responds like this:
+        <pre>
+    The authenticity of host 'monitor (xxx.yyy.aaa.bbb)' can't be
+    established.
+    RSA key fingerprint is c4:52:d6:a3:d4:65:0d:5e:2e:66:d8:ab:de:ad:12:be.
+    Are you sure you want to continue connecting (yes/no)?
+</pre>
+
+    Answering <code>yes</code> results in the message:
+        <pre>
+    Warning: Permanently added 'monitor,xxx.yyy.aaa.bbb' (RSA) to the
+    list of known hosts.
+</pre>
+
+<p>
+The next time a login is attempted, the authenticity question is not asked
+anyore. However, the proper value of the host's RSA key fingerprint (i.e., the
+key fingerprint of the <em>client</em> computer) should <em>always</em> be verified to
+prevent <em>man in the middle</em> attacks. The proper value may be obtained at the
+client by issuing there the command
+        <pre>
+    ssh-keygen -l -f /etc/ssh/ssh_host_rsa_key.pub
+</pre>
+
+    This should show the same value of the fingerprint as shown when the
+first <code>ssh</code> connection was established. E.g.,
+        <pre>
+
+    1024 c4:52:d6:a3:d4:65:0d:5e:2e:66:d8:ab:de:ad:12:be ssh_host_rsa_key.pub
+</pre>
+
+<p>
+<a name="l9"></a>
+<h3>3.0.4: Using the proper shell</h3>
+        On order to minimize the amount of clutter and possibly complications when
+only a simple command-shell is required for executing commands, it is
+suggested to use a <strong>bash</strong>(1) shell when logging into <code>account@client</code>'s
+account.
+<p>
+When another shell is already used for <code>account@client</code>, then an extra
+account (optionally using the same <code>UID</code> as the original account, but using
+<strong>sh</strong>(1) as the shell), could be defined in the client's <code>/etc/passwd</code>
+file. In the <strong>passwd</strong>(5) file this could, e.g., be realized for <em>root</em> as
+<em>rootsh</em> as follows:<br>
+        <pre>
+    rootsh:x:0:0:root:/root:/bin/bash
+</pre>
+
+    If shadow passwording is used, a matching entry in the <code>/etc/shadow</code>
+file is required as well.
+<p>
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth02.html">Previous Chapter</a>
+    <li> <a href="stealth04.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

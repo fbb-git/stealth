@@ -1,0 +1,176 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> <div style="text-align: center">Stealth V. 4.01.00</div> </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth02.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="l1"></a>
+<h1>Chapter 1: Introduction</h1>
+    Welcome to <strong>stealth</strong>. The program <strong>stealth</strong> implements a file integrity
+scanner. The acronym <strong>stealth</strong> can be expanded to
+<p>
+<div style="text-align: center">
+<h2>SSH-based Trust Enforcement Acquired through a Locally Trusted Host.</h2>
+</div>
+<p>
+This expansion contains the following key terms:
+<p>
+<ul>
+    <li> <code>SSH-based</code>: The file integrity scan is (usually) performed over an
+ssh-connection. Usually the computer being scanned (called the <em>client</em>) and
+the computer initiating the scan (called the <code>monitor</code>) are different
+computers. 
+    <li> The client should accept incoming ssh-connections from the
+monitor. The monitor doesn't have to (and shouldn't, probably).
+    <li> <code>Trust Enforcement</code>: following the scan, `trust' is enforced in the
+client, due to the integrity of its files.
+    <li> <code>Locally Trusted Host</code>: the client apparently trusts the monitor
+to use an ssh-connection to perform commands on it. The client therefore
+<em>locally trusts</em> the monitor. Hence, <em>locally trusted host</em>.
+    </ul>
+<p>
+<strong>stealth</strong> is based on an idea by <em>Hans Gankema</em> and <em>Kees Visser</em>,
+both at the Center for Information Technology of the University of Groningen.
+<p>
+<strong>stealth</strong>'s main task is to perform file integrity tests. However, the
+testing will leave virtually no sediments on the tested computer. Therefore,
+<strong>stealth</strong> has <em>stealthy</em> characteristics. I consider this an important
+security improving feature of <strong>stealth</strong>.
+<p>
+The monitor itself only needs two kinds of outgoing services:
+<strong>ssh</strong>(1) to reach its clients, and some mail transport agent (e.g.,
+<strong>sendmail</strong>(1)) to forward its outgoing mail to some mail-hub.
+<p>
+Here is what happens when <strong>stealth</strong> is run:
+    <ul>
+    <li> First, the <em>policy</em> file is read. For each client a policy file is
+defined, specifying the actions to be performed, and specifying the values of
+several variables used by <strong>stealth</strong>.
+<p>
+<li> If the command-line option <code>--daemon &lt;uds&gt;</code> is specified, <strong>stealth</strong>
+runs as a daemon process, using the Unix Domain Socket (<code>&lt;uds&gt;</code>) for
+communication with <strong>stealth</strong> processes running in IPC mode.
+<p>
+If access to the Unix Domain Socket defined by Stealth running in daemon mode
+should be restricted, it can be defined in a directory with is only accessible
+to the user running Stealth (this will often be the root-user).
+<p>
+When running in daemon mode, <code>--repeat &lt;seconds&gt;</code> may be specified to rerun
+the integrity scan every <code>&lt;seconds&gt;</code> seconds. If an integrity scan is being
+performed when, according to the repeat interval the next integrity scan is
+due, then the current scan is first completed. Once completed, the next
+integrity scan will be performed after <code>seconds</code> seconds.
+<p>
+<li> Next, the monitor opens a command shell on the client using
+<strong>ssh</strong>(1), and a command shell on the monitor computer itself using
+<strong>sh</strong>(1).
+<p>
+<li> Once the command shells are available, commands defined in the policy
+file are executed in their order of appearance. Examples are given
+below. Normally, return values of the programs are tested. When return values
+are to be tested <strong>stealth</strong> terminates when a non-zero return value is sensed. If
+this happens, a message stating the reason why <strong>stealth</strong> terminated is written to
+the report file (and into the mail sent by <strong>stealth</strong>). In some cases (e.g., when the
+report file could not be written), the message is written to the standard
+error stream.
+<p>
+<li> Very often integrity tests can be controlled using <strong>find</strong>(1),
+calling programs like <strong>ls</strong>(1), <strong>sha1sum</strong>(1) or its own <code>-printf</code> method
+to produce file-integrity related statistics. Most of these programs write
+file names at the end of generated lines. This characteristic is used by one
+of <strong>stealth</strong>'s internal routines to detect changes in the generated output. Such
+changes could indicate some harmful intent, like an installed <em>root-kit</em>.
+<p>
+<li> When changes are detected, they are logged in a <em>report file</em>, to
+which information is always appended. <strong>Stealth</strong> never reduces the report file's size
+or rewrites its contents. When information is added to the report file (beyond
+a plain time stamp) the newly added information is e-mailed to a configurable
+e-mail address for further (human) processing. Usually the e-mail is sent to
+the systems manager of the tested client. <strong>Stealth</strong> follows the `dark cockpit'
+approach in the sense that no mail is sent when no changes were detected.
+<p>
+<li> Report and other log-files may safely be rotated between a pair of
+<code>--suspend</code> and <code>--resume</code> commands (see below at the section
+<a href="stealth05.html#ROTATE">5.7</a>).
+    </ul>
+<p>
+Instead of running in daemon mode, <strong>stealth</strong> may also run in `foreground' mode.
+In foreground mode the option <code>--daemon</code> is not specified. When running in
+foreground mode <strong>stealth</strong> either performs one integrity scan (and terminates) or, if
+the <code>--repeat</code> option has been specified, it repeatedly performs integrity
+scans, at intervals determined by the <code>--repeat</code> and <code>--random-interval</code>
+options. When <code>--repeat</code> is specified with <strong>stealth</strong> running in foreground mode a
+prompt is shown (i.e., `<code>? </code>') with  <strong>stealth</strong> terminating after pressing the
+<code>Enter</code>-key.
+<p>
+Alternatively, <strong>stealth</strong> may run in `inter process communication' mode (IPC
+mode). IPC mode is characterized by using one of the command-line options
+<code>--reload, --rerun, --suspend, --resume</code> or <code>--terminate</code>. In IPC-mode <strong>stealth</strong>
+communicates with an existing <strong>stealth</strong> daemon, using the Unix Domain Socket defined
+by the <strong>stealth</strong> daemon. These options require but one argument: the location of the
+Unix Domain Socket defined by a running <strong>stealth</strong> daemon.
+    <ul>
+    <li> When started using the <code>--reload &lt;uds&gt;</code> command-line option, the
+stealth daemon that created the Unix Domain Socket reloads its policy file
+(and skip-file), immediately followed by another integrity scan;
+    <li> When started using the <code>--rerun &lt;uds&gt;</code> command-line option, the
+stealth daemon that created the Unix Domain Socket performs another integrity
+scan;
+    <li> When started using the <code>--terminate &lt;usd&gt;</code> command-line option, the
+stealth daemon that created the Unix Domain Socket terminates.
+    </ul>
+<p>
+The options <code>--suspend</code> and <code>--resume</code> (see section <a href="stealth05.html#ROTATE">5.7</a>) were
+implemented to allow safe rotations of <strong>stealth</strong>'s log-files.
+<p>
+<a name="l2"></a>
+<h2>1.1: What's new in Stealth V.4.01.00</h2>
+        With 4.00.00:
+<p>
+<ul>
+    <li> Version 3.00.00 was only short-lived. The inter-process communication
+        using signals never ran smoothly. Version 4.00.00 re-implements <strong>stealth</strong>'s
+        inter-process communication using Unix Domain Sockets.
+    <li> Previously required absolute file paths are no longer required. When
+        relative file paths are used with the <strong>stealth</strong> daemon or with <strong>stealth</strong>
+        performing an integrity scan as foreground process they are
+        interpreted relatively to the current working directory.  Relative
+        file locations for options specified in the second section of the
+        policy file are interpreted relative to the location of the policy
+        file, and relative path specifications used in the first section of
+        the policy file are interpreted relative to the policy file's <code>USE
+        BASE</code>. 
+    <li> The README.flow file is provided with several separately provided
+        illustrative images in the distribution-provided directory
+        <code>documentation/images</code>.
+    <li> Specifications for the logrotate specifications should use
+        '<code>copytruncate</code>' and '<code>sharedscripts</code>' (see section <a href="stealth05.html#ROTATE">5.7</a>
+        for an example)
+    <li> Examples in the manual still use <code>sha1sum</code> when checking hash
+        values. Stronger hash functions (like <code>sha256sum</code>) might be
+        preferred in practice. When updating existing policy files to use
+        <code>sha256sum</code> rather than <code>sha1sum</code> realize that <code>sha256sum's</code>
+        hash values are longer than <code>sha1sum's</code> hash values, and that
+        therefore log files obtained when <code>sha1sum</code> was used are
+        incompatible with log files obtained when <code>sha256sum</code> was used. In
+        practice this means that new log files need to be generated,
+        disregarding any previously geneerated log files.
+    </ul>
+<p>
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth02.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

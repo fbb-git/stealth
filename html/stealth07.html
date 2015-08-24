@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title> <div style="text-align: center">Stealth V. 4.01.00</div> </title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth06.html">Previous Chapter</a>
+    <li> <a href="stealth08.html">Next Chapter</a>
+</ul>
+<hr>
+<a name="USAGE"></a><a name="l45"></a>
+<h1>Chapter 7: Usage info</h1>
+When <strong>stealth</strong> is started without arguments, it provides some help about how
+to start it. A message like the following is produced:
+<p>
+<pre>
+stealth V4.01.00
+SSH-based Trust Enhancement Acquired through a Locally Trusted Host
+Copyright (c) GPL 2005-2015
+
+Usage 1 (activation modes):
+   stealth [options] policy
+Where:
+   [options] - optional arguments (short options between parentheses,
+               option descriptions starting with (C) can only be used
+               on the command-line and are ignored when specified in the
+               policy file).
+      --daemon (-d) &lt;uds&gt;: (C) run as a background (daemon) process.
+               &lt;uds&gt; is the location of the Unix Domain Socket that is
+               used for communication with the stealth daemon process
+      --dry-run: (C) no integrity scans or reloads are performed, but
+               are assumed OK. Remaining tasks are normally performed
+      --log (-L) &lt;file-spec&gt;: log messages are appended to `&lt;file-spec&gt;'.
+               If &lt;file-spec&gt; does not exist, it is first created 
+      --logmail: mail is logged (requires --log or --syslog)
+      --max-size value[BKMG]: files retrieved by GET may at most
+               have `value' bytes (B), Kbytes (K), Mbytes (M), Gbytes (G).
+               By default: 10M; The default unit is `B'
+      --no-mail: mail is not sent. By default mail is sent as configured
+               in the policy-file (--logmail can be specified independently
+               from --no-mail)
+      --parse-policy-file (-p): (C) parse the policy file, no further actions.
+               Specify once to see the numbered commands,
+               twice to see the policy file parsing steps as well.
+               Results to std output.
+      --random-interval (-i) value: start integrity scans within
+               a random interval of `value' seconds (minutes if an `m'
+               is appended to the specified value).
+               Requires --repeat.
+      --repeat value: start an integrity scan every `value' seconds
+               (minutes if an `m' is appended to the specified value).
+      --run-command (-r) value: (C) only execute command #`value'
+               (not available in combination with --daemon)
+      --skip-files (-s) &lt;file-spec&gt;: skip the integrity checks of the
+               files having their absolute path names listed in `&lt;file-spec&gt;'
+      --stdout (-o): messages are (also) written to stdout
+               (not available in combination with --daemon)
+      --syslog: write syslog messages
+      --syslog-facility fac:  syslog facility to use. By default DAEMON
+      --syslog-priority pri:  syslog priority to use. By default NOTICE
+      --syslog-tag tag: identifier prefixed to syslog messages. By
+               default `STEALTH')
+      --time-stamp &lt;type&gt;: the time-stamps to use. By default UTC.
+               (does not apply to syslog-timestamps)
+      --verbosity (-V) value: determines the amount of logged information.
+               Requires --log or --syslog:
+                   0: nothing is logged
+                   1: mode reports and policy commands
+                   2: also: ipc commands and actions
+                   3: also: integrity scan informative messages
+   policy: location of the policy file
+
+Usage 2 (IPC modes, all options are command-line only):
+   stealth {--reload,--rerun,--resume,--suspend,--terminate} &lt;uds&gt;
+Where:
+      --reload: reload a stealth process's policy and skip-file
+                   files
+      --rerun: start an integrity scan
+      --resume: resume stealth after --suspend
+      --suspend: suspend stealth's activities
+                   to continue: --resume; to end: --terminate
+      --terminate: terminate the stealth daemon
+   &lt;uds&gt;: location of the Unix Domain Socket to connect to.
+
+Usage 3 (support mode, all options are command-line only)
+   stealth {--help,--version}
+Where:
+      --help (-h):    provide this help and terminate
+      --version (-v): show version information and terminate
+
+</pre>
+
+<p>
+Note that with the second type of usage the policy file is not required:
+here only the <code>pidfile</code> must be specified.
+<p>
+<hr>
+<ul>
+    <li> <a href="stealth.html">Table of Contents</a>
+    <li> <a href="stealth06.html">Previous Chapter</a>
+    <li> <a href="stealth08.html">Next Chapter</a>
+</ul>
+<hr>
+</body>
+</html>

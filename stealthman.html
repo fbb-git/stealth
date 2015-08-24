@@ -1,0 +1,1010 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>stealth</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<h1>stealth</h1>
+<h2>stealth_4.01.00.tar.gz</h2>
+<h2>2005-2015</h2>
+
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<h1></h1>
+
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>stealth(1)</title>
+<style type="text/css">
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+    figure {text-align: center;}
+    img {vertical-align: center;}
+</style>
+<link rev="made" href="mailto:f.b.brokken@rug.nl">
+</head>
+<body text="#27408B" bgcolor="#FFFAF0">
+<hr>
+<h1>stealth(1)</h1>
+<h2>stealth_4.01.00.tar.gz Security Enhancement</h2>
+<h2>2005-2015</h2>
+
+
+<p>
+<h2>NAME</h2>stealth - Stealthy File Integrity Scanner
+<p>
+<h2>SYNOPSIS</h2>
+    `&lt;uds&gt;' represents the location of the used Unix Domain Socket.<br>
+<p>
+<strong>stealth</strong>  --daemon &lt;uds&gt; --dry-run --log &lt;file-spec&gt; --logmail<br>
+            --max-size &lt;size&gt;[BKMG] --no-mail --parse-policy-file<br>
+            --random-interval &lt;seconds&gt; --repeat &lt;seconds&gt;<br>
+            --skip-files &lt;file-spec&gt; --syslog<br>
+            --syslog-facility &lt;fac&gt; --syslog-priority &lt;pri&gt; 
+                                                    --syslog-tag &lt;tag&gt;<br>
+            --verbosity &lt;value&gt; policy
+<p>
+<strong>stealth</strong>  --dry-run --log &lt;file-spec&gt; --logmail<br>
+            --max-size &lt;size&gt;[BKMG] --no-mail --parse-policy-file<br>
+            --random-interval &lt;seconds&gt; --repeat &lt;seconds&gt;<br>
+            --run-command &lt;nr&gt; --skip-files &lt;file-spec&gt; --stdout --syslog<br>
+            --syslog-facility &lt;fac&gt; --syslog-priority &lt;pri&gt; 
+                                                    --syslog-tag &lt;tag&gt;<br>
+            --verbosity &lt;value&gt; policy
+<p>
+<strong>stealth</strong> {--ping,--reload,--rerun,--resume,--suspend,--terminate} &lt;uds&gt;
+<p>
+<strong>stealth</strong> --help --version
+<p>
+<h2>DESCRIPTION</h2>
+<p>
+The name of the <strong>stealth</strong> program is an acronym of:
+    <blockquote>
+    <strong>SSH-based Trust Enforcement Acquired through a Locally Trusted Host.</strong>
+    </blockquote>
+    <strong>Stealth</strong> is based on an idea by <em>Hans Gankema</em> and <em>Kees Visser</em>, both at
+the Center for Information Technology of the University of Groningen. <em>Hopko
+Meijering</em> provided valuable suggestions for improvement.
+<p>
+<strong>Stealth</strong>'s main task is to perform file integrity tests. However, the
+testing itself will leave no sediments on the tested computer. Therefore,
+<strong>stealth</strong> has <em>stealthy</em> characteristics. This is considered an
+important feature, improving the security (integrity) of the software of
+computers monitored by <strong>stealth</strong>.
+<p>
+Please realize that <strong>stealth</strong> intends to be just another security tool: other
+security measures like firewalls, portscanners, intrusion detection systems,
+dropping unencrypted protocols, etc. are usually required to improve the
+security of a group of computers that are connected to the Internet. <strong>Stealth</strong> is a
+file integrity scanner, and file integrity scanners offer no substitute for
+those tools (and vv.).
+<p>
+<strong>Stealth</strong> uses a policy file to determine the actions to perform. Each
+policy file is uniquely associated with a host being monitored. This host
+(called the <em>client</em> below) trusts the computer on which <strong>stealth</strong> runs, called
+the <em>monitor</em> (hence: a <em>Locally Trusted Host</em>). The monitor
+performs tasks (normally file integrity tests) that <em>Enforce</em> the <em>Trust</em>
+we have in the client computer. Since almost all integrity tests can be run
+on the client, one monitor can control many clients, even if the
+monitor itself uses aged hard- and software components.
+<p>
+As the monitor and the client are (i.e., should be) different computers, the
+monitor must communicate with the client in a secure fashion. This is realized
+through SSH. So, there's another element of `local trust' involved here: the
+client should permit the monitor to set up a secure SSH connection allowing
+the monitor to access sensitive elements in the client's file system.
+<p>
+<strong>It is important to ensure that public access to the monitor is
+prevented. No incoming services should be allowed. The only access to the
+monitor should be via its console and the monitor should be placed in a
+physically secure location. Sensitive information of clients are stored in the
+monitor's file system. To access the clients <strong>stealth</strong> in daemon mode can use a
+passphrase-protected ssh-key, allowing <strong>stealth</strong> to perform its tasks
+thereafter. This, too, makes it important to prevent the monitor from being
+accessed by unauthorized persons.</strong>
+<p>
+If, instead of running <strong>stealth</strong> in deamon mode it is preferred to let <strong>stealth</strong> perform
+single, but automated integrity scans, then new <strong>ssh</strong>(1) connections may be
+difficult to establish if the used ssh-key is passphrase-protected. To
+implement this scenario (i.e., automated integrity scans using passphrase
+protected ssh-keys) the program <strong>ssh-cron</strong>(1) can profitably be used. 
+<p>
+<strong>Stealth</strong>'s current way of connecting to clients uses a single <strong>ssh</strong>(1)
+connection, which results in only a single  <strong>sshd</strong>(1)
+entry in the client's logfiles, which lasts for the duration of <strong>stealth</strong>'s
+run. When using <strong>stealth</strong> in daemon mode this too minimizes the `footprint' <strong>stealth</strong> has
+on the client hosts.
+<p>
+The monitor itself normally only requires two types of outgoing services:
+<strong>SSH</strong> to reach its clients, and some mail transport agent (e.g.,
+<strong>sendmail</strong>(1)) to forward its outgoing mail to some mail-hub.
+<p>
+Here is what happens when <strong>stealth</strong> running using the first synopsis:
+    <ul>
+    <li> First, the <em>policy</em> file is read. For each client a policy file is
+defined, specifying the actions to be performed, and specifying the values of
+several variables used by <strong>stealth</strong>.
+<p>
+<li> If the command-line option <code>--daemon &lt;uds&gt;</code> is specified, <strong>stealth</strong>
+runs as a daemon process, using the Unix Domain Socket (<code>&lt;uds&gt;</code>) for
+communication with <strong>stealth</strong> processes running in IPC mode.
+<p>
+If access to the Unix Domain Socket defined by Stealth running in daemon mode
+should be restricted, it can be defined in a directory with is only accessible
+to the user running Stealth (this will often be the root-user).
+<p>
+When running in daemon mode, <code>--repeat &lt;seconds&gt;</code> may be specified to rerun
+the integrity scan every <code>&lt;seconds&gt;</code> seconds. If an integrity scan is being
+performed when, according to the repeat interval the next integrity scan is
+due, then the current scan is first completed. Once completed, the next
+integrity scan will be performed after <code>seconds</code> seconds.
+<p>
+<li> Next, the monitor opens a command shell on the client using
+<strong>ssh</strong>(1), and a command shell on the monitor computer itself using
+<strong>sh</strong>(1).
+<p>
+<li> Once the command shells are available, commands defined in the policy
+file are executed in their order of appearance. Examples are given
+below. Normally, return values of the programs are tested. When return values
+are to be tested <strong>stealth</strong> terminates when a non-zero return value is sensed. If
+this happens, a message stating the reason why <strong>stealth</strong> terminated is written to
+the report file (and into the mail sent by <strong>stealth</strong>). In some cases (e.g., when the
+report file could not be written), the message is written to the standard
+error stream.
+<p>
+<li> Very often integrity tests can be controlled using <strong>find</strong>(1),
+calling programs like <strong>ls</strong>(1), <strong>sha256sum</strong>(1) or its own <code>-printf</code>
+method to produce file-integrity related statistics. Most of these programs
+write file names at the end of generated lines. This characteristic is used by
+one of <strong>stealth</strong>'s internal routines to detect changes in the generated output. Such
+changes could indicate some harmful intent, like an installed <em>root-kit</em>.
+<p>
+<li> When changes are detected, they are logged in a <em>report file</em>, to
+which information is always appended. <strong>Stealth</strong> never reduces the report file's size
+or rewrites its contents. When information is added to the report file (beyond
+a plain time stamp) the newly added information is e-mailed to a configurable
+e-mail address for further (human) processing. Usually the e-mail is sent to
+the systems manager of the tested client. <strong>Stealth</strong> follows the `dark cockpit'
+approach in the sense that no mail is sent when no changes were detected.
+<p>
+<li> Report and other log-files may safely be rotated between a pair of
+<code>--suppress</code> and <code>--resume</code> commands (see below at the section `REPORT
+FILE ROTATION').
+    </ul>
+<p>
+If <strong>stealth</strong> should not be run as a daemon process the second synopsis can be
+used. In this case <strong>stealth</strong> performs one or more integrity scans (the latter when
+the <code>--repreat</code> option was specified). When a single integrity scan is
+requested <strong>stealth</strong> terminates after the scan. When <code>--repeat</code> is specified <strong>stealth</strong>
+shows a prompt (i.e., `<code>? </code>') and terminates after pressing the
+<code>Enter</code>-key. 
+<p>
+The third synopsys is used for communication with a <strong>stealth</strong> daemon. In this case
+the the Unix Domain Socket defined by the <strong>stealth</strong> daemon process must be
+specified after the option specifying the requested command.
+<p>
+<h2>OPTIONS</h2>
+<p>
+    Short options are provided between parentheses, immediately following
+their long option equivalents. 
+<p>
+Option descriptions showing (C) can only be used on the command-line, and
+are ignored when specified in the second section of the policy file.
+<p>
+In the overview of options `<code>&lt;uds&gt;</code>' represents the name of the
+<em>Unix Domain Socket</em> to use, and `<code>&lt;file-spec&gt;</code>' refers to a (relative or
+absolute) specification of a file location. 
+<p>
+With the first and second synopses relative locations (of the Unix Domain
+Socket and of other file-specifications) are interpreted relative to the
+current working directory.
+<p>
+Command-line options overrule options defined in the policy-file.
+<p>
+<ul>
+    <li> <code>--daemon (-d) &lt;uds&gt;</code>: (C) run as background (daemon)
+        process. When the Stealth daemon process is started, the Unix Domain
+        Socket (tt&lt;uds&gt;) may not already exist. 
+    <li> <code>--dry-run</code>: (C) no integrity scans or reloads are performed, but
+        are assumed OK. Remaining tasks are normally performed;
+    <li> <code>--help (-h)</code>: (C) Display help information and exit;
+    <li> <code>--log (-L) &lt;file-spec&gt;</code>: log messages are appended to
+        `file-spec'. If file-spec does not exist, it is first created;
+    <li> <code>--logmail</code>: mail sent by <strong>stealth</strong> is logged (requires <code>--log</code> or
+        <code>--syslog</code>); 
+    <li> <code>--max-size &lt;size&gt;[BKMG]</code>: files retrieved by <code>GET</code> commands may
+        at most have <code>&lt;size&gt;</code> bytes (B), KBytes (K), MBytes (M), GBytes
+        (G). The default size is 10M, the default unit is B.
+    <li> <code>--no-mail</code>: mail is not sent. By default mail is sent as
+        configured in the policy-file (<code>--logmail</code> can be specified
+        independently from <code>--no-mail</code>);
+    <li> <code>--parse-policy-file (-p)</code>: (C) parse the policy file, after which
+        <strong>stealth</strong> ends.<br>
+        Specify once to see the numbered commands;<br>
+        twice to see the policy file parsing steps as well.<br>
+        Results are written to the std. output.
+    <li> <code>--ping &lt;uds&gt;</code>: (C) performs no actions, but is used to verify that
+        a <strong>stealth</strong> daemon can be reached via its Unix Domain Socket
+        (<code>&lt;uds&gt;</code>). The daemon will respond even if it's currently performing
+        an integrity scan. It is used by the <code>/usr/bin/stealthcron</code> script
+        to verify that a <strong>stealth</strong> daemon is alive.
+    <li> <code>--random-interval (-i) &lt;interval&gt;[m]&gt;</code>: start the scan a random
+        interval of &lt;interval&gt; seconds (or minutes if an `m' is appended (no
+        blanks) to &lt;interval&gt;) following the delay specified at <code>--repeat</code>
+        (see below). This option requires specification of the <code>--repeat</code>
+        and <code>--daemon</code> options;
+    <li> <code>--reload &lt;uds&gt;</code>: (C) reloads the configuration and skip-files
+        and restarts the scan of the <strong>stealth</strong> daemon process. Options defined in
+        the policy file are also reloaded. However, command-line options
+        always take priority over options defined in the policy file, so when
+        command-line options were used when starting <strong>stealth</strong> in daemon mode, they
+        cannot be modified by reloading the policy file.
+    <li> <code>--repeat &lt;seconds&gt;</code>: wake up and perform an integrity scan at
+        interrupts or after <code>&lt;seconds&gt;</code> seconds (or minutes if an `m' is
+        appended (no blanks) to &lt;seconds&gt;) after completing the previous
+        integrity scan. The option <code>--random-interval</code> can be used to add a
+        random delay to <code>&lt;seconds&gt;</code> until the next integrity scan is
+        performed. This option requires specification of the and <code>--daemon</code>
+        option;
+    <li> <code>--rerun &lt;uds&gt;</code>: (C) start executing the integrity scan
+        commands that are specifed in the <strong>stealth</strong> daemon process's policy file;
+    <li> <code>--resume &lt;uds&gt;</code>: (C) resume a suspended <strong>stealth</strong> process, implies
+        <code>--rerun</code>;
+    <li> <code>--run-command (-r) &lt;nr&gt;</code>: (C) Only execute command number &lt;nr&gt;
+        (natural number).  Command numbers are shown by <strong>stealth</strong>
+        <code>---parse-policy-file</code>. This option can only be specified using the
+        second synopsis;
+    <li> <code>--skip-files (-s) &lt;file-spec&gt;</code>: all entries in <code>&lt;file-spec&gt;</code> are
+        skipped. Their integrity is not monitored. If an entry is already
+        present in a log file then <strong>stealth</strong> once generates an <code>IGNORING</code> message
+        in the mail sent to the address specified at <code>EMAIL</code> in the policy
+        file. Each entry mentioned in <code>file-spec</code> must be on a line of
+        its own and must be specified using absolute file paths. Entries
+        ending in a slash are assumed to be directories whose full contents
+        must be skipped. Other entries are interpreted as the names
+        of files to skip. Initial and trailing blanks, empty lines and lines
+        having a <code>#</code> as their 1st non blank character are ignored. Here are
+        some examples:
+            <pre>
+
+        # skip all files in user's Mail directory
+    /home/user/Mail/
+        # skip user's .history file
+    /home/user/.history
+            
+</pre>
+
+    <li> <code>--stdout (-o)</code>: messages are (also) written to the std. output
+        stream (only available with the second synopsis);
+    <li> <code>--suspend &lt;uds&gt;</code>: (C) suspends a currently active <strong>stealth</strong>
+        process. Following <code>--suspend</code> use <code>--resume</code> to re-activate an
+        <strong>stealth</strong> daemon or <code>--terminate</code> to end an <strong>stealth</strong> daemon;
+    <li> <code>--syslog</code>: write syslog messages;
+    <li> <code>--syslog-facility &lt;facility&gt;</code>:  syslog facility to use. By
+        default facility DAEMON is used;
+    <li> <code>--syslog-priority &lt;priority&gt;</code>: syslog priority to use. By
+        default priority NOTICE is used;
+   <li> <code>--syslog-tag &lt;tag&gt;</code>: <code>&lt;tag&gt;</code> specifies the identifier that is
+        prefixed to syslog messages. By default the tag `STEALTH' is used, see
+        also the next section;
+    <li> <code>--terminate &lt;uds&gt;</code>: (C) terminate a currently active <strong>stealth</strong>
+        process;
+    <li> <code>--time-stamp (-t) &lt;type&gt;</code>: the time-stamps to use. By default
+        UTC. To use the local time specify <code>--time-stamp
+        LT</code>. The <code>--time-stamp</code> option does not apply to time-stamps
+        generated by syslog (see also the next section);
+    <li> <code>--usage</code>: (C) Display help information and exit;
+    <li> <code>--verbosity &lt;value&gt;</code>: determines the amount of logged
+        information. Requires options <code>--log</code> or <code>--syslog</code>. Possible
+        values are:<br>
+                         0: nothing is logged<br>
+                         1: (default) mode reports and policy commands<br>
+                         2: also: ipc commands and actions<br>
+                         3: also: integrity scan informative messages
+    <li> <code>--version (-v)</code>: (C) Display <strong>stealth</strong>'s version information and
+        terminate;
+    </ul>
+<p>
+<ul>
+    <li> <code>policy</code>: file specification of the policy file. If a relative
+        location is specified then this location is interpreted relative to
+        the current working directory. <strong>Stealth</strong> converts this relative
+        specification to an absolute file location, and an option like
+        <code>--reload</code> will reload the policy file from the thus determined
+        absolute file path.
+    </ul>
+<p>
+Only one of the options <code>--daemon, --reload, --resume,
+--suspend</code> or <code>--terminate</code> can be specified. The options <code>--reload,
+--rerun, --resume, --suspend,</code> and <code>--terminate</code> ignore any other options.
+<p>
+The following options are still recognized for backward compatibility with <strong>stealth</strong>
+pre-3.00 versions and will be removed in a future <strong>stealth</strong> version. They generate
+error messages suggesting alternatives:
+<p>
+<ul>
+    <li> <code>--echo-commands (-e)</code>:
+            echo commands to std error when they are processed; use <code>--log</code>
+            instead.
+    <li> <code>--keep-alive</code>: run as a daemon; use <code>--daemon</code> instead.
+    <li> <code>--only-stdout</code>: scan report is written to stdout; use
+        <code>--stdout</code> instead.
+    <li> <code>--quiet (-q)</code>: suppresses progress messages written to stderr; use
+        <code>--verbosity 0</code> instead.
+    <li> <code>--suppress &lt;uds&gt;</code>: suppresses a currently active <strong>stealth</strong>
+            process; use <code>--suspend</code> instead.
+    </ul>
+<p>
+The following options were discontinued starting since <strong>stealth</strong> version 3.00.00:
+    <ul>
+    <li> <code>--debug</code> (option <code>--verbosity</code> or <code>--dry-run</code> could be used 
+                    instead);
+    <li> <code>--no-child-processes</code>;
+    <li> <code>--parse-config-file</code>.
+    </ul>
+<p>
+When specifying long options in policy files initial hyphens should be
+omitted. Here are some examples:
+        <pre>
+    %%
+    log /tmp/stealth.log
+    verbosity 3
+</pre>
+
+<p>
+<h2>EXIT STATUS</h2>
+<p>
+When requesting an IPC command or when starting <strong>stealth</strong> as a daemon 0 is
+returned if the command was successfully completed. Otherwise a non-0 value is
+returned.
+<p>
+<h2>OPEN SSH LINK TO CLIENTS</h2>
+<p>
+Once <strong>stealth</strong> has started as a foreground or daemon process performing file
+integrity scans <strong>ssh</strong>(1) is used to connect to the client(s) 
+monitored by <strong>stealth</strong>. While <strong>stealth</strong> runs only one <strong>ssh</strong>(1) connection is opened to
+each client. This connection remains active during <strong>stealth</strong>'s lifetime to minimize
+the number of <strong>sshd</strong> entries in the client's log files.
+<p>
+<h2>THE POLICY FILE</h2>
+<p>
+The policy file consists of two sections, the second section is optional,
+and starts at a line merely containing <code>%%</code>.
+<p>
+The policy file's first section consists of two sets of data: <em>use
+directives</em> (starting with the keyword <strong>USE</strong>) and <em>commands</em>. Blank lines
+and information beyond hash-marks (#) are ignored, while lines following lines
+terminating in backslashes (\) are concatenated (<em>en passant</em> removing these
+trailing backslashes). Leading white space on lines of the policy file is
+ignored.
+<p>
+The (optional) second section starts at a line merely containing
+<code>%%</code>. Following this separating line several long option specifications can
+be entered (see below at section <strong>OPTIONS</strong>). Options specified on the
+command-line take priority over options specified in the policy file. Although
+the <code>--reload</code> option reloads the policy file, it will not change option
+values originally specified as command-line options. This section may contain
+specifications of the <code>skip-files</code> and <code>log</code> options.  Relative file
+locations specified for these options are interpreted relative to the location
+of the policy file. E.g., if the policy file argument is specified as
+<code>/root/client/policy</code> then the specification <code>log: client.log</code> results in
+<strong>stealth</strong> writing its logs into the file <code>/root/client/client.log</code>.
+<p>
+<h2>DEFINE DIRECTIVES</h2>
+<p>
+<strong>DEFINE</strong> directives are used to associate longer strings of text with
+certain symbols. E.g., after
+    <code>DEFINE FINDARGS -xdev -type f -exec /usr/bin/sha256sum {} \;</code>
+    the specification <code>${FINDARGS}</code> may be used in <strong>USE DIRECTIVES</strong> and
+<strong>commands</strong> (see below) to use the text associated with the <strong>FINDARGS</strong>
+symbol.
+<p>
+Note that <strong>DEFINE</strong> symbols may also be used in the definition of 
+other <strong>DEFINE</strong> symbols as well. Direct or indirect circular definitions
+should be avoided, as they are either not or incompletely expanded.
+<p>
+<h2>USE DIRECTIVES</h2>
+<p>
+The following <strong>USE</strong> directives may be specified (directives are written
+in capitals, and should appear exactly as written below: letter casing is
+preserved). Specifications in angular brackets (like <code>&lt;this&gt;</code>) represent
+specifications to be provided  by <strong>stealth</strong>'s users:
+    <ul>
+    <li> <strong>USE BASE</strong> <code>&lt;base-directory&gt;</code><br>
+        <strong>BASE</strong> defines the directory from where <strong>stealth</strong> operates. All subsequent
+relative path specifications in the policy file (including relative path
+specifications in the policy's second part) are interpreted relative to
+<strong>BASE</strong>. <em>By default</em> this is the directory where <strong>stealth</strong> was started. <br>
+    <strong>BASE</strong> and other non-existing paths are created automatically by
+<strong>stealth</strong> if not yet existing.<br>
+    Example:<br>
+    <code>USE BASE /root/client</code>
+<p>
+<li> <strong>USE DD</strong> <code>&lt;dd&gt;</code><br>
+        The <strong>DD</strong> specification uses <code>/bin/dd</code> as default, and defines the
+location of the <strong>dd</strong>(1) program, both on the server and on the client. The
+<strong>DD</strong> program is used to copy files between the client and the monitor
+over the existing ssh-connection. The program specified here is only used by
+<strong>stealth</strong> when executing <code>PUT</code> and <code>GET</code> commands (described below).<br>
+    Example showing the default:<br>
+    <code>USE DD /bin/dd</code>
+<p>
+<li> <strong>USE DIFF</strong> <code>&lt;diff&gt;</code><br>
+        The default <strong>DIFF</strong> specification uses <code>/usr/bin/diff</code>,
+and defines the location of the <strong>diff</strong>(1) program on the monitor. The
+<strong>diff</strong>(1) program is used to compare a formerly created logfile of an
+integrity check with a newly created logfile.<br>
+    Example showing the default:<br>
+    <code>USE DIFF /usr/bin/diff</code>
+<p>
+<li> <strong>USE DIFFPREFIX</strong> <code>&lt;prefix&gt;</code><br>
+        The <strong>DIFFPREFIX</strong> specification defines the size of the prefix added
+by the <code>DIFF</code> command to lines produced by commands executed through <strong>stealth</strong>.
+<p>
+The default <code>/usr/bin/diff</code> program prefixes lines by either `<code>&gt; </code>' or
+`<code>&lt; </code>'. The default value for <code>&lt;prefix&gt;</code> is therefore equal to 2.<br>
+    Example showing the default:<br>
+    <code>USE DIFFPREFIX 2</code>
+<p>
+<li> <strong>USE EMAIL</strong> <code>&lt;address&gt;</code><br>
+        The <strong>EMAIL</strong> specification defines the email-address to receive the
+report of the integrity scan of the client. The `dark cockpit' philosophy is
+followed here: mail is only sent when a modification is detected.<br>
+    Example showing the default (apparently an email address on the
+monitor):<br>
+    <code>USE EMAIL root</code>
+<p>
+<li> <strong>USE MAILER</strong> <code>&lt;mailer&gt;</code><br>
+        The <strong>MAILER</strong> specification defines the program that to send
+e-mail to the <strong>EMAIL</strong>-address. Contrary to <strong>DIFF</strong> and <strong>DD</strong> and (see
+below) <strong>SH</strong> and <strong>SSH</strong>, <strong>MAILER</strong> is run as a <code>/bin/sh</code> command, to
+allow shell-scripts to process the mail too. By default <strong>MAILER</strong> is defined
+as <strong>/usr/bin/mail</strong>. <strong>MAILER</strong> is called with the following
+arguments:<br>
+    ----------------------------------------------------------<br>
+    <strong>MAILARGS</strong>, see below;<br>
+    <strong>EMAIL</strong>, the addressee of the mail.<br>
+    ----------------------------------------------------------<br>
+    Example showing the default:<br>
+    <code>USE MAILER /usr/bin/mail</code>
+<p>
+As an alternative, the script <code>stealthmail</code> is provided. It offers a
+convenient filter sorting <strong>stealth</strong>'s output and keeping only lines containing the
+text <code>ADDED</code>, <code>MODIFIED</code>, <code>REMOVED</code> or <code>STEALTH</code>. Usually these lines
+are the ones system managers are interested in. The report and log files
+can always be consulted to determine the actual nature of the changes.
+<p>
+<li> <strong>USE MAILARGS</strong> <code>&lt;args&gt;</code><br>
+        The <strong>MAILARGS</strong> specification defines the arguments that are passed
+to <code>MAILER</code>, followed by the <code>EMAIL</code> specification.<br>
+    Example showing the default:<br>
+    <code>USE MAILARGS -s "STEALTH scan report"</code><br>
+    Note that blanks may be used in the subject specification: use double or
+single quotes to define elements containing blanks. Use <code>\"</code> to use a double
+quote in a string that itself is delimted by double quotes; use <code>\'</code> to use
+a single quote in a string that itself is delimted by single quotes. 
+<p>
+<li> <strong>USE REPORT</strong> <code>&lt;file-spec&gt;</code><br>
+        <strong>REPORT</strong> defines the name of the reportfile. Information is always
+appended to this file. At each <strong>stealth</strong> integrity scan a <em>time marker line</em> is
+written to the report file. Only when (in addition to the marker line)
+additional information is appended to the report file the added contents of
+the report file are mailed to the mail address specified in the <strong>USE EMAIL</strong>
+specification. When a relative file specification is used it is interpreted a
+location relative to the <code>USE BASE</code> specification.<br>
+    Example showing the default:<br>
+    <code>USE REPORT report</code>
+<p>
+<li> <strong>USE SH</strong> <code>&lt;sh&gt;</code><br>
+        The <strong>SH</strong> specification uses <code>/bin/sh</code> as default, and defines the
+command shell used by the monitor to execute commands on itself. This must be
+an absolute path specification.<br>
+    Example showing the default:<br>
+    <code>USE SH /bin/sh</code>
+<p>
+<li> <strong>USE SSH</strong> <code>&lt;user&gt;</code><br>
+        <strong>The SSH specification has no default</strong>, and <em>must</em> be
+specified. This must be an absolute path specification.  
+<p>
+Assuming the client <em>trusts</em> the monitor (which is after all what this
+program is all about, so this should not be a very strong assumption),
+preferably the public ssh key of the monitor should be placed in the
+client's root <code>.ssh/authorized_keys</code> file, granting the monitor root access
+to the client. Root access is normally needed to gain access to all
+directories and files of the client's file system.
+<p>
+In practice, connecting to an account using the <strong>sh</strong>(1) shell is
+preferred. When another shell is already used by that account, one should make
+sure that its shell doesn't define its own redirections for standard input
+and standard output. One way to accomplish that is for force the execution of
+<code>/bin/sh</code> in the <strong>USE SSH</strong> specification.
+    Examples:
+        <pre>
+    # root's shell is /bin/sh:
+        USE SSH root@client -T -q    
+    # root uses another shell, but the use of /bin/bash is forced:
+        USE SSH root@client -T -q exec /bin/bash    
+    # an alternative:
+        USE SSH root@client -T -q exec /bin/bash --noprofile
+</pre>
+    
+    </ul>
+<p>
+In some installations <strong>stealth</strong> is used to inspect the monitor itself, even
+though this is <em>not</em> recommended, as it breaks one of the main reasons for
+<strong>stealth</strong>'s existence. But in those situations (so, where <strong>stealth</strong> is used to monitor the
+integrity of the <code>localhost</code>), <code>/bin/bash</code> could be specified at the
+<code>USE SSH</code> directive. For example:
+        <pre>
+    # For stealth inspecting localhost:
+        USE SSH /bin/bash --noprofile
+</pre>
+
+<p>
+<h2>COMMANDS</h2>
+<p>
+Following the <strong>USE</strong> specifications, <em>commands</em> can be specified. The
+commands are executed in their order of appearance in the policy
+file. Processing continues until the last command has been processed or until
+a tested command (see below) returns a non-zero return value.
+<p>
+<h2>LABEL COMMANDS</h2>
+<p>
+The following <strong>LABEL</strong> commands are available:
+    <ul>
+    <li> <strong>LABEL</strong> <code>&lt;text&gt;</code><br>
+        This defines a text-label which is written to the <strong>REPORT</strong> file,
+in front of the output generated by the next <strong>CHECK</strong>-command. If the next
+<strong>CHECK</strong>-command generates no output, the text-label is not written to the
+<strong>REPORT</strong>-file. Once a <strong>LABEL</strong> has been defined, it is used until it is
+redefined by the next <strong>LABEL</strong>. Use an empty <strong>LABEL</strong> specification to
+suppress the printing of labels.
+<p>
+The text may contain <code>\n</code> characters (two characters) which are
+transformed to a newline character.
+<p>
+Example:<br>
+    <code>LABEL Inspecting files in /etc\nIncluding subdirectories</code><br>
+    <code>LABEL</code> <br>
+        (In this example the former <strong>LABEL</strong> specification is erased by the
+        latter <strong>LABEL</strong> command).
+    </ul>
+<p>
+<h2>LOCAL COMMANDS</h2>
+<p>
+<strong>LOCAL</strong> commands are executed on the monitor itself:
+    <ul>
+    <li> <strong>LOCAL</strong> <code>&lt;command&gt;</code><br>
+        Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+shell. The command must succeed (i.e., must return a zero exit value). <br>
+    Example:<br>
+    <code>LOCAL scp rootsh@client:/usr/bin/sha256sum /tmp</code><br>
+    This command copies the client's <strong>sha256sum</strong>(1) program to the
+monitor.
+<p>
+<li> <strong>LOCAL NOTEST</strong> <code>&lt;command&gt;</code><br>
+        Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+shell. The command may or may not succeed.<br>
+    Example:<br>
+    <code>LOCAL NOTEST mkdir /tmp/subdir</code><br>
+    This command creates <code>/tmp/subdir</code> on the monitor. The command fails
+if the directory cannot be created, but this does not terminate <strong>stealth</strong>.
+<p>
+<li> <strong>LOCAL CHECK</strong> [<strong>LOG =</strong>] <code>&lt;file-spec&gt; [pathOffset]
+                                                            &lt;command&gt;</code><br>
+        Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+shell. The command must succeed. The output of this command is compared to the
+output of this command generated during the previous integrity check run by
+<strong>stealth</strong>.
+<p>
+The phrase <strong>LOG =</strong> is optional. When a relative file location is
+specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+path specification. 
+<p>
+<code>PathOffset</code> is also optional. If specified it defines the (0-based)
+offset where path-names of inspected files start in lines produced by
+<code>&lt;command&gt;</code>. By default <strong>stealth</strong> assumes that the first occurrence of a forward
+slash defines the first character of the path-names of inspected files.
+<p>
+For example, if diff-output looks like this:
+        <pre>
+    01234567890123456789012345678901234567890 (column offsets)
+    33c33
+    &lt; 90d8b506d249634c4ff80b9018644567  filename-specification
+    ---
+    &gt; b88d0b77db74cc4a742d7bc26cdd2a1e  filename-specification
+</pre>
+
+    then the specification
+        <pre>
+    LOCAL CHECK logfile 36 command-to-be-executed
+</pre>
+
+    informs <strong>stealth</strong> where to find the filename specifications in the
+diff-output. Using the standard <code>/usr/bin/diff</code> command, this offset equals
+2 + the offset of the <code>filename-specification</code> found in
+<code>command-to-be-executed</code>. 
+<p>
+Any differences between the previous and current output are written to
+<strong>REPORT</strong>. If differences were found, the existing <code>logfile</code> name is
+renamed to <code>logfile.YYMMDD-HHMMSS</code>, with <code>YYMMDD-HHMMSS</code> the
+(UTC) datetime-stamp at the time <strong>stealth</strong> was run.
+<p>
+Note that eventually many <code>logfile.YYMMDD-HHMMSS</code> files could be
+created: It is up to the monitor's systems manager to decide what to do
+with old datetime-stamped logfiles.
+<p>
+The <code>logfile</code> specifications may use relative and absolute paths. When
+relative paths are used, these paths are relative to <strong>BASE</strong>. When the
+directories implied by the <code>logfile</code> specifications do not yet exist, they
+are created first.
+<p>
+Example:<br>
+    <code>LOCAL CHECK LOG = local/sha256sum sha256sum /tmp/sha256sum</code><br>
+    This command checks the SHA256 sum of the <code>/tmp/sha256sum</code> program. The
+resulting output is saved at <strong>BASE</strong><code>/local/sha256sum</code>. The program must
+succeed (i.e., <code>sha256sum</code> must return a zero exit-value).
+<p>
+<li> <strong>LOCAL NOTEST CHECK</strong> <code>&lt;logfile&gt;  [pathOffset] &lt;command&gt;</code><br>
+        Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+shell. The command may or may not succeed. Otherwise, the command performs
+exactly like the <strong>LOCAL CHECK ...</strong> command, discussed above.
+<p>
+Example:<br>
+    <code>LOCAL NOTEST CHECK LOG=local/sha256sum sha256sum /tmp/sha256sum</code><br>
+    This command checks the SHA256 sum of the <code>/tmp/sha256sum</code> program. The
+resulting output is saved at <strong>BASE</strong><code>/local/sha256sum</code>. The program must
+succeed (i.e., <code>sha256sum</code> must return a zero exit-value).
+    </ul>
+<p>
+Note that the <strong>scp</strong>(1) command can be used to copy files between the
+client and the monitor, using a local command. This, however, is
+discouraged, as a separate <strong>ssh</strong>(1)-connection is required for each separate
+<strong>scp</strong>(1) command. This subtlety was brought to the author's attention by
+Hopko Meijerink (<code>h.meijering@rug.nl</code>). 
+<p>
+To copy files between the client and the monitor, the <code>GET</code> and
+<code>PUT</code> commands (described below) should be used instead, as these commands
+use the existing <strong>ssh</strong>(1) connection. In general, <code>LOCAL</code> commands should
+not be used to establish additional <strong>ssh</strong>(1) connections to a client.
+<p>
+<h2>REMOTE COMMANDS</h2>
+<p>
+Remote commands are commands executed on the client using the <strong>SSH</strong>
+shell. These commands are executed using the standard <code>PATH</code> set for the
+<strong>SSH</strong> shell. However, it is advised to specify the full pathname to the
+programs to be executed, to prevent ``trojan approaches'' where a trojan horse
+is installed in an `earlier' directory of the <code>PATH</code>-specification than the
+intended program.
+<p>
+Two special remote commands are <code>GET</code> and <code>PUT</code>, which can be used to
+copy files between the client and the monitor.  Internally, <code>GET</code> and
+<code>PUT</code> use the <code>DD</code> specification. If a non-default specification is
+used, one should ensure that the alternate program accepts <strong>dd</strong>(1)'s <code>if=,
+of=, bs=</code> and <code>count=</code> options. With <code>GET</code> the options <code>bs=, count=</code> and
+<code>of=</code> are used, with <code>PUT</code> the options <code>bs=, count=</code> and <code>if=</code> are
+used. Normally there should be no need to alter the default <code>DD</code>
+specification.
+<p>
+The <code>GET</code> command may be used as follows:
+    <ul>    
+    <li> <strong>GET</strong> <code>&lt;client-path&gt; &lt;local-path&gt;</code><br>
+    Copy the file indicated by <code>client-path</code> at the client to <code>local-path</code>
+at the monitor. Here, <code>client-path</code> must be the full path of an existing
+file on the client, <code>local-path</code> may either be a local directory, in which
+case the client's file name is used, or another file name may be specified, in
+which case the client's file is copied to the specified local filename. If the
+local file already exists, it is overwritten by the copy-procedure.
+<p>
+Example:<br>
+    <code>GET /usr/bin/sha256sum /tmp</code><br>
+    The program <code>/usr/bin/sha256sum</code>, available at the client, is copied to the
+monitor's <code>/tmp</code> directory. If, for whatever reason, copying fails, then
+<strong>stealth</strong> terminates.
+<p>
+<li> <strong>GET NOTEST</strong> <code>&lt;client-path&gt; &lt;local-path&gt;</code><br>
+    Copy the file indicated by <code>client-path</code> at the client to <code>local-path</code>
+at the monitor. Again, <code>client-path</code> must be the full path of an existing
+file on the client, <code>local-path</code> may either be a local directory, in which
+case the client's file name is used, or another file name may be specified, in
+which case the client's file is copied to the specified local filename. If the
+local file already exists, it is overwritten by the copy-procedure.
+<p>
+Example:<br>
+    <code>GET NOTEST /usr/bin/sha256sum /tmp</code><br>
+    The program <code>/usr/bin/sha256sum</code>, available at the client, is copied to the
+monitor's <code>/tmp</code> directory. Remaining commands in the policy file are
+executed, even if the copying process wasn't successful.
+    </ul>
+<p>
+The <code>PUT</code> command may be used as follows:
+    <ul>    
+    <li> <strong>PUT</strong> <code>&lt;local-path&gt; &lt;remote-path&gt;</code><br>
+    Copy the file indicated by <code>local-path</code> at the monitor to
+<code>remote-path</code> at the client. The argument <code>local-path</code> must be the
+full path of an existing file on the monitor. The argument <code>remote-path</code>
+must be the full path to a file on the client. If the remote file already
+exists, it is overwritten by <code>PUT</code>.
+<p>
+Example:<br>
+    <code>PUT /tmp/sha256sum /usr/bin/sha256sum</code><br>
+    The program <code>/tmp/sha256sum</code>, available at the monitor, is copied to the
+client as <code>usr/bin/sha256sum</code>. If the copying fails, <strong>stealth</strong> terminates.
+<p>
+<li> <strong>PUT NOTEST</strong> <code>&lt;local-path&gt; &lt;remote-path&gt;</code><br>
+    Copy the file indicated by <code>local-path</code> at the monitor to
+<code>remote-path</code> at the client. The argument <code>local-path</code> must be the
+full path of an existing file on the monitor. The argument <code>remote-path</code>
+must be the full path to a file on the client. If the remote file already
+exists, it is overwritten by <code>PUT</code>.
+<p>
+Example:<br>
+    <code>PUT NOTEST /tmp/sha256sum /usr/bin/sha256sum</code><br>
+    Copy the file indicated by <code>local-path</code> at the monitor to
+<code>remote-path</code> at the client. The argument <code>local-path</code> must be the full
+path of an existing file on the monitor. The argument <code>remote-path</code> must
+be the full path to a file on the client. If the remote file already exists,
+it is overwritten by <code>PUT</code>. Remaining commands in the policy file are
+executed, even if the copying process wasn't successful.
+    </ul>
+<p>
+Plain commands can be executed on the client computer by merely specifying
+them. Of course, this implies that programs on the client which are named,
+e.g., <code>LABEL</code>, <code>LOCAL</code> or <code>USE</code>, cannot be executed, since these names
+are interpreted otherwise by <strong>stealth</strong>. It's unlikely that this restriction presents
+much of a problem....
+<p>
+The following commands are available for execution on the client:
+    <ul>
+    <li> <code>&lt;command-path&gt;</code><br>
+        Execute <code>command-path</code> on the client using the <strong>SSH</strong> command shell
+(it is strongly advised to specify a full path to the command to execute). The
+command must succeed (i.e., must return a zero exit value). However, any
+output generated by the the command is ignored. <br>
+    Example:<br>
+    <code>/usr/bin/find /tmp -type f -exec /bin/rm {} \;</code><br>
+    This command removes all ordinary files in and below the client's
+<code>/tmp</code> directory.
+<p>
+<li> <strong>NOTEST</strong> <code>&lt;command-path&gt;</code><br>
+        Execute <code>command-path</code> on the client, using the <strong>SSH</strong> command
+shell. The command may or may not succeed.<br>
+    Example:<br>
+    <code>NOTEST /usr/bin/find /tmp -type f -exec /bin/rm {} \;</code><br>
+    Same as the previous command, but this time the exit value of
+<code>/usr/bin/find</code> is not interpreted.
+<p>
+<li> <strong>CHECK</strong> [<strong>LOG =</strong>] <code>&lt;file-spec&gt;  [pathOffset] 
+                                                        &lt;command-path&gt;</code><br>
+        Execute <code>command-path</code> on the client, using the <strong>SSH</strong> command
+shell.
+<p>
+The phrase <strong>LOG =</strong> is optional. When a relative file location is
+specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+path specification. 
+<p>
+<code>PathOffset</code> is also optional, and has the same meaning
+as for the <code>LOCAL CHECK</code> command, described above. The command must
+succeed. The output of this command is compared to the output of this command
+generated during the previous run of <strong>stealth</strong>. Any differences are written to
+<strong>REPORT</strong>. If differences were found, the existing <code>logfile</code> name is
+renamed to <code>logfile.YYMMDD-HHMMSS</code>, with <code>YYMMDD-HHMMSS</code> the
+datetime-stamp at the time <strong>stealth</strong> was run.
+<p>
+Note that the command is executed on the client, but the logfile is kept
+on the monitor. This command represents the core of the method implemented
+by <strong>stealth</strong>: there will be no residues of the actions performed by <strong>stealth</strong> on
+the client computers.
+<p>
+Several examples (note the use of the backslash as line continuation
+characters):
+<p>
+<code>CHECK LOG = remote/ls.root \</code><br>
+<code>    /usr/bin/find / \</code><br>
+<code>    -xdev -perm /6111 -type f -exec /bin/ls -l {} \;</code>
+<p>
+All suid/gid/executable files on the same device as the root-directory (/)
+on the client computer are listed with their permissions, owner and size
+information. The resulting listing is written on the file
+<strong>BASE</strong><code>/remote/ls.root</code>.
+<p>
+<code>CHECK remote/sha256.root \</code><br>
+<code>    /usr/bin/find / \</code><br>
+<code>    -xdev -perm /6111 -type f -exec /usr/bin/sha256sum {} \;</code>
+<p>
+The SHA256 checksums of all suid/gid/executable files on the same device as
+the root-directory (/) on the client computer are determined.  The resulting
+listing is written on the file <strong>BASE</strong><code>/remote/sha256.root</code>.
+<p>
+<li> <strong>NOTEST CHECK</strong> [<strong>LOG =</strong>] <code>&lt;file-spec&gt; [pathOffset] 
+                                                        &lt;command-path&gt;</code><br>
+        Execute <code>command-path</code> on the client, using the <strong>SSH</strong> command
+shell. 
+<p>
+The phrase <strong>LOG =</strong> is optional. When a relative file location is
+specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+path specification. 
+<p>
+<code>PathOffset</code> is also optional, and has the same meaning as for the <code>LOCAL
+CHECK</code> command, described above. The command may or may not
+succeed. Otherwise, the program acts identically as the <strong>CHECK ...</strong> command,
+described above.
+<p>
+Example:<br>
+<code>NOTEST CHECK LOG = remote/sha256.root \</code><br>
+<code>    /usr/bin/find / \</code><br>
+<code>    -xdev -perm /6111 -type f -exec /usr/bin/sha256sum {} \;</code>
+<p>
+The SHA256 checksums of all suid/gid/executable files on the same device as
+the root-directory (/) on the client computer are determined.  The resulting
+listing is written on the file <strong>BASE</strong><code>/remote/sha256.root</code>. <strong>stealth</strong> does not
+terminate if the <code>/usr/bin/find</code> program returns a non-zero exit value.
+    </ul>
+<p>
+The maximum download size (using GET or CHECK) can be specified using the
+<code>--max-size</code> option, see below. By default this size is set at 10M.
+<p>
+<h2>REPORT FILE ROTATION</h2>
+    Since <strong>stealth</strong> only appends information to the report file, the report file's
+size may eventually become prohibitively large, and log-rotation may be
+desirable. It is of course possible to issue a <code>--terminate</code> command, rotate
+the logfiles, and restart <strong>stealth</strong>, but <strong>stealth</strong> also offers a facility to temporarily
+suspend integrity scans performed by a <strong>stealth</strong> daemon process:
+    <ul>
+    <li> Calling <strong>stealth</strong> with the option <code>--suspend &lt;uds&gt;</code> suspends the
+            daemon's integrity scans. If <strong>stealth</strong> is
+            actually performing a series of integrity scans when
+            <code>--suspend</code> is issued, the currently executing command is first
+            completed after which the <code>--suspend</code> command completes. Once
+            the <strong>stealth</strong> daemon has been suspended, automatic or explicit
+            integrity scan requests are denied, and the daemon can only be
+            instructed to resume its scanning tasks (<strong>stealth</strong> --resume &lt;uds&gt;)
+            or to terminate (<strong>stealth</strong> --terminate &lt;uds&gt;).
+<p>
+<li> Once `<strong>stealth</strong> <code>--suspend &lt;uds&gt;</code>' has returned, the report file
+            may safely be rotated (using, e.g., <strong>logrotate</strong>(1)), and a new
+            (empty) report file may optionally be created by the logrotation
+            process.
+<p>
+<li> Once the log-rotation has been completed, the log-rotation process
+            should issue the command `<strong>stealth</strong> <code>--resume &lt;uds&gt;</code>'. This
+            resumes the activities of a suspended <strong>stealth</strong> daemon process,
+            immediately performing the next integrity scan. Following this the
+            <strong>stealth</strong> daemon is back to its original integrity scanning mode.
+    </ul>
+    Here is an example of <strong>logrotate</strong>(1) specification rotating <strong>stealth</strong>
+log-files:
+        <pre>
+
+/root/stealth/clienthost/small/report /var/log/stealth/clienthost-small.log {
+    daily
+    rotate 4
+    compress
+    missingok
+    copytruncate
+    sharedscripts
+    prerotate
+        /usr/bin/stealth --suspend /root/stealth/client/small.uds
+    endscript
+    postrotate 
+        /usr/bin/stealth --resume /root/stealth/client/small.uds
+    endscript 
+}
+    
+</pre>
+
+<p>
+<h2>RELOAD, RERUN AND TERMINATE</h2>
+<p>
+Here is what happens when <strong>stealth</strong> is run using the third synopsis:
+<p>
+<ul>
+    <li> When started as <strong>stealth</strong> <code>--reload &lt;uds&gt;</code>, the <strong>stealth</strong> daemon process
+        reloads its policy file and (if specified) <code>--skip-files</code>
+        specification file. Next the <strong>stealth</strong> daemon process performs a file
+        integrity scan using the information in the re-read policy and
+        skip-files files. <strong>Stealth</strong> can reload the (modified) contents of the
+        originally specified policy- and skip-files names. If another policy
+        and/or skip-files files must be used another <strong>stealth</strong> process must be
+        started, for which these new filenames are specified.
+<p>
+<li> When started as <strong>stealth</strong> <code>--rerun &lt;uds&gt;</code>, the <strong>stealth</strong> daemon performs
+        another scan (unless it has been suspended using <strong>stealth</strong> <code>--suspend
+        &lt;uds&gt;</code>).
+<p>
+<li> When started as <strong>stealth</strong> <code>--terminate &lt;uds&gt;</code>, the <strong>stealth</strong> daemon is
+        terminated.
+    </ul>
+<p>
+<h2>RSYSLOG FILTERING</h2>
+<p>
+    When using <strong>rsyslogd</strong>(1) property based filters may be used to filter
+syslog messages and write them to a file of your choice. E.g., to filter
+messages starting with the syslog message tag (e.g., <code>STEALTH</code>) use
+        <pre>
+
+:syslogtag, isequal, "STEALTH:"   /var/log/stealth.log
+:syslogtag, isequal, "STEALTH:"   stop
+        
+</pre>
+
+    Note that the colon is part of the tag, but is not specified with the 
+<code>syslog-tag</code> option.
+<p>
+This causes all messages having the <code>STEALTH:</code> tag to be written on
+<code>/var/log/stealth.log</code> after which they are discarded. More extensive
+filtering is also supported, see, e.g.,
+<code>http://www.rsyslog.com/doc/rsyslog_conf_filter.html</code> and
+<code>http://www.rsyslog.com/doc/property_replacer.html</code>
+<p>
+Time stamps written by <code>rsyslogd</code> are not controlled by <strong>stealth</strong>'s
+<code>--time-stamp</code> option, but, e.g., by a <code>TZ</code> specification in
+<code>/etc/default/rsyslog</code>. Simply add the line
+    <pre>
+    export TZ=UTC
+</pre>
+
+ to <code>/etc/default/rsyslog</code>, followed by restarting <code>rsyslogd</code> configures
+<code>rsyslogd</code> to generate time stamps using UTC.
+<p>
+<h2>DEPLOYMENT SUMMARY</h2>
+    The following summarizes the advised steps to perform when installing
+    stealth. All these steps are elaborated upon in <strong>stealth</strong>'s <em>User Guide</em>
+        (chapter <em>Running `stealth'</em>): 
+    <ul>
+    <li> Install <strong>stealth</strong> (e.g., use <strong>dpkg</strong>(1) to install the <strong>.deb</strong> file);
+    <li> Construct one or more policy files;
+    <li> Automate (re)starting <strong>stealth</strong> using <strong>cron</strong>(1) or <strong>ssh-cron</strong>(1)
+        (possibly calling <strong>stealthcron</strong>);
+    <li> Set up automated log-file rotation, using, e.g., <strong>stealthcleanup</strong>
+        and <strong>logrotate</strong>(1), defining one or more
+        <code>/etc/logrotate.d/stealth...</code> configuration files.
+    </ul>
+<p>
+<h2>FILES</h2>
+<p>
+<code>/usr/share/doc/stealth/</code>;<br>
+    the <code>policy</code> file;<br>
+    files under the <strong>BASE</strong> directory as defined in the <code>policy</code> file;<br>
+    the report file as defined by the policy's <strong>USE REPORT</strong> directive.
+<p>
+<h2>SEE ALSO</h2> 
+   <strong>cron</strong>(1), <strong>dd</strong>(1), <strong>diff</strong>(1), <strong>dpkg</strong>(1), <strong>find</strong>(1),
+    <strong>logrotate</strong>(1), <strong>ls</strong>(1), <strong>mail</strong>(1), <strong>sha256sum</strong>(1), <strong>passwd</strong>(5),
+    <strong>rsyslog</strong>(1), <strong>sendmail</strong>(1), <strong>sh</strong>(1), <strong>ssh</strong>(1), <strong>ssh-cron</strong>(1)
+<p>
+<h2>DIAGNOSTICS</h2>
+       By default, executed commands are echoed to stderr. Use <strong>-q</strong> to
+suppress this echoing.
+<p>
+<h2>BUGS</h2>
+<p>
+None reported
+<p>
+<h2>COPYRIGHT</h2>
+    This is free software, distributed under the terms of the `GNU General
+Public License'. Copyright remains with the author. <strong>Stealth</strong> is found at
+<code>https://fbb-git.github.io/stealth/</code>.
+<p>
+<h2>ORGANIZATION</h2>
+    Center for Information Technology, University of Groningen.
+<p>
+<h2>AUTHOR</h2>
+    Frank B. Brokken (<strong>f.b.brokken@rug.nl</strong>).
