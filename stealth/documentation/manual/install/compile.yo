@@ -12,7 +12,7 @@ its contents are:
     itemization(
     it() S() compilation is controlled by bf(icmake)(1). The program
 maintenance utility bf(icmake)(1) can be obtained at
-lurl(http://icmake.sourceforge.net/), and it is also available in several
+lurl(https://fbb-git.github.io/icmake/), and it is also available in several
 Linux distributions (e.g., Debian, Ubuntu);
 
     it() Determine a directory where the files in s()'s archive ashould be
@@ -34,10 +34,10 @@ verify that all tt(#defines) match your computer's file system and
 software. 
 
     When compiling s(), the
-url(bobcat)(http://bobcat.sourceforge.net/) header files must be
+url(bobcat)(https://fbb-git.github.io/bobcat/) header files must be
 available. When s() is run it is dynamically linked against the bobcat
 library. bf(Bobcat) can be downloaded from 
-lurl(http://sourceforge.net/projects/bobcat/) (and follow its installation
+lurl(https://github.com/fbb-git/bobcat/) (and follow its installation
 instructions). Alternatively, bobcat may be available in your distribution,
 (e.g.,  Debian or Ubuntu). Make sure to install both the run-time
 (bf(bobcat_...))  and the development (bf(bobcat-dev_...)) versions.

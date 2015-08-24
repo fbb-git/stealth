@@ -762,7 +762,7 @@ manpagebugs()
 manpagesection(COPYRIGHT)
     This is free software, distributed under the terms of the `GNU General
 Public License'. Copyright remains with the author. S() is found at
-tt(http://stealth.sourceforge.net/).
+tt(https://fbb-git.github.io/stealth/).
 
 manpagesection(ORGANIZATION)
     Center for Information Technology, University of Groningen.

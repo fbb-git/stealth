@@ -11,9 +11,9 @@ following steps:
 the files tt(INSTALL.cf) and tt(icmconf);
     it() Install a recent Gnu tt(g++) compiler;
     it() Install the bobcat library (both the binary and development version)
-(lurl(http://bobcat.sourceforge.net));
+(lurl(https://fbb-git.github.io/bobcat/));
     it() Install  the tt(icmake) program
-(lurl(http://icmake.sourceforge.net));
+(lurl(https://fbb-git.github.io/icmake/));
     it() Run `tt(./build program strip)' to compile s();
     it() Run (probably as root) `tt(./build install program)' to install;
     it() Optionally install documentation. See section ref(COMPILING).

@@ -1,0 +1,8 @@
+void github()
+{
+    run("cp -r release.yo tmp/manhtml/stealthman.html "
+        "tmp/manual/pdf/stealth.pdf tmp/manual/html ../../wip");
+    run("cp changelog ../../wip/changelog.txt");
+    
+    exit(0);
+}
