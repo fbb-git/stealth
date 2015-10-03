@@ -20,7 +20,7 @@ tgz()
 
 case "$1" in 
     (d)
-        tgz ~/git/tarballs/${PROJECT}_${VERSION}.orig.tar.gz
+        tgz ../tarballs/${PROJECT}_${VERSION}.orig.tar.gz
     ;;
 
     (l|u)
