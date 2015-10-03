@@ -1,109 +1,127 @@
-string setWhere(string where, string defaultWhere)
+
+void install(string request, string dest)
 {
-    if (where == "")
-        where = defaultWhere;
+    string target;
+    int components = 0;
+    list pathsplit;
+    string base;
+    base = "tmp/install/";
 
-    md(where);
-    return where;
-}
+    md(base);
 
-void install(string what, string where)
-{
-    string path;
-
-    if (what == "program")
+    if (request == "x")
+        components = 63;
+    else 
     {
-        if (where == "")
-            where = BINARY;
-
-        path = get_path(where);
-        if (path != "")
-            md(path);
-
-        printf("  INSTALLING the executable `", where, "'\n");
-        run("icmbuild install program " + where);
-        exit(0);
+        if (strfind(request, "a") != -1)
+            components |= 1;
+        if (strfind(request, "b") != -1)
+            components |= 2;
+        if (strfind(request, "d") != -1)
+            components |= 4;
+        if (strfind(request, "m") != -1)
+            components |= 8;                
+        if (strfind(request, "u") != -1)
+            components |= 32;
     }
 
-    if (what == "man")
+    if (components & 1)
     {
-        where = setWhere(where, MAN);
+        target = base + ADD "/";
 
-        printf("  INSTALLING the manual page at `", where, "'\n");
-        run("gzip -9 < tmp/man/" PROJECT ".1 > " + where + "/" PROJECT ".1.gz");
-        exit(0);
-    }
+        printf("\n  installing additional documentation\n");
 
-    if (what == "manual")
-    {
-        where = setWhere(where, MANUAL);
+        printf("  installing README files and ACKNOWLEDGEMENTS at `", 
+                                                            target, "\n");
+        logZip("", "README", target);
+        logZip("", "README.3.00.00", target);
+        logZip("", "ACKNOWLEDGEMENTS", target);
 
-        printf("  INSTALLING the manual at `", where, "'\n");
-        run("cp -r tmp/manual " + where);
-        exit(0);
-    }
-
-    if (what == "std")
-    {
-        where = setWhere(where, STD);
-
-        printf("  INSTALLING the changelog at `", where, "\n");
-        run("gzip -9 < changelog > " + where + "/changelog.gz");
-    
-        printf("  INSTALLING the html-manual page at `", where, "'\n");
-        run("cp tmp/manhtml/" PROJECT "man.html " + where);
-
-        printf("  INSTALLING logrotate mold  as `", 
-                    where, "/scripts/etc/logrotate.d/target.gz'\n");
-        md(where + "/scripts/etc/logrotate.d");
-        run("gzip -9 < share/etc/logrotate.d/target > " + 
-                    where + "/scripts/etc/logrotate.d/target.gz");
-
-        printf("  INSTALLING cleanup script as `", 
-                    where, "/scripts/etc/stealth/cleanup.rc.gz'\n");
-        md(where + "/scripts/etc/stealth");
-        run("gzip -9 < share/etc/stealth/cleanup.rc > " + 
-                where + "/scripts/etc/stealth/cleanup.rc.gz");
-
-        printf("  INSTALLING additional scripts at `", 
-                        where, "/scripts/usr/bin'\n");
-        md(where + "/scripts/usr/bin");
-        run("gzip -9 < share/usr/bin/stealthcleanup > " + 
-                where + "/scripts/usr/bin/stealthcleanup.gz");
-        run("gzip -9 < share/usr/bin/stealthcron > " + 
-                where + "/scripts/usr/bin/stealthcron.gz");
-        run("gzip -9 < share/usr/bin/stealthmail > " + 
-                where + "/scripts/usr/bin/stealthmail.gz");
-
-        exit(0);
-    }
-
-    if (what == "extra")
-    {
-        where = setWhere(where, EXTRA);
-
-        printf("  INSTALLING the changelog at `", where, "'\n");
-        run("gzip -9 < changelog > " + where + "/changelog.gz");
-
-        printf("  INSTALLING README and ACKNOWLEDGEMENTS at `", where, "\n");
-        run("cp README README.3.00.00 ACKNOWLEDGEMENTS " + where);
+        printf("  installing cross-reference at `", target, "'\n");
+        logZip("", "stealth.xref", target);
  
-        printf("  INSTALLING examples at `", where, "'\n");
-        md(where + "/examples");
-        run("gzip -9 < documentation/example-policies/demo.pol > " + 
-                                        where + "/examples/demo.pol.gz");
-        run("gzip -9 < documentation/example-policies/localhost.pol > " + 
-                                        where + "/examples/localhost.pol.gz");
-        run("gzip -9 < documentation/example-policies/simple.pol > " + 
-                                        where + "/examples/simple.pol.gz");
 
-        printf("  INSTALLING CROSS REFERENCE INFO at `", where, "\n");
-        run("gzip -9 < stealth.xref > " + where + "/stealth.xref.gz");
+        target += "examples/";
+        printf("  installing examples at `", target, "'\n");
+        logZip("documentation/example-policies/", "demo.pol", target);
+        logZip("documentation/example-policies/", "localhost.pol", target);
+        logZip("documentation/example-policies/", "simple.pol", target);
     }
+
+    if (components & 2)
+    {
+        target = base + BINARY;
+        pathsplit = path_file(target);
+
+        printf("  installing the executable `", target, "'\n");
+        logFile("tmp/bin", "binary", pathsplit[0], pathsplit[1]);
+    }
+
+
+    if (components & (4 | 8))
+    {
+        target = base + DOC "/";
+        if (components & 4)
+        {
+            printf("  installing the changelog at `", target, "\n");
+            logZip("", "changelog", target );
+
+            printf("  installing the logrotate mold  as `", 
+                    target, "/scripts/etc/logrotate.d/target.gz'\n");
+            logZip("share/etc/logrotate.d/", "target", 
+                            target + "scripts/etc/logrotate.d/");
+
+            printf("  installing the cleanup script as `", 
+                            target, "/scripts/etc/stealth/cleanup.rc.gz'\n");
+            logZip("share/etc/stealth/", "cleanup.rc", 
+                                        target + "scripts/etc/stealth/");
+
+            printf("  installing additional scripts at `", 
+                            target, "/scripts/usr/bin'\n");
+
+            logZip("share/usr/bin/", "", target + "scripts/usr/bin/");
+        }
+
+        if (components & 8)
+        {
+            printf("  installing the html-manual pages at `", target, "\n");
+            logInstall("tmp/manhtml", "", target);
+        }
+    }
+
+
+    if (components & 8)
+    {
+        target = base + MAN "/";
+        printf("  installing the manual pages below `", target, "'\n");
+    
+        logZip("tmp/man", "stealth.1", target);
+    }
+
+    if (components & 32)
+    {
+        target = base + UGUIDE "/";
+        printf("  installing the user-guide at `", target, "'\n");
+        logZip("tmp/manual/LaTeX", "", target + "LaTeX/");
+        logZip("tmp/manual/pdf", "", target + "pdf/");
+        logInstall("tmp/manual/html", "", target + "html/");
+    }
+
+
+    chdir(g_cwd);
+    if (dest == "")
+        dest = "/";
+    else
+        md(dest);
+
+    dest = cutEoln(backtick("realpath " + dest)[0]);
+
+    if (g_logPath != "")
+        backtick("icmake/log " + dest + " " + g_logPath);
+
+    run("tar cf - -Ctmp/install . | tar xf - -C" + dest);
+
+    printf("\n  Installation completed\n");
 
     exit(0);
 }
-
-
-
-

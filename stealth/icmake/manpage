@@ -6,10 +6,8 @@ void manpage()
 
     chdir("documentation/man");
 
-    if (PROJECT ".yo" younger MANPAGE || "release.yo" younger MANPAGE)
-    {
-        run("yodl2man  -o " MANPAGE " "  PROJECT);
-        run("yodl2html  -o ../../tmp/manhtml/" PROJECT "man.html " PROJECT);
-    }
+    run("yodl2man  -o " MANPAGE " "  PROJECT);
+    run("yodl2html  -o ../../tmp/manhtml/" PROJECT "man.html " PROJECT);
+
     exit(0);
 }

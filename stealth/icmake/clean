@@ -3,12 +3,12 @@ void clean(int dist)
     run("rm -rf "
             "build-stamp configure-stamp "
             "options/SKEL "
-            "tmp/*.o tmp/*-stamp tmp/usage* " + 
+            "tmp/*.o tmp/usage* " + 
             "o */o release.yo tmp/lib*.a "    
     );
 
     if (dist)
-        run("rm -rf tmp");
+        run("rm -rf tmp *.ih.gch */*.ih.gch");
 
     exit(0);
 }

@@ -20,61 +20,28 @@ void manual()
     chdir("documentation/manual");
 
         // create the html version of the manual
-
-    files = makelist("*.yo") + makelist("*/*.yo");  
-
-    #define MANUALSTAMP   "../../tmp/manual-stamp"
-    for (idx = sizeof(files); idx--; )
-    {
-        file = element(idx, files);
-        if (file younger MANUALSTAMP)
-        {
-            run("yodl2html -l3 " PROJECT ".yo");
-            run("touch " MANUALSTAMP);
-            run("mv *.html ../../tmp/manual/html");
-
-            break;
-        }
-    }
-
-        // create the txt version of the manual
-
-    #define TXTMANUAL   "../../tmp/manual/text/stealth.txt"
-    for (idx = sizeof(files); idx--; )
-    {
-        file = element(idx, files);
-        if (file younger TXTMANUAL)
-        {
-            run("yodl2txt -o " TXTMANUAL " stealth.yo");
-            break;
-        }
-    }
-
+    run("yodl2html -l3 " PROJECT ".yo");
+    run("mv *.html ../../tmp/manual/html");
 
         // create the LaTex and derived versions of the manual
-
-    #define LATEXSTAMP  "../../tmp/manual-latex-stamp"
     #define LATEXDEST   "../../tmp/manual/LaTeX/stealth.latex"
+    run("yodl2latex -o " LATEXDEST " stealth.yo");
 
-    if (! exists(LATEXSTAMP))
-    {
-        run("yodl2latex -o " LATEXDEST " stealth.yo");
+    run("cp stealth.sty ../../tmp/manual/LaTeX");
 
-        run("cp stealth.sty ../../tmp/manual/LaTeX");
+    chdir("../../tmp/manual/LaTeX");
+    runP(P_NOCHECK, "latex stealth.latex");
+    runP(P_NOCHECK, "latex stealth.latex");
+    run("latex stealth.latex");
+    run("rm stealth.aux stealth.log stealth.out stealth.toc");
 
-        chdir("../../tmp/manual/LaTeX");
-        runP(P_NOCHECK, "latex stealth.latex");
-        runP(P_NOCHECK, "latex stealth.latex");
-        run("latex stealth.latex");
-        run("touch ../" LATEXSTAMP);
+    run("dvips -o ../ps/stealth.ps stealth.dvi");
 
-        if ("stealth.dvi" newer "../ps/stealth.ps")
-            run("dvips -o ../ps/stealth.ps stealth.dvi");
+    chdir("../ps");
+    run("ps2pdf stealth.ps ../pdf/stealth.pdf");
 
-        chdir("../ps");
-        if ("stealth.ps" newer "../pdf/stealth.pdf")
-            run("ps2pdf stealth.ps ../pdf/stealth.pdf");
-    }
+        // create the txt version of the manual
+    //run("yodl2txt -o " TXTMANUAL " stealth.yo");
 
     exit(0);
 }

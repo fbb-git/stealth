@@ -3,30 +3,47 @@
 
     // Compiler to use:
 #define CXX                 "g++"
-//#define CXX                 "g++-5"
 
     // The compiler options to use:
-#define CXXFLAGS            "--std=c++14 -Wall -O2 -pthread"
+#define CXXFLAGS    "--std=c++14 -Wall -O2 -pthread -fdiagnostics-color=never"
 
     // Flags passed to the linker:
 #define LDFLAGS             "-lpthread"
 
-// The following locations can be overruled by `build install' arguments
+#define CPOPTS
 
-    // the full path of the final program
+
+// COMPONENTS TO INSTALL
+// =====================
+
+    // For an operational non-Debian installation, you probably must be
+    // `root'.
+
+    // If necessary, adapt DOC, HDR, LIB and MAN (below) to your situation.
+    // The provided locations are used by Debian Linux.
+
+    // With 'build install' you can dynamically specify a location to prepend
+    // to the locations configured here, and select which components you want 
+    // to install
+
+// ONLY USE ABSOLUTE DIRECTORY NAMES:
+
+
+    // the directory where the additional documentation is stored 
+#define ADD   "/usr/share/doc/"${PROJECT}"-doc"
+
+    // the final program
 #define BINARY     "/usr/bin/"${PROJECT}
+
+    // the directory where the standard documentation is stored 
+#define DOC     "/usr/share/doc/"${PROJECT}
 
     // the directory whre the manual page is stored
 #define MAN     "/usr/share/man/man1"
 
-    // the directory whre the manual page is stored
-#define MANUAL   "/usr/share/doc/"${PROJECT}"-doc/manual"
+    // the directory whre the user guide is stored
+#define UGUIDE   "/usr/share/doc/"${PROJECT}"-doc/manual"
 
-    // the directory where the standard documentation is stored 
-#define STD     "/usr/share/doc/"${PROJECT}
-
-    // the directory where the extra documentation is stored 
-#define EXTRA   "/usr/share/doc/"${PROJECT}"-doc"
 
 
 

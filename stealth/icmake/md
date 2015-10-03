@@ -10,12 +10,16 @@ void md(string target)
     list paths;
     string dir;
 
-    paths = strtok(target, " ");
-
-    for (idx = sizeof(paths); idx--; )
+    if (!exists(target))
+        run("mkdir -p " + target);
+    else if (((int)stat(target)[0] & S_IFDIR) == 0)
     {
-        dir = element(idx, paths);
-        if (!exists(dir))
-            run("mkdir -p " + dir);
+        printf(target + " exists, but is not a directory\n");
+        exit(1);
     }
 }
+
+
+
+
+

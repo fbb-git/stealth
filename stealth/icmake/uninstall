@@ -1,0 +1,24 @@
+void uninstall(string logfile)
+{
+    int idx;
+    list entry;
+    string dir;
+    list line;
+
+    if (!exists(logfile))
+    {
+        printf("installation log file " + logfile + " not found\n");
+        exit(0);
+    }
+
+    run("icmake/remove " + logfile + " " + (string)g_echo);
+
+    exit(0);
+}
+
+
+
+
+
+
+
