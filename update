@@ -3,6 +3,13 @@
 _project_=stealth
 _product_=stealth
 
+echo if any modified or untracked files are shown, handle these first:
+echo
+git st
+echo -n "Continue [y/n] ? "
+read yesno
+[ "$yesno" == "y" ] || exit 0
+
 echo -n "Need to (re)create ${_project_}'s wip files for gh-pages [y/n] ? "
 read yesno
 
@@ -17,29 +24,44 @@ if [ "$yesno" == "y" ] ; then
     ./build distclean
     cd ..    
     git co gh-pages
+
+    cp -r ../wip/changelog.txt ../wip/${_product_}man.html ../wip/html \
+	    ../wip/${_product_}.pdf .
 fi
 
-cp -r ../wip/changelog.txt ../wip/${_product_}man.html ../wip/html \
-        ../wip/${_product_}.pdf .
+echo
+echo -n "Check index.yo: version and last 5 releases [y/n] ? "
+read yesno
+
+if [ "$yesno" == "y" ] ; then
+    cat ../wip/release.yo
+    emacs index.yo
+fi
 
 yodl2html index.yo || exit 1
 
-echo "Running 'git st': no untracked files or ignorable files should be shown"
+
+echo "Running 'git st': check for unexpected files"
 git st
 
 echo
 
-echo -n "git ci changes to index.html etc., push the result and \
-git co master [y/n] ? "
-
+echo -n "ci change to index.html etc., push the result and co master [y/n] ? "
 read yesno
 
 if [ "$yesno" == "y" ] ; then
-    echo -n "Enter the ci message: "
-    read msg;
 
     RELEASE=`head -n1 ../wip/release.yo | 
-		sed 's/SUBST(_CurVers_)(\(.*\))/\1/'`
+                sed 's/SUBST(_CurVers_)(\(.*\))/\1/'`
+
+    msgDefault="gh-pages for release ${RELEASE}"
+
+    echo -n "Enter the ci message [default: $msgDefault]"
+
+    read msg;
+
+    [ "$msg" == "" ] && msg=$msgDefault
+
     git ci -am "$msg"
     git push
     git co master
