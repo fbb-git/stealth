@@ -1,4 +1,5 @@
 string g_compiler;
+int g_gch = 1;
 
 void _precompile(string class)
 {
@@ -14,6 +15,9 @@ void precompileHeaders()
     int idx;
     list classes;
     string class;
+
+    if (!g_gch)
+        return;
 
     classes = makelist(O_SUBDIR, "*");
 
