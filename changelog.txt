@@ -1,3 +1,20 @@
+stealth (4.01.02)
+
+  * Kevin Brodsky observed that the installation scripts used 'chdir' rather
+    than 'cd'. Fixed in this release.
+
+  * Kevin Brodsky also observed that the combined size of all precompiled 
+    headers might exceed some disks capacities. The option -P was added to the
+    ./build script to prevent the use of precompiled headers.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 05 Oct 2015 21:18:02 +0200
+
+stealth (4.01.01)
+
+ * Standardized the (de)installation procedures
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 03 Oct 2015 18:26:05 +0200
+
 stealth (4.01.00)
 
   * Added option --ping, verifying whether a stealth daemon is still
