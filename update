@@ -18,7 +18,7 @@ if [ "$yesno" == "y" ] ; then
 
     cd ${_product_}
     ./build man
-    ./build manual
+    ./build uguide
 
     ./build github
     ./build distclean
