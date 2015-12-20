@@ -1,3 +1,9 @@
+stealth (4.01.03)
+
+  * Adapted build scripts to icmake 8.00.04
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 20 Dec 2015 11:56:40 +0100
+
 stealth (4.01.02)
 
   * Kevin Brodsky observed that the installation scripts used 'chdir' rather

@@ -1,6 +1,8 @@
 #!/bin/bash
 PROJECT=stealth
 
+cd ~/git/${PROJECT}/src
+
 if [ -e /usr/share/common-licenses/GPL ] ; then
     cp /usr/share/common-licenses/GPL ${PROJECT}/LICENSE
 fi
