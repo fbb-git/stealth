@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head>
 <meta charset="UTF-8">
-<title> <div style="text-align: center">Stealth V. 4.01.02</div> </title>
+<title> <div style="text-align: center">Stealth V. 4.01.03</div> </title>
 <style type="text/css">
     figure {text-align: center;}
     img {vertical-align: center;}
@@ -21,8 +21,8 @@ This chapter describes <strong>stealth</strong>'s compilation and installation.
 <a name="COMPILING"></a><a name="l4"></a>
 <h2>2.1: Compiling and installing Stealth</h2>
     After downloading the <strong>stealth</strong> archive, it should be unpacked. The name of
-the archive is of the form <code>stealth-4.01.02.tar.gz</code>, where <code>4.01.02</code>
-is a version number. Below, <code>4.01.02</code> should be altered into the version
+the archive is of the form <code>stealth-4.01.03.tar.gz</code>, where <code>4.01.03</code>
+is a version number. Below, <code>4.01.03</code> should be altered into the version
 of the archive that is actually used.
 <p>
 Required, non-standard software, for compiling <strong>stealth</strong> is summarized in the file
@@ -34,19 +34,12 @@ This file lists non-standard software only. Thus, standard utilities like cp,
 mv, sed, etc, etc, are not explicitly mentioned. Neither is the gcc compiler
 explicitly mentioned, but a fairly recent one is assumed.
 
-Required software for building Stealth 4.00.00
-----------------------------------------------
+Required software for building Stealth:
+---------------------------------------
 
-libbobcat-dev (&gt;= 4.01.02),
-
-
-To use the provided build-script:
-
-    icmake (&gt;= 7.22.00)         
-
-To construct the manual and map-page:
-        
-    yodl (&gt;= 3.05.0)
+    libbobcat-dev   (&gt;= 4.01.03)
+    icmake          (&gt;= 8.00.04)
+    yodl            (&gt;= 3.06.0)
 
 To construct the manual:
 
@@ -73,7 +66,7 @@ stored. E.g., if the files in the archive should be stored under <code>/tmp</cod
         <pre>
 
     cd /tmp
-    tar xzf stealth-4.01.02.tar.gz
+    tar xzf stealth-4.01.03.tar.gz
         
 </pre>
 
