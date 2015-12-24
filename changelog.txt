@@ -1,3 +1,11 @@
+stealth (4.01.04)
+
+  * Streamlined the `build install' actions
+
+  * Requiring icmake 8.00.05
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 24 Dec 2015 12:51:21 +0100
+
 stealth (4.01.03)
 
   * Adapted build scripts to icmake 8.00.04
