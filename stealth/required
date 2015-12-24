@@ -6,10 +6,10 @@ Required software for building Stealth:
 ---------------------------------------
 
     libbobcat-dev   (>= 4.01.03)
-    icmake          (>= 8.00.04)
+    icmake          (>= 8.00.05)
     yodl            (>= 3.06.0)
 
-To construct the manual:
+To construct the user guide:
 
     texlive-latex-base,
     texlive-generic-recommended, 

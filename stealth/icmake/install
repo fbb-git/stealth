@@ -25,9 +25,21 @@ void install(string request, string dest)
             components |= 32;
     }
 
+    chdir(g_cwd);                       // determine the destination path
+    if (dest == "")
+        dest = "/";
+    else
+        md(dest);
+
+    dest = cutEoln(backtick("readlink -f " + dest)[0]);
+
+    if (g_logPath != "")
+        backtick("icmake/log " + dest + " " + g_logPath);
+
+
     if (components & 1)
     {
-        target = base + ADD "/";
+        target = base + "a/" ADD "/";
 
         printf("\n  installing additional documentation\n");
 
@@ -46,21 +58,26 @@ void install(string request, string dest)
         logZip("documentation/example-policies/", "demo.pol", target);
         logZip("documentation/example-policies/", "localhost.pol", target);
         logZip("documentation/example-policies/", "simple.pol", target);
+
+        destInstall(dest, base + "a");
     }
 
     if (components & 2)
     {
-        target = base + BINARY;
+        target = base + "b/" BINARY;
         pathsplit = path_file(target);
 
         printf("  installing the executable `", target, "'\n");
         logFile("tmp/bin", "binary", pathsplit[0], pathsplit[1]);
+
+        destInstall(dest, base + "b");
     }
 
 
     if (components & (4 | 8))
     {
-        target = base + DOC "/";
+        target = base + "d/" DOC "/";
+
         if (components & 4)
         {
             printf("  installing the changelog at `", target, "\n");
@@ -80,46 +97,40 @@ void install(string request, string dest)
                             target, "/scripts/usr/bin'\n");
 
             logZip("share/usr/bin/", "", target + "scripts/usr/bin/");
+
+            destInstall(dest, base + "d");
         }
 
         if (components & 8)
         {
             printf("  installing the html-manual pages at `", target, "\n");
             logInstall("tmp/manhtml", "", target);
+
+            destInstall(dest, base + "d");
         }
     }
 
 
     if (components & 8)
     {
-        target = base + MAN "/";
+        target = base + "m/" MAN "/";
         printf("  installing the manual pages below `", target, "'\n");
     
         logZip("tmp/man", "stealth.1", target);
+
+        destInstall(dest, base + "m");
     }
 
     if (components & 32)
     {
-        target = base + UGUIDE "/";
+        target = base + "u/" UGUIDE "/";
         printf("  installing the user-guide at `", target, "'\n");
         logZip("tmp/manual/LaTeX", "", target + "LaTeX/");
         logZip("tmp/manual/pdf", "", target + "pdf/");
         logInstall("tmp/manual/html", "", target + "html/");
+
+        destInstall(dest, base + "u");
     }
-
-
-    chdir(g_cwd);
-    if (dest == "")
-        dest = "/";
-    else
-        md(dest);
-
-    dest = cutEoln(backtick("realpath " + dest)[0]);
-
-    if (g_logPath != "")
-        backtick("icmake/log " + dest + " " + g_logPath);
-
-    run("tar cf - -Ctmp/install . | tar xf - -C" + dest);
 
     printf("\n  Installation completed\n");
 

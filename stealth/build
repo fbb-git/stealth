@@ -28,6 +28,7 @@ int g_echo = ON;
 #include "icmake/clean"
 #include "icmake/manpage"
 #include "icmake/manual"
+#include "icmake/destinstall"
 #include "icmake/install"
 #include "icmake/github"
 
