@@ -4,7 +4,7 @@ std::string Stealth::deniedMode(char const *request)
 {
     ostringstream ostr;
 
-    ostr << "Stealth deamon (pid = " << getpid() << "): `" << request << 
+    ostr << "Stealth daemon (pid = " << getpid() << "): `" << request << 
                 "' not available in mode " << d_task;
 
 

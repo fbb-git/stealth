@@ -60,7 +60,7 @@ current working directory.
         performed. This option requires specification of the and tt(--daemon)
         option;
     it() tt(--rerun <uds>): (C) start executing the integrity scan
-        commands that are specifed in the s() daemon process's policy file;
+        commands that are specified in the s() daemon process's policy file;
     it() tt(--resume <uds>): (C) resume a suspended s() process, implies
         tt(--rerun);
     it() tt(--run-command (-r) <nr>): (C) Only execute command number <nr>

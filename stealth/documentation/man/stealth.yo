@@ -84,7 +84,7 @@ passphrase-protected ssh-key, allowing s() to perform its tasks
 thereafter. This, too, makes it important to prevent the monitor from being
 accessed by unauthorized persons.)
 
-If, instead of running s() in deamon mode it is preferred to let s() perform
+If, instead of running s() in daemon mode it is preferred to let s() perform
 single, but automated integrity scans, then new bf(ssh)(1) connections may be
 difficult to establish if the used ssh-key is passphrase-protected. To
 implement this scenario (i.e., automated integrity scans using passphrase
@@ -160,7 +160,7 @@ requested s() terminates after the scan. When tt(--repeat) is specified s()
 shows a prompt (i.e., `tt(? )') and terminates after pressing the
 tt(Enter)-key. 
 
-The third synopsys is used for communication with a s() daemon. In this case
+The third synopsis is used for communication with a s() daemon. In this case
 the the Unix Domain Socket defined by the s() daemon process must be
 specified after the option specifying the requested command.
 

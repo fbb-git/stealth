@@ -17,7 +17,7 @@ simply press tt(Enter) in response to the question
     In the user's tt(.ssh) directory the files tt(id_rsa) and tt(id_rsa.pub)
 are now created, which completes the preparations at the monitor.
 
-If, instead of running s() in deamon mode it is preferred to let s() perform
+If, instead of running s() in daemon mode it is preferred to let s() perform
 single, but automated integrity scans, then new bf(ssh)(1) connections may be
 difficult to establish if the used ssh-key is passphrase-protected. To
 implement this scenario (i.e., automated integrity scans using passphrase
