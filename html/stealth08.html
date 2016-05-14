@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head>
 <meta charset="UTF-8">
-<title> <div style="text-align: center">Stealth V. 4.01.04</div> </title>
+<title> <div style="text-align: center">Stealth V. 4.01.05</div> </title>
 <style type="text/css">
     figure {text-align: center;}
     img {vertical-align: center;}
@@ -14,193 +14,193 @@
 </ul>
 <hr>
 <a name="l46"></a>
-<h1>Chapter 8: Errormessages</h1>
-    <code>Can't chdir to `path'</code>
-    <blockquote>the directory <code>path</code> could not be
+<h1 >Chapter 8: Errormessages</h1>
+    <code >Can't chdir to `path'</code>
+    <blockquote >the directory <code >path</code> could not be
 created/used. This may be a permission problem. Check the permissions of
-<code>path</code> if <code>path</code> does actually exist. The problem may be in a path
+<code >path</code> if <code >path</code> does actually exist. The problem may be in a path
 component, not necessarily in the last element of the path.
     </blockquote>
 <p>
-<code>Can't open `&lt;fname&gt;' to read (or write)</code>
-     <blockquote>When a <code>GET</code> or <code>PUT</code> command fails because the target file
-could not be read or written, <strong>stealth</strong> terminates afer logging this message. The
+<code >Can't open `&lt;fname&gt;' to read (or write)</code>
+     <blockquote >When a <code >GET</code> or <code >PUT</code> command fails because the target file
+could not be read or written, <strong >stealth</strong> terminates afer logging this message. The
 file may not exist or you may not not have sufficient permissions to read or
 write it.
     </blockquote>
 <p>
-<code>Corrupt line in policy file: ...</code>
-    <blockquote>The apparently corrupted line is shown. The line is corrupted if
+<code >Corrupt line in policy file: ...</code>
+    <blockquote >The apparently corrupted line is shown. The line is corrupted if
 the line could not be split into an initial word and its remainder. Normally
 this should not happen. As the line is mentioned, the message itself should
 assist you in your repairs.
     </blockquote>
 <p>
-<code>could not open &lt;logname&gt;</code>
-    <blockquote>This message is generated when the mentioned log-file cannot be
+<code >could not open &lt;logname&gt;</code>
+    <blockquote >This message is generated when the mentioned log-file cannot be
 written to. Check the permissions of the file, and check if the path to the
 file exists. The problem may be in a path component, not necessarily in the
 last element of the path or in the file itself.
     </blockquote>
 <p>
-<code>--daemon: missing uds-file or policy file</code>
-    <blockquote>The <code>--daemon</code> option requires the location for its Unix Domain
+<code >--daemon: missing uds-file or policy file</code>
+    <blockquote >The <code >--daemon</code> option requires the location for its Unix Domain
 Socket, and in addition a policy file must be specified. Most likely the
 location of the Unix Domain File was omitted, thus confusing the policy file
 with the Unix Domain File
     </blockquote>
 <p>
-<code>incompatible options: ...</code>
-    <blockquote>Two or more incompatible options are shown. E.g., <code>--daemon</code> is
+<code >incompatible options: ...</code>
+    <blockquote >Two or more incompatible options are shown. E.g., <code >--daemon</code> is
 incompatible with IPC options, which themselves are mutually
-incompatible. Omit all but one of the mentioned options and restart <strong>stealth</strong>
+incompatible. Omit all but one of the mentioned options and restart <strong >stealth</strong>
     </blockquote>
 <p>
-<code>Inserting command `...' failed.</code>
-    <blockquote>the mentioned command could not be sent to a child-process (<code>sh</code>
-or <code>ssh</code>). Check the availability of the <code>ssh</code> connection to the
+<code >Inserting command `...' failed.</code>
+    <blockquote >the mentioned command could not be sent to a child-process (<code >sh</code>
+or <code >ssh</code>). Check the availability of the <code >ssh</code> connection to the
 client, and whether you have permissions to execute the specified command.
     </blockquote>
 <p>
-<code>Invalid --random-interval specified</code>
-    <blockquote>The --random-interval option was given an invalid (too large or
+<code >Invalid --random-interval specified</code>
+    <blockquote >The --random-interval option was given an invalid (too large or
         negative) argument.
     </blockquote>
 <p>
-<code>invalid --&lt;option&gt; specified</code>
-    <blockquote>The specified option value (e.g., <code>--max-size</code> was specified, but
+<code >invalid --&lt;option&gt; specified</code>
+    <blockquote >The specified option value (e.g., <code >--max-size</code> was specified, but
 its option value is not a valid integral number) is not supported
     </blockquote>
 <p>
-<code>LocalClientSocket::connect(): ...</code>
-    <blockquote>When running in IPC-mode <strong>stealth</strong> could not connect to the unix domain
-socket specified for the IPC-mode. Check whether the matching <strong>stealth</strong> daemon
+<code >LocalClientSocket::connect(): ...</code>
+    <blockquote >When running in IPC-mode <strong >stealth</strong> could not connect to the unix domain
+socket specified for the IPC-mode. Check whether the matching <strong >stealth</strong> daemon
 exists, and whether the location of the uds-file was correctly specified
     </blockquote>
 <p>
-<code>LocalServerSocket::accept(): ...</code>
-    <blockquote>When running in daemon mode incoming connections could not be
+<code >LocalServerSocket::accept(): ...</code>
+    <blockquote >When running in daemon mode incoming connections could not be
 accepted. This may have many causes, and a probably cause is mentioned with
 the error message
     </blockquote>
 <p>
-<code>LocalServerSocket::listen(): ...</code>
-    <blockquote>When running in daemon mode the unix domain socket failed to
+<code >LocalServerSocket::listen(): ...</code>
+    <blockquote >When running in daemon mode the unix domain socket failed to
 listen for incoming connections. This may have many causes, and a probably
 cause is mentioned with the error message
     </blockquote>
 <p>
-<code>LocalServerSocket::open(&lt;uds&gt;): ...</code>
-    <blockquote>When running in daemon mode the unix domain socket could not be
+<code >LocalServerSocket::open(&lt;uds&gt;): ...</code>
+    <blockquote >When running in daemon mode the unix domain socket could not be
 opened. A possible reason is that an entry in the file system having the same
 name already exists. The error message will mention a probably cause of the
 failure
     </blockquote>
 <p>
-<code>--max-size incompatible with IPC calls</code>
-    <blockquote>The <code>--max-size</code> option can can only be used when <strong>stealth</strong> is also
+<code >--max-size incompatible with IPC calls</code>
+    <blockquote >The <code >--max-size</code> option can can only be used when <strong >stealth</strong> is also
 receiving a policy file. It cannot be used in combination with the Inter
-Process Communication (IPC) options <code>--reload, --rerun, --resume, --suspend</code>
-or <code>--terminate</code>.
+Process Communication (IPC) options <code >--reload, --rerun, --resume, --suspend</code>
+or <code >--terminate</code>.
     </blockquote>
 <p>
-<code>--max-size &lt;value&gt;: invalid option value</code>
-    <blockquote>An invalid specification for <code>--max-size</code> was received. Refer to
+<code >--max-size &lt;value&gt;: invalid option value</code>
+    <blockquote >An invalid specification for <code >--max-size</code> was received. Refer to
 the man-page or manual for information about valid options.</blockquote>
 <p>
-<code>No exit value for &lt;cmd&gt; ...</code>
-    <blockquote>No exit value was received for the logged command, after which <strong>stealth</strong>
+<code >No exit value for &lt;cmd&gt; ...</code>
+    <blockquote >No exit value was received for the logged command, after which <strong >stealth</strong>
 terminates. 
     </blockquote>
 <p>
-<code>--&lt;option&gt; is only valid for a s() foreground process</code>
-    <blockquote>The indicated option cannot be specified in combination with a
-<code>--daemon</code> or IPC-option (like <code>--suspend</code>)
+<code >--&lt;option&gt; is only valid for a s() foreground process</code>
+    <blockquote >The indicated option cannot be specified in combination with a
+<code >--daemon</code> or IPC-option (like <code >--suspend</code>)
     </blockquote>
 <p>
-<code>--random-interval requires --repeat</code>
-    <blockquote>The <code>--random-interval</code> option can only be used when the
-<code>--repeat</code> option has also been specified.
+<code >--random-interval requires --repeat</code>
+    <blockquote >The <code >--random-interval</code> option can only be used when the
+<code >--repeat</code> option has also been specified.
     </blockquote>
 <p>
-<code>--repeat not available in IPC modes</code>
-    <blockquote>The <code>--repeat</code> option cannot be specified in combination with an    
-IPC-option (like <code>--suspend</code>)
+<code >--repeat not available in IPC modes</code>
+    <blockquote >The <code >--repeat</code> option cannot be specified in combination with an    
+IPC-option (like <code >--suspend</code>)
     </blockquote>
 <p>
-<code>--run-command 0: not a valid (natural) command number</code>
-    <blockquote>The <code>--run-command</code> option requires an argument, which is a
+<code >--run-command 0: not a valid (natural) command number</code>
+    <blockquote >The <code >--run-command</code> option requires an argument, which is a
 positive, integral value.
     </blockquote>
 <p>
-<code>--run-command &lt;nr&gt;: invalid command number</code>
-    <blockquote>The <code>--run-command</code> option requires an argument, which is a
+<code >--run-command &lt;nr&gt;: invalid command number</code>
+    <blockquote >The <code >--run-command</code> option requires an argument, which is a
 positive, integral value at most equal to the number of commands listed in the
 policy file.
     </blockquote>
 <p>
-<code>--skip-files incompatible with IPC calls</code>
-    <blockquote>The <code>--skip-files</code> option can only be used when <strong>stealth</strong> is also given
-a policy file. It cannot be used in combination with IPC options (<code>--reload,
---rerun, --resume, --suspend</code> or <code>--terminate</code>).
+<code >--skip-files incompatible with IPC calls</code>
+    <blockquote >The <code >--skip-files</code> option can only be used when <strong >stealth</strong> is also given
+a policy file. It cannot be used in combination with IPC options (<code >--reload,
+--rerun, --resume, --suspend</code> or <code >--terminate</code>).
     </blockquote>
 <p>
-<code>--skip-files: missing skip-file or policy file</code>
-    <blockquote>The <code>--skip-files</code> option requires a file name and the <strong>stealth</strong> command
+<code >--skip-files: missing skip-file or policy file</code>
+    <blockquote >The <code >--skip-files</code> option requires a file name and the <strong >stealth</strong> command
 also requires a policy file. Most likely the name of the skip-file was not
 provided, thus confusing the policy file with the skip-file.
     </blockquote>
 <p>
-<code>--stdout incompatible with --daemon</code>
-    <blockquote>The <code>--stdout</code> option can only be used when <strong>stealth</strong> is not started as
+<code >--stdout incompatible with --daemon</code>
+    <blockquote >The <code >--stdout</code> option can only be used when <strong >stealth</strong> is not started as
 a daemon process.
     </blockquote>
 <p>
-<code>syslog facility &lt;facility&gt; not supported</code>
-    <blockquote>The option <code>--syslog-facility</code> requires the name of a standard
-<strong>syslog</strong>(1) facility. Supported facilities are <code>DAEMON, LOCAL0</code> through
-<code>LOCAL7</code> and <code>USER</code>. See, e.g., the <strong>syslog</strong>(3) man-page for an overview
+<code >syslog facility &lt;facility&gt; not supported</code>
+    <blockquote >The option <code >--syslog-facility</code> requires the name of a standard
+<strong >syslog</strong>(1) facility. Supported facilities are <code >DAEMON, LOCAL0</code> through
+<code >LOCAL7</code> and <code >USER</code>. See, e.g., the <strong >syslog</strong>(3) man-page for an overview
 of their definitions.</blockquote>
 <p>
-<code>--syslog* options incompatible with IPC calls</code>
-    <blockquote><code>--syslog*</code> options can can only be used when <strong>stealth</strong> is also
+<code >--syslog* options incompatible with IPC calls</code>
+    <blockquote ><code >--syslog*</code> options can can only be used when <strong >stealth</strong> is also
 receiving a policy file. It cannot be used in combination with the Inter
-Process Communication (IPC) options <code>--reload, --rerun, --resume, --suspend</code>
-or <code>--terminate</code>.
+Process Communication (IPC) options <code >--reload, --rerun, --resume, --suspend</code>
+or <code >--terminate</code>.
     </blockquote>
 <p>
-<code>syslog priority &lt;priority&gt; not supported</code>
-    <blockquote>The option <code>--syslog-priority</code> requires the name of a standard
-<strong>syslog</strong>(1) priority. All standard priorities are supported. See, e.g., the
-<strong>syslog</strong>(3) man-page for an overview of available priorities. The prefixes
-used with the priorities in this man-page (i.e., <code>LOG_</code> should not be used
-when specifying the <code>--syslog-priority</code>. E.g., use <code>--syslog-priority
-WARNING</code> rather than <code>--syslog-priority LOG-WARNING</code>)
+<code >syslog priority &lt;priority&gt; not supported</code>
+    <blockquote >The option <code >--syslog-priority</code> requires the name of a standard
+<strong >syslog</strong>(1) priority. All standard priorities are supported. See, e.g., the
+<strong >syslog</strong>(3) man-page for an overview of available priorities. The prefixes
+used with the priorities in this man-page (i.e., <code >LOG_</code> should not be used
+when specifying the <code >--syslog-priority</code>. E.g., use <code >--syslog-priority
+WARNING</code> rather than <code >--syslog-priority LOG-WARNING</code>)
     </blockquote>
 <p>
-<code>terminated: non-zero exit value for `...'</code>
-    <blockquote>A local command (not using the <code>CHECK</code> keyword), returned with a
+<code >terminated: non-zero exit value for `...'</code>
+    <blockquote >A local command (not using the <code >CHECK</code> keyword), returned with a
 non-zero exit. This will terminate further processing of the policy
 file. Inspect and/or rerun the command `by hand' to find indications about
 what went wrong. The report file or the standard error stream may also contain
 additional information about the reason of the failure.
     </blockquote>
 <p>
-<code>Unable to create the logfile `...'</code>
-    <blockquote>the mentioned log file could not be created. Check the permissions of
+<code >Unable to create the logfile `...'</code>
+    <blockquote >the mentioned log file could not be created. Check the permissions of
 the file, check if the path to the file exists. The problem may be in a path
 component, not necessarily in the last element of the path or in the file
 itself.
     </blockquote>
 <p>
-<code>Unix Domain Socket `&lt;uds&gt;': already in use, remove it first</code>
-    <blockquote>The intended Unix Domain Socket name (<code>&lt;uds&gt;</code>) is already in
+<code >Unix Domain Socket `&lt;uds&gt;': already in use, remove it first</code>
+    <blockquote >The intended Unix Domain Socket name (<code >&lt;uds&gt;</code>) is already in
 use. It could be a file that is or has been used by another process. Either
 use another name for the unix domain socket, or remove the existing
 file-system entry</blockquote>
 <p>
-<code>USE SSH ... entry missing in the policy file</code>
-    <blockquote>there is no default for the <code>USE SSH</code> specification in the policy
+<code >USE SSH ... entry missing in the policy file</code>
+    <blockquote >there is no default for the <code >USE SSH</code> specification in the policy
 file. The specification could not be found. Provide a specification like:
     <pre>
 USE SSH     ssh -q root@localhost

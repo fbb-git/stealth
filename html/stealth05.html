@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head>
 <meta charset="UTF-8">
-<title> <div style="text-align: center">Stealth V. 4.01.04</div> </title>
+<title> <div style="text-align: center">Stealth V. 4.01.05</div> </title>
 <style type="text/css">
     figure {text-align: center;}
     img {vertical-align: center;}
@@ -15,52 +15,52 @@
 </ul>
 <hr>
 <a name="l18"></a>
-<h1>Chapter 5: Running `stealth'</h1>
-Now that <strong>stealth</strong> has been compiled, the construction of a policy file has
+<h1 >Chapter 5: Running `stealth'</h1>
+Now that <strong >stealth</strong> has been compiled, the construction of a policy file has
 been covered, and a service-account on the client has been defined, what must
-be done to run <strong>stealth</strong> in practice?
+be done to run <strong >stealth</strong> in practice?
 <p>
 Here's what remains to be done:
     <ul>
-    <li> Install <strong>stealth</strong> at a proper location
+    <li> Install <strong >stealth</strong> at a proper location
     <li> Construct one or more policy files
-    <li> Learn to interpret <strong>stealth</strong>'s output.
+    <li> Learn to interpret <strong >stealth</strong>'s output.
     <li> Optionally, automate the removal of old log-files.
     <li> Determine a schedule for running stealth automatically, e.g. using
-        <strong>cron</strong>(1) or <strong>ssh-cron</strong>(1)
+        <strong >cron</strong>(1) or <strong >ssh-cron</strong>(1)
     </ul>
     In this chapter, these topics are discussed.
 <p>
 <a name="l19"></a>
-<h2>5.1: Installing `stealth'</h2>
-    As <strong>stealth</strong> is mainly a system administrator's tool, it could be
-installed in <code>/usr/bin</code>. In that case, do (as <em>root</em>) in the
-directory where <strong>stealth</strong> was compiled/unpacked:
+<h2 >5.1: Installing `stealth'</h2>
+    As <strong >stealth</strong> is mainly a system administrator's tool, it could be
+installed in <code >/usr/bin</code>. In that case, do (as <em >root</em>) in the
+directory where <strong >stealth</strong> was compiled/unpacked:
         <pre>
     ./build install program
 </pre>
 
     Alternatively, another default location may be specified in the
-<code>INSTALL.im</code> file or may be provided to the <code>build</code> script. E.g.,
+<code >INSTALL.im</code> file or may be provided to the <code >build</code> script. E.g.,
         <pre>
     ./build install program /usr/local/bin/stealth
 </pre>
 
-    installing the binary program as <code>/usr/local/bin/stealth</code>.
+    installing the binary program as <code >/usr/local/bin/stealth</code>.
 <p>
-The provided <code>icmake build</code> script can be started without arguments for an
+The provided <code >icmake build</code> script can be started without arguments for an
 overview of possible commands.
 <p>
 <a name="OPTIONS"></a><a name="l20"></a>
-<h2>5.2: Stealth command-line and policy file options</h2>
+<h2 >5.2: Stealth command-line and policy file options</h2>
         Short options are provided between parentheses, immediately following
 their long option equivalents. 
 <p>
 Option descriptions showing (C) can only be used on the command-line, and
 are ignored when specified in the second section of the policy file.
 <p>
-In the overview of options `<code>&lt;uds&gt;</code>' represents the name of the
-<em>Unix Domain Socket</em> to use, and `<code>&lt;file-spec&gt;</code>' refers to a (relative or
+In the overview of options `<code >&lt;uds&gt;</code>' represents the name of the
+<em >Unix Domain Socket</em> to use, and `<code >&lt;file-spec&gt;</code>' refers to a (relative or
 absolute) specification of a file location. 
 <p>
 With the first and second synopses relative locations (of the Unix Domain
@@ -70,68 +70,68 @@ current working directory.
 Command-line options overrule options defined in the policy-file.
 <p>
 <ul>
-    <li> <code>--daemon (-d) &lt;uds&gt;</code>: (C) run as background (daemon)
+    <li> <code >--daemon (-d) &lt;uds&gt;</code>: (C) run as background (daemon)
         process. When the Stealth daemon process is started, the Unix Domain
         Socket (tt&lt;uds&gt;) may not already exist. 
-    <li> <code>--dry-run</code>: (C) no integrity scans or reloads are performed, but
+    <li> <code >--dry-run</code>: (C) no integrity scans or reloads are performed, but
         are assumed OK. Remaining tasks are normally performed;
-    <li> <code>--help (-h)</code>: (C) Display help information and exit;
-    <li> <code>--log (-L) &lt;file-spec&gt;</code>: log messages are appended to
+    <li> <code >--help (-h)</code>: (C) Display help information and exit;
+    <li> <code >--log (-L) &lt;file-spec&gt;</code>: log messages are appended to
         `file-spec'. If file-spec does not exist, it is first created;
-    <li> <code>--logmail</code>: mail sent by <strong>stealth</strong> is logged (requires <code>--log</code> or
-        <code>--syslog</code>); 
-    <li> <code>--max-size &lt;size&gt;[BKMG]</code>: files retrieved by <code>GET</code> commands may
-        at most have <code>&lt;size&gt;</code> bytes (B), KBytes (K), MBytes (M), GBytes
+    <li> <code >--logmail</code>: mail sent by <strong >stealth</strong> is logged (requires <code >--log</code> or
+        <code >--syslog</code>); 
+    <li> <code >--max-size &lt;size&gt;[BKMG]</code>: files retrieved by <code >GET</code> commands may
+        at most have <code >&lt;size&gt;</code> bytes (B), KBytes (K), MBytes (M), GBytes
         (G). The default size is 10M, the default unit is B.
-    <li> <code>--no-mail</code>: mail is not sent. By default mail is sent as
-        configured in the policy-file (<code>--logmail</code> can be specified
-        independently from <code>--no-mail</code>);
-    <li> <code>--parse-policy-file (-p)</code>: (C) parse the policy file, after which
-        <strong>stealth</strong> ends.<br/>
+    <li> <code >--no-mail</code>: mail is not sent. By default mail is sent as
+        configured in the policy-file (<code >--logmail</code> can be specified
+        independently from <code >--no-mail</code>);
+    <li> <code >--parse-policy-file (-p)</code>: (C) parse the policy file, after which
+        <strong >stealth</strong> ends.<br/>
         Specify once to see the numbered commands;<br/>
         twice to see the policy file parsing steps as well.<br/>
         Results are written to the std. output.
-    <li> <code>--ping &lt;uds&gt;</code>: (C) performs no actions, but is used to verify that
-        a <strong>stealth</strong> daemon can be reached via its Unix Domain Socket
-        (<code>&lt;uds&gt;</code>). The daemon will respond even if it's currently performing
-        an integrity scan. It is used by the <code>/usr/bin/stealthcron</code> script
-        to verify that a <strong>stealth</strong> daemon is alive.
-    <li> <code>--random-interval (-i) &lt;interval&gt;[m]&gt;</code>: start the scan a random
+    <li> <code >--ping &lt;uds&gt;</code>: (C) performs no actions, but is used to verify that
+        a <strong >stealth</strong> daemon can be reached via its Unix Domain Socket
+        (<code >&lt;uds&gt;</code>). The daemon will respond even if it's currently performing
+        an integrity scan. It is used by the <code >/usr/bin/stealthcron</code> script
+        to verify that a <strong >stealth</strong> daemon is alive.
+    <li> <code >--random-interval (-i) &lt;interval&gt;[m]&gt;</code>: start the scan a random
         interval of &lt;interval&gt; seconds (or minutes if an `m' is appended (no
-        blanks) to &lt;interval&gt;) following the delay specified at <code>--repeat</code>
-        (see below). This option requires specification of the <code>--repeat</code>
-        and <code>--daemon</code> options;
-    <li> <code>--reload &lt;uds&gt;</code>: (C) reloads the configuration and skip-files
-        and restarts the scan of the <strong>stealth</strong> daemon process. Options defined in
+        blanks) to &lt;interval&gt;) following the delay specified at <code >--repeat</code>
+        (see below). This option requires specification of the <code >--repeat</code>
+        and <code >--daemon</code> options;
+    <li> <code >--reload &lt;uds&gt;</code>: (C) reloads the configuration and skip-files
+        and restarts the scan of the <strong >stealth</strong> daemon process. Options defined in
         the policy file are also reloaded. However, command-line options
         always take priority over options defined in the policy file, so when
-        command-line options were used when starting <strong>stealth</strong> in daemon mode, they
+        command-line options were used when starting <strong >stealth</strong> in daemon mode, they
         cannot be modified by reloading the policy file.
-    <li> <code>--repeat &lt;seconds&gt;</code>: wake up and perform an integrity scan at
-        interrupts or after <code>&lt;seconds&gt;</code> seconds (or minutes if an `m' is
+    <li> <code >--repeat &lt;seconds&gt;</code>: wake up and perform an integrity scan at
+        interrupts or after <code >&lt;seconds&gt;</code> seconds (or minutes if an `m' is
         appended (no blanks) to &lt;seconds&gt;) after completing the previous
-        integrity scan. The option <code>--random-interval</code> can be used to add a
-        random delay to <code>&lt;seconds&gt;</code> until the next integrity scan is
-        performed. This option requires specification of the and <code>--daemon</code>
+        integrity scan. The option <code >--random-interval</code> can be used to add a
+        random delay to <code >&lt;seconds&gt;</code> until the next integrity scan is
+        performed. This option requires specification of the and <code >--daemon</code>
         option;
-    <li> <code>--rerun &lt;uds&gt;</code>: (C) start executing the integrity scan
-        commands that are specifed in the <strong>stealth</strong> daemon process's policy file;
-    <li> <code>--resume &lt;uds&gt;</code>: (C) resume a suspended <strong>stealth</strong> process, implies
-        <code>--rerun</code>;
-    <li> <code>--run-command (-r) &lt;nr&gt;</code>: (C) Only execute command number &lt;nr&gt;
-        (natural number).  Command numbers are shown by <strong>stealth</strong>
-        <code>---parse-policy-file</code>. This option can only be specified using the
+    <li> <code >--rerun &lt;uds&gt;</code>: (C) start executing the integrity scan
+        commands that are specified in the <strong >stealth</strong> daemon process's policy file;
+    <li> <code >--resume &lt;uds&gt;</code>: (C) resume a suspended <strong >stealth</strong> process, implies
+        <code >--rerun</code>;
+    <li> <code >--run-command (-r) &lt;nr&gt;</code>: (C) Only execute command number &lt;nr&gt;
+        (natural number).  Command numbers are shown by <strong >stealth</strong>
+        <code >---parse-policy-file</code>. This option can only be specified using the
         second synopsis;
-    <li> <code>--skip-files (-s) &lt;file-spec&gt;</code>: all entries in <code>&lt;file-spec&gt;</code> are
+    <li> <code >--skip-files (-s) &lt;file-spec&gt;</code>: all entries in <code >&lt;file-spec&gt;</code> are
         skipped. Their integrity is not monitored. If an entry is already
-        present in a log file then <strong>stealth</strong> once generates an <code>IGNORING</code> message
-        in the mail sent to the address specified at <code>EMAIL</code> in the policy
-        file. Each entry mentioned in <code>file-spec</code> must be on a line of
+        present in a log file then <strong >stealth</strong> once generates an <code >IGNORING</code> message
+        in the mail sent to the address specified at <code >EMAIL</code> in the policy
+        file. Each entry mentioned in <code >file-spec</code> must be on a line of
         its own and must be specified using absolute file paths. Entries
         ending in a slash are assumed to be directories whose full contents
         must be skipped. Other entries are interpreted as the names
         of files to skip. Initial and trailing blanks, empty lines and lines
-        having a <code>#</code> as their 1st non blank character are ignored. Here are
+        having a <code >#</code> as their 1st non blank character are ignored. Here are
         some examples:
             <pre>
 
@@ -142,73 +142,73 @@ Command-line options overrule options defined in the policy-file.
             
 </pre>
 
-    <li> <code>--stdout (-o)</code>: messages are (also) written to the std. output
+    <li> <code >--stdout (-o)</code>: messages are (also) written to the std. output
         stream (only available with the second synopsis);
-    <li> <code>--suspend &lt;uds&gt;</code>: (C) suspends a currently active <strong>stealth</strong>
-        process. Following <code>--suspend</code> use <code>--resume</code> to re-activate an
-        <strong>stealth</strong> daemon or <code>--terminate</code> to end an <strong>stealth</strong> daemon;
-    <li> <code>--syslog</code>: write syslog messages;
-    <li> <code>--syslog-facility &lt;facility&gt;</code>:  syslog facility to use. By
+    <li> <code >--suspend &lt;uds&gt;</code>: (C) suspends a currently active <strong >stealth</strong>
+        process. Following <code >--suspend</code> use <code >--resume</code> to re-activate an
+        <strong >stealth</strong> daemon or <code >--terminate</code> to end an <strong >stealth</strong> daemon;
+    <li> <code >--syslog</code>: write syslog messages;
+    <li> <code >--syslog-facility &lt;facility&gt;</code>:  syslog facility to use. By
         default facility DAEMON is used;
-    <li> <code>--syslog-priority &lt;priority&gt;</code>: syslog priority to use. By
+    <li> <code >--syslog-priority &lt;priority&gt;</code>: syslog priority to use. By
         default priority NOTICE is used;
-   <li> <code>--syslog-tag &lt;tag&gt;</code>: <code>&lt;tag&gt;</code> specifies the identifier that is
+   <li> <code >--syslog-tag &lt;tag&gt;</code>: <code >&lt;tag&gt;</code> specifies the identifier that is
         prefixed to syslog messages. By default the tag `STEALTH' is used, see
         also the next section;
-    <li> <code>--terminate &lt;uds&gt;</code>: (C) terminate a currently active <strong>stealth</strong>
+    <li> <code >--terminate &lt;uds&gt;</code>: (C) terminate a currently active <strong >stealth</strong>
         process;
-    <li> <code>--time-stamp (-t) &lt;type&gt;</code>: the time-stamps to use. By default
-        UTC. To use the local time specify <code>--time-stamp
-        LT</code>. The <code>--time-stamp</code> option does not apply to time-stamps
+    <li> <code >--time-stamp (-t) &lt;type&gt;</code>: the time-stamps to use. By default
+        UTC. To use the local time specify <code >--time-stamp
+        LT</code>. The <code >--time-stamp</code> option does not apply to time-stamps
         generated by syslog (see also the next section);
-    <li> <code>--usage</code>: (C) Display help information and exit;
-    <li> <code>--verbosity &lt;value&gt;</code>: determines the amount of logged
-        information. Requires options <code>--log</code> or <code>--syslog</code>. Possible
+    <li> <code >--usage</code>: (C) Display help information and exit;
+    <li> <code >--verbosity &lt;value&gt;</code>: determines the amount of logged
+        information. Requires options <code >--log</code> or <code >--syslog</code>. Possible
         values are:<br/>
                          0: nothing is logged<br/>
                          1: (default) mode reports and policy commands<br/>
                          2: also: ipc commands and actions<br/>
                          3: also: integrity scan informative messages
-    <li> <code>--version (-v)</code>: (C) Display <strong>stealth</strong>'s version information and
+    <li> <code >--version (-v)</code>: (C) Display <strong >stealth</strong>'s version information and
         terminate;
     </ul>
 <p>
 <ul>
-    <li> <code>policy</code>: file specification of the policy file. If a relative
+    <li> <code >policy</code>: file specification of the policy file. If a relative
         location is specified then this location is interpreted relative to
-        the current working directory. <strong>Stealth</strong> converts this relative
+        the current working directory. <strong >Stealth</strong> converts this relative
         specification to an absolute file location, and an option like
-        <code>--reload</code> will reload the policy file from the thus determined
+        <code >--reload</code> will reload the policy file from the thus determined
         absolute file path.
     </ul>
 <p>
-Only one of the options <code>--daemon, --reload, --resume,
---suspend</code> or <code>--terminate</code> can be specified. The options <code>--reload,
---rerun, --resume, --suspend,</code> and <code>--terminate</code> ignore any other options.
+Only one of the options <code >--daemon, --reload, --resume,
+--suspend</code> or <code >--terminate</code> can be specified. The options <code >--reload,
+--rerun, --resume, --suspend,</code> and <code >--terminate</code> ignore any other options.
 <p>
-The following options are still recognized for backward compatibility with <strong>stealth</strong>
-pre-3.00 versions and will be removed in a future <strong>stealth</strong> version. They generate
+The following options are still recognized for backward compatibility with <strong >stealth</strong>
+pre-3.00 versions and will be removed in a future <strong >stealth</strong> version. They generate
 error messages suggesting alternatives:
 <p>
 <ul>
-    <li> <code>--echo-commands (-e)</code>:
-            echo commands to std error when they are processed; use <code>--log</code>
+    <li> <code >--echo-commands (-e)</code>:
+            echo commands to std error when they are processed; use <code >--log</code>
             instead.
-    <li> <code>--keep-alive</code>: run as a daemon; use <code>--daemon</code> instead.
-    <li> <code>--only-stdout</code>: scan report is written to stdout; use
-        <code>--stdout</code> instead.
-    <li> <code>--quiet (-q)</code>: suppresses progress messages written to stderr; use
-        <code>--verbosity 0</code> instead.
-    <li> <code>--suppress &lt;uds&gt;</code>: suppresses a currently active <strong>stealth</strong>
-            process; use <code>--suspend</code> instead.
+    <li> <code >--keep-alive</code>: run as a daemon; use <code >--daemon</code> instead.
+    <li> <code >--only-stdout</code>: scan report is written to stdout; use
+        <code >--stdout</code> instead.
+    <li> <code >--quiet (-q)</code>: suppresses progress messages written to stderr; use
+        <code >--verbosity 0</code> instead.
+    <li> <code >--suppress &lt;uds&gt;</code>: suppresses a currently active <strong >stealth</strong>
+            process; use <code >--suspend</code> instead.
     </ul>
 <p>
-The following options were discontinued starting since <strong>stealth</strong> version 3.00.00:
+The following options were discontinued starting since <strong >stealth</strong> version 3.00.00:
     <ul>
-    <li> <code>--debug</code> (option <code>--verbosity</code> or <code>--dry-run</code> could be used 
+    <li> <code >--debug</code> (option <code >--verbosity</code> or <code >--dry-run</code> could be used 
                     instead);
-    <li> <code>--no-child-processes</code>;
-    <li> <code>--parse-config-file</code>.
+    <li> <code >--no-child-processes</code>;
+    <li> <code >--parse-config-file</code>.
     </ul>
 <p>
 When specifying long options in policy files initial hyphens should be
@@ -221,10 +221,10 @@ omitted. Here are some examples:
 
 <p>
 <a name="l21"></a>
-<h3>5.2.1: Rsyslog filtering</h3>
-            When using <strong>rsyslogd</strong>(1) property based filters may be used to filter
+<h3 >5.2.1: Rsyslog filtering</h3>
+            When using <strong >rsyslogd</strong>(1) property based filters may be used to filter
 syslog messages and write them to a file of your choice. E.g., to filter
-messages starting with the syslog message tag (e.g., <code>STEALTH</code>) use
+messages starting with the syslog message tag (e.g., <code >STEALTH</code>) use
         <pre>
 
 :syslogtag, isequal, "STEALTH:"   /var/log/stealth.log
@@ -233,58 +233,58 @@ messages starting with the syslog message tag (e.g., <code>STEALTH</code>) use
 </pre>
 
     Note that the colon is part of the tag, but is not specified with the 
-<code>syslog-tag</code> option.
+<code >syslog-tag</code> option.
 <p>
-This causes all messages having the <code>STEALTH:</code> tag to be written on
-<code>/var/log/stealth.log</code> after which they are discarded. More extensive
+This causes all messages having the <code >STEALTH:</code> tag to be written on
+<code >/var/log/stealth.log</code> after which they are discarded. More extensive
 filtering is also supported, see, e.g.,
-<code>http://www.rsyslog.com/doc/rsyslog_conf_filter.html</code> and
-<code>http://www.rsyslog.com/doc/property_replacer.html</code>
+<code >http://www.rsyslog.com/doc/rsyslog_conf_filter.html</code> and
+<code >http://www.rsyslog.com/doc/property_replacer.html</code>
 <p>
-Time stamps written by <code>rsyslogd</code> are not controlled by <strong>stealth</strong>'s
-<code>--time-stamp</code> option, but, e.g., by a <code>TZ</code> specification in
-<code>/etc/default/rsyslog</code>. Simply add the line
+Time stamps written by <code >rsyslogd</code> are not controlled by <strong >stealth</strong>'s
+<code >--time-stamp</code> option, but, e.g., by a <code >TZ</code> specification in
+<code >/etc/default/rsyslog</code>. Simply add the line
     <pre>
     export TZ=UTC
 </pre>
 
- to <code>/etc/default/rsyslog</code>, followed by restarting <code>rsyslogd</code> configures
-<code>rsyslogd</code> to generate time stamps using UTC.
+ to <code >/etc/default/rsyslog</code>, followed by restarting <code >rsyslogd</code> configures
+<code >rsyslogd</code> to generate time stamps using UTC.
 <p>
 <a name="l22"></a>
-<h2>5.3: Construct one or more policy files</h2>
-    Here we assume that <strong>stealth</strong> is run by <em>root</em>, and that root wants to
-store information about the host <code>client</code> under the subdirectory
-<code>/root/stealth/client</code>. 
+<h2 >5.3: Construct one or more policy files</h2>
+    Here we assume that <strong >stealth</strong> is run by <em >root</em>, and that root wants to
+store information about the host <code >client</code> under the subdirectory
+<code >/root/stealth/client</code>. 
 <p>
-Furthermore, we assume that reports of <strong>stealth</strong> integrity-scans should be sent to
-the user <code>admin@elsewhere</code>, who is only interested in receiving a short
+Furthermore, we assume that reports of <strong >stealth</strong> integrity-scans should be sent to
+the user <code >admin@elsewhere</code>, who is only interested in receiving a short
 summary of changes, as the full report can always be read at the monitor
 itself. To accomplish this a small support-script was developed, filtering the
-report generated by <strong>stealth</strong> down to its essentials.
+report generated by <strong >stealth</strong> down to its essentials.
 <p>
-As the <code>sha1sum</code> program on the client may be compromised, it is a good idea
-to start the integrity scan by transferring the client's <code>sha1sum</code> program
+As the <code >sha1sum</code> program on the client may be compromised, it is a good idea
+to start the integrity scan by transferring the client's <code >sha1sum</code> program
 to the monitor first, to verify the integrity of that program locally (i.e.,
 at the monitor), before trusting it to compute sha1sums of the client's
 files. The same holds true for any libraries and support programs (like
-<code>find</code>) that are used intensively during integrity scans.
+<code >find</code>) that are used intensively during integrity scans.
 <p>
 Sha1sum checks should be performed on all setuid and setgid files on the
-<code>client</code>, and in order to be able reach all files on <code>client</code>,
-<code>root@monitor</code> is allowed to login to the <code>root@client</code> account using
-an <code>ssh</code> connection.
+<code >client</code>, and in order to be able reach all files on <code >client</code>,
+<code >root@monitor</code> is allowed to login to the <code >root@client</code> account using
+an <code >ssh</code> connection.
 <p>
 Furthermore, sha1sum checks should be performed on all configuration files,
-living under <code>/etc</code> and on the file <code>/usr/bin/find</code> (which is used
+living under <code >/etc</code> and on the file <code >/usr/bin/find</code> (which is used
 intensively when performing the integrity checks).
 <p>
-Next, the construction of the required <code>policy</code> file, implementing the
+Next, the construction of the required <code >policy</code> file, implementing the
 abovementioned requirements, is described in the following subsections.
 <p>
 <a name="l23"></a>
-<h3>5.3.1: DEFINE directives</h3>
-            First we write some <code>DEFINE</code> directives simplifying complex command
+<h3 >5.3.1: DEFINE directives</h3>
+            First we write some <code >DEFINE</code> directives simplifying complex command
 specifications: 
         <pre>
 
@@ -293,16 +293,16 @@ specifications:
                     -type f -exec /usr/bin/sha1sum {} \;
 </pre>
 
-    The first <code>DEFINE</code> defines the <code>ssh</code> command to use: an ssh-connection
+    The first <code >DEFINE</code> defines the <code >ssh</code> command to use: an ssh-connection
 will be made to the root account at the client.
 <p>
-The second <code>DEFINE</code> shows the arguments for <strong>find</strong>(1) when looking for
-all root setuid or setgid normal files. For all these files the <strong>sha1sum</strong>(1)
+The second <code >DEFINE</code> shows the arguments for <strong >find</strong>(1) when looking for
+all root setuid or setgid normal files. For all these files the <strong >sha1sum</strong>(1)
 program should be run.
 <p>
 <a name="l24"></a>
-<h3>5.3.2: USE directives</h3>        
-            Next some <code>USE</code> directives, matching our specific, local,
+<h3 >5.3.2: USE directives</h3>        
+            Next some <code >USE</code> directives, matching our specific, local,
 situation, are defined: 
         <pre>
 
@@ -315,17 +315,17 @@ situation, are defined:
 
 <p>
 <ul>
-    <li> All output is  written under the <code>/root/stealth/client</code> directory;
-    <li> Mail is sent to the user <code>admin@elsewhere</code>;
-    <li> As mail program we use a filtering script (<code>stealthmail</code>), which is
-        installed in <code>/root/bin</code>;
-    <li> The script handles its own argument. As it can be used by <strong>stealth</strong>
+    <li> All output is  written under the <code >/root/stealth/client</code> directory;
+    <li> Mail is sent to the user <code >admin@elsewhere</code>;
+    <li> As mail program we use a filtering script (<code >stealthmail</code>), which is
+        installed in <code >/root/bin</code>;
+    <li> The script handles its own argument. As it can be used by <strong >stealth</strong>
         performing integrity scans on other clients as well, it is given an
         argument which can be used as e-mail subject, identifying the
         client-computer that has been integrity-scanned;
-    <li> The ssh-command is defined by the <code>SSHCMD</code>. It's definition is used
-        at the <code>USE SSH</code> specification;
-    <li> Default values of all remaining <code>USE</code> directives are OK, and thus
+    <li> The ssh-command is defined by the <code >SSHCMD</code>. It's definition is used
+        at the <code >USE SSH</code> specification;
+    <li> Default values of all remaining <code >USE</code> directives are OK, and thus
         were not explicitly specified. They are:
         <pre>
     USE DD          /bin/dd
@@ -337,37 +337,37 @@ situation, are defined:
     </ul>
 <p>
 <a name="l25"></a>
-<h3>5.3.3: Commands</h3>
+<h3 >5.3.3: Commands</h3>
         The following commands are now defined:
     <ul>
-    <li> first, we copy the client's <code>sha1sum</code> program to the monitor. In
+    <li> first, we copy the client's <code >sha1sum</code> program to the monitor. In
 practice, this should also include the shared object libraries that are used
-by <code>sha1sum</code>, as they might have become corrupted as well;
-    <li> Once <code>sha1sum</code> is locally available its integrity is verified;
-    <li> Once the integrity of the client's <code>sha1sum</code> has been verified, it
-is used to verify the integrity of the client's <code>/usr/bin/find</code> program;
+by <code >sha1sum</code>, as they might have become corrupted as well;
+    <li> Once <code >sha1sum</code> is locally available its integrity is verified;
+    <li> Once the integrity of the client's <code >sha1sum</code> has been verified, it
+is used to verify the integrity of the client's <code >/usr/bin/find</code> program;
     <li> Following this, all setuid and setgid root files are located and
 checked for integrity;
     <li> Finally, the integrity of the client configuration files under
-<code>/etc</code> is verified;
+<code >/etc</code> is verified;
     </ul>
 <p>
-In this manual the <strong>sha1sum</strong>(1) program is frequently used when checking
-hash values. Stronger hash functions (like <strong>sha256sum</strong>(1)) might be
-preferred in practice. <code>sha256sum's</code> hash values are remarkably longer than
-<code>sha1sum's</code> hash values. When using these longer hash values in the manual
+In this manual the <strong >sha1sum</strong>(1) program is frequently used when checking
+hash values. Stronger hash functions (like <strong >sha256sum</strong>(1)) might be
+preferred in practice. <code >sha256sum's</code> hash values are remarkably longer than
+<code >sha1sum's</code> hash values. When using these longer hash values in the manual
 it often clobbers the layout of examples. Therefore in this manual
-<strong>sha1sum</strong>(1) is continued to be used.
+<strong >sha1sum</strong>(1) is continued to be used.
 <p>
 Realize, however, that when updating existing policy files to use
-<strong>sha256sum</strong>(1) instead of <strong>sha1sum</strong>(1), that previously generated log
-files (that used <strong>sha1sum</strong>(1)) are incompatible with log files obtained when
-using <strong>sha256sum</strong>(1). In practice this means that new log files need to be
+<strong >sha256sum</strong>(1) instead of <strong >sha1sum</strong>(1), that previously generated log
+files (that used <strong >sha1sum</strong>(1)) are incompatible with log files obtained when
+using <strong >sha256sum</strong>(1). In practice this means that new log files need to be
 generated, and any previously geneerated log files must be disregarded.
 <p>
 <a name="l26"></a>
-<h4>5.3.3.1: Obtaining the client's sha1sum program</h4>
-            To copy the client's <code>sha1sum</code> program to a local directory we specify:
+<h4 >5.3.3.1: Obtaining the client's sha1sum program</h4>
+            To copy the client's <code >sha1sum</code> program to a local directory we specify:
         <pre>
 
     GET /usr/bin/sha1sum /root/tmp
@@ -376,9 +376,9 @@ generated, and any previously geneerated log files must be disregarded.
     This command must succeed. 
 <p>
 <a name="l27"></a>
-<h4>5.3.3.2: Checking the integrity of the client's sha1sum program</h4>
-            Next, we check the integrity of the received <code>sha1sum</code> program. For this, we
-use the monitor's <code>sha1sum</code> program:
+<h4 >5.3.3.2: Checking the integrity of the client's sha1sum program</h4>
+            Next, we check the integrity of the received <code >sha1sum</code> program. For this, we
+use the monitor's <code >sha1sum</code> program:
         <pre>
 
     LABEL \nCheck the client's sha1sum program
@@ -386,30 +386,30 @@ use the monitor's <code>sha1sum</code> program:
         
 </pre>
 
-    The <code>LABEL</code> command writes the label to the report file just before
-writing the <code>sha1sum</code> program's output.
+    The <code >LABEL</code> command writes the label to the report file just before
+writing the <code >sha1sum</code> program's output.
 <p>
-The <code>LOCAL</code> command checks the sha1sum of the program copied from the
+The <code >LOCAL</code> command checks the sha1sum of the program copied from the
 client. The report is written on the file
-<code>/root/stealth/client/local/sha1</code>. If this fails, <strong>stealth</strong> terminates, alerting
-<code>admin@elsewhere</code> that the check failed. This is a serious event, as it
-indicates that either the monitor's <code>sha1sum</code> is behaving unexpectedly or
-that the client's <code>sha1sum</code> program has unexpectedly changed.
+<code >/root/stealth/client/local/sha1</code>. If this fails, <strong >stealth</strong> terminates, alerting
+<code >admin@elsewhere</code> that the check failed. This is a serious event, as it
+indicates that either the monitor's <code >sha1sum</code> is behaving unexpectedly or
+that the client's <code >sha1sum</code> program has unexpectedly changed.
 <p>
-The <code>sha1sum</code> program <em>may</em> have changed due to a normal upgrade. If
-so, <code>admin@elsewhere</code> will know this, and can (probably) ignore the
-warning. The next time <strong>stealth</strong> is run, the (now updated) SHA1 value is used, and
-it again compares the obtained <code>SHA1</code> value to the one obtained for the
-downloaded <code>sha1sum</code> program.
+The <code >sha1sum</code> program <em >may</em> have changed due to a normal upgrade. If
+so, <code >admin@elsewhere</code> will know this, and can (probably) ignore the
+warning. The next time <strong >stealth</strong> is run, the (now updated) SHA1 value is used, and
+it again compares the obtained <code >SHA1</code> value to the one obtained for the
+downloaded <code >sha1sum</code> program.
 <p>
 <a name="l28"></a>
-<h4>5.3.3.3: Checking the client's /usr/bin/find program</h4>
-                The client normally uses its <code>find</code> command intensively: <code>find</code> is a
+<h4 >5.3.3.3: Checking the client's /usr/bin/find program</h4>
+                The client normally uses its <code >find</code> command intensively: <code >find</code> is a
 great tool for producing reports about almost any conceivable combination of
-characteristics of sets of files. Of course, the client's <code>find</code> command
-must itself be OK, as well as the client's <code>sha1sum</code> program. Now that we
-know that the client's <code>sha1sum</code> program is OK, we can use it to check the
-client's <code>/usr/bin/find</code> program.
+characteristics of sets of files. Of course, the client's <code >find</code> command
+must itself be OK, as well as the client's <code >sha1sum</code> program. Now that we
+know that the client's <code >sha1sum</code> program is OK, we can use it to check the
+client's <code >/usr/bin/find</code> program.
 <p>
 Note that the monitor itself no longer needs to invest any significant
 processing load: only the client itself is taxed for checking the integrity
@@ -422,10 +422,10 @@ of its own files:
 
 <p>
 <a name="l29"></a>
-<h4>5.3.3.4: Checking the client's setuid/setgid files</h4>
-                Having checked the client's <code>sha1sum</code> and <code>find</code> programs, sha1 checksum
+<h4 >5.3.3.4: Checking the client's setuid/setgid files</h4>
+                Having checked the client's <code >sha1sum</code> and <code >find</code> programs, sha1 checksum
 checks should be performed on all setuid and setgid files on the
-client. For this we activate the <code>sha1sum</code> program on the client. In
+client. For this we activate the <code >sha1sum</code> program on the client. In
 order to check the setuid/setgid files, the following command is added to the
 policy file:
         <pre>
@@ -436,11 +436,11 @@ policy file:
 
 <p>
 <a name="l30"></a>
-<h4>5.3.3.5: Checking the configuration files in the 
+<h4 >5.3.3.5: Checking the configuration files in the 
                                                 client's /etc/ directory</h4>
                 Finally, the client's configuration files are checked. Some of these files
 change so frequently that we don't want them to be checked. E.g.,
-<code>/etc/adjtime, /etc/mtab</code>. To check the configuration file, do:
+<code >/etc/adjtime, /etc/mtab</code>. To check the configuration file, do:
     
         <pre>
     LABEL \nconfiguration files under /etc
@@ -452,10 +452,10 @@ change so frequently that we don't want them to be checked. E.g.,
 
 <p>
 <a name="l31"></a>
-<h3>5.3.4: The complete `policy' file</h3>
+<h3 >5.3.4: The complete `policy' file</h3>
         Here is the complete policy file we've constructed so far:
 <p>
-<pre>
+<pre >
     DEFINE  SSHCMD  /usr/bin/ssh root@client -T -q exec /bin/bash --noprofile
     DEFINE  EXECSHA1 -xdev -perm +u+s,g+s \( -user root -or -group root \) \ 
                     -type f -exec /usr/bin/sha1sum {} \;
@@ -495,19 +495,19 @@ change so frequently that we don't want them to be checked. E.g.,
 
 <p>
 <a name="l32"></a>
-<h2>5.4: Running `stealth' for the first time</h2>
-        When <strong>stealth</strong> is now run, it creates its initial report files under
-<code>root/stealth/client</code>.
+<h2 >5.4: Running `stealth' for the first time</h2>
+        When <strong >stealth</strong> is now run, it creates its initial report files under
+<code >root/stealth/client</code>.
 <p>
-The first time <strong>stealth</strong> is run, it is usually run `by hand'. The initial run by
-hand probably benefits from the <code>--stdout</code> option, as it shows all executed
+The first time <strong >stealth</strong> is run, it is usually run `by hand'. The initial run by
+hand probably benefits from the <code >--stdout</code> option, as it shows all executed
 commands on the standard output:
         <pre>
     stealth --stdout policy
 </pre>
 
-    Furthermore, the reports are initialized. Running <strong>stealth</strong> this way for the
-<code>policy</code> file constructed in the previous sections produces the following
+    Furthermore, the reports are initialized. Running <strong >stealth</strong> this way for the
+<code >policy</code> file constructed in the previous sections produces the following
 output (lines were wrapped to improve readability):
         <pre>
     GET /usr/bin/sha1sum /root/tmp
@@ -540,8 +540,8 @@ output (lines were wrapped to improve readability):
 
 <p>
 <a name="l33"></a>
-<h3>5.4.1: The mailed report</h3>
-        The <code>/root/bin/stealthmail</code> script is called with the following arguments:
+<h3 >5.4.1: The mailed report</h3>
+        The <code >/root/bin/stealthmail</code> script is called with the following arguments:
         <pre>
 
     "Client STEALTH report" admin@elswhere
@@ -568,31 +568,31 @@ The mailed report contains information comparable to this:
 
 <p>
 <a name="l34"></a>
-<h3>5.4.2: Files under /root/stealth/client</h3>
-            Under <code>/root/stealth/client</code> the following entries are now available:
+<h3 >5.4.2: Files under /root/stealth/client</h3>
+            Under <code >/root/stealth/client</code> the following entries are now available:
     <ul>
 <p>
-<li> <code>local</code>: below this directory the reports of the locally performed
-checks are found. Using our demo <code>policy</code> file, only one logfile is found
-here: <code>sha1</code>, containing the client's SHA1 checksum of its
-<code>/usr/bin/sha1sum</code> program:
+<li> <code >local</code>: below this directory the reports of the locally performed
+checks are found. Using our demo <code >policy</code> file, only one logfile is found
+here: <code >sha1</code>, containing the client's SHA1 checksum of its
+<code >/usr/bin/sha1sum</code> program:
         <pre>
     45251e259bfaf1951658a7b66c328c52  /root/tmp/sha1sum
 </pre>
 
 <p>
-<li> <code>remote</code>: at this directory the reports of the remotely performed
-checks are found. Using our demo <code>policy</code> file, three files were created:
+<li> <code >remote</code>: at this directory the reports of the remotely performed
+checks are found. Using our demo <code >policy</code> file, three files were created:
 <p>
-The file <code>binfind</code>, containing the checksum of the client's
-<code>/usr/bin/find</code> program:
+The file <code >binfind</code>, containing the checksum of the client's
+<code >/usr/bin/find</code> program:
         <pre>
     fc62fc774999584f1e29e0f94279a652  /usr/bin/find
 </pre>
 
 <p>
-The file <code>etcfiles</code>, containing the checksums of the client's
-configuration files under <code>/etc</code> (shown only partially):
+The file <code >etcfiles</code>, containing the checksums of the client's
+configuration files under <code >/etc</code> (shown only partially):
         <pre>
     ced739ecb2c43a20053a9f0eb308b2b0  /etc/modutils/aliases
     a2322d7e2f95317b2ddf3543eb4c74c0  /etc/modutils/paths
@@ -608,7 +608,7 @@ configuration files under <code>/etc</code> (shown only partially):
 </pre>
 
 <p>
-The file <code>setuidgid</code>, containing the checksums of the client's
+The file <code >setuidgid</code>, containing the checksums of the client's
 setuid/setgid root files (shown only partially):
         <pre>
     030f3f84ec76a8181cca087c4ba655ea  /bin/login
@@ -629,8 +629,8 @@ Of course, the checksums and the filenames shown are only for
 documentation purposes. At other systems different files and/or
 checksums will be reported.
 <p>
-<li> The file <code>/root/client/report</code> <strong>New lines are always appended to
-the <code>/root/client/report</code> file.  It will never shorten, unless shorten by
+<li> The file <code >/root/client/report</code> <strong >New lines are always appended to
+the <code >/root/client/report</code> file.  It will never shorten, unless shorten by
 the systems administrator at `monitor'</strong>.
 <p>
 This file contains the following:
@@ -653,17 +653,17 @@ This file contains the following:
 
     </ul>
 <p>
-This completes the information generated by <strong>stealth</strong> during its first run.
+This completes the information generated by <strong >stealth</strong> during its first run.
 <p>
 <a name="l35"></a>
-<h2>5.5: Subsequent `stealth' runs</h2>
+<h2 >5.5: Subsequent `stealth' runs</h2>
 <p>
 <a name="l36"></a>
-<h3>5.5.1: All files unaltered</h3>
-            When <strong>stealth</strong> is subsequently run, it updates its report files under
-<code>root/stealth/client</code>. If nothing has changed, the log-files remain
+<h3 >5.5.1: All files unaltered</h3>
+            When <strong >stealth</strong> is subsequently run, it updates its report files under
+<code >root/stealth/client</code>. If nothing has changed, the log-files remain
 unaltered. Subsequent runs will, however, add some new info to the file
-<code>/root/client/report</code>:
+<code >/root/client/report</code>:
         <pre>
 
     STEALTH (4.00.00) started at Sat, 07 Feb 2015 22:10:56 +0100
@@ -688,23 +688,23 @@ of the last run. The systems administrator may rotate the report file every
 once in a while to reclaim some disk space.
 <p>
 <a name="l37"></a>
-<h3>5.5.2: Modifications occurred</h3>
+<h3 >5.5.2: Modifications occurred</h3>
             Basically, three kinds of modifications are possible: additions,
 modifications, and removals. Here we'll show the effects all these changes
-have on <strong>stealth</strong>'s output.
+have on <strong >stealth</strong>'s output.
 <p>
 For illustrative purposes, the following changes were made to the
-<code>client</code>'s files:
+<code >client</code>'s files:
     <ul>
-    <li> <code>/etc/motd</code> was changed
-    <li> the file <code>timezone~</code> was removed
-    <li> the file <code>/etc/motd.org</code> was created
+    <li> <code >/etc/motd</code> was changed
+    <li> the file <code >timezone~</code> was removed
+    <li> the file <code >/etc/motd.org</code> was created
     </ul>
 <p>
-Next, <strong>stealth</strong> was again run, producing the following output:
+Next, <strong >stealth</strong> was again run, producing the following output:
     <ul>
 <p>
-<li> The following new info is now added to file <code>/root/client/report</code>:
+<li> The following new info is now added to file <code >/root/client/report</code>:
         <pre>
     STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:13:38 +0000
     
@@ -719,9 +719,9 @@ Next, <strong>stealth</strong> was again run, producing the following output:
 </pre>
 
     Note that all changes were properly detected and logged in the file
-<code>/root/client/report</code>. 
+<code >/root/client/report</code>. 
 <p>
-<li> Furthermore, a matching report was sent by <em>mail</em>:
+<li> Furthermore, a matching report was sent by <em >mail</em>:
         <pre>
     STEALTH (3.00.00) started at Wed, 20 Aug 2014 11:13:38 +0000
 
@@ -735,8 +735,8 @@ Next, <strong>stealth</strong> was again run, producing the following output:
         &gt; 6322bc8cb3ec53f5eea33201b434b74b  /etc/timezone~
 </pre>
 
-    Note that the report <em>only</em> shows the info that was added to the
-<em>/root/client/report</em> file. 
+    Note that the report <em >only</em> shows the info that was added to the
+<em >/root/client/report</em> file. 
 <p>
 The report itself could be beautified further. E.g., I use the following
 script to mail the report to the addressee:
@@ -751,11 +751,11 @@ script to mail the report to the addressee:
         
 </pre>
 
-    For the <code>client</code> computer, this little script writes the mailed report
-on a file <code>/root/stealth/lastreport/client</code>, overwriting its previous
+    For the <code >client</code> computer, this little script writes the mailed report
+on a file <code >/root/stealth/lastreport/client</code>, overwriting its previous
 contents, removes all lines beginning with blanks (thus trimming away the
-<code>diff</code>-generated lines), and e-mails the <code>sort</code>ed and <code>uniq</code>ed lines
-using <code>mail</code>. The addressee (<code>admin@elsewhere</code>) then receives the
+<code >diff</code>-generated lines), and e-mails the <code >sort</code>ed and <code >uniq</code>ed lines
+using <code >mail</code>. The addressee (<code >admin@elsewhere</code>) then receives the
 following information:
         <pre>
 
@@ -781,18 +781,18 @@ out of the ordinary has happened.
 </pre>
 
     As remarked earlier (see section <a href="stealth04.html#COMMANDS">4.3</a>), many
-<code>logfile.YYMMDD-HHMMSS</code> files could eventually accumulate. As discussed in
+<code >logfile.YYMMDD-HHMMSS</code> files could eventually accumulate. As discussed in
 section <a href="stealth04.html#COMMANDS">4.3</a>, it might be considered to remove old log files every
 now and then.
     </ul>
 <p>
 <a name="l38"></a>
-<h3>5.5.3: Failing LOCAL commands</h3>
-            If the client's <code>sha1sum</code> program itself is altered, a serious situation
-has developed. In that case, further actions by <strong>stealth</strong> would be suspect, as their
-results might easily be currupted. Additional checks <em>will</em> be performed,
-but a warning is generated on the <code>report</code> file (and in the mail sent to
-<code>admin@elsewhere</code>):
+<h3 >5.5.3: Failing LOCAL commands</h3>
+            If the client's <code >sha1sum</code> program itself is altered, a serious situation
+has developed. In that case, further actions by <strong >stealth</strong> would be suspect, as their
+results might easily be currupted. Additional checks <em >will</em> be performed,
+but a warning is generated on the <code >report</code> file (and in the mail sent to
+<code >admin@elsewhere</code>):
         <pre>
 
     STEALTH (4.00.00) started at Sat, 07 Feb 2015 22:27:15 +0100
@@ -812,29 +812,29 @@ but a warning is generated on the <code>report</code> file (and in the mail sent
         &gt; 7f96195d5f051375fe7b523d29e379c1  /etc/motd
 </pre>
 
-    (The report shows the removal of the previously added file <code>motd.org</code>,
-and the modification of <code>motd</code>. These are real, as the original <code>motd</code>
+    (The report shows the removal of the previously added file <code >motd.org</code>,
+and the modification of <code >motd</code>. These are real, as the original <code >motd</code>
 file, modified earlier, was restored at this point).
 <p>
 <a name="l39"></a>
-<h3>5.5.4: Skipping (some) integrity checks</h3>
+<h3 >5.5.4: Skipping (some) integrity checks</h3>
         Some files or directories may not require integrity checks. Automated
 processes may modify files which are not threatening the proper functioning of
 running programs or processes. In those cases a file can be prepared holding
 the absolute paths of entries to be skipped. Each entry should appear on a
 line of its own without any additional information.
 <p>
-<strong>Stealth</strong> can be informed about this file using the <code>--skip-files &lt;file-spec&gt;</code>
-option. When a relative file specification is used with <code>--skip-files</code> it is
+<strong >Stealth</strong> can be informed about this file using the <code >--skip-files &lt;file-spec&gt;</code>
+option. When a relative file specification is used with <code >--skip-files</code> it is
 interpreted a location relative to the current working directory.  The
 skip-files file itself must contain the paths of the entries to be skipped
 during file integrity scans. If an entry is already present in a log file then
-<strong>stealth</strong> once generates an <code>IGNORING</code> message in the mail sent to the address
-specified at <code>EMAIL</code> in the policy file. Each entry in a skip-file must be
+<strong >stealth</strong> once generates an <code >IGNORING</code> message in the mail sent to the address
+specified at <code >EMAIL</code> in the policy file. Each entry in a skip-file must be
 on a line of its own and must be specified using absolute file paths. Entries
 ending in a slash are assumed to be directories whose full contents must be
 skipped. Other entries are interpreted as the names of files to skip. Initial
-and trailing blanks, empty lines and lines having a <code>#</code> as their 1st non
+and trailing blanks, empty lines and lines having a <code >#</code> as their 1st non
 blank character are ignored.
 <p>
 Here is an example:
@@ -844,8 +844,8 @@ Here is an example:
 </pre>
 
 <p>
-If an entry <code>/etc/skipme</code> appears in the current logs which is thereafter
-added to the <code>skippath</code> file then the mail generated by <strong>stealth</strong> 
+If an entry <code >/etc/skipme</code> appears in the current logs which is thereafter
+added to the <code >skippath</code> file then the mail generated by <strong >stealth</strong> 
 once contains a line like the following:
         <pre>
     SKIPPING: /etc/skipme
@@ -854,15 +854,15 @@ once contains a line like the following:
 </pre>
 
     The reported hash-value is the hash-value at the time of the stealth-run
-reporting the <code>SKIPPING</code> message.
+reporting the <code >SKIPPING</code> message.
 <p>
 Entries ending in a slash are assumed to be directories whose contents must
 (recursively) be skipped.
 <p>
 <a name="l40"></a>
-<h2>5.6: Automating repeated `stealth' runs</h2>
-        To automate <strong>stealth</strong>'s  integrity scans, a file
-<code>/etc/cron.d/stealth</code> could be created, containing a line like
+<h2 >5.6: Automating repeated `stealth' runs</h2>
+        To automate <strong >stealth</strong>'s  integrity scans, a file
+<code >/etc/cron.d/stealth</code> could be created, containing a line like
         <pre>
 
     2,17,32,47 * * * *  root    test -x /usr/bin/stealth &amp;&amp; \ 
@@ -870,18 +870,18 @@ Entries ending in a slash are assumed to be directories whose contents must
         
 </pre>
 
-    This starts <strong>stealth</strong> 2 minutes after every hour. In this example the ssh-key
-must not require a passphrase, as <strong>crontab</strong>(1) cannot provide passphrases of
+    This starts <strong >stealth</strong> 2 minutes after every hour. In this example the ssh-key
+must not require a passphrase, as <strong >crontab</strong>(1) cannot provide passphrases of
 ssh-keys. Ssh-keys requiring passphrases can, however, be used if repeated 
-<strong>stealth</strong> runs are controlled  by a program like <strong>ssh-cron</strong>(1).
+<strong >stealth</strong> runs are controlled  by a program like <strong >ssh-cron</strong>(1).
 <p>
-In general, randomized events are harder to notice. For this <strong>stealth</strong> offers
-the <code>--repeat</code> and <code>--random-interval</code> options. Both options expect an
-argument in seconds (or in minutes, if an <code>m</code> is appended to the
+In general, randomized events are harder to notice. For this <strong >stealth</strong> offers
+the <code >--repeat</code> and <code >--random-interval</code> options. Both options expect an
+argument in seconds (or in minutes, if an <code >m</code> is appended to the
 specification). After each integrity scan the next integrity scan starts after
-the time interval specified by the <code>--repeat</code> option plus a random time
-value selected from the time interval specified by the <code>--random-interval</code>
-option. For example, the <strong>stealth</strong> daemon started by the following command
+the time interval specified by the <code >--repeat</code> option plus a random time
+value selected from the time interval specified by the <code >--random-interval</code>
+option. For example, the <strong >stealth</strong> daemon started by the following command
 repeatedly performs integrity scans between two and five minutes after the
 last integrity scan completed:
         <pre>
@@ -890,7 +890,7 @@ last integrity scan completed:
             --repeat 2m --random-interval 3m /root/stealth/client.pol
 </pre>
 
-    Once this program has started its <strong>ssh</strong>(1) connection to the client host
+    Once this program has started its <strong >ssh</strong>(1) connection to the client host
 persists, and a possibly required ssh-passphrase is no longer
 required. Additional (intermediate) integrity scans can always be requested
 (also without requiring ssh-passphrase specifications) using the command
@@ -901,17 +901,17 @@ required. Additional (intermediate) integrity scans can always be requested
 
 <p>
 <a name="ROTATE"></a><a name="l41"></a>
-<h2>5.7: Report File Rotation</h2>
-    When <strong>stealth</strong> performs integrity scans it appends information to the report
+<h2 >5.7: Report File Rotation</h2>
+    When <strong >stealth</strong> performs integrity scans it appends information to the report
 file. This file therefore eventually grows to a large size, and the systems
-manager controlling <strong>stealth</strong> might want to <em>rotate</em> the report file every once in
-a while (e.g., using a program like <strong>logrotate</strong>(1), also see the upcoming
+manager controlling <strong >stealth</strong> might want to <em >rotate</em> the report file every once in
+a while (e.g., using a program like <strong >logrotate</strong>(1), also see the upcoming
 section <a href="stealth05.html#LOGROTATE">5.7.2</a>). To ensure that no log-rotation takes place
-while <strong>stealth</strong> is busy performing integrity scans (thus modifying the report file)
-the options <strong>--suspend</strong> and <code>--resume</code> were implemented. Both options
-require the process-ID file of currently active <strong>stealth</strong> process as their argument.
+while <strong >stealth</strong> is busy performing integrity scans (thus modifying the report file)
+the options <strong >--suspend</strong> and <code >--resume</code> were implemented. Both options
+require the process-ID file of currently active <strong >stealth</strong> process as their argument.
 <p>
-For example, if a <strong>stealth</strong> process was once started using the command
+For example, if a <strong >stealth</strong> process was once started using the command
     
         <pre>
 
@@ -919,77 +919,77 @@ For example, if a <strong>stealth</strong> process was once started using the co
                     /root/stealth/small.pol
 </pre>
 
-    then the <code>--suspend</code> and <code>--resume</code> commands for this process should
+    then the <code >--suspend</code> and <code >--resume</code> commands for this process should
 be called as:
         <pre>
     stealth --suspend /root/stealth/small.uds
     stealth --resume /root/stealth/small.uds
 </pre>
 
-    The <strong>stealth</strong> process identified in the files provided as arguments to
-the <code>--suspend</code> and <code>--resume</code> options is called the <em>daemon stealth
+    The <strong >stealth</strong> process identified in the files provided as arguments to
+the <code >--suspend</code> and <code >--resume</code> options is called the <em >daemon stealth
 process</em> below.
 <p>
-The <code>--suspend</code> option has the following effect:
+The <code >--suspend</code> option has the following effect:
     <ul>
-    <li> If the daemon <strong>stealth</strong> process is currently processing its
+    <li> If the daemon <strong >stealth</strong> process is currently processing its
 policy file, performing an integrity scan, then the currently executing
 policy file command is completed, whereafter further commands are ignored,
-except for <code>--resume</code> (see below) and <code>--terminate</code>.
-    <li> Any scheduled integrity scans following the <code>--suspend</code> command
-are ignored by the daemon <strong>stealth</strong> process;
-    <li> The daemon <strong>stealth</strong> process writes a message that it is being suspended to
+except for <code >--resume</code> (see below) and <code >--terminate</code>.
+    <li> Any scheduled integrity scans following the <code >--suspend</code> command
+are ignored by the daemon <strong >stealth</strong> process;
+    <li> The daemon <strong >stealth</strong> process writes a message that it is being suspended to
 the report file and then processes the report file as usual.
     </ul>
     Now that the report file is no longer modified by the daemon
-<strong>stealth</strong> process, log-rotation may take place. E.g., a program like
-<strong>logrotate</strong>(1) allows its users to specify a command or script just before
-log-rotation takes place, and `<strong>stealth</strong> <code>--suspend udsfile</code>' could be
+<strong >stealth</strong> process, log-rotation may take place. E.g., a program like
+<strong >logrotate</strong>(1) allows its users to specify a command or script just before
+log-rotation takes place, and `<strong >stealth</strong> <code >--suspend udsfile</code>' could be
 specified nicely in such a pre-rotation section.
 <p>
-The <code>--resume</code> option has the following effect:
+The <code >--resume</code> option has the following effect:
     <ul>
-    <li> The daemon <strong>stealth</strong> process resumes its activities by performing
-another integrity scan. Thus, <code>--resume</code> implies <code>--rerun</code>.
-    <li> Any scheduled integrity scans following the <code>--resume</code> command are
-again honored by the daemon <strong>stealth</strong> process.
+    <li> The daemon <strong >stealth</strong> process resumes its activities by performing
+another integrity scan. Thus, <code >--resume</code> implies <code >--rerun</code>.
+    <li> Any scheduled integrity scans following the <code >--resume</code> command are
+again honored by the daemon <strong >stealth</strong> process.
     </ul>
-    Note that, once <code>--suspend</code> has been issued, all commands except
-<code>--resume</code> and <code>--terminate</code> are ignored by the daemon <strong>stealth</strong>
-process. While suspended, the <code>--terminate</code> command is acknowledged as a
+    Note that, once <code >--suspend</code> has been issued, all commands except
+<code >--resume</code> and <code >--terminate</code> are ignored by the daemon <strong >stealth</strong>
+process. While suspended, the <code >--terminate</code> command is acknowledged as a
 `emergency exit' which may or may not interfere with, e.g., an ongoing
-log-rotation process. The daemon <strong>stealth</strong> process should not normally be
+log-rotation process. The daemon <strong >stealth</strong> process should not normally be
 terminated while it is in its suspended mode. The normal way to terminate a
 stealth process running in the background is:
     <ul>
-    <li> Wait for the  daemon <strong>stealth</strong> process to complete an ongoing series of
+    <li> Wait for the  daemon <strong >stealth</strong> process to complete an ongoing series of
 integrity scan commands;
-    <li> Issue the `<strong>stealth</strong> <code>--terminate udsfile</code>' command.
+    <li> Issue the `<strong >stealth</strong> <code >--terminate udsfile</code>' command.
     </ul>
 <p>
 <a name="STATUS"></a><a name="l42"></a>
-<h3>5.7.1: Status file cleanup</h3>
-            Whenever <strong>stealth</strong> is run and it encounters a modified situation the already
+<h3 >5.7.1: Status file cleanup</h3>
+            Whenever <strong >stealth</strong> is run and it encounters a modified situation the already
 existing status file summarizing that particular situation is saved and a new
 status file is created. Eventually, this will result in many status
 files. While report files can be rotated, it is pointless to rotate old status
 files, since they are never modified. Instead, status files exceeding a
 certain age could be removed and more recent files might be zipped to conserve
-space. In <strong>stealth</strong>'s binary distribution the file
-<code>/usr/share/doc/stealth/usr/bin/stealthcleanup</code> is provided which can be
+space. In <strong >stealth</strong>'s binary distribution the file
+<code >/usr/share/doc/stealth/usr/bin/stealthcleanup</code> is provided which can be
 used to perform such a cleanup. The script expects one argument: a resource
 file defining the following shell variables:
     <ul>
-    <li> <code>directories</code>: the directories below which the status files are
+    <li> <code >directories</code>: the directories below which the status files are
         found;
-    <li> <code>gzdays</code>: the number of days a status file must exist before it is
-        compressed using <strong>gzip</strong>(1);
-    <li> <code>rmdays</code>: the maximum age (in days) of compressed status
-        files. Files exceeding this age are removed using <strong>rm</strong>(1).
+    <li> <code >gzdays</code>: the number of days a status file must exist before it is
+        compressed using <strong >gzip</strong>(1);
+    <li> <code >rmdays</code>: the maximum age (in days) of compressed status
+        files. Files exceeding this age are removed using <strong >rm</strong>(1).
     </ul>
-    Here is the <code>stealthcleanup</code> script as contained in the binary
-distribution's <code>/usr/share/doc/stealth/usr/bin</code> directory:
-        <pre>
+    Here is the <code >stealthcleanup</code> script as contained in the binary
+distribution's <code >/usr/share/doc/stealth/usr/bin</code> directory:
+        <pre >
 #!/bin/bash
 
 usage()
@@ -1064,10 +1064,10 @@ exit 0
 </pre>
 
     Assuming that the status files are written in
-<code>/var/stealth/target/local</code> and <code>/var/stealth/target/remote</code>; that status
+<code >/var/stealth/target/local</code> and <code >/var/stealth/target/remote</code>; that status
 file should be compressed when older than 2 days and removed after 30 days,
 the resource file is:
-        <pre>
+        <pre >
 directories="
     /var/stealth/target/local
     /var/stealth/target/remote
@@ -1078,29 +1078,29 @@ gzdays=3
 </pre>
 
     Furthermore assuming that the resourcefile is installed in
-<code>/etc/stealth/cleanup.rc</code> and the <code>stealthcleanup</code> script itself in
-<code>/usr/bin/stealthcleanup</code>, the <code>stealthcleanup</code> script could be called
+<code >/etc/stealth/cleanup.rc</code> and the <code >stealthcleanup</code> script itself in
+<code >/usr/bin/stealthcleanup</code>, the <code >stealthcleanup</code> script could be called
 as follows:
         <pre>
 
     /usr/bin/stealthcleanup /etc/stealth/cleanup.rc
 </pre>
 
-    Note that <code>stealthcleanup</code> may be called whether or not there are active
-<strong>stealth</strong> processes.
+    Note that <code >stealthcleanup</code> may be called whether or not there are active
+<strong >stealth</strong> processes.
 <p>
 <a name="LOGROTATE"></a><a name="l43"></a>
-<h3>5.7.2: Using `logrotate' to control report- and status files</h3>
-            A program like <strong>logrotate</strong>(1) allows its users to specify a command or
-script immediately following log-rotation, and `<strong>stealth</strong> <code>--resume
+<h3 >5.7.2: Using `logrotate' to control report- and status files</h3>
+            A program like <strong >logrotate</strong>(1) allows its users to specify a command or
+script immediately following log-rotation, and `<strong >stealth</strong> <code >--resume
 pidfile</code>' could be specified nicely in such a post-rotation section.
 <p>
 Here is an example of a specification that can be used with
-<strong>logrotate</strong>(1). Logrotate (on Debian systems) keeps its configuration files
-in <code>/etc/logrotate.d</code>, and assuming there is a host <code>target</code>, whose report
-file is <code>/var/stealth/target/report</code>, the required <strong>logrotate</strong>(1)
-specification file (e.g., <code>/etc/logrotate.d/target</code>) could be:
-        <pre>
+<strong >logrotate</strong>(1). Logrotate (on Debian systems) keeps its configuration files
+in <code >/etc/logrotate.d</code>, and assuming there is a host <code >target</code>, whose report
+file is <code >/var/stealth/target/report</code>, the required <strong >logrotate</strong>(1)
+specification file (e.g., <code >/etc/logrotate.d/target</code>) could be:
+        <pre >
 /root/stealth/report /var/log/stealth/client-small.log {
     weekly
     rotate 12
@@ -1117,15 +1117,15 @@ specification file (e.g., <code>/etc/logrotate.d/target</code>) could be:
 }
 </pre>
 
-    Using this specification file, <strong>logrotate</strong>(1) will 
+    Using this specification file, <strong >logrotate</strong>(1) will 
     <ul>
     <li> perform weekly rotations of the report file;
-    <li> keep up to 12 rotated files, compressing them using <strong>gzip</strong>(1);
-    <li> suspend the <strong>stealth</strong> daemon, before rotating its report file;
+    <li> keep up to 12 rotated files, compressing them using <strong >gzip</strong>(1);
+    <li> suspend the <strong >stealth</strong> daemon, before rotating its report file;
 suspended; 
-    <li> following the rotation, <strong>stealth</strong>'s actions are resumed.
+    <li> following the rotation, <strong >stealth</strong>'s actions are resumed.
     </ul>
-    Note thet <code>stealth --resume xxx</code> always initiates another file integrity
+    Note thet <code >stealth --resume xxx</code> always initiates another file integrity
 scan.
 <p>
 <hr>

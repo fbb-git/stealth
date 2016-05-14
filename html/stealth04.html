@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head>
 <meta charset="UTF-8">
-<title> <div style="text-align: center">Stealth V. 4.01.04</div> </title>
+<title> <div style="text-align: center">Stealth V. 4.01.05</div> </title>
 <style type="text/css">
     figure {text-align: center;}
     img {vertical-align: center;}
@@ -15,58 +15,58 @@
 </ul>
 <hr>
 <a name="l10"></a>
-<h1>Chapter 4: The `policy' file</h1>
-    <strong>Stealth</strong> uses a policy file consisting of two sections, the second
-section is optional, and starts at a line merely containing <code>%%</code>.
+<h1 >Chapter 4: The `policy' file</h1>
+    <strong >Stealth</strong> uses a policy file consisting of two sections, the second
+section is optional, and starts at a line merely containing <code >%%</code>.
 <p>
 Each policy file is uniquely associated with a host to be tested. Each host
 may have multiple policy files, though. In that case, each policy file defines
 its own set of checks to be performed.
 <p>
 <ul>
-    <li> The policy file's first section consists of two sets of data: <em>use
-directives</em> (starting with the keyword <strong>USE</strong>) and <em>commands</em>. 
+    <li> The policy file's first section consists of two sets of data: <em >use
+directives</em> (starting with the keyword <strong >USE</strong>) and <em >commands</em>. 
 <p>
 <li> The (optional) second section starts at a line merely containing
-<code>%%</code>. Following this separating line several long option specifications can
+<code >%%</code>. Following this separating line several long option specifications can
 be entered (cf. section <a href="stealth05.html#OPTIONS">5.2</a>). Options
 specified on the command-line take priority over options specified 
-in the policy file. Although the <code>--reload</code> option reloads the policy file,
+in the policy file. Although the <code >--reload</code> option reloads the policy file,
 it will not change option values originally specified as command-line options.
 <p>
-This section may contain specifications of the <code>skip-files</code> and <code>log</code>
+This section may contain specifications of the <code >skip-files</code> and <code >log</code>
 options.  Relative file locations specified for these options are interpreted
 relative to the location of the policy file. E.g., if the policy file argument
-is specified as <code>/root/client/policy</code> then the specification <code>log:
-client.log</code> results in <strong>stealth</strong> writing its logs into the file
-<code>/root/client/client.log</code>.
+is specified as <code >/root/client/policy</code> then the specification <code >log:
+client.log</code> results in <strong >stealth</strong> writing its logs into the file
+<code >/root/client/client.log</code>.
     </ul>
 <p>
-The policy file's first section consists of three sets of data: <em>define
-directives</em> (starting with the keyword <strong>DEFINE</strong>), <em>use directives</em>
-(starting with the keyword <strong>USE</strong>) and <em>commands</em>.
+The policy file's first section consists of three sets of data: <em >define
+directives</em> (starting with the keyword <strong >DEFINE</strong>), <em >use directives</em>
+(starting with the keyword <strong >USE</strong>) and <em >commands</em>.
 <p>
 Directives are written in capitals, and should appear exactly as written
 below.
 <p>
 Blank lines and information beyond hash-marks (#) are ignored, while lines
-following lines terminating in backslashes (\ ) will be concatenated (<em>en
+following lines terminating in backslashes (\ ) will be concatenated (<em >en
 passant</em> removing these backslashes). Leading white space on lines of the
 policy file is ignored.
 <p>
 <a name="l11"></a>
-<h2>4.1: DEFINE directives</h2>
-        <code>DEFINE</code> directives can be used to define symbols for longer strings.
-A <code>DEFINE</code> directive is constructed as follows:
+<h2 >4.1: DEFINE directives</h2>
+        <code >DEFINE</code> directives can be used to define symbols for longer strings.
+A <code >DEFINE</code> directive is constructed as follows:
         <pre>
     DEFINE name     that what is defined by `name'
 </pre>
 
     Here,
     <ul>
-    <li> the <code>name</code> following <code>DEFINE</code> is the symbol that may be used in
-<code>USE</code> directives (see below) and <code>commands</code> (see below). 
-    <li> <code>DEFINE</code> symbols can be used in other <code>DEFINE</code> symbols. However,
+    <li> the <code >name</code> following <code >DEFINE</code> is the symbol that may be used in
+<code >USE</code> directives (see below) and <code >commands</code> (see below). 
+    <li> <code >DEFINE</code> symbols can be used in other <code >DEFINE</code> symbols. However,
 it is the responsibility of the policy file's author to make sure that
 (indirect) circular definitions are avoided. E.g., after:
         <pre>
@@ -77,13 +77,13 @@ it is the responsibility of the policy file's author to make sure that
     USE MAILARGS ${A} ${B} ${C}
 </pre>
 
-    <code>MAILARGS</code> will be expanded to 
+    <code >MAILARGS</code> will be expanded to 
         <pre>
      ${A} ${A} ${C}
 </pre>
 
-    <li> The text following <code>DEFINE name</code> is then inserted literally into
-the <code>USE</code> directive or <code>command</code>.
+    <li> The text following <code >DEFINE name</code> is then inserted literally into
+the <code >USE</code> directive or <code >command</code>.
 <p>
 Example:
         <pre>
@@ -91,60 +91,60 @@ Example:
     DEFINE  EXECSHA1     -xdev -perm /111  -type f -exec /usr/bin/sha1sum {} \;
 </pre>
 
-    The symbols defined by <code>DEFINE</code> directives may consist of letters,
-digits and the underscore characters (<code>_</code>).  In the definition of the symbol
+    The symbols defined by <code >DEFINE</code> directives may consist of letters,
+digits and the underscore characters (<code >_</code>).  In the definition of the symbol
 any character can be used. However, initial and/or trailing blanks are removed
 from definitions.
 <p>
-To insert a definition into a <code>USE</code> directive or <code>command</code> use the form
+To insert a definition into a <code >USE</code> directive or <code >command</code> use the form
         <pre>
     ${name}
 </pre>
 
-    E.g., <code>${EXECSHA1}</code>. Concrete examples are provided below.
+    E.g., <code >${EXECSHA1}</code>. Concrete examples are provided below.
     </ul>
 <p>
 <a name="USE"></a><a name="l12"></a>
-<h2>4.2: USE directives</h2>
-        <code>USE</code> directives provide <strong>stealth</strong> with arguments which
-may be conditional to a certain installation. The following <strong>USE</strong> directives
+<h2 >4.2: USE directives</h2>
+        <code >USE</code> directives provide <strong >stealth</strong> with arguments which
+may be conditional to a certain installation. The following <strong >USE</strong> directives
 are supported:
     <ul>
-    <li> <strong>USE BASE</strong> <code>basedirectory</code>
+    <li> <strong >USE BASE</strong> <code >basedirectory</code>
 <p>
-<strong>BASE</strong> defines the directory from where <strong>stealth</strong> operates. All relative
+<strong >BASE</strong> defines the directory from where <strong >stealth</strong> operates. All relative
 path specifications in this section of the policy file are interpreted
-relative to <strong>BASE</strong>. <em>By default</em> this is the directory where <strong>stealth</strong> was
+relative to <strong >BASE</strong>. <em >By default</em> this is the directory where <strong >stealth</strong> was
 started.
 <p>
-If necessary, <strong>stealth</strong> creates all <strong>BASE</strong> and other directories below
-<code>BASE</code>. 
+If necessary, <strong >stealth</strong> creates all <strong >BASE</strong> and other directories below
+<code >BASE</code>. 
 <p>
 Example: using the specification
         <pre>
     USE BASE /root/client
 </pre>
 
-    results in all information generated by <strong>stealth</strong> being written in or below the
-directory <code>/root/client</code>.
+    results in all information generated by <strong >stealth</strong> being written in or below the
+directory <code >/root/client</code>.
 <p>
-<li> <strong>USE DD</strong> <code>&lt;dd&gt;</code><br/>
-        The <strong>DD</strong> specification uses <code>/bin/dd</code> as default, and defines the
-location of the <strong>dd</strong>(1) program, both on the server and on the client. The
-<strong>DD</strong> program is used to copy files between the client and the monitor
-without creating separate ssh-connections. The <strong>DD</strong> program is only
-used by <strong>stealth</strong> for the <code>PUT</code> and <code>GET</code> commands, described below.
+<li> <strong >USE DD</strong> <code >&lt;dd&gt;</code><br/>
+        The <strong >DD</strong> specification uses <code >/bin/dd</code> as default, and defines the
+location of the <strong >dd</strong>(1) program, both on the server and on the client. The
+<strong >DD</strong> program is used to copy files between the client and the monitor
+without creating separate ssh-connections. The <strong >DD</strong> program is only
+used by <strong >stealth</strong> for the <code >PUT</code> and <code >GET</code> commands, described below.
 <p>
 Example showing the default:<pre>
     USE DD /bin/dd
 </pre>
 
 <p>
-<li> <strong>USE DIFF</strong> <code>path-to-diff</code>
+<li> <strong >USE DIFF</strong> <code >path-to-diff</code>
 <p>
-The <strong>DIFF</strong> specification uses <code>/usr/bin/diff</code> as default,
-and defines the location of the <strong>diff</strong>(1) program. The
-<strong>diff</strong>(1) program is used to compare a formerly created logfile of an
+The <strong >DIFF</strong> specification uses <code >/usr/bin/diff</code> as default,
+and defines the location of the <strong >diff</strong>(1) program. The
+<strong >diff</strong>(1) program is used to compare a formerly created logfile of an
 integrity check to a newly created logfile.
 <p>
 Example showing the default:
@@ -153,12 +153,12 @@ Example showing the default:
 </pre>
 
 <p>
-<li> <strong>USE DIFFPREFIX</strong> <code>&lt;prefix&gt;</code>
+<li> <strong >USE DIFFPREFIX</strong> <code >&lt;prefix&gt;</code>
 <p>
-The <strong>DIFFPREFIX</strong> specification defines the size of the prefix added
-by the <code>DIFF</code> command to lines produced by commands executed through <strong>stealth</strong>.
-The default <code>/usr/bin/diff</code> program prefixes lines by either `<code>&gt; </code>' or
-`<code>&lt; </code>'. The default value for <code>&lt;prefix&gt;</code> therefore equals 2.
+The <strong >DIFFPREFIX</strong> specification defines the size of the prefix added
+by the <code >DIFF</code> command to lines produced by commands executed through <strong >stealth</strong>.
+The default <code >/usr/bin/diff</code> program prefixes lines by either `<code >&gt; </code>' or
+`<code >&lt; </code>'. The default value for <code >&lt;prefix&gt;</code> therefore equals 2.
 <p>
 Example showing the default:
         <pre>
@@ -166,9 +166,9 @@ Example showing the default:
 </pre>
 
 <p>
-<li> <strong>USE EMAIL</strong> <code>address</code>
+<li> <strong >USE EMAIL</strong> <code >address</code>
 <p>
-The <strong>EMAIL</strong> specification defines the email-address to e-mail the
+The <strong >EMAIL</strong> specification defines the email-address to e-mail the
 client's integrity scan report to. Mail is only sent when information has
 changed.
 <p>
@@ -178,17 +178,17 @@ Example showing the default:
 </pre>
 
 <p>
-<li> <strong>USE MAILER</strong> <code>mailer</code>
+<li> <strong >USE MAILER</strong> <code >mailer</code>
 <p>
-The <strong>MAILER</strong> specification defines the program that is used to send
-the mail to the <strong>EMAIL</strong>-address. By default this is <strong>/usr/bin/mail</strong>(1). 
-The <strong>MAILER</strong> program is called as follows:
+The <strong >MAILER</strong> specification defines the program that is used to send
+the mail to the <strong >EMAIL</strong>-address. By default this is <strong >/usr/bin/mail</strong>(1). 
+The <strong >MAILER</strong> program is called as follows:
         <pre>
     MAILER  MAILARGS EMAIL
 </pre>
 
-    (<code>MAILARGS</code>: see below). The information to be mailed is read from
-<code>MAILER</code>'s standard input stream.
+    (<code >MAILARGS</code>: see below). The information to be mailed is read from
+<code >MAILER</code>'s standard input stream.
 <p>
 Example showing the default:
         <pre>
@@ -196,16 +196,16 @@ Example showing the default:
 </pre>
 
 <p>
-<li> <strong>USE MAILARGS</strong> <code>arguments</code>
-        The <strong>MAILARGS</strong> specification defines the arguments to be
-to be passed to the <code>MAILER</code> program. By default this is 
+<li> <strong >USE MAILARGS</strong> <code >arguments</code>
+        The <strong >MAILARGS</strong> specification defines the arguments to be
+to be passed to the <code >MAILER</code> program. By default this is 
         <pre>
     USE MAILARGS -s "STEALTH scan report"
 </pre>
  
     Note that blanks may be used in the subject specification: use double or
-single quotes to define elements containing blanks. Use <code>\"</code> to use a double
-quote in a string that is itself delimited by double quotes, use <code>\'</code> to use
+single quotes to define elements containing blanks. Use <code >\"</code> to use a double
+quote in a string that is itself delimited by double quotes, use <code >\'</code> to use
 a single quote in a string that is itself delimited by single quotes. 
 <p>
 Subtlety: in constructions like 
@@ -213,68 +213,68 @@ Subtlety: in constructions like
     USE MAILARGS " 't was brillig " and 't went well
 </pre>
 
-    the following arguments are passed to <code>MAILER</code>:
+    the following arguments are passed to <code >MAILER</code>:
         <ul>
-        <li> <code>" 't was brillig "</code>
-        <li> <code>and</code>
-        <li> <code>'t</code>
-        <li> <code>went</code>
-        <li> <code>well</code>
+        <li> <code >" 't was brillig "</code>
+        <li> <code >and</code>
+        <li> <code >'t</code>
+        <li> <code >went</code>
+        <li> <code >well</code>
         </ul>
     So, when single- and double-quoted strings overlap, the first string is
 taken as a string, and the information beyond the first string is thereupon
 interpreted. 
 <p>
-<li> <strong>USE REPORT</strong> <code>&lt;file-spec&gt;</code><br/>
-        <strong>REPORT</strong> defines the name of the reportfile. Information is always
-appended to this file. At each <strong>stealth</strong> integrity scan a <em>time marker line</em> is
+<li> <strong >USE REPORT</strong> <code >&lt;file-spec&gt;</code><br/>
+        <strong >REPORT</strong> defines the name of the reportfile. Information is always
+appended to this file. At each <strong >stealth</strong> integrity scan a <em >time marker line</em> is
 written to the report file. Only when (in addition to the marker line)
 additional information is appended to the report file the added contents of
-the report file are mailed to the mail address specified in the <strong>USE EMAIL</strong>
+the report file are mailed to the mail address specified in the <strong >USE EMAIL</strong>
 specification. When a relative file specification is used it is interpreted a
-location relative to the <code>USE BASE</code> specification.<br/>
+location relative to the <code >USE BASE</code> specification.<br/>
     Example showing the default:<br/>
-    <code>USE REPORT report</code>
+    <code >USE REPORT report</code>
 <p>
-<li> <strong>USE SH</strong> <code>&lt;sh&gt;</code><br/>
-        The <strong>SH</strong> specification uses <code>/bin/sh</code> as default, and defines the
+<li> <strong >USE SH</strong> <code >&lt;sh&gt;</code><br/>
+        The <strong >SH</strong> specification uses <code >/bin/sh</code> as default, and defines the
 command shell used by the monitor to execute commands on itself. This must be
 an absolute path specification.<br/>
     Example showing the default:<br/>
-    <code>USE SH /bin/sh</code>
+    <code >USE SH /bin/sh</code>
 <p>
-<li> <strong>USE SSH</strong> <code>&lt;user&gt;</code><br/>
-        <strong>The SSH specification has no default</strong>, and <em>must</em> be
+<li> <strong >USE SSH</strong> <code >&lt;user&gt;</code><br/>
+        <strong >The SSH specification has no default</strong>, and <em >must</em> be
 specified. This must be an absolute path specification.  
 <p>
-Assuming the client <em>trusts</em> the monitor (which is after all what this
+Assuming the client <em >trusts</em> the monitor (which is after all what this
 program is all about, so this should not be a very strong assumption),
 preferably the public ssh key of the monitor should be placed in the
-client's root <code>.ssh/authorized_keys</code> file, granting the monitor root access
+client's root <code >.ssh/authorized_keys</code> file, granting the monitor root access
 to the client. Root access is normally needed to gain access to all
 directories and files of the client's file system.
 <p>
-In practice, connecting to an account using the <strong>sh</strong>(1) shell is
+In practice, connecting to an account using the <strong >sh</strong>(1) shell is
 preferred. When another shell is already used by that account, one should make
 sure that its shell doesn't define its own redirections for standard input
 and standard output. One way to accomplish that is for force the execution of
-<code>/bin/sh</code> in the <strong>USE SSH</strong> specification.
+<code >/bin/sh</code> in the <strong >USE SSH</strong> specification.
 <p>
-An example of an <code>SSH</code> specification to scan a localhost is:
+An example of an <code >SSH</code> specification to scan a localhost is:
         <pre>
 
     USE SSH root@localhost -T -q                # root's shell is /bin/sh
 </pre>
 
 <p>
-The same, now explicitly using <code>/bin/bash</code>:
+The same, now explicitly using <code >/bin/bash</code>:
         <pre>
 
     USE SSH root@localhost -T -q exec /bin/bash # root uses another shell
 </pre>
 
 <p>
-Alternatively, <code>--noprofile</code> can be specified to prevent any
+Alternatively, <code >--noprofile</code> can be specified to prevent any
 profile-initialization: 
         <pre>
 
@@ -283,11 +283,11 @@ profile-initialization:
     
     </ul>
 <p>
-In some installations <strong>stealth</strong> is used to inspect the monitor itself, even
-though this is <em>not</em> recommended, as it breaks one of the main reasons for
-<strong>stealth</strong>'s existence. But in those situations (so, where <strong>stealth</strong> is used to monitor the
-integrity of the <code>localhost</code>), <code>/bin/bash</code> could be specified at the
-<code>USE SSH</code> directive. For example:
+In some installations <strong >stealth</strong> is used to inspect the monitor itself, even
+though this is <em >not</em> recommended, as it breaks one of the main reasons for
+<strong >stealth</strong>'s existence. But in those situations (so, where <strong >stealth</strong> is used to monitor the
+integrity of the <code >localhost</code>), <code >/bin/bash</code> could be specified at the
+<code >USE SSH</code> directive. For example:
         <pre>
     # For stealth inspecting localhost:
         USE SSH /bin/bash --noprofile
@@ -295,30 +295,30 @@ integrity of the <code>localhost</code>), <code>/bin/bash</code> could be specif
 
 <p>
 <a name="COMMANDS"></a><a name="l13"></a>
-<h2>4.3: Commands</h2>
-        Following the <strong>USE</strong> specifications, <em>commands</em> can be specified. The
+<h2 >4.3: Commands</h2>
+        Following the <strong >USE</strong> specifications, <em >commands</em> can be specified. The
 commands are executed in their order of appearance in the policy
 file. Processing continues until the last command has been processed or until
 a tested command (see below) returns a non-zero return value.
 <p>
 <a name="l14"></a>
-<h3>4.3.1: LABEL commands</h3>
-            The following <strong>LABEL</strong> commands are available:
+<h3 >4.3.1: LABEL commands</h3>
+            The following <strong >LABEL</strong> commands are available:
     <ul>
-    <li> <strong>LABEL</strong> <code>text</code>
+    <li> <strong >LABEL</strong> <code >text</code>
 <p>
-This defines a text-label which is written to the <strong>REPORT</strong> file,
-just before the output generated by the next <strong>CHECK</strong>-command. If the next
-<strong>CHECK</strong>-command generates no output, the label is not written to the
-<strong>REPORT</strong>-file. Once a <strong>LABEL</strong> has been defined, it is used until it is
-redefined by the next <strong>LABEL</strong> command. Use an empty <strong>LABEL</strong> command to
+This defines a text-label which is written to the <strong >REPORT</strong> file,
+just before the output generated by the next <strong >CHECK</strong>-command. If the next
+<strong >CHECK</strong>-command generates no output, the label is not written to the
+<strong >REPORT</strong>-file. Once a <strong >LABEL</strong> has been defined, it is used until it is
+redefined by the next <strong >LABEL</strong> command. Use an empty <strong >LABEL</strong> command to
 suppress printing labels.
 <p>
-The text may contain <code>\n</code> characters (two characters) which are
+The text may contain <code >\n</code> characters (two characters) which are
 transformed to a newline character.
-    <li> <strong>LABEL</strong>
+    <li> <strong >LABEL</strong>
 <p>
-As noted, this clears a previously defined <code>LABEL</code> command.
+As noted, this clears a previously defined <code >LABEL</code> command.
     </ul>
 <p>
 Examples:
@@ -328,53 +328,53 @@ Examples:
     LABEL
 </pre>
 
-    The latter <strong>LABEL</strong> command clears the text of the former <strong>LABEL</strong>
+    The latter <strong >LABEL</strong> command clears the text of the former <strong >LABEL</strong>
 command.
 <p>
 <a name="l15"></a>
-<h3>4.3.2: LOCAL commands</h3>
-            <strong>LOCAL</strong> commands can be used to specify commands that are 
-executed on the monitor itself. The following <strong>LOCAL</strong> commands are
+<h3 >4.3.2: LOCAL commands</h3>
+            <strong >LOCAL</strong> commands can be used to specify commands that are 
+executed on the monitor itself. The following <strong >LOCAL</strong> commands are
 available: 
     <ul>
-    <li> <strong>LOCAL</strong> <code>command</code>
+    <li> <strong >LOCAL</strong> <code >command</code>
 <p>
-Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+Execute <code >command</code> on the monitor, using the <strong >SH</strong> command
 shell. The command must succeed (i.e., must return a zero exit value). 
     Example:
         <pre>
     LOCAL mkdir /tmp/client
 </pre>
 
-    This command creates the directory <code>/tmp/client</code> on the monitor.
+    This command creates the directory <code >/tmp/client</code> on the monitor.
 <p>
-<li> <strong>LOCAL NOTEST</strong> <code>command</code>
+<li> <strong >LOCAL NOTEST</strong> <code >command</code>
 <p>
-Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+Execute <code >command</code> on the monitor, using the <strong >SH</strong> command
 shell. The command may or may not succeed.
     Example:
         <pre>
     LOCAL NOTEST mkdir /tmp/subdir
 </pre>
 
-    This command creates <code>/tmp/subdir</code> on the monitor. The command
+    This command creates <code >/tmp/subdir</code> on the monitor. The command
 fails if the directory cannot be created, but this does not terminate
-<strong>stealth</strong>.
+<strong >stealth</strong>.
 <p>
-<li> <strong>LOCAL CHECK</strong> [<strong>LOG =</strong>] <code>logfile [pathOffset] command</code>
+<li> <strong >LOCAL CHECK</strong> [<strong >LOG =</strong>] <code >logfile [pathOffset] command</code>
 <p>
-Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+Execute <code >command</code> on the monitor, using the <strong >SH</strong> command
 shell. The command must succeed. The output of this command is compared to the
 output of this command generated during the previous integrity check run by
-<strong>stealth</strong>.
+<strong >stealth</strong>.
 <p>
-The phrase <strong>LOG =</strong> is optional. When a relative file location is
-specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+The phrase <strong >LOG =</strong> is optional. When a relative file location is
+specified at <code >&lt;file-spec&gt;</code> it is interpreted relatively to the <code >USE BASE</code>
 path specification. 
 <p>
-<code>PathOffset</code> is also optional. If specified it defines the (0-based)
+<code >PathOffset</code> is also optional. If specified it defines the (0-based)
 offset where path-names of inspected files start in lines produced by
-<code>&lt;command&gt;</code>. By default <strong>stealth</strong> assumes that the first occurrence of a forward
+<code >&lt;command&gt;</code>. By default <strong >stealth</strong> assumes that the first occurrence of a forward
 slash defines the first character of the path-names of inspected files.
 <p>
 For example, if diff-output looks like this:
@@ -394,35 +394,35 @@ For example, if diff-output looks like this:
     LOCAL CHECK logfile 36 command-to-be-executed
 </pre>
 
-    informs <strong>stealth</strong> where to find the filename specifications in the
-diff-output. Using the standard <code>/usr/bin/diff</code> command, this offset equals
-2 + the offset of the <code>filename-specification</code> found in
-<code>command-to-be-executed</code>. 
+    informs <strong >stealth</strong> where to find the filename specifications in the
+diff-output. Using the standard <code >/usr/bin/diff</code> command, this offset equals
+2 + the offset of the <code >filename-specification</code> found in
+<code >command-to-be-executed</code>. 
 <p>
-If the command does not succeed a <em>warning</em> message is written to the report
+If the command does not succeed a <em >warning</em> message is written to the report
 file. The warning message informs the reader that `remaining results might be
 forged:
         <pre>
     *** BE CAREFUL *** REMAINING RESULTS MAY BE FORGED
 </pre>
 
-    This situation may occur, e.g., if an essential program (like <code>sha1sum</code>)
+    This situation may occur, e.g., if an essential program (like <code >sha1sum</code>)
 was transferred to the monitor, and it was apparently modified since the
 previous check. Processing continues, but remaining checks performed at the
-client computer should be interpreted with <em>extreme</em> caution.
+client computer should be interpreted with <em >extreme</em> caution.
 <p>
 The output of this command is compared to the output of this command
-generated during the previous run of <strong>stealth</strong>. Any differences are written
-to <strong>REPORT</strong>. 
+generated during the previous run of <strong >stealth</strong>. Any differences are written
+to <strong >REPORT</strong>. 
 <p>
-If differences were found, the existing <code>logfile</code> name is renamed to
-<code>logfile.YYYYMMDD-HHMMSS</code>, with <code>YYYYMMDD-HHMMSS</code> the datetime-stamp at
-the time <strong>stealth</strong> was run.
+If differences were found, the existing <code >logfile</code> name is renamed to
+<code >logfile.YYYYMMDD-HHMMSS</code>, with <code >YYYYMMDD-HHMMSS</code> the datetime-stamp at
+the time <strong >stealth</strong> was run.
 <p>
-Over time, many <code>logfile.YYMMDD-HHMMSS</code> files could be accumulated.
+Over time, many <code >logfile.YYMMDD-HHMMSS</code> files could be accumulated.
 It is up to the monitor's systems manager to decide what to do
 with old datetime-stamped logfiles. For instance, the following script
-removes  all <strong>stealth</strong> reports below the current directory that are
+removes  all <strong >stealth</strong> reports below the current directory that are
 older than 30 days:
         <pre>
     #/bin/sh
@@ -434,9 +434,9 @@ older than 30 days:
 </pre>
 
 <p>
-The <code>logfile</code> specifications may use relative and absolute paths. When
-relative paths are used, these paths are relative to <strong>BASE</strong>. When the
-directories implied by the <code>logfile</code> specifications do not yet exist, they
+The <code >logfile</code> specifications may use relative and absolute paths. When
+relative paths are used, these paths are relative to <strong >BASE</strong>. When the
+directories implied by the <code >logfile</code> specifications do not yet exist, they
 are created first.
 <p>
 Example:
@@ -444,63 +444,63 @@ Example:
     LOCAL CHECK LOG = local/sha1sum sha1sum /tmp/sha1sum
 </pre>
 
-    This command will check the SHA1 sum of the <code>/tmp/sha1sum</code> program. The
-resulting output is saved at <strong>BASE</strong><code>/local/sha1sum</code>. The program must
-succeed (i.e., <code>sha1sum</code> must return a zero exit-value).
+    This command will check the SHA1 sum of the <code >/tmp/sha1sum</code> program. The
+resulting output is saved at <strong >BASE</strong><code >/local/sha1sum</code>. The program must
+succeed (i.e., <code >sha1sum</code> must return a zero exit-value).
 <p>
-<li> <strong>LOCAL NOTEST CHECK</strong>  [<strong>LOG =</strong>] <code>logfile [pathOffset] command</code>
+<li> <strong >LOCAL NOTEST CHECK</strong>  [<strong >LOG =</strong>] <code >logfile [pathOffset] command</code>
 <p>
-Execute <code>command</code> on the monitor, using the <strong>SH</strong> command
+Execute <code >command</code> on the monitor, using the <strong >SH</strong> command
 shell. 
 <p>
-The phrase <strong>LOG =</strong> is optional. When a relative file location is
-specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+The phrase <strong >LOG =</strong> is optional. When a relative file location is
+specified at <code >&lt;file-spec&gt;</code> it is interpreted relatively to the <code >USE BASE</code>
 path specification. 
 <p>
 The command may or may not succeed. Otherwise, the program performs exactly
-like the <strong>LOCAL CHECK ...</strong>  command, discussed above.
+like the <strong >LOCAL CHECK ...</strong>  command, discussed above.
 <p>
 Example:
         <pre>
     LOCAL NOTEST CHECK LOG=local/sha1sum sha1sum /tmp/sha1sum
 </pre>
 
-    This command will check the SHA1 sum of the <code>/tmp/sha1sum</code> program. The
-resulting output is saved at <strong>BASE</strong><code>/local/sha1sum</code>. The program may or may
-not succeed (i.e., <code>sha1sum</code> may or may not return a zero exit-value).
+    This command will check the SHA1 sum of the <code >/tmp/sha1sum</code> program. The
+resulting output is saved at <strong >BASE</strong><code >/local/sha1sum</code>. The program may or may
+not succeed (i.e., <code >sha1sum</code> may or may not return a zero exit-value).
     </ul>
 <p>
 <a name="l16"></a>
-<h3>4.3.3: REMOTE commands</h3>
+<h3 >4.3.3: REMOTE commands</h3>
             Plain commands can be executed on the client computer by merely
 specifying them. Of course, this means that programs called
-<code>LABEL</code>, <code>LOCAL</code> <code>USE</code> or <code>DEFINE</code>, cannot be executed, since
-these names are interpreted otherwise by <strong>stealth</strong>. It's unlikely that this
+<code >LABEL</code>, <code >LOCAL</code> <code >USE</code> or <code >DEFINE</code>, cannot be executed, since
+these names are interpreted otherwise by <strong >stealth</strong>. It's unlikely that this
 will cause problems. Remote commands must succeed (i.e., their return 
 codes must be 0).
 <p>
-Remote commands are commands executed on the client using the <strong>SSH</strong>
-shell. These commands are executed using the standard <code>PATH</code> set for the
-<strong>SSH</strong> shell. However, it is advised to specify the full pathname to the
+Remote commands are commands executed on the client using the <strong >SSH</strong>
+shell. These commands are executed using the standard <code >PATH</code> set for the
+<strong >SSH</strong> shell. However, it is advised to specify the full pathname to the
 programs to be executed, to prevent ``trojan approaches'' where a trojan horse
-is installed in an `earlier' directory of the <code>PATH</code>-specification than the
+is installed in an `earlier' directory of the <code >PATH</code>-specification than the
 intended program.
 <p>
-Two special remote commands are <code>GET</code> and <code>PUT</code>, which can be used to
-copy files between the client and the monitor.  Internally, <code>GET</code> and
-<code>PUT</code> use the <code>DD</code> use-specification. If a non-default specification is
-used, one should ensure that the alternate program accepts <strong>dd</strong>(1)'s <code>if=,
-of=, bs=</code> and <code>count=</code> options. With <code>GET</code> the options <code>bs=, count=</code> and
-<code>of=</code> are used, with <code>PUT</code> the options <code>bs=, count=</code> and <code>if=</code> are
-used. Normally there should be no need to alter the default <code>DD</code>
+Two special remote commands are <code >GET</code> and <code >PUT</code>, which can be used to
+copy files between the client and the monitor.  Internally, <code >GET</code> and
+<code >PUT</code> use the <code >DD</code> use-specification. If a non-default specification is
+used, one should ensure that the alternate program accepts <strong >dd</strong>(1)'s <code >if=,
+of=, bs=</code> and <code >count=</code> options. With <code >GET</code> the options <code >bs=, count=</code> and
+<code >of=</code> are used, with <code >PUT</code> the options <code >bs=, count=</code> and <code >if=</code> are
+used. Normally there should be no need to alter the default <code >DD</code>
 specification.
 <p>
-The <code>GET</code> command may be used as follows:
+The <code >GET</code> command may be used as follows:
     <ul>    
-    <li> <strong>GET</strong> <code>&lt;client-path&gt; &lt;local-path&gt;</code><br/>
-    Copy the file indicated by <code>client-path</code> at the client to <code>local-path</code>
-at the monitor. <code>client-path</code> must be the full path of an existing file
-on the client, <code>local-path</code> may either be a local directory, in which case
+    <li> <strong >GET</strong> <code >&lt;client-path&gt; &lt;local-path&gt;</code><br/>
+    Copy the file indicated by <code >client-path</code> at the client to <code >local-path</code>
+at the monitor. <code >client-path</code> must be the full path of an existing file
+on the client, <code >local-path</code> may either be a local directory, in which case
 the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
@@ -510,14 +510,14 @@ Example:
     GET /usr/bin/sha1sum /tmp
 </pre>
 
-    The program <code>/usr/bin/sha1sum</code>, available at the client, is copied to
-the monitor's <code>/tmp</code> directory. If copying fails for some reason, any
-subsequent commands are skipped, and <strong>stealth</strong> terminates.
+    The program <code >/usr/bin/sha1sum</code>, available at the client, is copied to
+the monitor's <code >/tmp</code> directory. If copying fails for some reason, any
+subsequent commands are skipped, and <strong >stealth</strong> terminates.
 <p>
-<li> <strong>GET NOTEST</strong> <code>&lt;client-path&gt; &lt;local-path&gt;</code><br/>
-    Copy the file indicated by <code>client-path</code> at the client to <code>local-path</code>
-at the monitor. <code>client-path</code> must be the full path of an existing file
-on the client, <code>local-path</code> may either be a local directory, in which case
+<li> <strong >GET NOTEST</strong> <code >&lt;client-path&gt; &lt;local-path&gt;</code><br/>
+    Copy the file indicated by <code >client-path</code> at the client to <code >local-path</code>
+at the monitor. <code >client-path</code> must be the full path of an existing file
+on the client, <code >local-path</code> may either be a local directory, in which case
 the client's file name is used, or another file name may be specified, in
 which case the client's file is copied to the specified local filename. If the
 local file already exists, it is overwritten by the copy-procedure.
@@ -527,55 +527,55 @@ Example:
     GET NOTEST /usr/bin/sha1sum /tmp
 </pre>
 
-    The program <code>/usr/bin/sha1sum</code>, available at the client, is copied to the
-monitor's <code>/tmp</code> directory. Remaining commands in the policy file are
+    The program <code >/usr/bin/sha1sum</code>, available at the client, is copied to the
+monitor's <code >/tmp</code> directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
     </ul>
 <p>
-The <code>PUT</code> command may be used as follows:
+The <code >PUT</code> command may be used as follows:
     <ul>    
-    <li> <strong>PUT</strong> <code>&lt;local-path&gt; &lt;remote-path&gt;</code><br/>
-    Copy the file indicated by <code>local-path</code> at the monitor to
-<code>remote-path</code> at the client. The argument <code>local-path</code> must be the
-full path of an existing file on the monitor. The argument <code>remote-path</code>
+    <li> <strong >PUT</strong> <code >&lt;local-path&gt; &lt;remote-path&gt;</code><br/>
+    Copy the file indicated by <code >local-path</code> at the monitor to
+<code >remote-path</code> at the client. The argument <code >local-path</code> must be the
+full path of an existing file on the monitor. The argument <code >remote-path</code>
 must be the full path to a file on the client. If the remote file already
-exists, it is overwritten by <code>PUT</code>.
+exists, it is overwritten by <code >PUT</code>.
 <p>
 Example:
     <pre>
     PUT /tmp/sha1sum /usr/bin/sha1sum
 </pre>
 
-    The program <code>/tmp/sha1sum</code>, available at the monitor, is copied to the
-client as <code>usr/bin/sha1sum</code>. If the copying fails for some reason,
-any subsequent commands are skipped, and <strong>stealth</strong> terminates.
+    The program <code >/tmp/sha1sum</code>, available at the monitor, is copied to the
+client as <code >usr/bin/sha1sum</code>. If the copying fails for some reason,
+any subsequent commands are skipped, and <strong >stealth</strong> terminates.
 <p>
-<li> <strong>PUT NOTEST</strong> <code>&lt;local-path&gt; &lt;remote-path&gt;</code><br/>
-    Copy the file indicated by <code>local-path</code> at the monitor to
-<code>remote-path</code> at the client. The argument <code>local-path</code> must be the
-full path of an existing file on the monitor. The argument <code>remote-path</code>
+<li> <strong >PUT NOTEST</strong> <code >&lt;local-path&gt; &lt;remote-path&gt;</code><br/>
+    Copy the file indicated by <code >local-path</code> at the monitor to
+<code >remote-path</code> at the client. The argument <code >local-path</code> must be the
+full path of an existing file on the monitor. The argument <code >remote-path</code>
 must be the full path to a file on the client. If the remote file already
-exists, it is overwritten by <code>PUT</code>.
+exists, it is overwritten by <code >PUT</code>.
 <p>
 Example:
     <pre>
     PUT NOTEST /tmp/sha1sum /usr/bin/sha1sum
 </pre>
 
-    Copy the file indicated by <code>local-path</code> at the monitor to
-<code>remote-path</code> at the client. The argument <code>local-path</code> must be the full
-path of an existing file on the monitor. The argument <code>remote-path</code> must
+    Copy the file indicated by <code >local-path</code> at the monitor to
+<code >remote-path</code> at the client. The argument <code >local-path</code> must be the full
+path of an existing file on the monitor. The argument <code >remote-path</code> must
 be the full path to a file on the client. If the remote file already exists,
-it is overwritten by <code>PUT</code>. Remaining commands in the policy file are
+it is overwritten by <code >PUT</code>. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
     </ul>
 <p>
 Other commands to be executed on the client can be specified as follows:
 <p>
 <ul>
-    <li> <code>command</code>
+    <li> <code >command</code>
 <p>
-Execute `<code>command</code>' on the client, using the <strong>SSH</strong> command
+Execute `<code >command</code>' on the client, using the <strong >SSH</strong> command
 shell. The command must succeed (i.e., must return a zero exit
 value). However, any output generated by the command is ignored. 
     Example:
@@ -584,11 +584,11 @@ value). However, any output generated by the command is ignored.
 </pre>
 
     This command will remove all ordinary files at and below the client's
-<code>/tmp</code> directory.
+<code >/tmp</code> directory.
 <p>
-<li> <strong>NOTEST</strong> <code>command</code>
+<li> <strong >NOTEST</strong> <code >command</code>
 <p>
-Execute <code>command</code> on the client, using the <strong>SSH</strong> command
+Execute <code >command</code> on the client, using the <strong >SSH</strong> command
 shell. The command may or may not succeed.
 <p>
 Example:
@@ -597,29 +597,29 @@ Example:
 </pre>
 
     Same as the previous command, but this time the exit value of
-<code>/usr/bin/find</code> is not interpreted.
+<code >/usr/bin/find</code> is not interpreted.
 <p>
-<li> <strong>CHECK</strong>  [<strong>LOG =</strong>] <code>logfile [pathOffset] command</code>
+<li> <strong >CHECK</strong>  [<strong >LOG =</strong>] <code >logfile [pathOffset] command</code>
 <p>
-Execute <code>command</code> on the client, using the <strong>SSH</strong> command
+Execute <code >command</code> on the client, using the <strong >SSH</strong> command
 shell. 
 <p>
-The phrase <strong>LOG =</strong> is optional. When a relative file location is
-specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+The phrase <strong >LOG =</strong> is optional. When a relative file location is
+specified at <code >&lt;file-spec&gt;</code> it is interpreted relatively to the <code >USE BASE</code>
 path specification. 
 <p>
-<code>PathOffset</code> is also optional, and has the same meaning as for the <code>LOCAL
+<code >PathOffset</code> is also optional, and has the same meaning as for the <code >LOCAL
 CHECK</code> command, described above.
 <p>
 The command must succeed. The output of this command is compared to the
-output of this command generated during the previous run of <strong>stealth</strong>. Any
-differences are written to <strong>REPORT</strong>. If differences were found, the existing
-<code>logfile</code> name is renamed to <code>logfile.YYYYMMDD-HHMMSS</code>, with
-<code>YYYYMMDD-HHMMSS</code> being the datetime-stamp at the time <strong>stealth</strong> was run.
+output of this command generated during the previous run of <strong >stealth</strong>. Any
+differences are written to <strong >REPORT</strong>. If differences were found, the existing
+<code >logfile</code> name is renamed to <code >logfile.YYYYMMDD-HHMMSS</code>, with
+<code >YYYYMMDD-HHMMSS</code> being the datetime-stamp at the time <strong >stealth</strong> was run.
 <p>
 Note that the command is executed on the client, but the logfile is kept
 at the monitor. This command represents the core of the method implemented
-by <strong>stealth</strong>: there will be no residues of the actions performed by <strong>stealth</strong> on client
+by <strong >stealth</strong>: there will be no residues of the actions performed by <strong >stealth</strong> on client
 computers.
 <p>
 Several examples (note the use of the backslash as line continuation
@@ -633,9 +633,9 @@ characters):
     All suid/gid/executable files on the same device as the root-directory (/)
 on the client computer are listed with their permissions, owner and size
 information. The resulting listing is written on the file
-<strong>BASE</strong><code>/remote/ls.root</code>. 
+<strong >BASE</strong><code >/remote/ls.root</code>. 
 <p>
-This long command could be formulated shorter using a <code>DEFINE</code>:
+This long command could be formulated shorter using a <code >DEFINE</code>:
         <pre>
     DEFINE LSFIND   -xdev -perm /6111 -type f -exec /bin/ls -l {} \;
     CHECK remote/ls.root  /usr/bin/find / ${LSFIND}
@@ -650,61 +650,61 @@ Another example:
 
     The SHA1 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file <strong>BASE</strong><code>/remote/sha1.root</code>.
+listing is written on the file <strong >BASE</strong><code >/remote/sha1.root</code>.
 <p>
-<li> <strong>NOTEST CHECK</strong>  [<strong>LOG =</strong>] <code>logfile [pathOffset] command</code>
+<li> <strong >NOTEST CHECK</strong>  [<strong >LOG =</strong>] <code >logfile [pathOffset] command</code>
 <p>
-Execute <code>command</code> on the client, using the <strong>SSH</strong> command
+Execute <code >command</code> on the client, using the <strong >SSH</strong> command
 shell. 
 <p>
-The phrase <strong>LOG =</strong> is optional. When a relative file location is
-specified at <code>&lt;file-spec&gt;</code> it is interpreted relatively to the <code>USE BASE</code>
+The phrase <strong >LOG =</strong> is optional. When a relative file location is
+specified at <code >&lt;file-spec&gt;</code> it is interpreted relatively to the <code >USE BASE</code>
 path specification. 
 <p>
-<code>PathOffset</code> is also optional, and has the same meaning as for the <code>LOCAL
+<code >PathOffset</code> is also optional, and has the same meaning as for the <code >LOCAL
 CHECK</code> command, described above. The command may or may not
-succeed. Otherwise, the program acts identically as the <strong>CHECK ...</strong> command,
+succeed. Otherwise, the program acts identically as the <strong >CHECK ...</strong> command,
 described above.
-    Example (using the same <code>${SHA1SUM}</code>)definition:
+    Example (using the same <code >${SHA1SUM}</code>)definition:
         <pre>
     NOTEST CHECK LOG = remote/sha1.root /usr/bin/find / ${SHA1SUM}
 </pre>
 
     The SHA1 checksums of all suid/gid/executable files on the same device as
 the root-directory (/) on the client computer are determined.  The resulting
-listing is written on the file <strong>BASE</strong><code>/remote/sha1.root</code>. <strong>stealth</strong> will
-not terminate if the <code>/usr/bin/find</code> program returns a non-zero exit value.
+listing is written on the file <strong >BASE</strong><code >/remote/sha1.root</code>. <strong >stealth</strong> will
+not terminate if the <code >/usr/bin/find</code> program returns a non-zero exit value.
     </ul>
 <p>
 <a name="l17"></a>
-<h3>4.3.4: Preventing Controller Denial of Service (--max-size)</h3>
+<h3 >4.3.4: Preventing Controller Denial of Service (--max-size)</h3>
         Either by malicious intent or by accident (as happened to me) the monitor may
 be a victim of a (self-inflicted) Denial of Service (DOS) attack. This DOS
 attack may occur when the client (apparently) sends a never ending stream of
-bytes in response to a <code>GET</code> or <code>REMOTE</code> command. Once one of my monitors
+bytes in response to a <code >GET</code> or <code >REMOTE</code> command. Once one of my monitors
 fell victim to this attack when a client's power went down and the monitor
 kept on trying to read bytes from that client filling up the monitor's
 disk....
 <p>
 This problem was of course caused by a programming error: while reading
-information from a client <strong>stealth</strong> failed to check whether the reading had actually
+information from a client <strong >stealth</strong> failed to check whether the reading had actually
 succeeded. This bug has now been fixed, but an intentional DOS attack could
-still be staged along this line when, e.g., the <strong>find</strong>(1) command is somehow
+still be staged along this line when, e.g., the <strong >find</strong>(1) command is somehow
 replaced by a manipulated version continuously writing information to its
-standard output stream. Without further precaution <strong>stealth</strong> would receive a never
+standard output stream. Without further precaution <strong >stealth</strong> would receive a never
 ending stream of bytes to be written to its `report' file, thus causing its
 disk to fill up.
 <p>
-To prevent this from happening <strong>stealth</strong> now offers the <code>--max-size</code>
+To prevent this from happening <strong >stealth</strong> now offers the <code >--max-size</code>
 command line option allowing the specification of the maximum size of a stream
-of bytes received by <strong>stealth</strong> (e.g., a report or downloaded file). The
+of bytes received by <strong >stealth</strong> (e.g., a report or downloaded file). The
 maximum is used for each individual download and can be specified in bytes
-(using no suffix or the <code>B</code> suffix), kilo-bytes (using <code>K</code>), mega-bytes
-(using <code>M</code>) or giga-bytes (using <code>G</code>). The default is set at 10M,
-equivalent to the command line specification of <code>--max-size 10M</code>. 
+(using no suffix or the <code >B</code> suffix), kilo-bytes (using <code >K</code>), mega-bytes
+(using <code >M</code>) or giga-bytes (using <code >G</code>). The default is set at 10M,
+equivalent to the command line specification of <code >--max-size 10M</code>. 
 <p>
 If a file or report received from the client exceeds its maximum allowed size
-then <strong>stealth</strong> terminates after writing the following message to the report
+then <strong >stealth</strong> terminates after writing the following message to the report
 file (which is sent to the configured mail address):
         <pre>
     
@@ -715,13 +715,13 @@ STEALTH - CAN'T CONTINUE: `&lt;name of offending file&gt;' EXCEEDS MAX.
     STEALTH - *** INVESTIGATE ***
 </pre>
 
-    Since a <code>--max-size</code> specification may cause <strong>stealth</strong> to terminate
+    Since a <code >--max-size</code> specification may cause <strong >stealth</strong> to terminate
 while receiving the output of a (remotely run) command, an empty or partial
 log file will be the result. Of course this partial result is spurious as it
-is a direct result of <strong>stealth</strong> terminating due to a size violation. 
+is a direct result of <strong >stealth</strong> terminating due to a size violation. 
 <p>
 After investigating (and removing) the reasons for the size violation a
-new <strong>stealth</strong> run using the previous log file as the latest baseline should
+new <strong >stealth</strong> run using the previous log file as the latest baseline should
 show only expected changes.
 <p>
 For example, assume the following situation represents a (valid) state of
@@ -731,21 +731,21 @@ logfiles:
     setuid                    stealth.20080316-105756
 </pre>
 
-    Now <strong>stealth</strong> is run with <code>--max-size 20</code>, prematurely 
-terminating <strong>stealth</strong>. This results in the following set of logfiles:
+    Now <strong >stealth</strong> is run with <code >--max-size 20</code>, prematurely 
+terminating <strong >stealth</strong>. This results in the following set of logfiles:
         <pre>
     etc                       stealth
     setuid                    stealth.20080316-105756   
                               stealth.20080316-110215
 </pre>
 
-    The file <code>stealth</code> now contains incomplete data with the (latest) file
-<code>stealth.20080316-110215</code> containing its previous contents.
+    The file <code >stealth</code> now contains incomplete data with the (latest) file
+<code >stealth.20080316-110215</code> containing its previous contents.
 <p>
 The reasons for the size-violation should of course be investigated and
 removed. It is suggested to move the file last saved
-(<code>stealth.20080316-110215</code>) to the file <code>stealth</code>, as it represents the
-state before the size violation was encountered. Following this <strong>stealth</strong> should
+(<code >stealth.20080316-110215</code>) to the file <code >stealth</code>, as it represents the
+state before the size violation was encountered. Following this <strong >stealth</strong> should
 operate normally again.
 <p>
 <hr>
