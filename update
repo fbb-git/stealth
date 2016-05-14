@@ -10,24 +10,19 @@ echo -n "Continue [Yn] ? "
 read yesno
 [ "$yesno" == "y" -o "$yesno" == "" ]   ||   exit 0
 
-echo -n "Need to (re)create ${_project_}'s wip files for gh-pages [y/n] ? "
-read yesno
+git co master
 
-if [ "$yesno" == "y" ] ; then
-    git co master
+cd ${_product_}
+./build man
+./build uguide
 
-    cd ${_product_}
-    ./build man
-    ./build uguide
+./build github
+./build distclean
+cd ..    
+git co gh-pages
 
-    ./build github
-    ./build distclean
-    cd ..    
-    git co gh-pages
-
-    cp -r ../wip/changelog.txt ../wip/${_product_}man.html ../wip/html \
-	    ../wip/${_product_}.pdf .
-fi
+cp -r ../wip/changelog.txt ../wip/${_product_}man.html ../wip/html \
+        ../wip/${_product_}.pdf .
 
 echo -n "Check index.yo: version and last 5 releases [y/n] ? "
 read yesno
