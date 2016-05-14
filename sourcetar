@@ -6,7 +6,6 @@ cd ~/git/${PROJECT}/src
 if [ -e /usr/share/common-licenses/GPL ] ; then
     cp /usr/share/common-licenses/GPL ${PROJECT}/LICENSE
 fi
-
                                         # load the version
 VERSION=`grep VERSION ${PROJECT}/VERSION |
     sed 's/#define[[:space:]]\+VERSION[[:space:]]\+"\(.*\)"/\1/'`
@@ -22,6 +21,7 @@ tgz()
 
 case "$1" in 
     (d)
+        mkdir -p ../tarballs
         tgz ../tarballs/${PROJECT}_${VERSION}.orig.tar.gz
     ;;
 
