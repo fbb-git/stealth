@@ -2,9 +2,13 @@
 
 string Options::getCwd()
 {
-    char buffer[PATH_MAX];
-    string base(getcwd(buffer, PATH_MAX));
-    base += '/';
-    
+    string base;
+
+    if (char *buffer = getcwd(0, 0))
+    {
+        (base = buffer) += '/';
+        free(buffer);
+    }
+
     return base;
 }
