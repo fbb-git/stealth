@@ -1,3 +1,10 @@
+stealth (4.01.07)
+
+  * Replaced no longer supported Yodl tags startit() ... endit() by
+    itemization( ... )
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 07 Aug 2017 15:27:20 +0200
+
 stealth (4.01.06)
 
   * Implemented Svante Signell's (via Tony Mancill) patch to return the

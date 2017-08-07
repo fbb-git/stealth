@@ -22,7 +22,7 @@ used. Normally there should be no need to alter the default tt(DD)
 specification.
 
     The tt(GET) command may be used as follows:
-    startit()    
+    itemization(
     it() bf(GET) tt(<client-path> <local-path>)nl()
     Copy the file indicated by tt(client-path) at the client to tt(local-path)
 at the monitor. tt(client-path) must be the full path of an existing file
@@ -50,10 +50,10 @@ local file already exists, it is overwritten by the copy-procedure.
     The program tt(/usr/bin/sha1sum), available at the client, is copied to the
 monitor's tt(/tmp) directory. Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
-    endit()
+    )
 
     The tt(PUT) command may be used as follows:
-    startit()    
+    itemization( 
     it() bf(PUT) tt(<local-path> <remote-path>)nl()
     Copy the file indicated by tt(local-path) at the monitor to
 tt(remote-path) at the client. The argument tt(local-path) must be the
@@ -82,7 +82,7 @@ path of an existing file on the monitor. The argument tt(remote-path) must
 be the full path to a file on the client. If the remote file already exists,
 it is overwritten by tt(PUT). Remaining commands in the policy file are
 executed, even if the copying process wasn't successful.
-    endit()
+    )
 
     Other commands to be executed on the client can be specified as follows:
 
