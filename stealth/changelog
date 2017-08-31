@@ -1,3 +1,10 @@
+stealth (4.01.08)
+
+  * New compiler releases required #include <cstring> in integrityscanner.ih.
+    No further implementation changes or changes in Stealth's behavior.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 31 Aug 2017 16:27:52 +0200
+
 stealth (4.01.07)
 
   * Replaced no longer supported Yodl tags startit() ... endit() by

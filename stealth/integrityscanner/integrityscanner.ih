@@ -1,6 +1,7 @@
 #include "integrityscanner.h"
 
 #include <sstream>
+#include <cstring>
 
 #include <bobcat/mstream>
 #include <bobcat/stat>
