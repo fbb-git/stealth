@@ -1,3 +1,12 @@
+stealth (4.01.09)
+
+  * New compilation needed for bobcat 4.08.02
+
+  * Cosmetics on the icmconf configuration file (e.g., std=c++14 not specified
+    anymore since that's currently the default)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 22 Sep 2017 08:57:53 +0200
+
 stealth (4.01.08)
 
   * New compiler releases required #include <cstring> in integrityscanner.ih.
