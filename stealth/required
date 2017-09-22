@@ -5,9 +5,11 @@ explicitly mentioned, but a fairly recent one is assumed.
 Required software for building Stealth:
 ---------------------------------------
 
-    libbobcat-dev   (>= 4.02.00)
-    icmake          (>= 8.01.00)
-    yodl            (>= 3.08.01)
+Latest versions of:
+
+    libbobcat-dev   (cf. https://fbb-git.github.io/bobcat/)
+    icmake          (cf. https://fbb-git.github.io/icmake/)
+    yodl            (cf. https://fbb-git.github.io/yodl/)
 
 To construct the user guide:
 
