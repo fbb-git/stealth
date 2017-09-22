@@ -1,7 +1,7 @@
 oxref by Frank B. Brokken (f.b.brokken@rug.nl)
-oxref V1.00.03 2012-2015
+oxref V1.00.06 2012-2015
 
-CREATED Wed, 23 Dec 2015 21:58:00 +0000
+CREATED Fri, 22 Sep 2017 07:03:00 +0000
 CROSS REFERENCE FOR: -fxs tmp/libmodules.a 
 ----------------------------------------------------------------------
 
@@ -9,11 +9,11 @@ absPath(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<
   Full name: Util::absPath(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
   Source:    abspath.cc 
   Used By:
+    fixrelativelocations.cc: PolicyFile::fixRelativeLocations()
     options1.cc: Options::Options()
     setlog.cc: Options::setLog()
     setpolicypath.cc: Options::setPolicyPath()
     setskipfile.cc: Options::setSkipFile()
-    fixrelativelocations.cc: PolicyFile::fixRelativeLocations()
 
 add(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&)
   Full name: IntegrityScanner::add(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&)
@@ -75,16 +75,16 @@ cxx11]
     setsyslogpriority.cc: Options::setSyslogPriority()
 
 cxx11]
-  Full name: Stealth::s_request[abi:cxx11]
-  Source:    data.cc 
-  Used By:
-    incomingrequest.cc: Stealth::incomingRequest(std::istream&, std::ostream&)
-
-cxx11]
   Full name: Options::s_syslogFacilities[abi:cxx11]
   Source:    data.cc 
   Used By:
     setsyslogfacility.cc: Options::setSyslogFacility()
+
+cxx11]
+  Full name: Stealth::s_request[abi:cxx11]
+  Source:    data.cc 
+  Used By:
+    incomingrequest.cc: Stealth::incomingRequest(std::istream&, std::ostream&)
 
 cxx11]
   Full name: PolicyFile::s_defaultKeyword[abi:cxx11]
@@ -93,20 +93,14 @@ cxx11]
     load.cc: PolicyFile::load()
 
 cxx11]()
-  Full name: Stealth::reloadRequest[abi:cxx11]()
-  Source:    reloadrequest.cc 
+  Full name: Options::getCwd[abi:cxx11]()
+  Source:    getcwd.cc 
   Used By:
-    data.cc: GLOBALS data.cc 11data.o
+    options1.cc: Options::Options()
 
 cxx11]()
-  Full name: IntegrityScanner::datetime[abi:cxx11]()
-  Source:    datetime.cc 
-  Used By:
-    nodifferences.cc: IntegrityScanner::noDifferences(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-
-cxx11]()
-  Full name: Stealth::unknownRequest[abi:cxx11]()
-  Source:    unknownrequest.cc 
+  Full name: Stealth::suspendRequest[abi:cxx11]()
+  Source:    suspendrequest.cc 
   Used By:
     data.cc: GLOBALS data.cc 11data.o
 
@@ -117,20 +111,14 @@ cxx11]()
     data.cc: GLOBALS data.cc 11data.o
 
 cxx11]()
+  Full name: Stealth::reloadRequest[abi:cxx11]()
+  Source:    reloadrequest.cc 
+  Used By:
+    data.cc: GLOBALS data.cc 11data.o
+
+cxx11]()
   Full name: Stealth::terminateRequest[abi:cxx11]()
   Source:    terminaterequest.cc 
-  Used By:
-    data.cc: GLOBALS data.cc 11data.o
-
-cxx11]()
-  Full name: Stealth::suspendRequest[abi:cxx11]()
-  Source:    suspendrequest.cc 
-  Used By:
-    data.cc: GLOBALS data.cc 11data.o
-
-cxx11]()
-  Full name: Stealth::resumeRequest[abi:cxx11]()
-  Source:    resumerequest.cc 
   Used By:
     data.cc: GLOBALS data.cc 11data.o
 
@@ -141,10 +129,22 @@ cxx11]()
     data.cc: GLOBALS data.cc 11data.o
 
 cxx11]()
-  Full name: Options::getCwd[abi:cxx11]()
-  Source:    getcwd.cc 
+  Full name: Stealth::unknownRequest[abi:cxx11]()
+  Source:    unknownrequest.cc 
   Used By:
-    options1.cc: Options::Options()
+    data.cc: GLOBALS data.cc 11data.o
+
+cxx11]()
+  Full name: Stealth::resumeRequest[abi:cxx11]()
+  Source:    resumerequest.cc 
+  Used By:
+    data.cc: GLOBALS data.cc 11data.o
+
+cxx11]()
+  Full name: IntegrityScanner::datetime[abi:cxx11]()
+  Source:    datetime.cc 
+  Used By:
+    nodifferences.cc: IntegrityScanner::noDifferences(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
 
 cxx11]() const
   Full name: Options::rfc2822[abi:cxx11]() const
@@ -154,7 +154,7 @@ cxx11]() const
     resume.cc: Stealth::resume()
     report1.cc: Report::Report(Options&, PolicyFile const&)
     scanheader.cc: Report::scanHeader()
-    timestamp.cc: Report::timestamp(char const*, unsigned int)
+    timestamp.cc: Report::timestamp(char const*, unsigned long)
 
 cxx11](char const*)
   Full name: Stealth::deniedMode[abi:cxx11](char const*)
@@ -206,7 +206,7 @@ execute(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<
   Full name: IntegrityScanner::execute(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
   Source:    execute.cc 
   Used By:
-    foreground.cc: IntegrityScanner::foreground(unsigned int)
+    foreground.cc: IntegrityScanner::foreground(unsigned long)
     run.cc: IntegrityScanner::run()
 
 fetchCommands()
@@ -228,8 +228,8 @@ fixRelativeLocations()
   Used By:
     fetchcommands.cc: PolicyFile::fetchCommands()
 
-foreground(unsigned int)
-  Full name: IntegrityScanner::foreground(unsigned int)
+foreground(unsigned long)
+  Full name: IntegrityScanner::foreground(unsigned long)
   Source:    foreground.cc 
   Used By:
     run.cc: IntegrityScanner::run()
@@ -304,8 +304,8 @@ load()
   Used By:
     policyfile1.cc: PolicyFile::PolicyFile(Options&)
 
-loadOptions(FBB::ConfigFile&, unsigned int)
-  Full name: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned int)
+loadOptions(FBB::ConfigFile&, unsigned long)
+  Full name: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned long)
   Source:    loadoptions.cc 
   Used By:
     directivesandcommands.cc: PolicyFile::directivesAndCommands()
@@ -338,18 +338,19 @@ m1
   Full name: m1
   Source:    data.cc 
   Used By:
-    childprocess.cc: Stealth::childProcess()
-    dotasks.cc: Stealth::doTasks()
-    jobshandler.cc: Stealth::jobsHandler()
-    setverbosity.cc: Msg::setVerbosity(unsigned int)
     execute.cc: IntegrityScanner::execute(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
     nodifferences.cc: IntegrityScanner::noDifferences(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
     run.cc: IntegrityScanner::run()
+    childprocess.cc: Stealth::childProcess()
+    dotasks.cc: Stealth::doTasks()
+    jobshandler.cc: Stealth::jobsHandler()
+    setverbosity.cc: Msg::setVerbosity(unsigned long)
 
 m2
   Full name: m2
   Source:    data.cc 
   Used By:
+    startcommandshells.cc: IntegrityScanner::startCommandShells()
     autoscan.cc: Stealth::autoScan(char const*)
     deniedmode.cc: Stealth::deniedMode[abi:cxx11](char const*)
     integrityscan.cc: Stealth::integrityScan()
@@ -359,18 +360,12 @@ m2
     setuniqueptrs.cc: Stealth::setUniquePtrs()
     suspend.cc: Stealth::suspend()
     unknownrequest.cc: Stealth::unknownRequest[abi:cxx11]()
-    setverbosity.cc: Msg::setVerbosity(unsigned int)
-    startcommandshells.cc: IntegrityScanner::startCommandShells()
+    setverbosity.cc: Msg::setVerbosity(unsigned long)
 
 m3
   Full name: m3
   Source:    data.cc 
   Used By:
-    reload.cc: Stealth::reload()
-    setuniqueptrs.cc: Stealth::setUniquePtrs()
-    setverbosity.cc: Msg::setVerbosity(unsigned int)
-    mail.cc: Report::mail()
-    sendmail.cc: Report::sendMail()
     copy.cc: IntegrityScanner::copy(FBB::Process&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
     loadskipfiles.cc: IntegrityScanner::loadSkipFiles()
     nextcommand.cc: IntegrityScanner::nextCommand(std::ostream&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
@@ -382,6 +377,11 @@ m3
     startcommandshells.cc: IntegrityScanner::startCommandShells()
     waitforsentinel.cc: IntegrityScanner::waitForSentinel(FBB::Process&)
     write.cc: IntegrityScanner::write(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+    reload.cc: Stealth::reload()
+    setuniqueptrs.cc: Stealth::setUniquePtrs()
+    mail.cc: Report::mail()
+    sendmail.cc: Report::sendMail()
+    setverbosity.cc: Msg::setVerbosity(unsigned long)
 
 mail()
   Full name: Report::mail()
@@ -390,36 +390,36 @@ mail()
     ipcinterface.cc: Stealth::ipcInterface()
     jobshandler.cc: Stealth::jobsHandler()
     sync.cc: LogReportbuf::sync()
-    timestamp.cc: Report::timestamp(char const*, unsigned int)
+    timestamp.cc: Report::timestamp(char const*, unsigned long)
 
 mkdir(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
   Full name: Util::mkdir(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
   Source:    mkdir.cc 
   Used By:
-    load.cc: PolicyFile::load()
     sameoutput.cc: IntegrityScanner::sameOutput(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, FBB::Process&)
+    load.cc: PolicyFile::load()
 
 mp
   Full name: mp
   Source:    data.cc 
   Used By:
-    setparsepolicy.cc: Options::setParsePolicy()
     directivesandcommands.cc: PolicyFile::directivesAndCommands()
     fetchcommands.cc: PolicyFile::fetchCommands()
     insert.cc: PolicyFile::insert(FBB::LinearMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
     replacedefines.cc: PolicyFile::replaceDefines(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+    setparsepolicy.cc: Options::setParsePolicy()
 
 Msg()
   Full name: Msg::Msg()
   Source:    msg1.cc 
   Used By:
-    data.cc: GLOBALS data.cc 2data.o
+    data.cc: GLOBALS data.cc 5data.o
 
 Msg(std::ostream&)
   Full name: Msg::Msg(std::ostream&)
   Source:    msg2.cc 
   Used By:
-    data.cc: GLOBALS data.cc 2data.o
+    data.cc: GLOBALS data.cc 5data.o
 
 newLog()
   Full name: LogUnit::newLog()
@@ -615,7 +615,7 @@ s_configFileBase
   Full name: PolicyFile::s_configFileBase
   Source:    data.cc 
   Used By:
-    loadoptions.cc: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned int)
+    loadoptions.cc: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned long)
 
 s_defaultSyslogFacility
   Full name: Options::s_defaultSyslogFacility
@@ -655,13 +655,6 @@ s_exitValue
     testexitvalue.cc: IntegrityScanner::testExitValue(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
 
 s_firstWord
-  Full name: PolicyFile::s_firstWord
-  Source:    data.cc 
-  Used By:
-    directivesandcommands.cc: PolicyFile::directivesAndCommands()
-    insert.cc: PolicyFile::insert(FBB::LinearMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-
-s_firstWord
   Full name: IntegrityScanner::s_firstWord
   Source:    data.cc 
   Used By:
@@ -675,6 +668,13 @@ s_firstWord
     removefirstword.cc: IntegrityScanner::removeFirstWord(char const*)
     removelog.cc: IntegrityScanner::removeLOG()
 
+s_firstWord
+  Full name: PolicyFile::s_firstWord
+  Source:    data.cc 
+  Used By:
+    directivesandcommands.cc: PolicyFile::directivesAndCommands()
+    insert.cc: PolicyFile::insert(FBB::LinearMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+
 s_log
   Full name: PolicyFile::s_log
   Source:    data.cc 
@@ -685,9 +685,9 @@ s_modeName
   Full name: RunMode::s_modeName
   Source:    data.cc 
   Used By:
+    run.cc: IntegrityScanner::run()
     deniedmode.cc: Stealth::deniedMode[abi:cxx11](char const*)
     jobshandler.cc: Stealth::jobsHandler()
-    run.cc: IntegrityScanner::run()
 
 s_nDefaultKeywords
   Full name: PolicyFile::s_nDefaultKeywords
@@ -729,8 +729,8 @@ setConfigOptions()
   Full name: Options::setConfigOptions()
   Source:    setconfigoptions.cc 
   Used By:
+    loadoptions.cc: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned long)
     options1.cc: Options::Options()
-    loadoptions.cc: PolicyFile::loadOptions(FBB::ConfigFile&, unsigned int)
 
 setDownloadSize()
   Full name: Options::setDownloadSize()
@@ -861,8 +861,8 @@ setupLogs()
   Full name: LogUnit::setupLogs()
   Source:    setuplogs1.cc 
   Used By:
-    setuplogs2.cc: LogUnit::setupLogs(std::ostream&)
     policymode.cc: Stealth::policyMode()
+    setuplogs2.cc: LogUnit::setupLogs(std::ostream&)
 
 setupLogs(std::ostream&)
   Full name: LogUnit::setupLogs(std::ostream&)
@@ -877,8 +877,8 @@ setVerbosity()
   Used By:
     setconfigoptions.cc: Options::setConfigOptions()
 
-setVerbosity(unsigned int)
-  Full name: Msg::setVerbosity(unsigned int)
+setVerbosity(unsigned long)
+  Full name: Msg::setVerbosity(unsigned long)
   Source:    setverbosity.cc 
   Used By:
     setverbosity.cc: Options::setVerbosity()
@@ -928,8 +928,8 @@ testExitValue(std::__cxx11::basic_string<char, std::char_traits<char>, std::allo
     read.cc: IntegrityScanner::read(FBB::Process&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
     waitforsentinel.cc: IntegrityScanner::waitForSentinel(FBB::Process&)
 
-timestamp(char const*, unsigned int)
-  Full name: Report::timestamp(char const*, unsigned int)
+timestamp(char const*, unsigned long)
+  Full name: Report::timestamp(char const*, unsigned long)
   Source:    timestamp.cc 
   Used By:
     reload.cc: Stealth::reload()
@@ -946,9 +946,9 @@ version
   Full name: Icmbuild::version
   Source:    version.cc 
   Used By:
+    report1.cc: Report::Report(Options&, PolicyFile const&)
     oldoptions.cc: Options::oldOptions() const
     usage.cc: Options::usage(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-    report1.cc: Report::Report(Options&, PolicyFile const&)
 
 waitForKey()
   Full name: Stealth::waitForKey()
