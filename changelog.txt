@@ -1,3 +1,11 @@
+stealth (4.01.10)
+
+  * Added texlive-latex-extra to 'required'
+
+  * Specified c++17 as the C++ standard to use in INSTALL.im
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 18 Jan 2018 11:06:51 +0100
+
 stealth (4.01.09)
 
   * New compilation needed for bobcat 4.08.02

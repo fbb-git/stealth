@@ -36,6 +36,9 @@ lurl(https://github.com/fbb-git/_project_/releases) or direct from its
 release page):
 
         itemization(
+        it() url(4.01.10)
+                (https://github.com/fbb-git/_project_/releases/tag/4.01.10)
+Jan 18, 2018;
         it() url(4.01.09)
                 (https://github.com/fbb-git/_project_/releases/tag/4.01.09)
 Sep 22, 2017;
@@ -47,10 +50,7 @@ Aug 31, 2017;
 Aug 8, 2017;
         it() url(4.01.06)
                 (https://github.com/fbb-git/_project_/releases/tag/4.01.06)
-April 19, 2017;
-        it() url(4.01.05)
-                (https://github.com/fbb-git/_project_/releases/tag/4.01.05)
-May 14, 2016.
+April 19, 2017.
         )
     COMMENT(NOTE: LAST ITEM SHOULD END IN . )
 
