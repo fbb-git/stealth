@@ -4,45 +4,9 @@ data to be kept on either write-only media or in the client's file system. In
 fact, clients will hardly contain any indication suggesting that they are
 being monitored, thus improving the stealthiness of the integrity scans.
 
-STEALTH uses standard available software to perform file integrity checks
-(like find(1) and sha1sum(1)). Using individualized policy files, it is highly
-adaptable to the specific characteristics of its clients.
 
-In production environments STEALTH should be run from an isolated computer
-(called the `STEALTH monitor').  In optimal configurations the STEALTH monitor
-should be a computer not accepting incoming connections. The account used to
-connect to its clients does not have to be `root'; usually read-access to the
-client's file system is enough to perform a full integrity check. Instead of
-using `root' a more restrictive administrative or ordinary account might offer
-all necessary requirements for the desired integrity check.
+Stealth's repository has moved to https://gitlab.com/fbb-git/stealth
+and is not maintained at this location anymore.
 
-STEALTH itself must communicate with the computers it should monitor. It is
-essential that this communication is secure. STEALTH configurations therefore
-normally specify SSH as the command-shell to use for connecting to
-clients. STEALTH may be configured so as to use but one SSH connection per
-client, even if integrity scans are to be performed repeatedly. Apart from
-this, the STEALTH monitor is commonly allowed to send e-mail to remote client
-systems' maintainers.
-
-STEALTH-runs itself may start randomly within specified intervals. The
-resulting unpredicability of STEALTH-runs further increases STEALTH's
-stealthiness.
-
-STEALTH's acronym is expanded to `Ssh-based Trust Enforcement Acquired
-through a Locally Trusted Host': the client's trust is enforced, the locally
-trusted host is the STEALTH monitor.
-
-
-To create the program from its sources, either descend into the stealth
-directory, or unpack a created archive, cd into its top-level directory 
-and follow the instructions provided in the INSTALL file found there.
-
-Alternatively, binary ready-to-install versions of stealth are available in
-verious Linux distributions, in particular Debian. See, e.g.,
-https://packages.debian.org/search?keywords=stealth&searchon=names&suite=all&section=all
-
-Github's web-pages for stealth are here:
-https://fbb-git.github.io/stealth/
-
-
+The project's web-page can be found at http://fbb-git.gitlab.io/stealth/
 
